@@ -32,6 +32,11 @@ public abstract class BaseTile
     /// </summary>
     public abstract Type TilePropertyType { get; }
 
+    protected BaseTile()
+    {
+        
+    }
+
     public virtual void Initialize(BaseTileProperty tileProperty)
     {
         BasePropertyInitialize(tileProperty);

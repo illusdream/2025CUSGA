@@ -28,8 +28,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     private BaseTile[,] tiles;
     private RectInt tilesRange;
-
-
+    
     private List<Collider2D> areaCheckBuffer;
     private List<Vector2Int> areaGetTileBuffer;
     
@@ -459,7 +458,6 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             _managerConfig.TileContactFilter, 
             checkBuffer
         );
-        
         foreach (var collider in checkBuffer)
         {
             if (collider == targetCollider) return true;

@@ -15,8 +15,6 @@ namespace ilsFramework
 
         private Dictionary<string, List<Action<EventArgs>>> eventDic;
 
-        //存储命名空间，减少反射消耗？不确定，以后做测试看看
-
         public EventCenterCore()
         {
             eventDic = new Dictionary<string, List<Action<EventArgs>>>();

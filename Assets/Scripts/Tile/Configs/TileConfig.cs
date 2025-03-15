@@ -50,6 +50,10 @@ public class TileConfig : ConfigScriptObject
         TileProperties = new Dictionary<Type, BaseTileProperty>();
         foreach (var type in  TypeCache.GetTypesDerivedFrom<BaseTile>())
         {
+            if (type.IsAbstract)
+            {
+                continue;
+            }
             var instance = (BaseTile)Activator.CreateInstance(type);
             var tileproperty = (BaseTileProperty)Activator.CreateInstance(instance.TilePropertyType);
             TileProperties.Add(type,tileproperty);

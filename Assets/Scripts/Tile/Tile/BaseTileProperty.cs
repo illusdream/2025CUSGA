@@ -16,5 +16,8 @@ public abstract class BaseTileProperty
 
     public int BaseMergeScore;
 
-    
+    public BaseTileProperty()
+    {
+        
+    }
 }
