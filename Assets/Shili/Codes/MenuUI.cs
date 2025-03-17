@@ -17,36 +17,25 @@ public class MenuUI : UIPanel
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        // startGameButton.onClick.AddListener(OnOpenGame);
-        // settingButton.onClick.AddListener(OnOpenSetting);
-        // aboutOurButton.onClick.AddListener(OnOpenAboutOur);
-        // exitGameButton.onClick.AddListener(OnOpenExitGame);
-    }
-    public override void Open()
-    {
-        base.Open();
-        Debug.Log("��MenuUI");
-    }
-    public override void Close()
-    {
-        base.Close();
-        Debug.Log("�ر�MenuUI");
+        startGameButton.onClick.AddListener(OnOpenGame);
+        settingButton.onClick.AddListener(OnOpenSetting);
+        aboutOurButton.onClick.AddListener(OnOpenAboutOur);
+        exitGameButton.onClick.AddListener(OnOpenExitGame);
     }
     private void OnOpenGame()
     {
-        Debug.Log("��ʼ��Ϸ");
+        Debug.Log("Open Game");
     }
     private void OnOpenSetting()
     {
-        Debug.Log("������");
+        UIManager.Instance.GetUIPanel<SettingUI>().Open();
     }
     private void OnOpenAboutOur()
     {
-        Debug.Log("��������");
+        UIManager.Instance.GetUIPanel<DeveloperUI>().Open();
     }
     private void OnOpenExitGame()
     {
-        Debug.Log("�˳���Ϸ");
         Application.Quit();
     }
 }

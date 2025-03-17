@@ -35,6 +35,7 @@ public class InHouseUICanvas : MonoBehaviour
         player1EnemyText.text = currentPlayer1EnemyInt + "/" + player1EnemyInt;
         player2HealthText.text = currentPlayer2HealthInt + "/" + player2HealthInt;
         player2EnemyText.text = currentPlayer2EnemyInt + "/" + player2EnemyInt;
+        //血量或能量变化时更新后者以及4个current
         player1HealthImage.fillAmount = currentPlayer1HealthInt / player1HealthInt;
         player1EnergyImage.fillAmount = currentPlayer1EnemyInt / player1EnemyInt;
         player2HealthImage.fillAmount = currentPlayer2HealthInt / player2HealthInt;
