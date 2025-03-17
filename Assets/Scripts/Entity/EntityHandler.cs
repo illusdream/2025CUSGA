@@ -11,12 +11,13 @@ public class EntityHandler : MonoBehaviour
         [ValueDropdown("GetAllEntityTypes",IsUniqueList = true)]
         [ListDrawerSettings(HideRemoveButton = true,DraggableItems = false)]
         public List<string> EntityTypes = new List<string>();
-
+#if UNITY_EDITOR
         private List<string> GetAllEntityTypes()
         {
-                return null;
                 return Config.GetConfigInEditor<EntityManagerConfig>().EntityTypes.Select((info)=>info.EntityTypeName).ToList();
         }
+#endif
+
         
         [ShowInInspector]
         [SerializeField]
@@ -120,7 +121,7 @@ public class EntityHandler : MonoBehaviour
 
         private void InitEntityToManager()
         {
-                
+                EntityManager.Instance.RegisterEntity(this);
         }
 
         public void Awake()

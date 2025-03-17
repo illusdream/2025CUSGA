@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -231,11 +230,21 @@ namespace ilsFramework
                                 childObject = childObject.Find(objectList[i]);
                             }
                         }
-
-
-                        if (childObject && childObject.gameObject.TryGetComponent(field.Item1.FieldType, out var elementInstance))
+                        
+                        if (childObject )
                         {
-                            uiElement = elementInstance;
+                            var fieldType = field.Item1.FieldType;
+                            if (fieldType == typeof(GameObject))
+                            {
+                                uiElement = childObject.gameObject;
+                            }
+                            else
+                            {
+                                if (childObject.gameObject.TryGetComponent(field.Item1.FieldType, out var elementInstance))
+                                {
+                                    uiElement = elementInstance;
+                                }
+                            }
                         }
                         
                         
@@ -277,9 +286,22 @@ namespace ilsFramework
                             }
                         }
 
-                        if (childObject && childObject.gameObject.TryGetComponent(property.Item1.PropertyType, out var elementInstance))
+
+                        
+                        if (childObject )
                         {
-                            uiElement = elementInstance;
+                            var fieldType = property.Item1.PropertyType;
+                            if (fieldType == typeof(GameObject))
+                            {
+                                uiElement = childObject.gameObject;
+                            }
+                            else
+                            {
+                                if (childObject.gameObject.TryGetComponent(property.Item1.PropertyType, out var elementInstance))
+                                {
+                                    uiElement = elementInstance;
+                                }
+                            }
                         }
                         
                         

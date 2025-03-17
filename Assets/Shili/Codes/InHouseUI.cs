@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using ilsFramework;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Bottom, 0, true, EAssetLoadMode.Resources, "Assets/Shili/Prefab/InHouseUI")]
+[UIPanelSetting(EUILayer.Bottom, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/InHouseUI")]
 public class InHouseUI : UIPanel
 {
-    //Íæ¼Ò1£¬Ê®·Ö»ù´¡µÄÓ¢Óï£¬²»ÏëÐ´×¢ÊÍÁË
+    //ï¿½ï¿½ï¿½1ï¿½ï¿½Ê®ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ó¢ï¿½ï£¬ï¿½ï¿½ï¿½ï¿½Ð´×¢ï¿½ï¿½ï¿½ï¿½
     [AutoUIElement("Panel1/GameObject1/Text")]
     private Text player1NameText;
     [AutoUIElement("Panel1/GameObject1/Image")]
     private Image player1Headshot;
     [AutoUIElement("Panel1/GameObject3")]
     private GameObject player1SkillSlotsObject;
-    //Íæ¼Ò2
+    //ï¿½ï¿½ï¿½2
     [AutoUIElement("Panel2/GameObject1/Text")]
     private Text player2NameText;
     [AutoUIElement("Panel2/GameObject1/Image")]
@@ -29,19 +29,19 @@ public class InHouseUI : UIPanel
     public override void Open()
     {
         base.Open();
-        Debug.Log("´ò¿ªInHouseUI");
+        Debug.Log("ï¿½ï¿½InHouseUI");
     }
     public override void Close()
     {
         base.Close();
-        Debug.Log("¹Ø±ÕInHouseUI");
+        Debug.Log("ï¿½Ø±ï¿½InHouseUI");
     }
     public override void Update()
     {
         base.Update();
-        //player1HealthImage.fillAmount = 0µ½1;
-        //player1EnergyImage.fillAmount = 0µ½1;
-        //player2HealthImage.fillAmount = 0µ½1;
-        //player2EnergyImage.fillAmount = 0µ½1;
+        //player1HealthImage.fillAmount = 0ï¿½ï¿½1;
+        //player1EnergyImage.fillAmount = 0ï¿½ï¿½1;
+        //player2HealthImage.fillAmount = 0ï¿½ï¿½1;
+        //player2EnergyImage.fillAmount = 0ï¿½ï¿½1;
     }
 }

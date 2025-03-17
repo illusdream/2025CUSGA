@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Bottom, 0, true, EAssetLoadMode.Resources, "Assets/Shili/Prefab/BasePanel")]
+[UIPanelSetting(EUILayer.Bottom, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/Menu")]
 public class MenuUI : UIPanel
 {
     [AutoUIElement("Panel/GameObject/StartGame")]
@@ -25,28 +25,28 @@ public class MenuUI : UIPanel
     public override void Open()
     {
         base.Open();
-        Debug.Log("´ò¿ªMenuUI");
+        Debug.Log("ï¿½ï¿½MenuUI");
     }
     public override void Close()
     {
         base.Close();
-        Debug.Log("¹Ø±ÕMenuUI");
+        Debug.Log("ï¿½Ø±ï¿½MenuUI");
     }
     private void OnOpenGame()
     {
-        Debug.Log("¿ªÊ¼ÓÎÏ·");
+        Debug.Log("ï¿½ï¿½Ê¼ï¿½ï¿½Ï·");
     }
     private void OnOpenSetting()
     {
-        Debug.Log("´ò¿ªÉèÖÃ");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
     private void OnOpenAboutOur()
     {
-        Debug.Log("¹ØÓÚÎÒÃÇ");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
     private void OnOpenExitGame()
     {
-        Debug.Log("ÍË³öÓÎÏ·");
+        Debug.Log("ï¿½Ë³ï¿½ï¿½ï¿½Ï·");
         Application.Quit();
     }
 }

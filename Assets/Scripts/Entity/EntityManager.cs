@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyForeach
 {
-
+    [ShowInInspector]
     private Dictionary<string, EntityCollection> entityCollections;
 
     private EntityManagerConfig _managerConfig;
-    
+    [ShowInInspector]
     private Dictionary<EEntityType,EntityTypeInfo> entityTypeInfos;
     public void Init()
     {
@@ -24,20 +24,20 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
     public void ForeachCurrentAssembly(Type[] types)
     {
         HashSet<string> noCollectionTypes = _managerConfig.EntityTypes.Select((info) => info.EntityTypeName).ToHashSet();
-        //反射获取EntityCollection，并查看是否有EntityCollectionSetting，没有就将该EntityCOlleciotn的info改成Other
+        //反射获取EntityCollection，并查看是否有EntityCollectionSetting,与EntityCollectionIgnore
         foreach (var type in types)
         {
             if (type.IsAssignableFrom(typeof(EntityCollection)) && !type.IsAbstract && !type.IsDefined(typeof(EntityCollectionIgnoreAttribute),false))
             {
                 var settingAttr = type.GetCustomAttributes(typeof(EntityCollectionSetting), false);
                 EntityCollection instance = Activator.CreateInstance(type) as EntityCollection;
-                if (settingAttr.Length > 0)
+                if (settingAttr.Length > 0 && instance != null)
                 {
                     EntityCollectionSetting setting = (EntityCollectionSetting)settingAttr[0];
 
                     if (entityTypeInfos.TryGetValue(setting.EntityType,out var info))
                     {
-                        instance.EntityTypeInfo = info;
+                        instance.InitEntityCollection(info);
                         entityCollections.Add(setting.EntityType.ToString(), instance);
                         noCollectionTypes.Remove(setting.EntityType.ToString());
                     }
@@ -48,10 +48,10 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         //将没有Collection的EntityType分配一个BaseCollection
         foreach (var noCollectionType in noCollectionTypes)
         {
-            BaseEntityCollection instance = new BaseEntityCollection();
+            EntityCollection instance = new EntityCollection();
             if (entityTypeInfos.TryGetValue(Enum.Parse<EEntityType>(noCollectionType),out var info))
             {
-                instance.EntityTypeInfo = info;
+                instance.InitEntityCollection(info);
                 entityCollections.Add(noCollectionType, instance);
             }
         }
@@ -88,6 +88,17 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         
     }
 
+    public EntityCollection GetEntityCollection(EEntityType entityType)
+    {
+        var collectionKeyStr = entityTypeInfos[entityType].EntityTypeName;
+        return entityCollections[collectionKeyStr];
+    }
+
+    public bool TryGetEntityCollection(string entityType, out EntityCollection entityCollection)
+    {
+        return entityCollections.TryGetValue(entityType, out entityCollection);
+    }
+    
     public void RegisterEntity(EntityHandler handler)
     {
         var handlerBelongTypes = handler.EntityTypes;
@@ -112,9 +123,54 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
 
-    public void GetEntityInArea(Collider2D areaCollider,List<string> targetEntityTypes)
+    public void GetEntityInArea(Collider2D areaCollider,List<string> targetEntityTypes,List<EntityHandler> result)
     {
-        
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
+            {
+                entityCollection.GetEntityInArea(areaCollider, result);
+            }
+        }
     }
 
+    public void GetEntityInArea(Collider2D areaCollider, List<EEntityType> targetEntityTypes, List<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            var instance = GetEntityCollection(targetEntityType);
+            instance.GetEntityInArea(areaCollider, result);
+        }
+    }
+
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<string> targetEntityTypes,List<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
+            {
+                entityCollection.GetEntityByRaycast(rayOrigin,rayVector, result);
+            }
+        }
+    }
+
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<EEntityType> targetEntityTypes,List<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            var instance = GetEntityCollection(targetEntityType);
+            instance.GetEntityByRaycast(rayOrigin,rayVector, result);
+        }
+    }
+    
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayDirection,List<string> targetEntityTypes,List<EntityHandler> result,float distance)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
+            {
+                entityCollection.GetEntityByRaycast(rayOrigin,rayDirection, result, distance);
+            }
+        }
+    }
 }

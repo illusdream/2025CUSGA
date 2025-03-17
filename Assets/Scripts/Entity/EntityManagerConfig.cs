@@ -14,7 +14,7 @@ public class EntityManagerConfig : ConfigScriptObject
     public List<EntityTypeInfo> EntityTypes = new List<EntityTypeInfo>();
     
     [ShowInInspector]
-    private Dictionary<EEntityType, EntityTypeInfo> _entityTypes = new Dictionary<EEntityType, EntityTypeInfo>();
+    private SerializableDictionary<EEntityType, EntityTypeInfo> _entityTypes = new SerializableDictionary<EEntityType, EntityTypeInfo>();
     [Button]
     private void RefreshEntityTypesEnumCS()
     {
@@ -31,8 +31,7 @@ public class EntityManagerConfig : ConfigScriptObject
         
         generator.GenerateScript(EntityTypeEnumName);
 
-        _entityTypes ??= new Dictionary<EEntityType, EntityTypeInfo>();
-        _entityTypes.Clear();
+        _entityTypes = new SerializableDictionary<EEntityType, EntityTypeInfo>();
         var typeEnums = Enum.GetValues(typeof(EEntityType));
         foreach (var typeEnum in typeEnums)
         {
@@ -48,6 +47,6 @@ public class EntityManagerConfig : ConfigScriptObject
 
     public Dictionary<EEntityType, EntityTypeInfo> GetEntityTypesDictionary()
     {
-        return _entityTypes;
+        return _entityTypes.ToDictionary(p=>p.Key, p=>p.Value);
     }
 }
