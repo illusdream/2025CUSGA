@@ -43,5 +43,6 @@ public class InHouseUI : UIPanel
         //player1EnergyImage.fillAmount = 0��1;
         //player2HealthImage.fillAmount = 0��1;
         //player2EnergyImage.fillAmount = 0��1;
+        
     }
 }

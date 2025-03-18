@@ -4,10 +4,13 @@ using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class EntityHandler : MonoBehaviour
 {
+        public InputActionReference actionReference;
+        
         [ValueDropdown("GetAllEntityTypes",IsUniqueList = true)]
         [ListDrawerSettings(HideRemoveButton = true,DraggableItems = false)]
         public List<string> EntityTypes = new List<string>();
