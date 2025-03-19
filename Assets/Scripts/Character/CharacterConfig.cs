@@ -7,4 +7,6 @@ public class CharacterConfig : ConfigScriptObject
     public override string ConfigName => "Character";
     
     public AssetReference<GameObject> characterPrefab;
+    
+    public GameObject characterPrefabClone;
 }

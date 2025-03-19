@@ -11,7 +11,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
 
     public EntityCollection CharacterCollection { get;private set; }
     
-    public bool IsGamePlayState;
+    public bool IsGamePlayState = true;
     
     CharacterConfig _characterConfig;
     public void Init()
@@ -22,6 +22,9 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         
         
         InitPlayerAllInputHandler();
+        
+        
+        InitAllPlayers();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -30,9 +33,28 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     }
     public void Update()
     {
-        
+        HandlePlayerMoveInput();
     }
-    
+
+    public void HandlePlayerMoveInput()
+    {
+        if (InputUtils.GetCurrentInputAction().GamePlay.Player1Move.IsPressed())
+        {
+            if (TryGetPlayerController(1,out var playerController))
+            {
+                var commend =new PlayerMoveCommend(playerController,InputUtils.GetCurrentInputAction().GamePlay.Player1Move.ReadValue<Vector2>());
+                commend.Execute();
+            }
+        }
+        if (InputUtils.GetCurrentInputAction().GamePlay.Player2Move.IsPressed())
+        {
+            if (TryGetPlayerController(2,out var playerController))
+            {
+                var commend =new PlayerMoveCommend(playerController,InputUtils.GetCurrentInputAction().GamePlay.Player2Move.ReadValue<Vector2>());
+                commend.Execute();
+            }
+        }
+    }
 
     public void LateUpdate()
     {
@@ -66,8 +88,8 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         for (int i = 1; i <= 2; i++)
         {
-            var prefab = Asset.Load(_characterConfig.characterPrefab);
-            
+           // var prefab = Asset.Load(_characterConfig.characterPrefab);
+            var prefab = _characterConfig.characterPrefabClone;
             var go = GameObject.Instantiate(prefab);
             if (go.TryGetComponent<PlayerController>(out var characterController))
             {
@@ -122,7 +144,6 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
 
     private void InitPlayerAllInputHandler()
     {
-        InitPlayerMoveInputHandler();
         InitPlayerBreakTileInputHandler();
         InitPlayerPlaceTileInputHandler();
         InitPlayerUsePropInputHandler();

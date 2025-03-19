@@ -33,3 +33,35 @@ MonoBehaviour:
     LayerMask:
       serializedVersion: 2
       m_Bits: 8192
+  _entityTypes:
+    list:
+    - Key: 0
+      Value:
+        EntityTypeName: Other
+        LayerMask:
+          serializedVersion: 2
+          m_Bits: 32
+    - Key: 1
+      Value:
+        EntityTypeName: Character
+        LayerMask:
+          serializedVersion: 2
+          m_Bits: 1024
+    - Key: 2
+      Value:
+        EntityTypeName: Flyable
+        LayerMask:
+          serializedVersion: 2
+          m_Bits: 2048
+    - Key: 3
+      Value:
+        EntityTypeName: PlacedProp
+        LayerMask:
+          serializedVersion: 2
+          m_Bits: 4096
+    - Key: 4
+      Value:
+        EntityTypeName: TimeBoundProp
+        LayerMask:
+          serializedVersion: 2
+          m_Bits: 8192

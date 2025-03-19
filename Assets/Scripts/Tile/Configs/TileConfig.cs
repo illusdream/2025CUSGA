@@ -17,6 +17,8 @@ public class TileConfig : ConfigScriptObject
     public const string TileTypeEnumName = "ETileType";
     public const string TileTypeEnumDescription = "";
     
+    public int dasd;
+    
     private Dictionary<Type,BaseTileProperty> TileProperties;
 
     [ShowInInspector]

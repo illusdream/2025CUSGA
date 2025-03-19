@@ -8,12 +8,15 @@ using UnityEngine;
 [AutoBuildOrLoadConfig("Entity/EntityManagerConfig")]
 public class EntityManagerConfig : ConfigScriptObject
 {
+    public int tes;
+    
     public const string EntityTypeEnumName = "EEntityType";
     public override string ConfigName => "EntityConfig";
 
     public List<EntityTypeInfo> EntityTypes;
     
     [ShowInInspector]
+    [SerializeField]
     private SerializableDictionary<EEntityType, EntityTypeInfo> _entityTypes;
     [Button]
     private void RefreshEntityTypesEnumCS()

@@ -14,11 +14,12 @@ public class TestUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        inputActions.GamePlay.TEst.started += On;
-        inputActions.Enable();
+        //ä¸ç”¨enableï¼ŒManageré‡Œå·²ç»å¤„ç†äº†
+        //inputActions.GamePlay.TEst.started += On;
+        //inputActions.Enable();
     }
     private void On(InputAction.CallbackContext callbackContext)
     {
-        Debug.Log("ÕâÊÇ²âÊÔ°´¼ü");
+        //Debug.Log("ï¿½ï¿½ï¿½Ç²ï¿½ï¿½Ô°ï¿½ï¿½ï¿½");
     }
 }

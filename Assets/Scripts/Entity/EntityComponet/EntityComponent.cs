@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

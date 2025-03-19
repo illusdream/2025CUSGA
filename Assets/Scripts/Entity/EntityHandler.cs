@@ -10,8 +10,6 @@ using UnityEngine.Serialization;
 
 public class EntityHandler : MonoBehaviour
 {
-        public InputActionReference actionReference;
-        
         [ValueDropdown("GetAllEntityTypes",IsUniqueList = true)]
         [ListDrawerSettings(HideRemoveButton = true,DraggableItems = false)]
         public List<string> EntityTypes = new List<string>();

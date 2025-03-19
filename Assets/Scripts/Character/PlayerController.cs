@@ -1,4 +1,7 @@
-﻿public class PlayerController : EntityComponent
+﻿using ilsFramework;
+using UnityEngine;
+
+public class PlayerController : EntityComponent
 {
         public override string TargetUsage => EntityComponetUsage.playerController;
 
@@ -8,5 +11,10 @@
         public void Initialize(int playerID)
         {
                 PlayerID = playerID;
+        }
+
+        public void ExecuteMoveCommand(Vector2 playerMoveDirection)
+        {
+                BroadcastEvent(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,new PlayerEvent.PlayerMoveCommendEventArgs(playerMoveDirection));
         }
 }
