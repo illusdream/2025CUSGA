@@ -12,32 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ad17b9a64d44d49b40a3a2d2286f28, type: 3}
   m_Name: FrameworkConfig
   m_EditorClassIdentifier: 
-  ConfigsViewSort:
-  - Value: FrameworkConfig
-  - Value: Entity
-  - Value: LogConfigs
-  - Value: Tile
-  - Value: Asset
-  - Value: AudioConfig
-  - Value: DebugConfig
-  - Value: Character
-  - Value: CharacterConfig
+  ConfigsViewSort: []
   ManagersUpdateSort:
+  - Value: ilsFramework.MonoManager
   - Value: ilsFramework.ConfigManager
   - Value: ilsFramework.AssetManager
-  - Value: ilsFramework.MonoManager
-  - Value: ilsFramework.LoggerManager
-  - Value: InputManager
-  - Value: EntityManager
-  - Value: ilsFramework.AudioManager
-  - Value: CharacterManager
-  - Value: ilsFramework.SceneHandler
-  - Value: ilsFramework.PoolManager
-  - Value: ilsFramework.NBTManager
   - Value: ilsFramework.DebugManager
-  - Value: ilsFramework.GlobalEventCenter
-  - Value: PropManager
-  - Value: ilsFramework.TimerManager
   - Value: CamaraManager
-  - Value: ilsFramework.UIManager
+  - Value: ilsFramework.AudioManager
+  - Value: ilsFramework.PoolManager
+  - Value: ilsFramework.TimerManager
+  - Value: ilsFramework.LoggerManager
+  - Value: CharacterManager
+  - Value: InputManager
   - Value: TileManager
+  - Value: EntityManager
+  - Value: ilsFramework.SceneHandler
+  - Value: ilsFramework.GlobalEventCenter
+  - Value: ilsFramework.NBTManager
+  - Value: PropManager
+  - Value: ilsFramework.UIManager
