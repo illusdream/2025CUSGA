@@ -37,9 +37,63 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""TEst"",
+                    ""name"": ""Player2Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""6f1768d5-24ec-48b7-ad6c-65cc9ebcd62b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Player1BreakTile"",
                     ""type"": ""Button"",
-                    ""id"": ""e3f5395e-270b-4dc7-aa0a-94fb33ace4a9"",
+                    ""id"": ""25af7d50-8af7-4d27-b9d6-aae4917825c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player2BreakTile"",
+                    ""type"": ""Button"",
+                    ""id"": ""f73a030b-ad97-4293-b374-e48a2e19846e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player1PlaceTile"",
+                    ""type"": ""Button"",
+                    ""id"": ""be57dde5-2242-4cf2-a05c-2e4de4f32fea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player2PlaceTile"",
+                    ""type"": ""Button"",
+                    ""id"": ""da5bf986-9363-44b1-a475-86388e0fc2bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player1UseProp"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebba385b-a148-4ccc-9257-bb490d8db350"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player2UseProp"",
+                    ""type"": ""Button"",
+                    ""id"": ""96387058-3809-4189-a742-8466b80895fa"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -48,26 +102,180 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""dffc24cf-8c4e-4ef1-9665-c159f16e37ce"",
-                    ""path"": """",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""7e74ceed-72c9-4bab-b5ed-1fb44f198692"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""03cc6ade-333e-45aa-b032-850d8cce3616"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Player1Move"",
                     ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""9cbc4d75-3dc7-4e9e-886e-7749a4b6c7d9"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""930d001c-f5a0-4759-8472-0a1da116d7f7"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""de71946b-dc06-4d83-99db-a10774921aca"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23a70b39-da00-4c67-8a4a-9801e032e876"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1BreakTile"",
+                    ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bcda75c6-02ca-4629-92a9-2a77391ac4c2"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""id"": ""d4c8bdd5-5331-4531-acd9-2692c324a4ba"",
+                    ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TEst"",
+                    ""action"": ""Player1PlaceTile"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7c36f67-cb4e-4063-9b18-1dfe336684a7"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1UseProp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08ed674e-bd9d-4775-8c66-7167f58587b0"",
+                    ""path"": ""<Keyboard>/numpad1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2BreakTile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16b30d16-d837-437b-a65f-eb33036bebd1"",
+                    ""path"": ""<Keyboard>/numpad2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2PlaceTile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abf97611-9fee-4dda-8dbb-182c218b8fab"",
+                    ""path"": ""<Keyboard>/numpad3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2UseProp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""96b68ae8-5993-4d16-8d22-31346907724d"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""45bfa749-a825-4231-a512-57dc85314e08"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""0437f8bb-c131-4599-833b-dde417ec7520"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""30ff9cbb-3dc1-4aa6-9dae-a8bf39caee44"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""155d095e-cd97-43cd-86a9-48a457cff52c"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -105,7 +313,13 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_Player1Move = m_GamePlay.FindAction("Player1Move", throwIfNotFound: true);
-        m_GamePlay_TEst = m_GamePlay.FindAction("TEst", throwIfNotFound: true);
+        m_GamePlay_Player2Move = m_GamePlay.FindAction("Player2Move", throwIfNotFound: true);
+        m_GamePlay_Player1BreakTile = m_GamePlay.FindAction("Player1BreakTile", throwIfNotFound: true);
+        m_GamePlay_Player2BreakTile = m_GamePlay.FindAction("Player2BreakTile", throwIfNotFound: true);
+        m_GamePlay_Player1PlaceTile = m_GamePlay.FindAction("Player1PlaceTile", throwIfNotFound: true);
+        m_GamePlay_Player2PlaceTile = m_GamePlay.FindAction("Player2PlaceTile", throwIfNotFound: true);
+        m_GamePlay_Player1UseProp = m_GamePlay.FindAction("Player1UseProp", throwIfNotFound: true);
+        m_GamePlay_Player2UseProp = m_GamePlay.FindAction("Player2UseProp", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -171,13 +385,25 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GamePlay;
     private List<IGamePlayActions> m_GamePlayActionsCallbackInterfaces = new List<IGamePlayActions>();
     private readonly InputAction m_GamePlay_Player1Move;
-    private readonly InputAction m_GamePlay_TEst;
+    private readonly InputAction m_GamePlay_Player2Move;
+    private readonly InputAction m_GamePlay_Player1BreakTile;
+    private readonly InputAction m_GamePlay_Player2BreakTile;
+    private readonly InputAction m_GamePlay_Player1PlaceTile;
+    private readonly InputAction m_GamePlay_Player2PlaceTile;
+    private readonly InputAction m_GamePlay_Player1UseProp;
+    private readonly InputAction m_GamePlay_Player2UseProp;
     public struct GamePlayActions
     {
         private @MainInputAction m_Wrapper;
         public GamePlayActions(@MainInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Player1Move => m_Wrapper.m_GamePlay_Player1Move;
-        public InputAction @TEst => m_Wrapper.m_GamePlay_TEst;
+        public InputAction @Player2Move => m_Wrapper.m_GamePlay_Player2Move;
+        public InputAction @Player1BreakTile => m_Wrapper.m_GamePlay_Player1BreakTile;
+        public InputAction @Player2BreakTile => m_Wrapper.m_GamePlay_Player2BreakTile;
+        public InputAction @Player1PlaceTile => m_Wrapper.m_GamePlay_Player1PlaceTile;
+        public InputAction @Player2PlaceTile => m_Wrapper.m_GamePlay_Player2PlaceTile;
+        public InputAction @Player1UseProp => m_Wrapper.m_GamePlay_Player1UseProp;
+        public InputAction @Player2UseProp => m_Wrapper.m_GamePlay_Player2UseProp;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -190,9 +416,27 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Player1Move.started += instance.OnPlayer1Move;
             @Player1Move.performed += instance.OnPlayer1Move;
             @Player1Move.canceled += instance.OnPlayer1Move;
-            @TEst.started += instance.OnTEst;
-            @TEst.performed += instance.OnTEst;
-            @TEst.canceled += instance.OnTEst;
+            @Player2Move.started += instance.OnPlayer2Move;
+            @Player2Move.performed += instance.OnPlayer2Move;
+            @Player2Move.canceled += instance.OnPlayer2Move;
+            @Player1BreakTile.started += instance.OnPlayer1BreakTile;
+            @Player1BreakTile.performed += instance.OnPlayer1BreakTile;
+            @Player1BreakTile.canceled += instance.OnPlayer1BreakTile;
+            @Player2BreakTile.started += instance.OnPlayer2BreakTile;
+            @Player2BreakTile.performed += instance.OnPlayer2BreakTile;
+            @Player2BreakTile.canceled += instance.OnPlayer2BreakTile;
+            @Player1PlaceTile.started += instance.OnPlayer1PlaceTile;
+            @Player1PlaceTile.performed += instance.OnPlayer1PlaceTile;
+            @Player1PlaceTile.canceled += instance.OnPlayer1PlaceTile;
+            @Player2PlaceTile.started += instance.OnPlayer2PlaceTile;
+            @Player2PlaceTile.performed += instance.OnPlayer2PlaceTile;
+            @Player2PlaceTile.canceled += instance.OnPlayer2PlaceTile;
+            @Player1UseProp.started += instance.OnPlayer1UseProp;
+            @Player1UseProp.performed += instance.OnPlayer1UseProp;
+            @Player1UseProp.canceled += instance.OnPlayer1UseProp;
+            @Player2UseProp.started += instance.OnPlayer2UseProp;
+            @Player2UseProp.performed += instance.OnPlayer2UseProp;
+            @Player2UseProp.canceled += instance.OnPlayer2UseProp;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -200,9 +444,27 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Player1Move.started -= instance.OnPlayer1Move;
             @Player1Move.performed -= instance.OnPlayer1Move;
             @Player1Move.canceled -= instance.OnPlayer1Move;
-            @TEst.started -= instance.OnTEst;
-            @TEst.performed -= instance.OnTEst;
-            @TEst.canceled -= instance.OnTEst;
+            @Player2Move.started -= instance.OnPlayer2Move;
+            @Player2Move.performed -= instance.OnPlayer2Move;
+            @Player2Move.canceled -= instance.OnPlayer2Move;
+            @Player1BreakTile.started -= instance.OnPlayer1BreakTile;
+            @Player1BreakTile.performed -= instance.OnPlayer1BreakTile;
+            @Player1BreakTile.canceled -= instance.OnPlayer1BreakTile;
+            @Player2BreakTile.started -= instance.OnPlayer2BreakTile;
+            @Player2BreakTile.performed -= instance.OnPlayer2BreakTile;
+            @Player2BreakTile.canceled -= instance.OnPlayer2BreakTile;
+            @Player1PlaceTile.started -= instance.OnPlayer1PlaceTile;
+            @Player1PlaceTile.performed -= instance.OnPlayer1PlaceTile;
+            @Player1PlaceTile.canceled -= instance.OnPlayer1PlaceTile;
+            @Player2PlaceTile.started -= instance.OnPlayer2PlaceTile;
+            @Player2PlaceTile.performed -= instance.OnPlayer2PlaceTile;
+            @Player2PlaceTile.canceled -= instance.OnPlayer2PlaceTile;
+            @Player1UseProp.started -= instance.OnPlayer1UseProp;
+            @Player1UseProp.performed -= instance.OnPlayer1UseProp;
+            @Player1UseProp.canceled -= instance.OnPlayer1UseProp;
+            @Player2UseProp.started -= instance.OnPlayer2UseProp;
+            @Player2UseProp.performed -= instance.OnPlayer2UseProp;
+            @Player2UseProp.canceled -= instance.OnPlayer2UseProp;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -269,7 +531,13 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
     public interface IGamePlayActions
     {
         void OnPlayer1Move(InputAction.CallbackContext context);
-        void OnTEst(InputAction.CallbackContext context);
+        void OnPlayer2Move(InputAction.CallbackContext context);
+        void OnPlayer1BreakTile(InputAction.CallbackContext context);
+        void OnPlayer2BreakTile(InputAction.CallbackContext context);
+        void OnPlayer1PlaceTile(InputAction.CallbackContext context);
+        void OnPlayer2PlaceTile(InputAction.CallbackContext context);
+        void OnPlayer1UseProp(InputAction.CallbackContext context);
+        void OnPlayer2UseProp(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -669,7 +669,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <returns></returns>
     public List<int> GetAllPlayerIDs()
     {
-        return new[] { 0, 1 }.ToList();
+        return CharacterManager.Instance.GetAllPlayerID();
     }
 
     #endregion

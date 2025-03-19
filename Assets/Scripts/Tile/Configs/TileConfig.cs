@@ -42,7 +42,9 @@ public class TileConfig : ConfigScriptObject
         return TileProperties.TryGetValue(typeof(T), out property);
     }
 
-    
+
+
+#if UNITY_EDITOR
     [Button(ButtonSizes.Medium)]
     [FoldoutGroup("TileDetailConfig")]
     public void RebuildTileProperties()
@@ -72,7 +74,8 @@ public class TileConfig : ConfigScriptObject
             }
         }
     }
-#if UNITY_EDITOR
+    
+    
     [Button(ButtonSizes.Medium)]
     public void BuildTileIDEnum()
     {
@@ -96,8 +99,6 @@ public class TileConfig : ConfigScriptObject
         generator.GenerateScript("ETileType",parentPath);
         AssetDatabase.Refresh();
     }
-#endif
-    
     
     [Button(ButtonSizes.Medium)]
     public void RebuildAllSets()
@@ -105,6 +106,10 @@ public class TileConfig : ConfigScriptObject
         RebuildTileProperties();
         RebuildTileIDMaps();
     }
+#endif
+    
+    
+
     public void CheckTileProperty(List<Type> tileTypes)
     {
         TileProperties ??= new Dictionary<Type, BaseTileProperty>();

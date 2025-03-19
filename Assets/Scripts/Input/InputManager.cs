@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
@@ -11,10 +12,11 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
     public string InputModifierDataBaseName = "InputModifierDB";
     
     private MainInputAction _mainInputAction;
+    private InputActionAsset _inputActionAsset;
     public void Init()
     {
         _mainInputAction = new MainInputAction();
-        
+        _inputActionAsset = _mainInputAction.asset;
 
         using (var connection=  DataBase.GetPersistentConnection(InputModifierDataBaseName))
         {
@@ -24,8 +26,20 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
             }
         }
         _mainInputAction.GamePlay.Enable();
+        _mainInputAction.UI.Enable();
     }
 
+    private void InitAllInputAction()
+    {
+        
+    }
+
+    private void InitAllGamePlayerAction()
+    {
+        
+    }
+
+    
     public void Update()
     {
 
@@ -61,7 +75,8 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
         foreach (var info in modifiers)
         {
             var action = _mainInputAction.FindAction(info.GUID);
-            action.LoadBindingOverridesFromJson(info.ModifierJson);
+            action?.LoadBindingOverridesFromJson(info.ModifierJson);
+
         }
     }
 
@@ -81,6 +96,82 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
         }
     }
 
+    /// <summary>
+    /// 重置对应按键的绑定
+    /// </summary>
+    /// <param name="action"></param>
+    public void ResetBinding(InputAction action)
+    {
+        using (var sqliteconnection = GetInputModifierConnection())
+        {
+            var actionBinding =  sqliteconnection.Table<InputModifierInfo>().Any(info => info.GUID == action.id.ToString());
+            if (actionBinding)
+            {
+                action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+                sqliteconnection.Delete<InputModifierInfo>(action.id.ToString());
+            }
+        }
+    }
+    /// <summary>
+    /// 重置对应Map的按键绑定（GamePlay或UI）
+    /// </summary>
+    /// <param name="actionMapNameOrID">名字或者其ID</param>
+    public void ResetAllBindings(string actionMapNameOrID)
+    {
+        using (var sqliteconnection = GetInputModifierConnection())
+        {
+            foreach (var action in _inputActionAsset.FindActionMap(actionMapNameOrID))
+            {
+                var actionBinding =  sqliteconnection.Table<InputModifierInfo>().Any(info => info.GUID == action.id.ToString());
+                if (actionBinding)
+                {
+                    action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+                    sqliteconnection.Delete<InputModifierInfo>(action.id.ToString());
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// 重置对应Map的按键绑定（GamePlay或UI）
+    /// </summary>
+    /// <param name="actionMap">actionMap实例</param>
+    public void ReloadAllBindings(InputActionMap actionMap)
+    {
+        using (var sqliteconnection = GetInputModifierConnection())
+        {
+            foreach (var action in actionMap)
+            {
+                var actionBinding =  sqliteconnection.Table<InputModifierInfo>().Any(info => info.GUID == action.id.ToString());
+                if (actionBinding)
+                {
+                    action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+                    sqliteconnection.Delete<InputModifierInfo>(action.id.ToString());
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// 重置所有按键设置的绑定
+    /// </summary>
+    public void ResetAllBindings()
+    {
+        using (var sqliteconnection = GetInputModifierConnection())
+        {
+            var allBindings = sqliteconnection.Table<InputModifierInfo>().ToList();
+            foreach (var inputModifierInfo in allBindings)
+            {
+              var  action = _mainInputAction.FindAction(inputModifierInfo.GUID);
+              if (action != null)
+              {
+                  action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+              }
+            }
+
+            sqliteconnection.DeleteAll<InputModifierInfo>();
+        }
+    }
+
     public MainInputAction GetCurrentInputAction()
     {
         return _mainInputAction;
@@ -90,4 +181,6 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
     {
         return DataBase.GetPersistentConnection(InputModifierDataBaseName);
     }
+
+
 }

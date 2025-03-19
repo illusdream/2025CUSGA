@@ -116,7 +116,7 @@ namespace ilsFramework
         void AssemblyForeach()
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();
-            List<IAssemblyForeach> list = new List<IAssemblyForeach>();
+            Dictionary<Type,IAssemblyForeach> iassemblyDic = new Dictionary<Type,IAssemblyForeach>();
             List<(IManager,int)> allManagers = new List<(IManager,int)>();
             //找出对应需要遍历程序集
             foreach (var type in types)
@@ -124,7 +124,6 @@ namespace ilsFramework
                 if (typeof(IManager).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface)
                 {
                     object manager = Activator.CreateInstance(type);
-
                     if (manager == null)
                     {
                         Debug.LogError("管理类创建失败：" + type.FullName);
@@ -151,7 +150,7 @@ namespace ilsFramework
 
                     if (Ia != null)
                     {
-                        list.Add(Ia);
+                        iassemblyDic.Add(type,Ia);
                     }
                 }
             }
@@ -161,14 +160,12 @@ namespace ilsFramework
             {
                 managerList.AddLast(manager.Item1);
                 manager.Item1.Init();
+                //找出需要遍历程序集的类型
+                if (iassemblyDic.TryGetValue(manager.Item1.GetType(), out IAssemblyForeach ias))
+                {
+                    ias.ForeachCurrentAssembly(types);
+                }
             }
-            
-            //找出需要遍历的类型
-            foreach (var iAssemblyForeach in list)
-            {
-                iAssemblyForeach.ForeachCurrentAssembly(types);
-            }
-
         }
 
         //获取对应的Manager实例

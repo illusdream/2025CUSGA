@@ -1,8 +1,13 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public abstract class EntityComponent : MonoBehaviour
 {
+    [NotNull]
+    public EntityHandler handler;
+    
     [ShowInInspector]
     public virtual string TargetUsage { get;protected set; }
     
@@ -36,12 +41,27 @@ public abstract class EntityComponent : MonoBehaviour
     
     public virtual void OnInitialized(EntityHandler handler)
     {
-            
+        
     }
 
 
     public virtual void OnEntityDestroy(EntityHandler handler)
     {
             
+    }
+
+    public void AddEventListener(string eventType, EEntityEventScope scope, params Action<EventArgs>[] action)
+    {
+        handler?.AddEventListener(eventType, scope, action);
+    }
+
+    public void RemoveEventListener(string eventType, EEntityEventScope scope, params Action<EventArgs>[] action)
+    {
+        handler?.RemoveEventListener(eventType, scope, action);
+    }
+
+    public void BroadcastEvent(string eventType, EEntityEventScope scope, EventArgs args)
+    {
+        handler?.BroadcastEvent(eventType, scope, args);
     }
 }

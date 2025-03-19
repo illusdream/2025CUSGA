@@ -26,28 +26,6 @@ namespace Test
             }
         }
 
-        public void OnDrawGizmosSelected()
-        {
-            if (!EditorApplication.isPlaying)
-            {
-                return;
-            }
 
-            Vector3 trueRay = transform.rotation * RaycastVector2.Vec3_xy();
-            
-            bool hasTarget = false;
-            buffer = new List<EntityHandler>();
-            var or = new Vector2(transform.position.x, transform.position.y);
-            var v2 = new Vector2(trueRay.x, trueRay.y);
-            EntityManager.Instance.GetEntityByRaycast(or,v2,new List<string>() { EEntityType.Flyable.ToString() },buffer,float.NegativeInfinity);
-            foreach (var entityHandler in buffer)
-            {
-                hasTarget = true;
-                entityHandler.LogSelf(entityHandler.gameObject);
-            }
-            Gizmos.color = hasTarget ? Color.green : Color.red;
-            
-            Gizmos.DrawRay(transform.position,transform.position + trueRay);
-        }
     }
 }

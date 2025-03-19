@@ -141,7 +141,7 @@ public class SerializableDictionary<TKey, TValue> :
 
     #endregion
 }
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(SerializableDictionary), true)]
 public class SerializableDictionaryDrawer : PropertyDrawer {
     private SerializedProperty listProperty;
@@ -157,3 +157,4 @@ public class SerializableDictionaryDrawer : PropertyDrawer {
         return EditorGUI.GetPropertyHeight(getListProperty(property), true);
     }
 }
+#endif

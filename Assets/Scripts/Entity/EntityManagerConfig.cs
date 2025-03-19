@@ -11,10 +11,10 @@ public class EntityManagerConfig : ConfigScriptObject
     public const string EntityTypeEnumName = "EEntityType";
     public override string ConfigName => "EntityConfig";
 
-    public List<EntityTypeInfo> EntityTypes = new List<EntityTypeInfo>();
+    public List<EntityTypeInfo> EntityTypes;
     
     [ShowInInspector]
-    private SerializableDictionary<EEntityType, EntityTypeInfo> _entityTypes = new SerializableDictionary<EEntityType, EntityTypeInfo>();
+    private SerializableDictionary<EEntityType, EntityTypeInfo> _entityTypes;
     [Button]
     private void RefreshEntityTypesEnumCS()
     {

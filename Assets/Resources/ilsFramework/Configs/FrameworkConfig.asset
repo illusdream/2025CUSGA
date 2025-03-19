@@ -12,15 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ad17b9a64d44d49b40a3a2d2286f28, type: 3}
   m_Name: FrameworkConfig
   m_EditorClassIdentifier: 
-  ConfigsViewSort: []
+  ConfigsViewSort:
+  - Value: FrameworkConfig
+  - Value: Entity
+  - Value: LogConfigs
+  - Value: Tile
+  - Value: Asset
+  - Value: AudioConfig
+  - Value: DebugConfig
+  - Value: Character
+  - Value: CharacterConfig
   ManagersUpdateSort:
   - Value: ilsFramework.ConfigManager
   - Value: ilsFramework.AssetManager
   - Value: ilsFramework.MonoManager
   - Value: ilsFramework.LoggerManager
+  - Value: InputManager
   - Value: EntityManager
-  - Value: CharacterManager
   - Value: ilsFramework.AudioManager
+  - Value: CharacterManager
   - Value: ilsFramework.SceneHandler
   - Value: ilsFramework.PoolManager
   - Value: ilsFramework.NBTManager

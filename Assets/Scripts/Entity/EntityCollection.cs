@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 [EntityCollectionIgnore]
-public class EntityCollection :IEnumerable
+public class EntityCollection :IEnumerable<EntityHandler>
 {
       /// <summary>
       /// Entity类型
@@ -60,6 +60,11 @@ public class EntityCollection :IEnumerable
       public virtual void GetEntityInArea(Collider2D areaCollider, List<EntityHandler> result)
       {
             InnerGetEntityInArea(areaCollider, result);
+      }
+
+      IEnumerator<EntityHandler> IEnumerable<EntityHandler>.GetEnumerator()
+      {
+            return GameObjectToEntityHandlerMap.Values.GetEnumerator();
       }
 
       public IEnumerator GetEnumerator()

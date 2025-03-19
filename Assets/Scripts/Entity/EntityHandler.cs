@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -117,6 +118,7 @@ public class EntityHandler : MonoBehaviour
                 {
                         if (value is EntityComponent entityComponent)
                         {
+                                entityComponent.handler = this;
                                 entityComponent.OnInitialized(this);
                         }
                 }
@@ -150,6 +152,7 @@ public class EntityHandler : MonoBehaviour
         public void OnDestroy()
         {
                 OnDestroyForEntityComponents();
+                UnregisterEntityFromManager();
         }
 
         private void OnDestroyForEntityComponents()
@@ -159,12 +162,13 @@ public class EntityHandler : MonoBehaviour
                         if (component is EntityComponent entityComponent)
                         {
                                 entityComponent.OnEntityDestroy(this);
+                                entityComponent.handler = null;
                         }
                 }
         }
 
         private void UnregisterEntityFromManager()
         {
-                
+                EntityManager.Instance.UnregisterEntity(this);
         }
 }

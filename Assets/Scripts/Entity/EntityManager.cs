@@ -13,6 +13,8 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
     private EntityManagerConfig _managerConfig;
     [ShowInInspector]
     private Dictionary<EEntityType,EntityTypeInfo> entityTypeInfos;
+    
+    bool isOnDestory = false;
     public void Init()
     {
         entityCollections = new Dictionary<string, EntityCollection>();
@@ -75,7 +77,17 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
 
     public void OnDestroy()
     {
-       
+        isOnDestory = true;
+        foreach (var entityCollection in entityCollections.Values)
+        {
+            foreach (var obj in entityCollection)
+            {
+                if (obj is EntityHandler eh)
+                {
+                    GameObject.DestroyImmediate(eh.gameObject);
+                }
+            }
+        }
     }
 
     public void OnDrawGizmos()
@@ -101,6 +113,10 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
     
     public void RegisterEntity(EntityHandler handler)
     {
+        if (isOnDestory)
+        {
+            return;
+        }
         var handlerBelongTypes = handler.EntityTypes;
         foreach (var entityType in handlerBelongTypes)
         {
@@ -113,6 +129,10 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
 
     public void UnregisterEntity(EntityHandler handler)
     {
+        if (isOnDestory)
+        {
+            return;
+        }
         var handlerBelongTypes = handler.EntityTypes;
         foreach (var entityType in handlerBelongTypes)
         {
