@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using ilsFramework;
 
 public class OnOpenGameCanvas : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class OnOpenGameCanvas : MonoBehaviour
     }
     public void RemoveSelf()
     {
-        Destroy(gameObject);
+        UIManager.Instance.GetUIPanel<OnOpenGameUI>().Close();
+        UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Open();
     }
 }

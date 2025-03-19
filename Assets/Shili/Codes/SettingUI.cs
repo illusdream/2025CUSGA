@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Bottom, 1, true, EAssetLoadMode.Resources, "Prefab/Shili/SettingUI")]
+[UIPanelSetting(EUILayer.Upper, 1, true, EAssetLoadMode.Resources, "Prefab/Shili/SettingUI")]
 public class SettingUI : UIPanel
 {
     [AutoUIElement("Panel/Back")]
@@ -27,10 +28,13 @@ public class SettingUI : UIPanel
     private TMP_Dropdown resDropdown;
     [AutoUIElement("Panel/GameSetting")]
     private GameObject gameSettingObject;
+    [AutoUIElement("Panel/KeystrokeSetting")]
+    private GameObject keystrokeSettingObject;
     //²ÎÊý
     private bool isPlayMusic;
     public override void InitUIPanel()
     {
+        
         isPlayMusic = true;
         base.InitUIPanel();
         backButton.onClick.AddListener(base.Close);
@@ -43,18 +47,21 @@ public class SettingUI : UIPanel
         soundSlider.onValueChanged.AddListener(OnSoundSlider);
         showDropdown.onValueChanged.AddListener(OnShowChange);
         resDropdown.onValueChanged.AddListener(OnResChange);
+
     }
     private void OnGameSetting()
     {
         gameSettingButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
         keystrokeSettingButton.GetComponent <Text>().fontStyle = FontStyle.Normal;
         gameSettingObject.SetActive(true);
+        keystrokeSettingObject.SetActive(false);
     }
     private void OnKeystrokeSetting()
     {
         gameSettingButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
         keystrokeSettingButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
         gameSettingObject.SetActive(false);
+        keystrokeSettingObject.SetActive(true);
     }
     private void OnSoundSwitch()
     {
@@ -106,4 +113,5 @@ public class SettingUI : UIPanel
                 break;
         }
     }
+
 }

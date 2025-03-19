@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Bottom, 1, true, EAssetLoadMode.Resources, "Prefab/Shili/DeveloperUI")]
+[UIPanelSetting(EUILayer.Upper, 1, true, EAssetLoadMode.Resources, "Prefab/Shili/DeveloperUI")]
 public class DeveloperUI : UIPanel
 {
     [AutoUIElement("Panel/Button")]

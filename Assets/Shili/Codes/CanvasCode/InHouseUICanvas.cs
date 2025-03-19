@@ -45,4 +45,8 @@ public class InHouseUICanvas : MonoBehaviour
     {
         
     }
+    public void OnOpenSet()
+    {
+        UIManager.Instance.GetUIPanel<StopGameUI>().Open();
+    }
 }

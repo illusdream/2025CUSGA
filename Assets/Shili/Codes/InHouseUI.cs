@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ilsFramework;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Bottom, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/InHouseUI")]
+[UIPanelSetting(EUILayer.Lower, 10, true, EAssetLoadMode.Resources, "Prefab/Shili/InHouseUI")]
 public class InHouseUI : UIPanel
 {
     //���1��ʮ�ֻ�����Ӣ�����дע����

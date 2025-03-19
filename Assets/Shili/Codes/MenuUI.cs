@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Bottom, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/Menu")]
+[UIPanelSetting(EUILayer.Normal, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/Menu")]
 public class MenuUI : UIPanel
 {
     [AutoUIElement("Panel/GameObject/StartGame")]
@@ -17,14 +17,14 @@ public class MenuUI : UIPanel
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        startGameButton.onClick.AddListener(OnOpenGame);
+        startGameButton.onClick.AddListener(OnSatrtGame);
         settingButton.onClick.AddListener(OnOpenSetting);
         aboutOurButton.onClick.AddListener(OnOpenAboutOur);
         exitGameButton.onClick.AddListener(OnOpenExitGame);
     }
-    private void OnOpenGame()
+    private void OnSatrtGame()
     {
-        Debug.Log("Open Game");
+        UIManager.Instance.GetUIPanel<FadeImageUI>().Open();
     }
     private void OnOpenSetting()
     {

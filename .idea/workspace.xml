@@ -2,8 +2,132 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3372dd8-208b-434e-9e1d-6bf0f1ec7137" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/ilsFramework/Configs/FrameworkConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/ilsFramework/Configs/FrameworkConfig.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity/EEntityType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity/EEntityType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/FadeImage.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/FadeImage.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/.sample.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/GamepadIconsExample.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/GamepadIconsExample.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Circle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Circle.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Cross.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Cross.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Down.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Left.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Right.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Dpad_Up.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_L1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_L1.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_L2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_L2.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Left_Stick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Left_Stick.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Options.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Options.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_R1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_R1.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_R2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_R2.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Right_Stick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Right_Stick.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Share.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Share.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Square.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Square.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Triangle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/PS4_Triangle.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_A.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_A.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_B.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_B.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Down.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Left.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Right.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Dpad_Up.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_LB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_LB.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_LT.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_LT.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Left_Stick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Left_Stick.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Menu.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_RB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_RB.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_RT.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_RT.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Right_Stick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Right_Stick.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Windows.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Windows.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_X.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_X.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Y.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Icons/XboxOne_Y.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/README.md.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindActionUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindActionUIEditor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindActionUIEditor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindSaveLoad.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindSaveLoad.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindUIPrefab.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindUIPrefab.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindUISampleActions.inputactions" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindUISampleActions.inputactions.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindingUISampleScene.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindingUISampleScene.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Unity.InputSystem.RebindingUI.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/Unity.InputSystem.RebindingUI.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Settings/Scenes/TestUIScene.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Settings/Scenes/TestUIScene.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Settings/Scenes/TestUIScene2.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Settings/Scenes/TestUIScene2.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/SceneTransition.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/SceneTransition.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/ChangeKeyCodes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/ChangeKeyCodes.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/FadeImageUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/FadeImageUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/OnOpenGameNextUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/OnOpenGameNextUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/OnOpenGameUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/OnOpenGameUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/StopGameUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/Codes/StopGameUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/TestUI2.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Shili/TestUI2.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/DeveloperUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/DeveloperUI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/InHouseUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/InHouseUI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/Menu.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/Menu.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/OnOpenGame1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/OnOpenGameNext.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/OnOpenGame1.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/OnOpenGameNext.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/SettingUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/SettingUI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/StopGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Shili/StopGame.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/InHouseUICanvas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/InHouseUICanvas.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/OnOpenGameCanvas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/OnOpenGameCanvas.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/StopGameCanvas.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/CanvasCode/StopGameCanvas.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Samples/Input System/1.6.3/Rebinding UI/RebindActionUI.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/DeveloperUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/Codes/DeveloperUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/InHouseUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/Codes/InHouseUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/MenuUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/Codes/MenuUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/Codes/SettingUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/Codes/SettingUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Shili/TestUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shili/TestUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,21 +137,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2uXgLzDJDqUmqkJ5PwScecOLSEV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
