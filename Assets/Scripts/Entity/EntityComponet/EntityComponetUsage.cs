@@ -32,16 +32,6 @@ public partial class EntityComponetUsage
         public const string Buff = "Buff";
         
         /// <summary>
-        /// 使用这个组件触发摧毁方块的功能
-        /// </summary>
-        public const string BreakTile = "BreakTile";
-        
-        /// <summary>
-        /// 使用这个组件触发放置方块功能
-        /// </summary>
-        public const string PlaceTile = "PlaceTile";
-        
-        /// <summary>
         /// 道具容器，使用这个组件用以存储/使用道具
         /// </summary>
         public const string PropContainer = "PropContainer";
@@ -50,4 +40,6 @@ public partial class EntityComponetUsage
         /// 数据统计组件，通过这个组件可以快速获取或修改对应数值
         /// </summary>
         public const string EntityStat = "EntityStat";
+        
+        public const string EnergyContainer = "EnergyContainer";
 }

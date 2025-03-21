@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 using Utils;
 using Object = UnityEngine.Object;
 
-public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForeach
+public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForeach,IEventCenter
 {
     
     private TileManagerConfig _managerConfig;
@@ -25,6 +25,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private Grid grid;
     [ShowInInspector]
     private TilemapRenderer tilemapRenderer;
+    [ShowInInspector]
+    private Tilemap tilemap;
 
     private BaseTile[,] tiles;
     private RectInt tilesRange;
@@ -35,6 +37,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     //用于记录对应玩家的得分
     private Dictionary<int, float> scoreCollection;
     
+    
+    private EventCenterCore eventCenterCore;
+
+    private List<Vector2Int> needRemoveTileBuffer;
     public void Init()
     {
         _managerConfig = Config.GetConfig<TileManagerConfig>();
@@ -45,14 +51,18 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         
         scoreCollection = new Dictionary<int, float>();
         
+        eventCenterCore = new EventCenterCore();
+        TileIDMap = new Dictionary<Type, int>();
+        needRemoveTileBuffer = new List<Vector2Int>();
         InitTileGrids();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
     {
+        
         foreach (var type in types)
         {
-            if (type.IsAssignableFrom(typeof(BaseTile)) && !type.IsAbstract)
+            if (typeof(BaseTile).IsAssignableFrom(type) && !type.IsAbstract)
             {
                 if (_tileConfig.TryGetTileID(type,out var id))
                 {
@@ -72,7 +82,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     
     public void Update()
     {
-       
+       UpdateTile();
     }
 
     public void LateUpdate()
@@ -85,6 +95,23 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     }
 
+    public void UpdateTile()
+    {
+        foreach (var baseTile in tiles)
+        {
+            if (baseTile.IsDestroyed)
+            {
+                needRemoveTileBuffer.Add(baseTile.Position);
+            }
+        }
+
+        foreach (var vector2Int in needRemoveTileBuffer)
+        {
+            DestroyTile(vector2Int);
+        }
+        needRemoveTileBuffer.Clear();
+    }
+    
     public void OnDestroy()
     {
        
@@ -120,7 +147,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         
         grid = unityTileHandler.GetComponent<Grid>();
         tilemapRenderer = unityTileHandler.GetComponentInChildren<TilemapRenderer>();
-        
+        tilemap = unityTileHandler.GetComponentInChildren<Tilemap>();
         TileIDMap = new Dictionary<Type, int>();
         
         
@@ -131,9 +158,16 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <summary>
     /// 生成地形
     /// </summary>
+    [Button]
     private void GenerateTiles()
     {
-        
+        for (int i = 0; i < tiles.GetLength(0); i++)
+        {
+            for (int j = 0; j < tiles.GetLength(1); j++)
+            {
+                SetTile(typeof(CommonTile),new Vector2Int(i,j),TileManagerConfig.TileSystemID);
+            }
+        }
     }
 
 
@@ -311,6 +345,14 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     private bool InnerCreateTile(Type type, out BaseTile tile)
     {
+        if (TryGetTileID(type, out var tileID))
+        {
+            var instance = Activator.CreateInstance(type) as BaseTile;
+            instance.TileID = tileID;
+            tile = instance;
+            return true;
+        }
+
         tile = null;
         return false;
     }
@@ -329,7 +371,6 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             tile.TileBelongToID = belongsToID;
             tile.Position = position;
             tiles[position.x, position.y] = tile;
-            
             tileInstance = tile;
             return true;
         }
@@ -349,10 +390,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         if (InnerSetTile(type,position,belongsToID, out BaseTile tile))
         {
             //程序化的音效什么的
-            SetTileRender();
+            SetTileRender(tile,type);
             
             //检查合并
-            CheckTileCanMerge(position);
+            //CheckTileCanMerge(position);
         }
     }
     /// <summary>
@@ -368,9 +409,19 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             return;
         }
         var oldTile = tiles[position.x, position.y];
+        if (TryGetTileProperty(oldTile.GetType(),out var property))
+        {
+            oldTile.RemoveTileRender(property,tilemap);
+        }
         oldTile.Destroy();
         //程序化的执行
-        
+        var destoryArgs = new TileEvent.TileDestroyedEventArgs()
+        {
+            DestroyedTileID = oldTile.TileID,
+            TilePosition = position,
+            DestroyedByID = oldTile.TileLastestBeHitByID
+        };
+        BoradCastMessage(TileEvent.TileDestroyed,destoryArgs);
         
         //放置方块
         SetTile(type,position,belongsToID);
@@ -382,16 +433,19 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <param name="position"></param>
     public void DestroyTile(Vector2Int position)
     {
-        
+        ReplaceTile(typeof(AirTile),position,TileManagerConfig.TileSystemID);
     }
     /// <summary>
     /// 对方块造成伤害
     /// </summary>
     /// <param name="position"></param>
     /// <param name="damage"></param>
-    public void ApplyDamageToTile(Vector2Int position, int damage)
+    public void ApplyDamageToTile(Vector2Int position, int damage,int playerID)
     {
-        
+        if (TryGetTile(position,out BaseTile tile))
+        {
+            tile.ApplyDamage(damage,playerID);
+        }
     }
 
     private void CalulateDamageToTile(Vector2Int position, int damage)
@@ -403,9 +457,12 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     #region 方块渲染相关
 
-    public void SetTileRender()
+    public void SetTileRender(BaseTile tile,Type tileType)
     {
-        
+        if (TryGetTileProperty(tileType,out var property))
+        {
+            tile.SetTileRender(property,tilemap);
+        }
     }
 
     #endregion
@@ -673,4 +730,24 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     }
 
     #endregion
+
+    #region 事件中心
+
+    public void AddListener(string messageType, params Action<EventArgs>[] action)
+    {
+         eventCenterCore.AddListener(messageType, action);
+    }
+
+    public void BoradCastMessage(string messageType, EventArgs eventArgs)
+    {
+        eventCenterCore.BoradCastMessage(messageType, eventArgs);
+    }
+
+    public void RemoveListener(string messageType, params Action<EventArgs>[] action)
+    {
+        eventCenterCore.RemoveListener(messageType, action);
+    }
+
+    #endregion
+
 }

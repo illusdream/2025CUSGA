@@ -6,9 +6,4 @@ namespace Tiles
     {
         public override Type TilePropertyType => typeof(CharactorTileProperty);
     }
-
-    public class CharactorTileProperty : BaseTileProperty
-    {
-
-    }
 }

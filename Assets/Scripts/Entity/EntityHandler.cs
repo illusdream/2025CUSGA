@@ -56,7 +56,7 @@ public class EntityHandler : MonoBehaviour
                         {
                                 if (!collection.Add(_action))
                                 {
-                                     $"向事件中心内添加重复的Listener:{_action},GameObject:{gameObject}".ErrorSelf(gameObject);
+                                     $"向事件中心内添加重复的Listener:{_action.Method.Name},GameObject:{gameObject}".ErrorSelf(gameObject);
                                 }
                         }
                 }
@@ -68,7 +68,7 @@ public class EntityHandler : MonoBehaviour
                         {
                                 if (!instance.Add(_action))
                                 {
-                                        $"向事件中心内添加重复的Listener:{_action},GameObject:{gameObject}".ErrorSelf(gameObject);
+                                        $"向事件中心内添加重复的Listener:{_action.Method.Name},GameObject:{gameObject}".ErrorSelf(gameObject);
                                 }
                         }
                 }

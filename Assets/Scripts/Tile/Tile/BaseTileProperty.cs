@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-
+[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
 [Serializable]
-[ShowInInlineEditors()]
-public abstract class BaseTileProperty
+public  class BaseTileProperty : ScriptableObject
 {
-
+    [ShowInInspector]
     public  int BaseMaxHealth;
-    
+    [ShowInInspector]
     public bool CanBeDestroyed;
-
+    [ShowInInspector]
     public bool CanBeMerged;
-
+    [ShowInInspector]
     public int BaseMergeScore;
 
-    public BaseTileProperty()
-    {
-        
-    }
+    [HideInInspector]
+    public string TargetType;
 }

@@ -10,8 +10,4 @@ namespace Tiles
         public override Type TilePropertyType => typeof(SolidTileProperty);
     }
 
-    public class SolidTileProperty : BaseTileProperty
-    {
-
-    }
 }

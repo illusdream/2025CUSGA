@@ -1,10 +1,12 @@
 ﻿using ilsFramework;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerController : EntityComponent
 {
         public override string TargetUsage => EntityComponetUsage.playerController;
 
+        [ShowInInspector]
         public int PlayerID { get;private set; }
         
         

@@ -1,5 +1,7 @@
 ﻿using System;
+using ilsFramework;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// 方块的基类，运行时实例
@@ -27,6 +29,13 @@ public abstract class BaseTile
 
     public int TileID;
     
+    public bool IsDestroyed;
+
+    /// <summary>
+    /// 最后一个击中Tile的Player的ID
+    /// </summary>
+    public int TileLastestBeHitByID;
+    
     /// <summary>
     /// 需要的PropertyType，正式初始化时会将对应类型的tileProperty传入Initialize
     /// </summary>
@@ -44,8 +53,9 @@ public abstract class BaseTile
 
     public void BasePropertyInitialize(BaseTileProperty tileProperty)
     {
+
         BaseMaxHealth = tileProperty.BaseMaxHealth;
-        
+        Health = BaseMaxHealth;
         CanBeDestroyed = tileProperty.CanBeDestroyed;
 
         CanBeMerged = tileProperty.CanBeMerged;
@@ -64,7 +74,23 @@ public abstract class BaseTile
         
     }
 
-    public void ApplyDamage(float damage)
+    public virtual void ApplyDamage(float damage,int playerID)
+    {
+        TileLastestBeHitByID = playerID;
+        Health -= damage;
+        if (Health<=0)
+        {
+            IsDestroyed = true;
+        }
+        Health = Math.Max(Health, 0);
+    }
+
+    public virtual void SetTileRender(BaseTileProperty tileProperty,Tilemap renderer)
+    {
+        
+    }
+
+    public virtual void RemoveTileRender(BaseTileProperty tileProperty, Tilemap renderer)
     {
         
     }

@@ -22,4 +22,11 @@ public static class PlayerEvent
         /// 玩家做出移动
         /// </summary>
         public const string PlayerMove = "PlayerMove";
+        
+        
+        public const string BeOrderToBreakTile = "BeOrderToBreakTile";
+        
+        
+        
+        public const string BeOrderToPlaceTile = "BeOrderToPlaceTile";
 }

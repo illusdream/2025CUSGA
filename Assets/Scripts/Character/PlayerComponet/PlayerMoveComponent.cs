@@ -53,7 +53,7 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
     
     public override void OnEntityDestroy(EntityHandler handler)
     {
-        base.handler.RemoveEventListener(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,ExecuteMove);
+        handler.RemoveEventListener(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,ExecuteMove);
         base.OnEntityDestroy(handler);
     }
     

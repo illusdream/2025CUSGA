@@ -16,32 +16,47 @@ public class TileConfig : ConfigScriptObject
     
     public const string TileTypeEnumName = "ETileType";
     public const string TileTypeEnumDescription = "";
-    
-    public int dasd;
-    
-    private Dictionary<Type,BaseTileProperty> TileProperties;
 
+    public const string TilePropertyFolderPath = "Assets/Resources/Base/Tile/TileProperities";
+    
+    private Dictionary<string,BaseTileProperty> TileProperties;
+    
+    [SerializeField]
     [ShowInInspector]
     [LabelText("TileProperties")]
     [ListDrawerSettings(ShowFoldout = false,HideAddButton = true,HideRemoveButton = true,DraggableItems = false)]
     [Searchable]
     [InlineProperty]
+    [ShowInInlineEditors]
     [FoldoutGroup("TileDetailConfig")]
     private List<BaseTileProperty> DictionaryValues;
-
-    [ShowInInspector]
-    private Dictionary<string, int> TileIDMaps;
     
+    [ShowInInspector]
+    private SerializableDictionary<string, int> TileIDMaps;
+
+
+    private void CheckTilePropertyVaild()
+    {
+        if (TileProperties == null)
+        {
+            TileProperties = new Dictionary<string, BaseTileProperty>();
+            foreach (var tileProperty in DictionaryValues)
+            {
+                TileProperties.Add(tileProperty.TargetType, tileProperty);
+            }
+        }
+    }
     
     public bool TryGetTileProperty(Type type, out BaseTileProperty property)
     {
-        return TileProperties.TryGetValue(type, out property);
-        
+        CheckTilePropertyVaild();
+        return TileProperties.TryGetValue(type.FullName, out property);
     }
 
     public bool TryGetTileProperty<T>(out BaseTileProperty property)
-    {
-        return TileProperties.TryGetValue(typeof(T), out property);
+    {        
+        CheckTilePropertyVaild();
+        return TileProperties.TryGetValue(typeof(T).FullName, out property);
     }
 
 
@@ -51,7 +66,7 @@ public class TileConfig : ConfigScriptObject
     [FoldoutGroup("TileDetailConfig")]
     public void RebuildTileProperties()
     {
-        TileProperties = new Dictionary<Type, BaseTileProperty>();
+        DictionaryValues = new List<BaseTileProperty>();
         foreach (var type in  TypeCache.GetTypesDerivedFrom<BaseTile>())
         {
             if (type.IsAbstract)
@@ -59,15 +74,15 @@ public class TileConfig : ConfigScriptObject
                 continue;
             }
             var instance = (BaseTile)Activator.CreateInstance(type);
-            var tileproperty = (BaseTileProperty)Activator.CreateInstance(instance.TilePropertyType);
-            TileProperties.Add(type,tileproperty);
+
+            CreateTilePropertyAsset(instance.TilePropertyType,type,out var tileproperty);
+            DictionaryValues.Add(tileproperty);
         }
-        DictionaryValues = TileProperties.Select((pair) => pair.Value).ToList();
     }
     [Button(ButtonSizes.Medium)]
     public void RebuildTileIDMaps()
     {
-        TileIDMaps = new Dictionary<string, int>();
+        TileIDMaps = new SerializableDictionary<string, int>();
         foreach (var type in  TypeCache.GetTypesDerivedFrom<BaseTile>())
         {
             if (!TileIDMaps.ContainsKey(type.Name))
@@ -108,22 +123,37 @@ public class TileConfig : ConfigScriptObject
         RebuildTileProperties();
         RebuildTileIDMaps();
     }
+
+    public void CreateTilePropertyAsset(Type tilePropertyType,Type tileType,out BaseTileProperty property)
+    {
+        var instance = ScriptableObject.CreateInstance(tilePropertyType) as BaseTileProperty;
+        if (instance == null)
+        {
+            property = null;
+            return;
+        }
+        instance.TargetType = tileType.FullName;
+        AssetDatabase.CreateAsset(instance,TilePropertyFolderPath + $"/{tilePropertyType.Name}.asset");
+        property = instance;
+    }
 #endif
     
     
 
     public void CheckTileProperty(List<Type> tileTypes)
     {
-        TileProperties ??= new Dictionary<Type, BaseTileProperty>();
-        TileIDMaps ??= new Dictionary<string, int>();
-        Dictionary<Type,Type> tileTotileProperties = new Dictionary<Type, Type>();
-        HashSet<Type> needTileProperties = new HashSet<Type>();
-        HashSet<Type> currentTileProperties = TileProperties.Select((tileProperty) => tileProperty.Key).ToHashSet();
+        return;
+        TileProperties ??= new Dictionary<string, BaseTileProperty>();
+        TileIDMaps ??= new SerializableDictionary<string, int>();
+       // DictionaryValues = new List<BaseTileProperty>();
+        Dictionary<string,Type> tileTotileProperties = new Dictionary<string, Type>();
+        HashSet<string> needTileProperties = new HashSet<string>();
+        HashSet<string> currentTileProperties = TileProperties.Select((tileProperty) => tileProperty.Key).ToHashSet();
         foreach (var tileType in tileTypes)
         {
             var instance = (BaseTile)Activator.CreateInstance(tileType);
-            needTileProperties.Add(tileType);
-            tileTotileProperties.Add(tileType,instance.TilePropertyType);
+            needTileProperties.Add(tileType.FullName);
+            tileTotileProperties.Add(tileType.FullName,instance.TilePropertyType);
             if (!TileIDMaps.ContainsKey(tileType.Name))
             {
                 TileIDMaps.Add(tileType.Name,TileIDMaps.Count);
@@ -147,12 +177,15 @@ public class TileConfig : ConfigScriptObject
         {
             TileProperties.Remove(type);
         }
-        DictionaryValues = TileProperties.Select((pair) => pair.Value).ToList();
+
+        foreach (var key in TileProperties.Keys)
+        {
+           // DictionaryValues.Add(TileProperties[key]);
+        }
     }
 
     public bool TryGetTileID(Type type, out int tileID)
     {
         return TileIDMaps.TryGetValue(type.Name, out tileID);
     }
-    
 }

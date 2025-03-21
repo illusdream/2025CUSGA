@@ -17,7 +17,7 @@ MonoBehaviour:
   AutoUpdateTileConfigs: 1
   TileLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   TileContactFilter:
     useTriggers: 0
     useLayerMask: 0

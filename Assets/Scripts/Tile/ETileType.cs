@@ -4,7 +4,9 @@
 /// </summary>
 public enum ETileType
 {
-	TEst1Tile = 0,
-	TEst2Tile = 1
+	CharactorTile = 0,
+	AirTile = 1,
+	SolidTile = 2,
+	CommonTile = 3
 }
 

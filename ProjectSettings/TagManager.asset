@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 625175997
+    locked: 0
+  - name: Tile
+    uniqueID: 3253449729
+    locked: 0
+  - name: Prop
+    uniqueID: 1801651143
+    locked: 0
+  - name: FlyableEntity
+    uniqueID: 2742005435
+    locked: 0
+  - name: Character
+    uniqueID: 2965696183
+    locked: 0
+  - name: UI
+    uniqueID: 3999465305
+    locked: 0
