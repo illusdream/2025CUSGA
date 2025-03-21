@@ -1,6 +1,7 @@
 using ilsFramework;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -46,11 +47,16 @@ public class StopGameUI : UIPanel
     private void OnResume()
     {
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
-        Debug.Log("重新开始");
+        UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();
+        //UIManager.Instance.GetUIPanel<FadeImageUI>().Open();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void OnExit()
     {
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
-        Debug.Log("回到主页面");
+        SceneManager.LoadScene("TestUIScene");
+        UIManager.Instance.GetUIPanel<InHouseUI>().Close();
+        UIManager.Instance.GetUIPanel<MenuUI>().Open();
+        UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();
     }
 }

@@ -1,4 +1,5 @@
 using ilsFramework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -55,6 +56,7 @@ public class SettingUI : UIPanel
     private void OnReset()
     {
         InputManager.Instance.ResetAllBindings();
+        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.ResetKey, EventArgs.Empty);
         Debug.Log("重置");
     }
     private void OnGameSetting()
@@ -77,16 +79,19 @@ public class SettingUI : UIPanel
         if (isPlayMusic)
         {
             MusicSwitch.GetComponent<Image>().color = Color.white;
+            
             Debug.Log("播放音乐");
         }
         else
         {
             MusicSwitch.GetComponent<Image>().color = Color.red;
+            AudioManager.Instance.StopAll();
             Debug.Log("关闭音乐");
         }
     }
     private void OnMainMusicSlider(float a)
     {
+        AudioManager.Instance.SetMainVolume(a);
         Debug.Log("主音量"+a);
     }
     private void OnBackgroundMusicSlider(float a)

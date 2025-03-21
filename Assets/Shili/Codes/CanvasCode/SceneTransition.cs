@@ -61,5 +61,6 @@ public class SceneTransition: MonoBehaviour
         // µ­³öÐ§¹û
         yield return StartCoroutine(FadeRoutine(false));
         UIManager.Instance.GetUIPanel<FadeImageUI>().Close();
+        
     }
 }

@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using ilsFramework;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Windows;
+using static System.Net.Mime.MediaTypeNames;
 
 public class ChangeKeyCodes : MonoBehaviour
 {
@@ -12,43 +15,88 @@ public class ChangeKeyCodes : MonoBehaviour
     private Keyboard keyboard;
     private InputAction inputAction;
     public string actionName;
+    public int moveIndex;
+    private string keyString;
     private void Awake()
     {
 
         playerKey = gameObject;
         inputActions = InputManager.Instance.GetCurrentInputAction();
-        if (inputActions == null)
-        {
-            Debug.Log(55);
-        }
         //按键按钮
         playerKey.GetComponent<Button>().onClick.AddListener(TextInputPlayerKey);
         keyboard = Keyboard.current;
         inputAction = inputActions.FindAction(actionName);
+        keyString = transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text;
+    }
+    private void OnEnable()
+    {
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.ResetKey, OnResetKey);
+    }
+    private void OnDisable()
+    {
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.ResetKey, OnResetKey);
+    }
+    private void OnResetKey(EventArgs e)
+    {
+        transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = keyString;
     }
     private void TextInputPlayerKey()
     {
         inputAction.Disable();
 
         // 启动异步重绑定操作
-        var rebindOperation = inputAction.PerformInteractiveRebinding()
-            .WithControlsExcluding("<Mouse>/leftButton") // 可选：排除鼠标左键
-            //.WithExpectedControlType("Key")           // 限制按键类型
-            //.WithTimeout(5)                               // 5秒后超时
-            .OnComplete(operation =>
+        var rebindOperation = inputAction.PerformInteractiveRebinding();
+        rebindOperation.WithTargetBinding(moveIndex);
+        rebindOperation.WithControlsExcluding("<mouse>/leftButton"); // 可选：排除鼠标左键
+        rebindOperation.WithExpectedControlType("Key");          // 限制按键类型
+        rebindOperation.OnComplete(operation =>
+        {
+            // 检查新选择的控制是否已经被其他动作绑定
+            if (IsControlAlreadyBound(operation.selectedControl.path))
             {
-                Debug.Log("绑定成功: " + operation.selectedControl.name.ToUpper());
-                playerKey.transform.GetChild(0).GetComponent<Text>().text =char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1); // ✔ 根据实际绑定控件更新UI（如 "A" 对应键盘按键）
-                InputManager.Instance.SaveBinding(inputAction);
+                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears,EventArgs.Empty);
                 operation.Dispose();
                 inputAction.Enable();
-            })
-            .OnCancel(operation =>
-            {
-                Debug.Log("绑定取消");
-                operation.Dispose();
-                inputAction.Enable();
-            })
-            .Start(); // ✔ 切记调用.Start()启动
+                return;
+            }
+
+            Debug.Log("绑定成功: " + operation.selectedControl.name.ToUpper());
+            string a = char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1);
+            playerKey.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = a;
+            InputManager.Instance.SaveBinding(inputAction);
+            operation.Dispose();
+            inputAction.Enable();
+        });
+        rebindOperation.OnCancel(operation =>
+        {
+            Debug.Log("绑定取消");
+            operation.Dispose();
+            inputAction.Enable();
+        });
+        rebindOperation.Start();
     }
+
+    private bool IsControlAlreadyBound(string selectedControl)
+    {
+        Debug.Log(selectedControl);
+        selectedControl = selectedControl.Replace("/","");
+        foreach (var action in inputActions)
+        {
+           // Debug.Log(action.name);
+            foreach (var binding in action.bindings)
+            {
+                string aaaaaaaaaa = binding.path.Replace("/", "");
+                aaaaaaaaaa = aaaaaaaaaa.Replace("<", "");
+                aaaaaaaaaa = aaaaaaaaaa.Replace(">", "");
+                Debug.Log(aaaaaaaaaa);
+                if (aaaaaaaaaa == selectedControl)
+                {
+                    return true;
+                }
+                
+            }
+        }
+        return false;
+    }
+
 }
