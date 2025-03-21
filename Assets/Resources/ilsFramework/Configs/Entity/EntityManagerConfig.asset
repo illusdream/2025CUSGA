@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d23b0b079f43a0bb2a753f2701fced, type: 3}
   m_Name: EntityManagerConfig
   m_EditorClassIdentifier: 
+  tes: 0
   EntityTypes:
   - EntityTypeName: Other
     LayerMask:

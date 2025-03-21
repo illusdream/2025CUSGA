@@ -30,6 +30,8 @@ public class SettingUI : UIPanel
     private GameObject gameSettingObject;
     [AutoUIElement("Panel/KeystrokeSetting")]
     private GameObject keystrokeSettingObject;
+    [AutoUIElement("Panel/KeystrokeSetting/Reset")]
+    private Button ResetButton;
     //≤Œ ˝
     private bool isPlayMusic;
     public override void InitUIPanel()
@@ -47,7 +49,13 @@ public class SettingUI : UIPanel
         soundSlider.onValueChanged.AddListener(OnSoundSlider);
         showDropdown.onValueChanged.AddListener(OnShowChange);
         resDropdown.onValueChanged.AddListener(OnResChange);
+        ResetButton.onClick.AddListener(OnReset);
 
+    }
+    private void OnReset()
+    {
+        InputManager.Instance.ResetAllBindings();
+        Debug.Log("÷ÿ÷√");
     }
     private void OnGameSetting()
     {

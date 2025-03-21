@@ -23,20 +23,20 @@ MonoBehaviour:
   - Value: DebugConfig
   ManagersUpdateSort:
   - Value: ilsFramework.MonoManager
-  - Value: ilsFramework.ConfigManager
   - Value: ilsFramework.AssetManager
-  - Value: InputManager
+  - Value: ilsFramework.ConfigManager
   - Value: EntityManager
-  - Value: ilsFramework.DebugManager
+  - Value: InputManager
   - Value: CamaraManager
-  - Value: ilsFramework.AudioManager
+  - Value: ilsFramework.GlobalEventCenter
   - Value: ilsFramework.PoolManager
   - Value: ilsFramework.TimerManager
   - Value: ilsFramework.LoggerManager
-  - Value: CharacterManager
-  - Value: TileManager
-  - Value: ilsFramework.SceneHandler
-  - Value: ilsFramework.GlobalEventCenter
-  - Value: ilsFramework.NBTManager
-  - Value: PropManager
   - Value: ilsFramework.UIManager
+  - Value: CharacterManager
+  - Value: PropManager
+  - Value: TileManager
+  - Value: ilsFramework.DebugManager
+  - Value: ilsFramework.NBTManager
+  - Value: ilsFramework.SceneHandler
+  - Value: ilsFramework.AudioManager

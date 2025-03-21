@@ -17,6 +17,10 @@ public class ChangeKeyCodes : MonoBehaviour
 
         playerKey = gameObject;
         inputActions = InputManager.Instance.GetCurrentInputAction();
+        if (inputActions == null)
+        {
+            Debug.Log(55);
+        }
         //按键按钮
         playerKey.GetComponent<Button>().onClick.AddListener(TextInputPlayerKey);
         keyboard = Keyboard.current;

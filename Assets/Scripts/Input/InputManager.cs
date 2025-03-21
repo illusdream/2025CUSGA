@@ -107,7 +107,10 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
             var actionBinding =  sqliteconnection.Table<InputModifierInfo>().Any(info => info.GUID == action.id.ToString());
             if (actionBinding)
             {
-                action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+                for (int i = 0; i < action.bindings.Count; i++)
+                {
+                    action.RemoveBindingOverride(i);
+                }
                 sqliteconnection.Delete<InputModifierInfo>(action.id.ToString());
             }
         }
@@ -125,7 +128,10 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
                 var actionBinding =  sqliteconnection.Table<InputModifierInfo>().Any(info => info.GUID == action.id.ToString());
                 if (actionBinding)
                 {
-                    action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+                    for (int i = 0; i < action.bindings.Count; i++)
+                    {
+                        action.RemoveBindingOverride(i);
+                    }
                     sqliteconnection.Delete<InputModifierInfo>(action.id.ToString());
                 }
             }
@@ -144,7 +150,10 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
                 var actionBinding =  sqliteconnection.Table<InputModifierInfo>().Any(info => info.GUID == action.id.ToString());
                 if (actionBinding)
                 {
-                    action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
+                    for (int i = 0; i < action.bindings.Count; i++)
+                    {
+                        action.RemoveBindingOverride(i);
+                    }
                     sqliteconnection.Delete<InputModifierInfo>(action.id.ToString());
                 }
             }
@@ -161,12 +170,17 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
             var allBindings = sqliteconnection.Table<InputModifierInfo>().ToList();
             foreach (var inputModifierInfo in allBindings)
             {
+                inputModifierInfo.ModifierJson.LogSelf();
               var  action = _mainInputAction.FindAction(inputModifierInfo.GUID);
-              if (action != null)
-              {
-                  action.RemoveBindingOverride(InputBinding.MaskByGroup(action.actionMap.name));
-              }
+                if (action != null)
+                {
+                    for (int i = 0; i < action.bindings.Count; i++)
+                    {
+                        action.RemoveBindingOverride(i);
+                    }
+                }
             }
+            
 
             sqliteconnection.DeleteAll<InputModifierInfo>();
         }

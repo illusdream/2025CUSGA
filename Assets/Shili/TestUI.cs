@@ -15,11 +15,11 @@ public class TestUI : MonoBehaviour
     private void OnEnable()
     {
         //不用enable，Manager里已经处理了
-        //inputActions.GamePlay.TEst.started += On;
-        //inputActions.Enable();
+        inputActions.GamePlay.Text.started += On;
+        inputActions.Enable();
     }
     private void On(InputAction.CallbackContext callbackContext)
     {
-        //Debug.Log("���ǲ��԰���");
+        Debug.Log("111");
     }
 }

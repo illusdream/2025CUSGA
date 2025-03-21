@@ -98,6 +98,15 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Text"",
+                    ""type"": ""Button"",
+                    ""id"": ""e22af03c-2369-41e8-bd23-6b29486dd547"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -276,6 +285,17 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Player2Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f4d3d9d-b256-4fd3-a168-d3fe61409449"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Text"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -320,6 +340,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         m_GamePlay_Player2PlaceTile = m_GamePlay.FindAction("Player2PlaceTile", throwIfNotFound: true);
         m_GamePlay_Player1UseProp = m_GamePlay.FindAction("Player1UseProp", throwIfNotFound: true);
         m_GamePlay_Player2UseProp = m_GamePlay.FindAction("Player2UseProp", throwIfNotFound: true);
+        m_GamePlay_Text = m_GamePlay.FindAction("Text", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -392,6 +413,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Player2PlaceTile;
     private readonly InputAction m_GamePlay_Player1UseProp;
     private readonly InputAction m_GamePlay_Player2UseProp;
+    private readonly InputAction m_GamePlay_Text;
     public struct GamePlayActions
     {
         private @MainInputAction m_Wrapper;
@@ -404,6 +426,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         public InputAction @Player2PlaceTile => m_Wrapper.m_GamePlay_Player2PlaceTile;
         public InputAction @Player1UseProp => m_Wrapper.m_GamePlay_Player1UseProp;
         public InputAction @Player2UseProp => m_Wrapper.m_GamePlay_Player2UseProp;
+        public InputAction @Text => m_Wrapper.m_GamePlay_Text;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -437,6 +460,9 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Player2UseProp.started += instance.OnPlayer2UseProp;
             @Player2UseProp.performed += instance.OnPlayer2UseProp;
             @Player2UseProp.canceled += instance.OnPlayer2UseProp;
+            @Text.started += instance.OnText;
+            @Text.performed += instance.OnText;
+            @Text.canceled += instance.OnText;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -465,6 +491,9 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Player2UseProp.started -= instance.OnPlayer2UseProp;
             @Player2UseProp.performed -= instance.OnPlayer2UseProp;
             @Player2UseProp.canceled -= instance.OnPlayer2UseProp;
+            @Text.started -= instance.OnText;
+            @Text.performed -= instance.OnText;
+            @Text.canceled -= instance.OnText;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -538,6 +567,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         void OnPlayer2PlaceTile(InputAction.CallbackContext context);
         void OnPlayer1UseProp(InputAction.CallbackContext context);
         void OnPlayer2UseProp(InputAction.CallbackContext context);
+        void OnText(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

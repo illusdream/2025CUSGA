@@ -32,6 +32,7 @@ public class TileConfig : ConfigScriptObject
     private List<BaseTileProperty> DictionaryValues;
     
     [ShowInInspector]
+    [SerializeField]
     private SerializableDictionary<string, int> TileIDMaps;
 
 
