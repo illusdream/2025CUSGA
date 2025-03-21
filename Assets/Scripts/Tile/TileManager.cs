@@ -99,6 +99,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     {
         foreach (var baseTile in tiles)
         {
+            if(baseTile is null)
+                return;
             if (baseTile.IsDestroyed)
             {
                 needRemoveTileBuffer.Add(baseTile.Position);
