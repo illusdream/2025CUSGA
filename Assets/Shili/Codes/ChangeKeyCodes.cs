@@ -52,14 +52,13 @@ public class ChangeKeyCodes : MonoBehaviour
         rebindOperation.OnComplete(operation =>
         {
             // 检查新选择的控制是否已经被其他动作绑定
-            if (IsControlAlreadyBound(operation.selectedControl.path))
+            if (IsControlAlreadyBound(char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1)))
             {
-                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears,EventArgs.Empty);
+                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
                 operation.Dispose();
                 inputAction.Enable();
                 return;
             }
-
             Debug.Log("绑定成功: " + operation.selectedControl.name.ToUpper());
             string a = char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1);
             playerKey.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = a;
@@ -78,7 +77,7 @@ public class ChangeKeyCodes : MonoBehaviour
 
     private bool IsControlAlreadyBound(string selectedControl)
     {
-        Debug.Log(selectedControl);
+        /*Debug.Log(selectedControl);
         selectedControl = selectedControl.Replace("/","");
         foreach (var action in inputActions)
         {
@@ -94,6 +93,15 @@ public class ChangeKeyCodes : MonoBehaviour
                     return true;
                 }
                 
+            }
+        }
+        return false;*/
+        List<GameObject> textObjects = transform.parent.parent.parent.parent.parent.GetComponent<SettingUICanvas>().textObject;
+        foreach (var i in textObjects)
+        {
+            if(i.GetComponent<UnityEngine.UI.Text>().text == selectedControl)
+            {
+                return true;
             }
         }
         return false;

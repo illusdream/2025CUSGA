@@ -1793,7 +1793,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Numpad 2
+  m_Text: Numpad2
 --- !u!1 &1172738216856183006
 GameObject:
   m_ObjectHideFlags: 0
@@ -6349,6 +6349,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 6601436206423413953}
+  textObject:
+  - {fileID: 7487600989406919976}
+  - {fileID: 8212928051966740750}
+  - {fileID: 3549397165523932154}
+  - {fileID: 1196798193028909730}
+  - {fileID: 2040643878188139725}
+  - {fileID: 5440660946794154082}
+  - {fileID: 8512329402647129929}
+  - {fileID: 3075382363102381858}
+  - {fileID: 3325632620239911131}
+  - {fileID: 619171521501233645}
+  - {fileID: 8275037613473625867}
+  - {fileID: 5824052387600073660}
+  - {fileID: 1163725252238564075}
+  - {fileID: 7049376687811363906}
 --- !u!1 &4001485649586717200
 GameObject:
   m_ObjectHideFlags: 0
@@ -7774,7 +7789,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Numpad 1
+  m_Text: Numpad1
 --- !u!1 &5884227655823833680
 GameObject:
   m_ObjectHideFlags: 0
@@ -9490,7 +9505,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Numpad 3
+  m_Text: Numpad3
 --- !u!1 &7061887435067518181
 GameObject:
   m_ObjectHideFlags: 0

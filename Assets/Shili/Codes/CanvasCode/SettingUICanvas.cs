@@ -7,6 +7,7 @@ using UnityEngine;
 public class SettingUICanvas : MonoBehaviour
 {
     public GameObject panel;//提示（大了可以阻止玩家操作）
+    public List<GameObject> textObject;
     private void OnEnable()
     {
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PromptAppears, OnAppear);
