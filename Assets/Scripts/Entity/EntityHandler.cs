@@ -10,9 +10,13 @@ using UnityEngine.Serialization;
 
 public class EntityHandler : MonoBehaviour
 {
+        [ShowInInspector]
+        public EntityID ID;
+        
+        
         [ValueDropdown("GetAllEntityTypes",IsUniqueList = true)]
         [ListDrawerSettings(HideRemoveButton = true,DraggableItems = false)]
-        public List<string> EntityTypes = new List<string>();
+        public string EntityType;
 #if UNITY_EDITOR
         private List<string> GetAllEntityTypes()
         {
@@ -106,8 +110,8 @@ public class EntityHandler : MonoBehaviour
         public void Start()
         {
                 eventHandler = new Dictionary<(string,EEntityEventScope),HashSet<Action<EventArgs>>>();
-                InitializedEntityComponents();
                 InitEntityToManager();
+                InitializedEntityComponents();
         }
 
         private void InitializedEntityComponents()
@@ -117,6 +121,7 @@ public class EntityHandler : MonoBehaviour
                         if (value is EntityComponent entityComponent)
                         {
                                 entityComponent.handler = this;
+                                entityComponent.SetID(ID);
                                 entityComponent.OnInitialized(this);
                         }
                 }

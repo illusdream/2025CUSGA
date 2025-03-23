@@ -476,8 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4242338fc43e4e5192fe9f0aca75c050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityTypes:
-  - Flyable
+  EntityType: Other
   components:
     list: []
 --- !u!4 &1274485949

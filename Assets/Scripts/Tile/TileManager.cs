@@ -5,10 +5,12 @@ using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
 using Tiles;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForeach,IEventCenter
 {
@@ -35,7 +37,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private List<Vector2Int> areaGetTileBuffer;
     
     //用于记录对应玩家的得分
-    private Dictionary<int, float> scoreCollection;
+    private Dictionary<EntityID, float> scoreCollection;
     
     
     private EventCenterCore eventCenterCore;
@@ -49,7 +51,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         areaCheckBuffer = new List<Collider2D>();
         areaGetTileBuffer = new List<Vector2Int>();
         
-        scoreCollection = new Dictionary<int, float>();
+        scoreCollection = new Dictionary<EntityID, float>();
         
         eventCenterCore = new EventCenterCore();
         TileIDMap = new Dictionary<Type, int>();
@@ -101,17 +103,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         {
             if(baseTile is null)
                 return;
-            if (baseTile.IsDestroyed)
-            {
-                needRemoveTileBuffer.Add(baseTile.Position);
-            }
         }
-
-        foreach (var vector2Int in needRemoveTileBuffer)
-        {
-            DestroyTile(vector2Int);
-        }
-        needRemoveTileBuffer.Clear();
     }
     
     public void OnDestroy()
@@ -167,7 +159,9 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         {
             for (int j = 0; j < tiles.GetLength(1); j++)
             {
-                SetTile(typeof(CommonTile),new Vector2Int(i,j),TileManagerConfig.TileSystemID);
+                Vector2 offest = new Vector2(Random.Range(0,1f), Random.Range(0,1f));
+                bool isAir = Mathf.PerlinNoise(i / 10f + offest.x, j / 10f + offest.y) >0.5f;
+                SetTile(isAir ? typeof(AirTile): typeof(CommonTile),new Vector2Int(i,j),EntityID.Empty);
             }
         }
     }
@@ -264,6 +258,27 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         return TryGetTile(GetTilePosition(worldPosition), targetType, out tile);
     }
     
+    public bool HasTile(Vector2Int position)
+    {
+        if (TryGetTile(position,out var tile) &&  TryGetTileID(typeof(AirTile),out var AirID) &&tile.TileID != AirID)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool HasTile<T>(Vector2Int position) where T : BaseTile
+    {
+        if (TryGetTile(position, out T _))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    
+    
+    
     /// <summary>
     /// 尝试获取在碰撞箱范围内所有的Tile
     /// </summary>
@@ -359,7 +374,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         return false;
     }
 
-    private bool InnerSetTile(Type type, Vector2Int position,int belongsToID,out BaseTile tileInstance)
+    private bool InnerSetTile(Type type, Vector2Int position,EntityID belongsToID,out BaseTile tileInstance)
     {
         if (!CheckPositionInGrid(position))
         {
@@ -387,7 +402,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <param name="type"></param>
     /// <param name="position"></param>
     /// <param name="belongsToID"></param>
-    public void SetTile(Type type, Vector2Int position, int belongsToID)
+    public void SetTile(Type type, Vector2Int position, EntityID belongsToID)
     {
         if (InnerSetTile(type,position,belongsToID, out BaseTile tile))
         {
@@ -398,13 +413,23 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             //CheckTileCanMerge(position);
         }
     }
+
+    public void TryPlaceTile(Type type, Vector2Int position, EntityID belongsToID)
+    {
+        if (IsAir(position))
+        {
+            ReplaceTile(type, position, belongsToID);
+        }
+    }
+    
+    
     /// <summary>
     /// 替换一个新的方块，会先触发原有Tile的破坏相关函数
     /// </summary>
     /// <param name="type"></param>
     /// <param name="position"></param>
     /// <param name="belongsToID"></param>
-    public void ReplaceTile(Type type, Vector2Int position, int belongsToID)
+    public void ReplaceTile(Type type, Vector2Int position, EntityID belongsToID)
     {
         if (!CheckPositionInGrid(position))
         {
@@ -417,16 +442,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         }
         oldTile.Destroy();
         //程序化的执行
-        var destoryArgs = new TileEvent.TileDestroyedEventArgs()
-        {
-            DestroyedTileID = oldTile.TileID,
-            TilePosition = position,
-            DestroyedByID = oldTile.TileLastestBeHitByID
-        };
-        BoradCastMessage(TileEvent.TileDestroyed,destoryArgs);
-        
         //放置方块
         SetTile(type,position,belongsToID);
+        
+        CheckTileCanMerge(position);
     }
     
     /// <summary>
@@ -435,25 +454,58 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <param name="position"></param>
     public void DestroyTile(Vector2Int position)
     {
-        ReplaceTile(typeof(AirTile),position,TileManagerConfig.TileSystemID);
+        if (TryGetTile(position,out var tile))
+        {
+            var destoryArgs = new TileEvent.TileDestroyedEventArgs()
+            {
+                DestroyedTileID = tile.TileID,
+                TilePosition = position,
+            };
+            BoradCastMessage(TileEvent.TileDestroyed,destoryArgs);
+        }
+        ReplaceTile(typeof(AirTile),position,EntityID.Empty);
     }
+
+    public void DestroyTileByRow(int row)
+    {
+        for (int i = 0; i < tiles.GetLength(0); i++)
+        {
+            Vector2Int position = new Vector2Int(i, row);
+            DestroyTile(position);
+        }
+    }
+
+    public void DestroyTileByColumn(int column)
+    {
+        for (int i = 0; i < tiles.GetLength(1); i++)
+        {
+            Vector2Int position = new Vector2Int(column, i);
+            DestroyTile(position);
+        }
+    }
+
+
+    
     /// <summary>
     /// 对方块造成伤害
     /// </summary>
     /// <param name="position"></param>
     /// <param name="damage"></param>
-    public void ApplyDamageToTile(Vector2Int position, int damage,int playerID)
+    public void ApplyDamageToTile(Vector2Int position, DamageInfo damageInfo,out BeHittedInfo hittedInfo)
     {
         if (TryGetTile(position,out BaseTile tile))
         {
-            tile.ApplyDamage(damage,playerID);
+            tile.Hit(damageInfo,out hittedInfo);
+            if (hittedInfo.IsKilledEntity)
+            {
+                BoradCastMessage(TileEvent.TileBreakedByPlayer,new TileEvent.TileBreakedByPlayerEventArgs(tile.TileID,position,damageInfo.DamageFrom));
+                DestroyTile(position);
+            }
+            return;
         }
+        hittedInfo = BeHittedInfo.Default;
     }
-
-    private void CalulateDamageToTile(Vector2Int position, int damage)
-    {
-        
-    }
+    
     
     #endregion
 
@@ -550,7 +602,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 }
             }
             //计算完数值，发送合并事件给外界，并尝试清除对应行的tile
-            BroadcastTileMergeEvent();
+            BroadcastTileMergeEvent(true,lastSetTilePosition);
+            DestroyTileByRow(lastSetTilePosition.y);
             return;
         }
                 
@@ -566,9 +619,9 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                     CalculateEachTileScore(scoreCollection, tile, lastTile);
                 }
                 
-                
                 //计算完数值，发送合并事件给外界，并尝试清除对应列的tile
-                BroadcastTileMergeEvent();
+                BroadcastTileMergeEvent(false,lastSetTilePosition);
+                DestroyTileByColumn(lastSetTilePosition.x);
                 return;
             }
         }
@@ -634,10 +687,18 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             {
                 return false;
             }
+
+            if (!TryGetTile(position,out var tile) ||!tile.CanBeMerged)
+            {
+                return false;
+            }
         }
         return true;
     }
+    
 
+    
+    
     public bool IsAir(Vector2Int position)
     {
         return TryGetTile<AirTile>(position, out _);
@@ -649,14 +710,14 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <param name="scoreCollection"></param>
     /// <param name="currectTile"></param>
     /// <param name="lastTile"></param>
-    private void CalculateEachTileScore(Dictionary<int,float> scoreCollection,BaseTile currectTile,BaseTile lastTile)
+    private void CalculateEachTileScore(Dictionary<EntityID,float> scoreCollection,BaseTile currectTile,BaseTile lastTile)
     {
         //中立方块
-        if (currectTile.TileBelongToID == TileManagerConfig.TileSystemID)
+        if (currectTile.TileBelongToID == EntityID.Empty)
         {
             //更具最后一个方块属于谁来判断
             //中立则给两者都增加
-            if (lastTile.TileBelongToID == TileManagerConfig.TileSystemID)
+            if (lastTile.TileBelongToID == EntityID.Empty)
             {
                 foreach (var scoreCollectionKey in scoreCollection.Keys)
                 {
@@ -704,9 +765,16 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// <summary>
     /// 广播一个合并事件，未具体实现TODO
     /// </summary>
-    private void BroadcastTileMergeEvent()
+    private void BroadcastTileMergeEvent(bool isRowMerge,Vector2Int lastSetTilePosition)
     {
-        
+        TileEvent.TileMergeEventArgs eventArgs = new TileEvent.TileMergeEventArgs()
+        {
+            IsColumnMerge = !isRowMerge,
+            IsRowMerge = isRowMerge,
+            MergeStartTilePosition = lastSetTilePosition,
+            scoreCollection = this.scoreCollection
+        };
+        BoradCastMessage(TileEvent.TileMerged, eventArgs);
     }
     
     #endregion
@@ -726,7 +794,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// 获取所有的玩家ID，未具体实现TODO
     /// </summary>
     /// <returns></returns>
-    public List<int> GetAllPlayerIDs()
+    public List<EntityID> GetAllPlayerIDs()
     {
         return CharacterManager.Instance.GetAllPlayerID();
     }

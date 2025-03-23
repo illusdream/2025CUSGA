@@ -12,6 +12,8 @@ public class EntityCollection :IEnumerable<EntityHandler>
       /// Entity类型
       /// </summary>
       public EntityTypeInfo EntityTypeInfo;
+      
+      public EEntityType EntityType;
       [ShowInInspector]
       private ContactFilter2D ContactFilter;
 
@@ -23,33 +25,52 @@ public class EntityCollection :IEnumerable<EntityHandler>
       [ShowInInspector]
       public Dictionary<GameObject, EntityHandler> GameObjectToEntityHandlerMap;
       
+      public int EntityIDCounter { get; private set; }
+      
       public event Action<EntityHandler> OnEntityAdded;
       
       public event Action<EntityHandler> OnEntityRemoved;
 
       public event Action<EntityHandler> OnEntityFindedByArea;
       
+      
+      
 
-      public virtual void InitEntityCollection(EntityTypeInfo entityTypeInfo)
+      public virtual void InitEntityCollection(EEntityType type,EntityTypeInfo entityTypeInfo)
       {
             EntityTypeInfo = entityTypeInfo;
+            EntityType = type;
             colliderBuffer = new List<Collider2D>();
             raycastHitBuffer = new List<RaycastHit2D>();
             ContactFilter = entityTypeInfo.BuildContactFilter();
             hasFindedEntity = new HashSet<GameObject>();
+            EntityIDCounter = 0;
             GameObjectToEntityHandlerMap = new Dictionary<GameObject, EntityHandler>();
       }
 
       public virtual void AddEntityToCollection(EntityHandler entity)
       {
-            GameObjectToEntityHandlerMap.Add(entity.gameObject, entity);
-            OnEntityAdded?.Invoke(entity);
+            if (GameObjectToEntityHandlerMap.TryAdd(entity.gameObject, entity))
+            {
+                  EntityID instanceID = new EntityID()
+                  {
+                        EntityType = EntityType,
+                        ID = EntityIDCounter,
+                  };
+                  EntityIDCounter++;
+                  
+                  entity.ID = instanceID;
+                  OnEntityAdded?.Invoke(entity);
+            }
+
       }
 
       public virtual void RemoveEntityFromCollection(EntityHandler entity)
       {
-            GameObjectToEntityHandlerMap.Remove(entity.gameObject);
-            OnEntityRemoved?.Invoke(entity);
+            if (GameObjectToEntityHandlerMap.Remove(entity.gameObject))
+            {
+                  OnEntityRemoved?.Invoke(entity);
+            }
       }
 
       public virtual bool TryGetEntity(GameObject gameObject, out EntityHandler entity)

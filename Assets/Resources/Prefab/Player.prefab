@@ -129,6 +129,8 @@ GameObject:
   - component: {fileID: 7418803142098904480}
   - component: {fileID: 7759961249029102720}
   - component: {fileID: 2598141953491336947}
+  - component: {fileID: 2025048384620317698}
+  - component: {fileID: 1723513025055233921}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -165,8 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4242338fc43e4e5192fe9f0aca75c050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityTypes:
-  - Character
+  EntityType: Character
   components:
     list:
     - Key: CharacterController
@@ -175,6 +176,10 @@ MonoBehaviour:
       Value: {fileID: 7759961249029102720}
     - Key: PlayerTileHandler
       Value: {fileID: 2598141953491336947}
+    - Key: EnergyContainer
+      Value: {fileID: 1723513025055233921}
+    - Key: PropContainer
+      Value: {fileID: 2025048384620317698}
 --- !u!114 &3552688374575338249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,3 +253,31 @@ MonoBehaviour:
   handler: {fileID: 0}
   playerController: {fileID: 3552688374575338249}
   MaxPlayerCanHasTileCount: 100
+--- !u!114 &2025048384620317698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196107388258662534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7685afeda9084566a8d92c9773d0d40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+--- !u!114 &1723513025055233921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196107388258662534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4074747c2c434ebf30f5b396370a56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+  MaxEnergy: 1000
+  CurrentEnergy: 0

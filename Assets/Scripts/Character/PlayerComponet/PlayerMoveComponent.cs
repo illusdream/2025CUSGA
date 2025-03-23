@@ -1,5 +1,6 @@
 ﻿using System;
 using ilsFramework;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerMoveComponent : EntityComponent,IEntityMove
@@ -69,6 +70,7 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
     public void FixedUpdate()
     {
 
+            
         if (!IsInputMoving)
         {
             var tickFalloffVector = Time.fixedDeltaTime * SpeedFalloff;
@@ -87,5 +89,10 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
             Rigidbody2D.velocity = Vector2.ClampMagnitude(Rigidbody2D.velocity, MaxMoveSpeed); 
         }
         IsInputMoving = false;
+    }
+    [Button]
+    public void CheckIDEquals(EntityID id)
+    {
+        (id == ID).LogSelf();
     }
 }

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1261ab09ab244a2f9346d9e272261c4d, type: 3}
   m_Name: TileConfig
   m_EditorClassIdentifier: 
-  DictionaryValues: []
+  DictionaryValues:
+  - {fileID: 11400000, guid: 5f576764dc85afb4387b1affd30bf25d, type: 2}
+  - {fileID: 11400000, guid: 7534f516612cf37448f3107bfb748f9c, type: 2}
+  - {fileID: 11400000, guid: 6b0f06a678404db438a9f20e239519a2, type: 2}
+  - {fileID: 11400000, guid: 18d158ad698854d4e8515ff8448dca64, type: 2}
   TileIDMaps:
     list:
     - Key: CharactorTile

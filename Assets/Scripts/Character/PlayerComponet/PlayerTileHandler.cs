@@ -18,42 +18,57 @@ public class PlayerTileHandler : EntityComponent
         
         public override void OnInitialized(EntityHandler handler)
         {
-                TileManager.Instance.AddListener(TileEvent.TileDestroyed,ReciveTileDestroyed);
                 AddEventListener(PlayerEvent.BeOrderToBreakTile,EEntityEventScope.Component,Listener_BeOrderToBreakTile);
+                AddEventListener(PlayerEvent.BeOrderToPlaceTile,EEntityEventScope.Component,Listener_BeOrderToPlaceTile);
                 base.OnInitialized(handler);
         }
 
         public override void OnEntityDestroy(EntityHandler handler)
         {
-                TileManager.Instance.RemoveListener(TileEvent.TileDestroyed,ReciveTileDestroyed);
                 RemoveEventListener(PlayerEvent.BeOrderToBreakTile,EEntityEventScope.Component,Listener_BeOrderToBreakTile);
+                RemoveEventListener(PlayerEvent.BeOrderToPlaceTile,EEntityEventScope.Component,Listener_BeOrderToPlaceTile);
                 base.OnEntityDestroy(handler);
         }
         
-        
-        //订阅方块破坏事件，来获取自己破坏了方块
-        private void ReciveTileDestroyed(EventArgs args)
-        {
-                if (args is TileEvent.TileDestroyedEventArgs tileDestroyedEventArgs)
-                {
-                        111.LogSelf();
-                        if (playerController.PlayerID != tileDestroyedEventArgs.DestroyedByID)
-                        {
-                                return;
-                        }
-
-                        PlayerTileCurrentHas++;
-                }
-        }
 
         private void Listener_BeOrderToBreakTile(EventArgs args)
         {
                 ApplyDamageToTile();
         }
 
+        private void Listener_BeOrderToPlaceTile(EventArgs args)
+        {
+                TryPlaceTile();
+        }
+
         public void ApplyDamageToTile()
         {
                 Vector2Int pos  = TileManager.Instance.GetTilePosition(new Vector2(transform.position.x, transform.position.y));
-                TileManager.Instance.ApplyDamageToTile(pos,50,playerController.PlayerID);
+                TileManager.Instance.ApplyDamageToTile(pos,DamageInfo.BuildDamageInfo(50,ID),out var beHittedInfo);
+                if (beHittedInfo.IsKilledEntity)
+                {
+                        PlayerTileCurrentHas++;
+                }
+        }
+
+        public void TryPlaceTile()
+        {
+                if (CheckCanPlaceTile())
+                {
+                        Vector2Int pos  = TileManager.Instance.GetTilePosition(new Vector2(transform.position.x, transform.position.y));
+                        TileManager.Instance.TryPlaceTile(typeof(Tiles.CharactorTile),pos,ID);
+                        PlayerTileCurrentHas--;
+                        PlayerTileCurrentHas = Mathf.Clamp(PlayerTileCurrentHas, 0, MaxPlayerCanHasTileCount);
+                }
+        }
+
+        public bool CheckCanPlaceTile()
+        {
+                if (PlayerTileCurrentHas > 0)
+                {
+                        return true;
+                }
+
+                return false;
         }
 }

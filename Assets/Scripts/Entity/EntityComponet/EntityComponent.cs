@@ -8,6 +8,8 @@ public abstract class EntityComponent : MonoBehaviour
 {
     [NotNull]
     public EntityHandler handler;
+    [HideInInspector]
+    public EntityID ID { get; private set; }
     
     [ShowInInspector]
     public virtual string TargetUsage { get;protected set; }
@@ -39,7 +41,11 @@ public abstract class EntityComponent : MonoBehaviour
     {
             
     }
-    
+
+    public void SetID(EntityID id)
+    {
+        ID = id;
+    }
     public virtual void OnInitialized(EntityHandler handler)
     {
         

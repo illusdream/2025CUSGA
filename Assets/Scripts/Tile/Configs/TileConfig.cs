@@ -143,45 +143,16 @@ public class TileConfig : ConfigScriptObject
 
     public void CheckTileProperty(List<Type> tileTypes)
     {
-        return;
-        TileProperties ??= new Dictionary<string, BaseTileProperty>();
-        TileIDMaps ??= new SerializableDictionary<string, int>();
-       // DictionaryValues = new List<BaseTileProperty>();
-        Dictionary<string,Type> tileTotileProperties = new Dictionary<string, Type>();
-        HashSet<string> needTileProperties = new HashSet<string>();
-        HashSet<string> currentTileProperties = TileProperties.Select((tileProperty) => tileProperty.Key).ToHashSet();
-        foreach (var tileType in tileTypes)
+        CheckTilePropertyVaild();
+        foreach (var type in tileTypes)
         {
-            var instance = (BaseTile)Activator.CreateInstance(tileType);
-            needTileProperties.Add(tileType.FullName);
-            tileTotileProperties.Add(tileType.FullName,instance.TilePropertyType);
-            if (!TileIDMaps.ContainsKey(tileType.Name))
+            var instance = (BaseTile)Activator.CreateInstance(type);
+            if (!TileProperties.ContainsKey(type.FullName))
             {
-                TileIDMaps.Add(tileType.Name,TileIDMaps.Count);
+                CreateTilePropertyAsset(instance.TilePropertyType,type,out var tileproperty);
+                DictionaryValues.Add(tileproperty);
             }
-        }
-        
-        //找到没有的TileProperty
-        var needAdd = needTileProperties.Except(currentTileProperties);
-        //找到需要删除的TileProperty
-        var needRemove = currentTileProperties.Except(needTileProperties);
-        foreach (var type in needAdd)
-        {
-            if (tileTotileProperties.TryGetValue(type, out var tilePropertyType))
-            {
-                var instance = (BaseTileProperty)Activator.CreateInstance(tilePropertyType);
-                TileProperties.Add(type, instance);
-            }
-        }
 
-        foreach (var type in needRemove)
-        {
-            TileProperties.Remove(type);
-        }
-
-        foreach (var key in TileProperties.Keys)
-        {
-           // DictionaryValues.Add(TileProperties[key]);
         }
     }
 

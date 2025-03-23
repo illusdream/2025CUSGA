@@ -1,12 +1,13 @@
 ﻿using System;
 using ilsFramework;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 /// <summary>
 /// 方块的基类，运行时实例
 /// </summary>
-public abstract class BaseTile
+public abstract class BaseTile : IHitable
 {
     public Vector2Int Position;
     
@@ -17,9 +18,9 @@ public abstract class BaseTile
     public int BaseMaxHealth;
 
     /// <summary>
-    /// 这个Tile隶属于哪个玩家或者系统（-1），玩家ID为自然数
+    /// 这个Tile隶属于哪个玩家或者系统
     /// </summary>
-    public int TileBelongToID;
+    public EntityID TileBelongToID;
 
     public bool CanBeDestroyed;
 
@@ -34,7 +35,7 @@ public abstract class BaseTile
     /// <summary>
     /// 最后一个击中Tile的Player的ID
     /// </summary>
-    public int TileLastestBeHitByID;
+    public EntityID TileLastestBeHitByID;
     
     /// <summary>
     /// 需要的PropertyType，正式初始化时会将对应类型的tileProperty传入Initialize
@@ -74,15 +75,9 @@ public abstract class BaseTile
         
     }
 
-    public virtual void ApplyDamage(float damage,int playerID)
+    public virtual void ApplyDamage(DamageInfo damageInfo,int playerID)
     {
-        TileLastestBeHitByID = playerID;
-        Health -= damage;
-        if (Health<=0)
-        {
-            IsDestroyed = true;
-        }
-        Health = Math.Max(Health, 0);
+
     }
 
     public virtual void SetTileRender(BaseTileProperty tileProperty,Tilemap renderer)
@@ -93,5 +88,33 @@ public abstract class BaseTile
     public virtual void RemoveTileRender(BaseTileProperty tileProperty, Tilemap renderer)
     {
         
+    }
+
+    public bool CanBeHit()
+    {
+        return CanBeDestroyed;
+    }
+
+    public virtual void Hit(DamageInfo damageInfo, out BeHittedInfo beHittedInfo)
+    {
+        TileLastestBeHitByID = damageInfo.DamageFrom;
+        if (!CanBeHit())
+        {
+            beHittedInfo = BeHittedInfo.Default;
+            return;
+        }
+        Health -= damageInfo.baseDamage;
+        var cDamage = math.min(Health,damageInfo.baseDamage);
+        if (Health<=0)
+        {
+            IsDestroyed = true;
+        }
+        Health = Math.Max(Health, 0);
+        beHittedInfo = new BeHittedInfo()
+        {
+            HasBeHittedDamage = cDamage,
+            IsHitted = true,
+            IsKilledEntity = IsDestroyed
+        };
     }
 }

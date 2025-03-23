@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ilsFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -131,13 +132,9 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         return false;
     }
     
-    public List<int> GetAllPlayerID()
+    public List<EntityID> GetAllPlayerID()
     {
-        List<int> playerID = new List<int>()
-        {
-            1,2
-        };
-        return playerID;
+        return CharacterCollection.Select(player=>player.ID).ToList();
     }
 
     #region PlayerInputHandler

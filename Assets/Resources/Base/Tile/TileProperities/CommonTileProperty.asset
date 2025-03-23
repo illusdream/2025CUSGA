@@ -15,6 +15,6 @@ MonoBehaviour:
   BaseMaxHealth: 100
   CanBeDestroyed: 1
   CanBeMerged: 1
-  BaseMergeScore: 100
+  BaseMergeScore: 5
   TargetType: Tiles.CommonTile
   UseRenderTile: {fileID: 11400000, guid: cbdebef5841df1541be5d631a37c259c, type: 2}
