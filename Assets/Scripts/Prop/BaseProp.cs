@@ -5,29 +5,29 @@ public abstract class BaseProp
         public abstract Type ConfigType { get;}
         public virtual void Initialize(BasePropConfig config) { }
 
-        public virtual bool CanUseProp()
+        public virtual bool CanUseProp(EntityHandler handler)
         {
                 return true;
         }
         
-        public abstract void UseProp();
+        public abstract void UseProp(EntityHandler handler);
 
-        public virtual void Update()
+        public virtual void Update(EntityHandler handler)
         {
                 
         }
 
-        public virtual void FixedUpdate()
+        public virtual void FixedUpdate(EntityHandler handler)
         {
                 
         }
 
-        public virtual void LateUpdate()
+        public virtual void LateUpdate(EntityHandler handler)
         {
                 
         }
 
-        public virtual void OnDestroy()
+        public virtual void OnDestroy(EntityHandler handler)
         {
                 
         }

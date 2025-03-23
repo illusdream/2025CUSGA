@@ -12,3 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a9a1a103dc542dd90565d8ab52dc0a0, type: 3}
   m_Name: PropConfig
   m_EditorClassIdentifier: 
+  PropConfigs:
+  - {fileID: 11400000, guid: 87695a9b77fa499468fee26a5f0766c3, type: 2}
+  - {fileID: 11400000, guid: 2019173b8f17ac5439bdcf00db816798, type: 2}
+  - {fileID: 11400000, guid: 0e708b6f83dac91409a6554eed3ed3b7, type: 2}
+  PropIDsMap:
+    list:
+    - Key: QuantumSwapProp
+      Value: 0
+    - Key: GammaGuilderProp
+      Value: 1
+    - Key: LaserGunProp
+      Value: 2
+  AutoBuildOrUpdateSinglePropConfigs: 1

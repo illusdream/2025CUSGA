@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2048
     height: 1060.8
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Inspector
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 110
+  controlID: 90
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -326,7 +326,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Prefab
+    - Assets/Scripts/Character/PlayerComponet
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -334,16 +334,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Resources/Prefab
+  - Assets/Scripts/Character/PlayerComponet
   m_LastFoldersGridSize: 96
   m_LastProjectPath: F:\Unity\2025CUSGA
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ac780000
-    m_LastClickedID: 30892
-    m_ExpandedIDs: 000000006a7700009c78000000ca9a3b
+    scrollPos: {x: 0, y: 9.399963}
+    m_SelectedIDs: 30810000
+    m_LastClickedID: 33072
+    m_ExpandedIDs: 000000006a770000a2780000a8780000b2780000b47800003281000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -396,8 +396,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 0c770000
-    m_LastClickedInstanceID: 30476
+    m_SelectedInstanceIDs: 18820000
+    m_LastClickedInstanceID: 33304
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300001c780000ca6500005c70000028c9ffff826700009667000098840000c47a0000cc7a0000a8670000fc7a000014760000a87c000000000000ea780000d67900005a710000ac760000c4790000467f000086720000bef6ffff68efffff98740000443b0000
     m_RenameOverlay:
@@ -466,7 +466,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2a7dffffa883fffffc87ffff608cffff088dffff54c5ffffdedcffff24edffffa0f7ffff10fbfffff4ffffff
+      m_ExpandedIDs: 78ecfaff3e85ffffde8fffff60a3ffff68abffff04acffff28acffff1cb4ffff48bbffff3ec2ffff40c9ffffbccdffffa6d4ffffa8dbffff82e2ffff58e9ffff56efffff10fbfffff4ffffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1238,7 +1238,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -1266
+  m_LastSelectedObjectID: 33304
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1530,7 +1530,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 6a770000
     m_LastClickedID: 30570
-    m_ExpandedIDs: 000000006a77000000ca9a3b
+    m_ExpandedIDs: 000000006a770000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

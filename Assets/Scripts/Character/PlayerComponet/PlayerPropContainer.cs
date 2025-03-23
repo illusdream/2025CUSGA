@@ -29,9 +29,9 @@ public class PlayerPropContainer : BasePropContainer
 
     public override bool TryUseProp()
     {
-        if (propInventory.Count>0 &&propInventory.Peek().CanUseProp())
+        if (propInventory.Count>0 &&propInventory.Peek().CanUseProp(handler))
         {
-            propInventory.Pop().UseProp();
+            propInventory.Pop().UseProp(handler);
         }
         return false;
     }
