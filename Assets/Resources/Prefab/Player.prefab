@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 2598141953491336947}
   - component: {fileID: 2025048384620317698}
   - component: {fileID: 1723513025055233921}
+  - component: {fileID: 3230493686241053708}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -180,6 +181,8 @@ MonoBehaviour:
       Value: {fileID: 1723513025055233921}
     - Key: PropContainer
       Value: {fileID: 2025048384620317698}
+    - Key: Health
+      Value: {fileID: 3230493686241053708}
 --- !u!114 &3552688374575338249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  MaxInventorySize: 0
 --- !u!114 &1723513025055233921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,3 +285,20 @@ MonoBehaviour:
   handler: {fileID: 0}
   MaxEnergy: 1000
   CurrentEnergy: 0
+--- !u!114 &3230493686241053708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196107388258662534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febffd1921e94662a3f277f9f9fc3459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+  healthSources:
+    list: []
+  MaxHealth: 0
+  CurrentHealth: 0

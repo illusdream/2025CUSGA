@@ -21,4 +21,5 @@
             IsKilledEntity = false,
             IsHitted = false,
         };
+
 }

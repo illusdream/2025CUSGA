@@ -1,4 +1,6 @@
-﻿public abstract class BasePropContainer : EntityComponent
+﻿using System;
+
+public abstract class BasePropContainer : EntityComponent
 {
         public sealed override string TargetUsage => EntityComponetUsage.PropContainer;
 
