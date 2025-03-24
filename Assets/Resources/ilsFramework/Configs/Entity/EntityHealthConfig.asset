@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede12488095f49eab8784a3d45da8798, type: 3}
-  m_Name: LaserGunPropConfig
+  m_Script: {fileID: 11500000, guid: af02ef22a7ef4fc593ba766454ace627, type: 3}
+  m_Name: EntityHealthConfig
   m_EditorClassIdentifier: 
-  TargetType: Props.LaserGunProp
-  projectilePrefab: {fileID: 5604698040606987343, guid: 52c9352f36ce4ef4d8ae84ea66fcc40c, type: 3}
-  Damage: 40
-  AttackEntityType: 01000000
+  HealthSourcesOrder: 0100000000000000

@@ -67,7 +67,7 @@ public class PropConfig : ConfigScriptObject
 
     public void CheckTileProperty(List<Type> allPropTypes)
     {
-        CheckPropConfigsDictionaryViald();
+        CheckPropConfigsDictionaryValid();
         foreach (var type in allPropTypes)
         {
             if (!PropConfigsDictionary.ContainsKey(type.FullName))
@@ -117,13 +117,24 @@ public class PropConfig : ConfigScriptObject
     }
 #endif
 
-    private void CheckPropConfigsDictionaryViald()
+    private void CheckPropConfigsDictionaryValid()
     {
         PropConfigsDictionary ??= new Dictionary<string,BasePropConfig>();
         foreach (var config in PropConfigs)
         {
             PropConfigsDictionary.TryAdd(config.TargetType, config);
         }
+    }
+
+    public bool TryGetPropConfig(string typeFullName, out BasePropConfig propConfig)
+    {
+        CheckPropConfigsDictionaryValid();
+        return PropConfigsDictionary.TryGetValue(typeFullName, out propConfig);
+    }
+
+    public bool TryGetPropID(string typeName, out int propID)
+    {
+        return PropIDsMap.TryGetValue(typeName, out propID);
     }
     
 }

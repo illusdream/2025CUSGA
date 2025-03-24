@@ -31,4 +31,16 @@ public static class PlayerEvent
         public const string BeOrderToPlaceTile = "BeOrderToPlaceTile";
         
         public const string BeOrderToUseProp = "BeOrderToUseProp";
+        
+        public const string BeHitted = "BeHitted";
+        public class BeHittedEventArgs : EventArgs
+        {
+                public DamageInfo DamageInfo;
+
+                public BeHittedEventArgs(DamageInfo damageInfo)
+                {
+                        DamageInfo = damageInfo;
+                }
+        }
+        
 }

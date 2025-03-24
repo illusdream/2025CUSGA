@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ilsFramework;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BaseHealthComponent : EntityComponent,IEntityHealth
@@ -12,9 +14,11 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
     [SerializeField]
     public SerializableDictionary<EHealthSourceType,HealthSource> healthSources;
 
-    public float MaxHealth;
+    public List<HealthSource> HealthOrderList;
+    
+    public float MaxHealth { get;private set; }
         
-    public float CurrentHealth;
+    public float CurrentHealth { get;private set; }
         
     public void Start()
     {
@@ -23,6 +27,10 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
 
     public override void OnInitialized(EntityHandler handler)
     {
+        foreach (HealthSource healthSource in healthSources.Values)
+        {
+            healthSource.OnInitialized();
+        }
         base.OnInitialized(handler);
     }
 
@@ -33,9 +41,24 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
 
     public void Hit(DamageInfo damageInfo, out BeHittedInfo beHittedInfo)
     {
-        if (CanBeHit())
+        int curHealthSourceIndex = 0;
+        DamageInfo curDamageInfo = damageInfo;
+        while (curDamageInfo.IsValid() &&curHealthSourceIndex< healthSources.Count)
         {
-            healthSources[0].Hit(damageInfo, out beHittedInfo);
+            if (!TryGetHealthSourceByOrderIndex(curHealthSourceIndex, out var curHealthSource))
+            {
+                curHealthSourceIndex++;
+                continue;
+            }
+
+            if (!curHealthSource.CanBeHit())
+            {
+                curHealthSourceIndex++;
+                continue;
+            }
+
+            curHealthSource.Hit(curDamageInfo, out var singleBeHittedInfo);
+            curDamageInfo -= singleBeHittedInfo;
         }
         beHittedInfo = BeHittedInfo.Default;
     }
@@ -79,6 +102,7 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
     {
         foreach (var healthSource in healthSources.Values)
         {
+            healthSource.Update();
             MaxHealth += healthSource.CurrentMaxHealth;
             CurrentHealth += healthSource.CurrentHealth;
         }
@@ -87,5 +111,16 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
     public override void OnEntityDestroy(EntityHandler handler)
     {
         base.OnEntityDestroy(handler);
+    }
+
+    public bool TryGetHealthSourceByOrderIndex(int orderIndex, out HealthSource healthSource)
+    {
+        var config = Config.GetConfig<EntityHealthConfig>();
+        if (config.TryGetHealthSourceTypeByOrderIndex(orderIndex, out var type))
+        {
+            return healthSources.TryGetValue(type, out healthSource);
+        }
+        healthSource = null;
+        return false;
     }
 }

@@ -32,6 +32,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     private BaseTile[,] tiles;
     private RectInt tilesRange;
+    private TileFenwickTree2D _fenwickTree2D;
+ 
     
     private List<Collider2D> areaCheckBuffer;
     private List<Vector2Int> areaGetTileBuffer;
@@ -43,6 +45,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private EventCenterCore eventCenterCore;
 
     private List<Vector2Int> needRemoveTileBuffer;
+
+
+    private List<RectInt> CanUseEmptyRange;
+    
     public void Init()
     {
         _managerConfig = Config.GetConfig<TileManagerConfig>();
@@ -57,6 +63,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         TileIDMap = new Dictionary<Type, int>();
         needRemoveTileBuffer = new List<Vector2Int>();
         InitTileGrids();
+        
+        
+        
+        CanUseEmptyRange = new List<RectInt>();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -118,7 +128,11 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     public void OnDrawGizmosSelected()
     {
-        
+        Gizmos.color = Color.green * 0.3f;
+        foreach (var rectInt in CanUseEmptyRange)
+        {
+            Gizmos.DrawCube(rectInt.center, new Vector3(rectInt.size.x, rectInt.size.y, 1));
+        }
     }
 
     /// <summary>
@@ -164,6 +178,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 SetTile(isAir ? typeof(AirTile): typeof(CommonTile),new Vector2Int(i,j),EntityID.Empty);
             }
         }
+
+        _fenwickTree2D = new TileFenwickTree2D(tiles);
     }
 
 
@@ -436,6 +452,19 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             return;
         }
         var oldTile = tiles[position.x, position.y];
+
+        int fenwickTreeDelta = 0;
+        //变成空气
+        if (oldTile.GetType() != typeof(AirTile) && type == typeof(AirTile))
+        {
+            fenwickTreeDelta = -1;
+        }
+        //从空气填充
+        if (oldTile.GetType() == typeof(AirTile) && type != typeof(AirTile))
+        {
+            fenwickTreeDelta = 1;
+        }
+        
         if (TryGetTileProperty(oldTile.GetType(),out var property))
         {
             oldTile.RemoveTileRender(property,tilemap);
@@ -443,8 +472,9 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         oldTile.Destroy();
         //程序化的执行
         //放置方块
-        SetTile(type,position,belongsToID);
         
+        SetTile(type,position,belongsToID);
+        _fenwickTree2D.Update(position.x,position.y,fenwickTreeDelta);
         CheckTileCanMerge(position);
     }
     
@@ -820,4 +850,21 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     #endregion
 
+    [Button]
+    public void FindEmptyArea(Vector2Int emptySize)
+    {
+        CanUseEmptyRange.Clear();
+        
+        for (int i = 0; i <= tiles.GetLength(0) - emptySize.x; i++)
+        {
+
+            for (int j = 0; j <= tiles.GetLength(1) - emptySize.y; j++)
+            {
+                if (_fenwickTree2D.QueryRangeIsAir(i,j,emptySize.x,emptySize.y))
+                {
+                    CanUseEmptyRange.Add(new RectInt(i,j,emptySize.x,emptySize.y));
+                }
+            }
+        }
+    }
 }

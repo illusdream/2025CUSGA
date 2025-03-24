@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ManagerConfig
   m_EditorClassIdentifier: 
   UnityTileHandler: {fileID: 3905612026201241752, guid: 6f4b6f25c49cb4c4eadc5dce1b2723d4, type: 3}
-  MapSize: {x: 10, y: 10}
+  MapSize: {x: 16, y: 16}
   AutoUpdateTileConfigs: 1
   TileLayerMask:
     serializedVersion: 2

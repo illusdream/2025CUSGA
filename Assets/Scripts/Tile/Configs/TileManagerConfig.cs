@@ -21,6 +21,15 @@ public class TileManagerConfig : ConfigScriptObject
     
     [LabelText("地图大小")]
     public Vector2Int MapSize = new Vector2Int(10, 10);
+    [LabelText("每次刷新时查找的范围")]
+    public Vector2Int FindEmptySize = new Vector2Int(3, 3);
+    [LabelText("刷新间隔")]
+    public float RefreshEmptyInterval = 5f;
+    [LabelText("刷新前摇(出现视觉特效提示玩家)")]
+    public float RefreshBeforeSetTime = 3;
+    
+    
+    
     
     public bool AutoUpdateTileConfigs = true;
 

@@ -1,12 +1,38 @@
-﻿using ilsFramework;
+﻿using System;
+using System.Collections.Generic;
+using ilsFramework;
 
-public class PropManager : ManagerSingleton<PropManager>,IManager
+public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForeach
 {
+    private PropConfig propsConfig;
+    
+    private Dictionary<Type, BasePropConfig> propConfigs;
+    private BiMap<int, Type> propID_TypeMap;
     public void Init()
     {
+        propsConfig = Config.GetConfig<PropConfig>();
         
+        propConfigs = new Dictionary<Type, BasePropConfig>();
+        propID_TypeMap = new BiMap<int, Type>();
     }
+    public void ForeachCurrentAssembly(Type[] types)
+    {
+        foreach (var type in types)
+        {
+            if (typeof(BaseProp).IsAssignableFrom(type) && !type.IsAbstract )
+            {
+                if ( propsConfig.TryGetPropConfig(type.FullName,out var basePropConfig))
+                {
+                    propConfigs.Add(type, basePropConfig);
+                }
 
+                if (propsConfig.TryGetPropID(type.Name, out var propID))
+                {
+                    propID_TypeMap.Add(propID, type);
+                }
+            }
+        }
+    }
     public void Update()
     {
         
@@ -36,4 +62,18 @@ public class PropManager : ManagerSingleton<PropManager>,IManager
     {
        
     }
+    
+    //查询
+    public bool TryGetPropConfig<T>(Type type, out T propConfig) where T : BasePropConfig
+    {
+        if (propConfigs.TryGetValue(type, out var basePropConfig) && basePropConfig is T _propConfig)
+        {
+            propConfig = _propConfig;
+            return true;
+        }
+
+        propConfig = null;
+        return false;
+    }
+
 }
