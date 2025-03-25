@@ -1,4 +1,5 @@
-﻿using ilsFramework;
+﻿using System;
+using ilsFramework;
 using UnityEngine;
 
 public class PlayerMoveCommend : BasePlayerCommend
@@ -11,6 +12,7 @@ public class PlayerMoveCommend : BasePlayerCommend
 
     public override void Execute()
     {
-        playerController.ExecuteMoveCommand(moveDirection);
+        playerController?.ExecuteMoveCommand(moveDirection);
     }
+
 }

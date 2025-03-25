@@ -23,9 +23,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         
         
         InitPlayerAllInputHandler();
-        
-        
-        InitAllPlayers();
+
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -89,6 +87,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         for (int i = 1; i <= 2; i++)
         {
+            111.LogSelf();
            // var prefab = Asset.Load(_characterConfig.characterPrefab);
             var prefab = _characterConfig.characterPrefabClone;
             var go = GameObject.Instantiate(prefab);

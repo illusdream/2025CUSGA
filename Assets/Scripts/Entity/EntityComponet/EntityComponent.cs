@@ -46,12 +46,19 @@ public abstract class EntityComponent : MonoBehaviour
     {
         ID = id;
     }
+    /// <summary>
+    /// 实体内的初始化
+    /// </summary>
+    /// <param name="handler"></param>
     public virtual void OnInitialized(EntityHandler handler)
     {
         
     }
 
-
+    /// <summary>
+    /// 当实体销毁时触发
+    /// </summary>
+    /// <param name="handler"></param>
     public virtual void OnEntityDestroy(EntityHandler handler)
     {
             

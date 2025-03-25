@@ -21,16 +21,17 @@ MonoBehaviour:
   - Value: AudioConfig
   - Value: CharacterConfig
   - Value: DebugConfig
+  - Value: PropConfig
   ManagersUpdateSort:
   - Value: ilsFramework.MonoManager
   - Value: ilsFramework.AssetManager
   - Value: ilsFramework.ConfigManager
+  - Value: ilsFramework.TimerManager
   - Value: EntityManager
   - Value: InputManager
   - Value: CamaraManager
   - Value: ilsFramework.GlobalEventCenter
   - Value: ilsFramework.PoolManager
-  - Value: ilsFramework.TimerManager
   - Value: ilsFramework.LoggerManager
   - Value: ilsFramework.UIManager
   - Value: CharacterManager

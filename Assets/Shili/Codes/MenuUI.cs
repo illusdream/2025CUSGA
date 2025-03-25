@@ -1,3 +1,4 @@
+using System;
 using ilsFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ public class MenuUI : UIPanel
     }
     private void OnSatrtGame()
     {
-        UIManager.Instance.GetUIPanel<FadeImageUI>().Open();
+        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.OrderStartGame,EventArgs.Empty);
     }
     private void OnOpenSetting()
     {

@@ -1,3 +1,4 @@
+using System;
 using ilsFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,16 +29,14 @@ public class StopGameUI : UIPanel
     public override void Open()
     {
         base.Open();
-        Time.timeScale = 0f;
     }
     public override void Close()
     {
         base.Close();
-        Time.timeScale = 1f;
     }
     private void OnContinue()
     {
-        UIManager.Instance.GetUIPanel<StopGameUI>().Close();
+        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
     }
     private void OnSetting()
     {

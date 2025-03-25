@@ -15,9 +15,18 @@ namespace ilsFramework
 
         private Dictionary<string, List<Action<EventArgs>>> eventDic;
 
+        private List<Action<EventArgs>> needRemoveBuffer;
+        
+        private List<Action<EventArgs>> needAddBuffer;
+        
+        private string IsExcutingEvent;
+        
         public EventCenterCore()
         {
             eventDic = new Dictionary<string, List<Action<EventArgs>>>();
+            
+            needRemoveBuffer = new List<Action<EventArgs>>();
+            needAddBuffer = new List<Action<EventArgs>>();
         }
 
         
@@ -32,6 +41,14 @@ namespace ilsFramework
 
         public void AddListener(string messageType, params Action<EventArgs>[] action)
         {
+            if (messageType == IsExcutingEvent)
+            {
+                foreach (var a in action)
+                {
+                    needAddBuffer.Add(a);
+                }
+                return;
+            }
             var actions = GetEventList(messageType);
             if (actions is not null)
             {
@@ -54,6 +71,7 @@ namespace ilsFramework
         }
         public void BoradCastMessage(string messageType, EventArgs eventArgs)
         {
+            IsExcutingEvent = messageType;
             List<Action<EventArgs>> actions = GetEventList(messageType);
 
             if (actions is null) return;
@@ -69,9 +87,28 @@ namespace ilsFramework
                 }
                     
             }
+            IsExcutingEvent = null;
+            foreach (var a in needAddBuffer)
+            {
+                AddListener(messageType,a);
+            }
+            foreach (var a in needRemoveBuffer)
+            {
+                RemoveListener(messageType,a);
+            }
+            needAddBuffer.Clear();
+            needRemoveBuffer.Clear();
         }
         public void RemoveListener(string messageType, params Action<EventArgs>[] action)
         {
+            if (messageType == IsExcutingEvent)
+            {
+                foreach (var a in action)
+                {
+                    needRemoveBuffer.Add(a);
+                }
+                return;
+            }
             List<Action<EventArgs>> actions = GetEventList(messageType);
             if (actions != null)
             {

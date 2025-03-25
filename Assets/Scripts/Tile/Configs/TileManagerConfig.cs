@@ -27,8 +27,8 @@ public class TileManagerConfig : ConfigScriptObject
     public float RefreshEmptyInterval = 5f;
     [LabelText("刷新前摇(出现视觉特效提示玩家)")]
     public float RefreshBeforeSetTime = 3;
-    
-    
+    [LabelText("显示刷新区域的预制体")]
+    public GameObject RefreshAreaShow;
     
     
     public bool AutoUpdateTileConfigs = true;

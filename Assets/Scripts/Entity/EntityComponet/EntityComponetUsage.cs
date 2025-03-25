@@ -27,7 +27,7 @@ public partial class EntityComponetUsage
         public const string Hitable = "Hitable";
         
         /// <summary>
-        /// Buff组件，有这个组件的实体可以被上Buff
+        /// Buff组件，有这个组件的实体可以被上Buff（未实现）
         /// </summary>
         public const string Buff = "Buff";
         

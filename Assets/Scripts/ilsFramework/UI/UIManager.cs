@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace ilsFramework
 {
@@ -16,7 +17,7 @@ namespace ilsFramework
         GameObject Top;
         GameObject Debug;
 
-
+        private GameObject eventHandler;
         /// <summary>
         /// UI层级间的SortOrder间隔
         /// </summary>
@@ -29,6 +30,7 @@ namespace ilsFramework
         private List<(Type, UIPanel)> needAddToDic;
         private List<Type> needRemoveFromDic;
         
+        private UIConfig uiConfig;
         public void Init()
         {
             uiPanelSettings = new Dictionary<Type, UIPanelSetting>();
@@ -36,7 +38,8 @@ namespace ilsFramework
             
             needAddToDic = new List<(Type, UIPanel)>();
             needRemoveFromDic = new List<Type>();
-            
+
+            uiConfig = Config.GetConfig<UIConfig>();
             InitUIBaseFramework();
         }
         public void ForeachCurrentAssembly(Type[] types)
@@ -148,6 +151,8 @@ namespace ilsFramework
             Debug = new GameObject("Debug");
             Debug.layer = LayerMask.NameToLayer("UI");
             Debug.transform.parent = UIRoot.transform;
+
+            eventHandler = Object.Instantiate(uiConfig.UIEventHandler, ContainerObject.transform);
         }
 
         public (Transform, int) GetUILayerInfo(EUILayer layer)

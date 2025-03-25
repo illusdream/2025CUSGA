@@ -47,7 +47,14 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private List<Vector2Int> needRemoveTileBuffer;
 
 
-    private List<RectInt> CanUseEmptyRange;
+    private List<RectInt> canUseEmptyRange;
+
+    private TimerCollection timerCollection;
+    
+    /// <summary>
+    /// 游玩逻辑是否在运行中
+    /// </summary>
+    public bool GameLogicRunning { get;private set; }
     
     public void Init()
     {
@@ -64,14 +71,13 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         needRemoveTileBuffer = new List<Vector2Int>();
         InitTileGrids();
         
+        canUseEmptyRange = new List<RectInt>();
         
-        
-        CanUseEmptyRange = new List<RectInt>();
+        timerCollection = new TimerCollection();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
     {
-        
         foreach (var type in types)
         {
             if (typeof(BaseTile).IsAssignableFrom(type) && !type.IsAbstract)
@@ -129,7 +135,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green * 0.3f;
-        foreach (var rectInt in CanUseEmptyRange)
+        foreach (var rectInt in canUseEmptyRange)
         {
             Gizmos.DrawCube(rectInt.center, new Vector3(rectInt.size.x, rectInt.size.y, 1));
         }
@@ -167,7 +173,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// 生成地形
     /// </summary>
     [Button]
-    private void GenerateTiles()
+    public void GenerateTiles()
     {
         for (int i = 0; i < tiles.GetLength(0); i++)
         {
@@ -853,7 +859,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     [Button]
     public void FindEmptyArea(Vector2Int emptySize)
     {
-        CanUseEmptyRange.Clear();
+        canUseEmptyRange.Clear();
         
         for (int i = 0; i <= tiles.GetLength(0) - emptySize.x; i++)
         {
@@ -862,7 +868,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             {
                 if (_fenwickTree2D.QueryRangeIsAir(i,j,emptySize.x,emptySize.y))
                 {
-                    CanUseEmptyRange.Add(new RectInt(i,j,emptySize.x,emptySize.y));
+                    canUseEmptyRange.Add(new RectInt(i,j,emptySize.x,emptySize.y));
                 }
             }
         }
