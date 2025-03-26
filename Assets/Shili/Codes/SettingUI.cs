@@ -33,14 +33,14 @@ public class SettingUI : UIPanel
     private GameObject keystrokeSettingObject;
     [AutoUIElement("Panel/KeystrokeSetting/Reset")]
     private Button ResetButton;
-    //²ÎÊý
+    //ï¿½ï¿½ï¿½ï¿½
     private bool isPlayMusic;
     public override void InitUIPanel()
     {
         
         isPlayMusic = true;
         base.InitUIPanel();
-        backButton.onClick.AddListener(base.Close);
+        backButton.onClick.AddListener(OnResumeGame);
         gameSettingButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
         gameSettingButton.GetComponent<Button>().onClick.AddListener(OnGameSetting);
         keystrokeSettingButton.GetComponent<Button>().onClick.AddListener(OnKeystrokeSetting);
@@ -53,11 +53,17 @@ public class SettingUI : UIPanel
         ResetButton.onClick.AddListener(OnReset);
 
     }
+
+    private void OnResumeGame()
+    {
+        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
+        Close();
+    }
     private void OnReset()
     {
         InputManager.Instance.ResetAllBindings();
         GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.ResetKey, EventArgs.Empty);
-        Debug.Log("ÖØÖÃ");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½");
     }
     private void OnGameSetting()
     {
@@ -80,37 +86,37 @@ public class SettingUI : UIPanel
         {
             MusicSwitch.GetComponent<Image>().color = Color.white;
             
-            Debug.Log("²¥·ÅÒôÀÖ");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
         else
         {
             MusicSwitch.GetComponent<Image>().color = Color.red;
             AudioManager.Instance.StopAll();
-            Debug.Log("¹Ø±ÕÒôÀÖ");
+            Debug.Log("ï¿½Ø±ï¿½ï¿½ï¿½ï¿½ï¿½");
         }
     }
     private void OnMainMusicSlider(float a)
     {
         AudioManager.Instance.SetMainVolume(a);
-        Debug.Log("Ö÷ÒôÁ¿"+a);
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+a);
     }
     private void OnBackgroundMusicSlider(float a)
     {
-        Debug.Log("±³¾°ÒôÁ¿" + a);
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + a);
     }
     private void OnSoundSlider(float a)
     {
-        Debug.Log("ÒôÐ§" + a);
+        Debug.Log("ï¿½ï¿½Ð§" + a);
     }
     private void OnShowChange(int index)
     {
         switch (index)
         {
             case 0:
-                Debug.Log("È«ÆÁ");
+                Debug.Log("È«ï¿½ï¿½");
                 break;
             case 1:
-                Debug.Log("´°¿Ú»¯");
+                Debug.Log("ï¿½ï¿½ï¿½Ú»ï¿½");
                 break;
         }
     }

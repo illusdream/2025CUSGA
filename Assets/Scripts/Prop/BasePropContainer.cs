@@ -15,4 +15,6 @@ public abstract class BasePropContainer : EntityComponent
         /// </summary>
         /// <returns></returns>
         public abstract bool TryInputProp(BaseProp prop);
+        
+        public abstract bool IsFullProp();
 }

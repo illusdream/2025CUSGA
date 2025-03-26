@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using Tiles;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem.iOS;
 using UnityEngine.Tilemaps;
 using Utils;
 using Object = UnityEngine.Object;
@@ -47,10 +48,14 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private List<Vector2Int> needRemoveTileBuffer;
 
 
-    private List<RectInt> canUseEmptyRange;
+    private List<Vector2Int> canUseEmptyRange;
 
     private TimerCollection timerCollection;
-    
+
+    private bool FreshOneEmptyRange = false;
+
+    private const string FreshIntervelTimer = "FreshIntervelTimer";
+    private const string FreshStartShowingTimer = "FreshStartShowingTimer";
     /// <summary>
     /// 游玩逻辑是否在运行中
     /// </summary>
@@ -71,7 +76,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         needRemoveTileBuffer = new List<Vector2Int>();
         InitTileGrids();
         
-        canUseEmptyRange = new List<RectInt>();
+        canUseEmptyRange = new List<Vector2Int>();
         
         timerCollection = new TimerCollection();
     }
@@ -134,11 +139,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     public void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green * 0.3f;
-        foreach (var rectInt in canUseEmptyRange)
-        {
-            Gizmos.DrawCube(rectInt.center, new Vector3(rectInt.size.x, rectInt.size.y, 1));
-        }
+
     }
 
     /// <summary>
@@ -654,12 +655,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 {
                     CalculateEachTileScore(scoreCollection, tile, lastTile);
                 }
-                
-                //计算完数值，发送合并事件给外界，并尝试清除对应列的tile
-                BroadcastTileMergeEvent(false,lastSetTilePosition);
-                DestroyTileByColumn(lastSetTilePosition.x);
-                return;
             }
+            //计算完数值，发送合并事件给外界，并尝试清除对应列的tile
+            BroadcastTileMergeEvent(false,lastSetTilePosition);
+            DestroyTileByColumn(lastSetTilePosition.x);
         }
 
     }
@@ -755,9 +754,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             //中立则给两者都增加
             if (lastTile.TileBelongToID == EntityID.Empty)
             {
-                foreach (var scoreCollectionKey in scoreCollection.Keys)
+                var allkeys = scoreCollection.Keys.ToList();
+                foreach (var id in allkeys)
                 {
-                    scoreCollection[scoreCollectionKey] += CalculateTileCurrectScore(currectTile);
+                    scoreCollection[id] += CalculateTileCurrectScore(currectTile);
                 }
             }
             else
@@ -855,9 +855,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     }
 
     #endregion
-
-    [Button]
-    public void FindEmptyArea(Vector2Int emptySize)
+    public void FindEmptyArea(Vector2Int emptySize,out List<Vector2Int> emptyArea)
     {
         canUseEmptyRange.Clear();
         
@@ -868,9 +866,49 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             {
                 if (_fenwickTree2D.QueryRangeIsAir(i,j,emptySize.x,emptySize.y))
                 {
-                    canUseEmptyRange.Add(new RectInt(i,j,emptySize.x,emptySize.y));
+                    canUseEmptyRange.Add(new Vector2Int(i,j));
                 }
             }
         }
+        emptyArea = canUseEmptyRange;
+    }
+
+    public void StartFillRandomRange()
+    {
+        if (!FreshOneEmptyRange)
+        {
+            timerCollection
+                .CreateTimer(_managerConfig.RefreshEmptyInterval, -1, FreshIntervelTimer)
+                .SetOnCompleted(FillTile)
+                .Register();
+        }
+        FreshOneEmptyRange = true;
+    }
+
+    private void FillTile(Timer timer)
+    {
+        FindEmptyArea(_managerConfig.FindEmptySize,out var allEmpty);
+        if (allEmpty.Count ==0)
+        {
+            return;
+        }
+        var result = allEmpty.ReservoirSampling(1).First();
+        for (int i = 0; i < _managerConfig.FindEmptySize.x; i++)
+        {
+            for (int j = 0; j < _managerConfig.FindEmptySize.y; j++)
+            {
+                var pos = new Vector2Int(i+result.x, j+result.y);
+                TryPlaceTile(typeof(CommonTile),pos,EntityID.Empty);
+            }
+        }
+    }
+    
+    public void StopFillRandomRange()
+    {
+        if (FreshOneEmptyRange)
+        {
+            timerCollection.RemoveTimer(FreshIntervelTimer);
+        }
+        FreshOneEmptyRange = false;
     }
 }

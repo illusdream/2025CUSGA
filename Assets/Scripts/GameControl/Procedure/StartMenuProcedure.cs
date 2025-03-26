@@ -12,6 +12,11 @@ public class StartMenuProcedure : ProcedureNode
 
         public override void OnEnter()
         {
+                if (SceneManager.GetActiveScene().buildIndex !=0)
+                {
+                        SceneManager.LoadScene(0);
+                }
+                
                 GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
                 UIManager.Instance.GetUIPanel<MenuUI>().Open();
                 base.OnEnter();

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ilsFramework;
+using Props;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,12 +15,14 @@ public class PlayerPropContainer : BasePropContainer
     public override void OnInitialized(EntityHandler handler)
     {
         AddEventListener(PlayerEvent.BeOrderToUseProp,EEntityEventScope.Component,Listener_BeOrderToUseProp);
+        AddEventListener(PlayerEvent.HasEnoughEnergyToMakeProp,EEntityEventScope.Component,Listener_HasEnoughEnergyToMakeProp);
         base.OnInitialized(handler);
     }
 
     public override void OnEntityDestroy(EntityHandler handler)
     {
         RemoveEventListener(PlayerEvent.BeOrderToUseProp,EEntityEventScope.Component,Listener_BeOrderToUseProp);
+        RemoveEventListener(PlayerEvent.HasEnoughEnergyToMakeProp,EEntityEventScope.Component,Listener_HasEnoughEnergyToMakeProp);
         base.OnEntityDestroy(handler);
     }
 
@@ -31,7 +35,9 @@ public class PlayerPropContainer : BasePropContainer
     {
         if (propInventory.Count>0 &&propInventory.Peek().CanUseProp(handler))
         {
-            propInventory.Pop().UseProp(handler);
+           var p =  propInventory.Pop();
+           p.UseProp(handler);
+           p.BeRemovedFromContainer(handler);
         }
         return false;
     }
@@ -40,21 +46,32 @@ public class PlayerPropContainer : BasePropContainer
     {
         if (propInventory.Count < MaxInventorySize)
         {
+            prop.BeAddPropContainer(handler);
             propInventory.Push(prop);
             return true;
         }
         return false;
     }
 
-    [Button]
-    public void PushNewProp(BaseProp prop)
+    public override bool IsFullProp()
     {
-        TryInputProp(prop);
+        return propInventory.Count >= MaxInventorySize;
     }
-
+    
 
     private void Listener_BeOrderToUseProp(EventArgs args)
     {
         TryUseProp();
+    }
+
+    private void Listener_HasEnoughEnergyToMakeProp(EventArgs args)
+    {
+        if (args is PlayerEvent.HasEnoughEnergyToMakePropEventArgs _args)
+        {
+            if (!IsFullProp() &&TryInputProp(PropManager.Instance.CreateTargetProp(typeof(LaserGunProp))))
+            {
+                _args.energyContainer.CumsumEnergy(100);
+            }
+        }
     }
 }

@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnityTileHandler: {fileID: 3905612026201241752, guid: 6f4b6f25c49cb4c4eadc5dce1b2723d4, type: 3}
   MapSize: {x: 16, y: 16}
+  FindEmptySize: {x: 3, y: 3}
+  RefreshEmptyInterval: 8
+  RefreshBeforeSetTime: 3
+  RefreshAreaShow: {fileID: 0}
   AutoUpdateTileConfigs: 1
   TileLayerMask:
     serializedVersion: 2

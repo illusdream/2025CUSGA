@@ -16,6 +16,16 @@ public class GamePlay_PlayingProcedure : ProcedureNode
 
     public override void OnUpdate()
     {
+        bool gameIsOver = false;
+        foreach (var playerController in CharacterManager.Instance.GetAllPlayers())
+        {
+            gameIsOver |= (!playerController.IsAlive());
+        }
+
+        if (gameIsOver)
+        {
+            ChangeState<GamePlay_EndProcedure>();
+        }
         base.OnUpdate();
     }
 

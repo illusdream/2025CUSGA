@@ -19,7 +19,6 @@ public class PlayerHealth : BaseHealthComponent
         {
                 if (_args is PlayerEvent.BeHittedEventArgs args)
                 {
-                        $"被击中了！收到{args.DamageInfo.GetFinalApplyDamage()}".LogSelf();
                         Hit(args.DamageInfo,out var _);
                 }
         }

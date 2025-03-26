@@ -286,9 +286,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
   Rigidbody2D: {fileID: 7418803142098904480}
-  MaxMoveSpeed: 2
-  MoveAcceleration: 2
-  SpeedFalloff: 1
+  MaxMoveSpeed: 5
+  MoveAcceleration: 10
+  SpeedFalloff: 7
   IsInputMoving: 0
 --- !u!114 &2598141953491336947
 MonoBehaviour:
@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
-  MaxInventorySize: 0
+  MaxInventorySize: 3
 --- !u!114 &1723513025055233921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,6 +334,7 @@ MonoBehaviour:
   handler: {fileID: 0}
   MaxEnergy: 1000
   CurrentEnergy: 0
+  EnergyCanBeComeProp: 100
 --- !u!114 &3230493686241053708
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class PlayerEnergyContainer : EntityComponent
         
         public float CurrentEnergy;
 
+        public float EnergyCanBeComeProp =100;
+        
         public float GetCurrentEnergy()
         {
                 return CurrentEnergy;
@@ -32,8 +34,34 @@ public class PlayerEnergyContainer : EntityComponent
                 {
                         if (eventArgs.scoreCollection.TryGetValue(ID,out var value))
                         {
-                                CurrentEnergy += value;
+                                AddEnergy(value);
                         }
                 }
+        }
+
+        public void CumsumEnergy(float energy)
+        {
+                CurrentEnergy -= energy;
+        }
+
+        public void AddEnergy(float energy)
+        {
+                CurrentEnergy += energy;
+                
+                if (CurrentEnergy > EnergyCanBeComeProp)
+                {
+                        BroadcastEvent(PlayerEvent.HasEnoughEnergyToMakeProp,EEntityEventScope.Component,new PlayerEvent.HasEnoughEnergyToMakePropEventArgs(this));
+                }
+                
+        }
+        
+        public void Update()
+        {
+                
+        }
+
+        public void FixedUpdate()
+        {
+
         }
 }

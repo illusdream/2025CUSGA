@@ -45,7 +45,6 @@ namespace Props
             {
                 DamageInfo damageInfo = DamageInfo.BuildDamageInfo(LaserDamage,ID);
                 entityHandler.BroadcastEvent(EntityEvent.EntityBeHitted,EEntityEventScope.Entity,new EntityEvent.EntityBeHittedEventArgs(damageInfo));
-                entityHandler.ID.LogSelf();
             }
         }
 

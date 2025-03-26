@@ -8,7 +8,7 @@ public class PlayerController : EntityComponent
 
         [ShowInInspector]
         public int PlayerID { get;private set; }
-        
+
         
         public void Initialize(int playerID)
         {
@@ -18,5 +18,14 @@ public class PlayerController : EntityComponent
         public void ExecuteMoveCommand(Vector2 playerMoveDirection)
         {
                 BroadcastEvent(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,new PlayerEvent.PlayerMoveCommendEventArgs(playerMoveDirection));
+        }
+
+        public bool IsAlive()
+        {
+                if (handler.TryGetComponet(EntityComponetUsage.Health,out BaseHealthComponent health))
+                {
+                     return   health.GetCurrentHealth() > 0;
+                }
+                return false;
         }
 }

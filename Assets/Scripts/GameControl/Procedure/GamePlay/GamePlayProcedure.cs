@@ -23,6 +23,7 @@
 
     public override void OnExit()
     {
+        SetCurrentState<GamePlay_InitProcedure>();
         base.OnExit();
     }
 

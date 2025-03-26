@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ilsFramework;
 
 public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForeach
@@ -74,6 +75,26 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
 
         propConfig = null;
         return false;
+    }
+
+    public BaseProp CreateTargetProp(Type type)
+    {
+        BaseProp baseProp = Activator.CreateInstance(type) as BaseProp;
+        if (baseProp != null && TryGetPropConfig<BasePropConfig>(type, out var propConfig))
+        {
+            baseProp.Initialize(propConfig);
+            return baseProp;
+        }
+
+        return null;
+    }
+    
+    public BaseProp CreateRandomProp()
+    {
+        var selectList = propID_TypeMap.Select((p => p.Value)).ToList();
+        var randomResult = selectList.Shuffle()[0];
+        randomResult.LogSelf();
+        return CreateTargetProp(randomResult);
     }
 
 }

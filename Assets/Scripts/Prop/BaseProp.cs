@@ -5,6 +5,8 @@ public abstract class BaseProp
         public abstract Type ConfigType { get;}
         public virtual void Initialize(BasePropConfig config) { }
 
+        public virtual void BeAddPropContainer(EntityHandler handler){}
+        
         public virtual bool CanUseProp(EntityHandler handler)
         {
                 return true;
@@ -27,6 +29,11 @@ public abstract class BaseProp
                 
         }
 
+        public virtual void BeRemovedFromContainer(EntityHandler handler)
+        {
+                
+        }
+        
         public virtual void OnDestroy(EntityHandler handler)
         {
                 

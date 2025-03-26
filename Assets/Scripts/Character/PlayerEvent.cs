@@ -43,4 +43,16 @@ public static class PlayerEvent
                 }
         }
         
+        public const string HasEnoughEnergyToMakeProp = "HasEnoughEnergyToMakeProp";
+        
+        public class HasEnoughEnergyToMakePropEventArgs : EventArgs
+        {
+                public PlayerEnergyContainer energyContainer;
+
+                public HasEnoughEnergyToMakePropEventArgs(PlayerEnergyContainer energyContainer)
+                {
+                        this.energyContainer = energyContainer;
+                }
+        }
+                
 }

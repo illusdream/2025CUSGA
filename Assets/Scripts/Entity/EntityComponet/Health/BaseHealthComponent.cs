@@ -16,8 +16,9 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
 
     public List<HealthSource> HealthOrderList;
     
+    [ShowInInspector]
     public float MaxHealth { get;private set; }
-        
+    [ShowInInspector]   
     public float CurrentHealth { get;private set; }
         
     public void Start()
@@ -100,6 +101,8 @@ public class BaseHealthComponent : EntityComponent,IEntityHealth
 
     public void Update()
     {
+        MaxHealth = 0;
+        CurrentHealth = 0;
         foreach (var healthSource in healthSources.Values)
         {
             healthSource.Update();

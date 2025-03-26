@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SettingUICanvas : MonoBehaviour
 {
-    public GameObject panel;//ÌáÊ¾£¨´óÁË¿ÉÒÔ×èÖ¹Íæ¼Ò²Ù×÷£©
+    public GameObject panel;//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½
     public List<GameObject> textObject;
     private void OnEnable()
     {

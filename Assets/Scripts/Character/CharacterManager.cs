@@ -87,8 +87,6 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         for (int i = 1; i <= 2; i++)
         {
-            111.LogSelf();
-           // var prefab = Asset.Load(_characterConfig.characterPrefab);
             var prefab = _characterConfig.characterPrefabClone;
             var go = GameObject.Instantiate(prefab);
             if (go.TryGetComponent<PlayerController>(out var characterController))
@@ -134,6 +132,11 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     public List<EntityID> GetAllPlayerID()
     {
         return CharacterCollection.Select(player=>player.ID).ToList();
+    }
+
+    public IEnumerable<PlayerController> GetAllPlayers()
+    {
+        return new []{Player1Controller, Player2Controller};
     }
 
     #region PlayerInputHandler

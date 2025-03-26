@@ -1,4 +1,6 @@
-﻿public class GamePlay_InitProcedure : ProcedureNode
+﻿using UnityEngine.WSA;
+
+public class GamePlay_InitProcedure : ProcedureNode
 {
     public override void OnInit()
     {
@@ -8,7 +10,9 @@
     public override void OnEnter()
     {
         TileManager.Instance.GenerateTiles();
+        TileManager.Instance.StartFillRandomRange();
         CharacterManager.Instance.InitAllPlayers();
+        
         base.OnEnter();
     }
 
