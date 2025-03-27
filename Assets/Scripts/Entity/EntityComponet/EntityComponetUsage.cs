@@ -3,6 +3,8 @@
 /// </summary>
 public partial class EntityComponetUsage
 {
+        public const string EntityBaseCollider  = "EntityBaseCollider";
+        
         /// <summary>
         /// 移动组件，保存物体的位置与速度（均为vector3），旋转（三维空间的旋转）
         /// 使用这个组件来操控Entity进行移动

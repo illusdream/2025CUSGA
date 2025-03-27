@@ -911,4 +911,19 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         }
         FreshOneEmptyRange = false;
     }
+
+    [Button]
+    public void ChangeColliderType(Vector3Int position, Tile.ColliderType type)
+    {
+        TileBase tile = tilemap.GetTile(position);
+        if (tile is Tile concreteTile) {
+            444.LogSelf();
+            concreteTile.colliderType = type;
+            tilemap.RefreshTile(position);
+            tilemap.gameObject.GetComponent<TilemapCollider2D>().ProcessTilemapChanges();
+        }
+    }
+
+    [ShowInInspector]
+    public Tile.ColliderType Type;
 }

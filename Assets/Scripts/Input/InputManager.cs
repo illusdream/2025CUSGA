@@ -13,6 +13,7 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
     
     private MainInputAction _mainInputAction;
     private InputActionAsset _inputActionAsset;
+    
     public void Init()
     {
         _mainInputAction = new MainInputAction();
@@ -29,6 +30,9 @@ public class InputManager : ManagerSingleton<InputManager>,IManager
         _mainInputAction.UI.Enable();
     }
 
+    
+    
+    
     private void InitAllInputAction()
     {
         

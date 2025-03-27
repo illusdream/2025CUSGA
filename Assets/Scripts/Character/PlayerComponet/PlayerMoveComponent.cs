@@ -69,10 +69,6 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
 
     public void FixedUpdate()
     {
-
-            
-        if (!IsInputMoving)
-        {
             var tickFalloffVector = Time.fixedDeltaTime * SpeedFalloff;
             if (tickFalloffVector > Rigidbody2D.velocity.magnitude)
             {
@@ -82,11 +78,10 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
             {
                 Rigidbody2D.velocity -= Rigidbody2D.velocity.normalized * tickFalloffVector;
             }
-        }
-        else
+        var result =Rigidbody2D.velocity+ finalInputMoveDir * (MoveAcceleration * Time.fixedDeltaTime);
+        if (result.magnitude<= MaxMoveSpeed && IsInputMoving)
         {
-            Rigidbody2D.velocity += finalInputMoveDir * (MoveAcceleration * Time.fixedDeltaTime);
-            Rigidbody2D.velocity = Vector2.ClampMagnitude(Rigidbody2D.velocity, MaxMoveSpeed); 
+            Rigidbody2D.velocity = result;
         }
         IsInputMoving = false;
     }

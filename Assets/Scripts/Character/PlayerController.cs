@@ -1,4 +1,5 @@
-﻿using ilsFramework;
+﻿using System;
+using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -9,10 +10,28 @@ public class PlayerController : EntityComponent
         [ShowInInspector]
         public int PlayerID { get;private set; }
 
-        
+        public float EnergyCanBeComeProp =100;
         public void Initialize(int playerID)
         {
                 PlayerID = playerID;
+        }
+
+        public void Update()
+        {
+                
+        }
+
+        public void FixedUpdate()
+        {
+                if (handler.TryGetComponet(EntityComponetUsage.EnergyContainer,out PlayerEnergyContainer playerEnergyContainer)
+                    && handler.TryGetComponet(EntityComponetUsage.PropContainer,out BasePropContainer playerPropContainer))
+                {
+                        if (playerEnergyContainer.CurrentEnergy > EnergyCanBeComeProp && !playerPropContainer.IsFullProp())
+                        {
+                                playerPropContainer.TryInputProp(PropManager.Instance.CreateRandomProp());
+                                playerEnergyContainer.CumsumEnergy(EnergyCanBeComeProp);
+                        }
+                }
         }
 
         public void ExecuteMoveCommand(Vector2 playerMoveDirection)
@@ -28,4 +47,7 @@ public class PlayerController : EntityComponent
                 }
                 return false;
         }
+        
+        
+        
 }

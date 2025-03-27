@@ -187,6 +187,8 @@ MonoBehaviour:
       Value: {fileID: 3230493686241053708}
     - Key: Hitable
       Value: {fileID: 4167761217014654063}
+    - Key: EntityBaseCollider
+      Value: {fileID: 2962911655316715948}
 --- !u!114 &3552688374575338249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  EnergyCanBeComeProp: 100
 --- !u!50 &7418803142098904480
 Rigidbody2D:
   serializedVersion: 4
@@ -304,7 +307,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
   playerController: {fileID: 3552688374575338249}
+  PlayerDamageToTile: 10
   MaxPlayerCanHasTileCount: 100
+  MinBreakTileTime: 0.1
 --- !u!114 &2025048384620317698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +339,6 @@ MonoBehaviour:
   handler: {fileID: 0}
   MaxEnergy: 1000
   CurrentEnergy: 0
-  EnergyCanBeComeProp: 100
 --- !u!114 &3230493686241053708
 MonoBehaviour:
   m_ObjectHideFlags: 0

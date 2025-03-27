@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using ilsFramework;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,12 +16,35 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     public bool IsGamePlayState = true;
     
     CharacterConfig _characterConfig;
+
+    private EdgeCollider2D playRangeInnerEdgeLeft;
+    private EdgeCollider2D playRangeInnerEdgeDown;
+    private EdgeCollider2D playRangeInnerEdgeRight;
+    private EdgeCollider2D playRangeInnerEdgeUp;
+
+    private PolygonCollider2D playRangeBigSizeCheck;
+    
+    private const string playRangeGOName = "PlayRange";
+    
+    private GameObject playRangeGO;
+
+    private List<EntityHandler> PlayerInEdgeOfPlayRangeResult;
+    private List<EntityHandler> PlayerInBoundOfPlayRangeResult;
+    
+    private bool playRangeLimitEnable = false;
+    public bool PlayRangeLimitEnable => playRangeLimitEnable;
+
+    private InputActionTracker player1BreakActionTracker;
+    private InputActionTracker player2BreakActionTracker;
+    
     public void Init()
     {
         CharacterCollection = EntityManager.Instance.GetEntityCollection(EEntityType.Character);
         _characterConfig = Config.GetConfig<CharacterConfig>();
         
-        
+        PlayerInBoundOfPlayRangeResult = new List<EntityHandler>();
+        PlayerInEdgeOfPlayRangeResult = new List<EntityHandler>();
+        InitializePlayerPlayRange();
         
         InitPlayerAllInputHandler();
 
@@ -57,12 +81,11 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
 
     public void LateUpdate()
     {
-        
     }
 
     public void FixedUpdate()
     {
-        
+        CheckPlayerIsOutOfPlayRange();
     }
 
     public void OnDestroy()
@@ -147,51 +170,52 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         InitPlayerPlaceTileInputHandler();
         InitPlayerUsePropInputHandler();
     }
-
-    private void InitPlayerMoveInputHandler()
-    {
-       var input =  InputUtils.GetCurrentInputAction();
-       input.GamePlay.Player1Move.performed += Player1MoveOnperformed;
-       input.GamePlay.Player2Move.performed += Player2MoveOnperformed;
-    }
-    private void Player1MoveOnperformed(InputAction.CallbackContext obj)
-    {
-        if (TryGetPlayerController(1,out var playerController))
-        {
-            var commend =new PlayerMoveCommend(playerController,obj.ReadValue<Vector2>());
-            commend.Execute();
-        }
-    }
-    private void Player2MoveOnperformed(InputAction.CallbackContext obj)
-    {
-        if (TryGetPlayerController(2,out var playerController))
-        {
-            var commend =new PlayerMoveCommend(playerController,obj.ReadValue<Vector2>());
-            commend.Execute();
-        }
-    }
     private void InitPlayerBreakTileInputHandler()
     {
         var input =  InputUtils.GetCurrentInputAction();
-        input.GamePlay.Player1BreakTile.performed += Player1BreakTileOnperformed;
-        input.GamePlay.Player2BreakTile.performed += Player2BreakTileOnperformed;
+
+        player1BreakActionTracker = new InputActionTracker(input.GamePlay.Player1BreakTile);
+        player1BreakActionTracker.started += Player1BreakActionTrackerOnstarted;
+        player1BreakActionTracker.canceled += Player1BreakActionTrackerOncanceled;
+        player2BreakActionTracker = new InputActionTracker(input.GamePlay.Player2BreakTile);
+        player2BreakActionTracker.started += Player2BreakActionTrackerOnstarted;
+        player2BreakActionTracker.canceled += Player2BreakActionTrackerOncanceled;
     }
-    private void Player1BreakTileOnperformed(InputAction.CallbackContext obj)
+    private void Player1BreakActionTrackerOnstarted(InputAction.CallbackContext obj)
     {
         if (TryGetPlayerController(1,out var playerController))
         {
-            var commend =new PlayerBreakTileCommend(playerController);
+            var commend =new PlayerBreakStartCommend(playerController);
             commend.Execute();
         }
     }
-    private void Player2BreakTileOnperformed(InputAction.CallbackContext obj)
+    private void Player1BreakActionTrackerOncanceled(InputAction.CallbackContext obj)
+    {
+        if (TryGetPlayerController(1,out var playerController))
+        {
+            var commend =new PlayerBreakEndCommend(playerController,player1BreakActionTracker);
+            commend.Execute();
+        }
+    }
+    private void Player2BreakActionTrackerOnstarted(InputAction.CallbackContext obj)
     {
         if (TryGetPlayerController(2,out var playerController))
         {
-            var commend =new PlayerBreakTileCommend(playerController);
+            var commend =new PlayerBreakStartCommend(playerController);
             commend.Execute();
         }
     }
+    private void Player2BreakActionTrackerOncanceled(InputAction.CallbackContext obj)
+    {
+        if (TryGetPlayerController(2,out var playerController))
+        {
+            var commend =new PlayerBreakEndCommend(playerController,player2BreakActionTracker);
+            commend.Execute();
+        }
+    }
+    
+    
+    
     private void InitPlayerPlaceTileInputHandler()
     {
         var input =  InputUtils.GetCurrentInputAction();
@@ -221,7 +245,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         var input =  InputUtils.GetCurrentInputAction();
         input.GamePlay.Player1UseProp.performed += Player1UsePropOnperformed;
-        input.GamePlay.Player1UseProp.performed += Player1UsePropOnperformed;
+        input.GamePlay.Player2UseProp.performed += Player2UsePropOnperformed;
     }
 
     private void Player1UsePropOnperformed(InputAction.CallbackContext obj)
@@ -242,5 +266,139 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         }
     }
 
+    #endregion
+
+
+    #region Player游玩范围
+
+    private void InitializePlayerPlayRange()
+    {
+        playRangeGO = new GameObject(playRangeGOName);
+        playRangeGO.transform.SetParent(ContainerObject.transform);
+
+        playRangeGO.layer = LayerMask.NameToLayer("AOERange");
+        
+        
+        var rangeRect = _characterConfig.PlayerCanPlayRange;
+        var leftdown = new Vector2(rangeRect.xMin, rangeRect.yMin);
+        var rightdown = new Vector2(rangeRect.xMax, rangeRect.yMin);
+        var leftup = new Vector2(rangeRect.xMin, rangeRect.yMax);
+        var rightup = new Vector2(rangeRect.xMax, rangeRect.yMax);
+        var innerEdgePoints = new List<Vector2>() {leftdown, rightdown, rightup, leftup ,leftdown};
+
+        #region LeftEdge
+
+        GameObject LeftEdgeGO = new GameObject("LeftEdgeGO");
+        LeftEdgeGO.transform.SetParent(ContainerObject.transform);
+        LeftEdgeGO.layer = LayerMask.NameToLayer("AOERange");
+        playRangeInnerEdgeLeft = LeftEdgeGO.AddComponent<EdgeCollider2D>();
+        playRangeInnerEdgeLeft.points = new []{leftdown,leftup};
+
+        #endregion 
+
+        #region DownEdge
+
+        GameObject DownEdgeGO = new GameObject("DownEdgeGO");
+        DownEdgeGO.transform.SetParent(ContainerObject.transform);
+        DownEdgeGO.layer = LayerMask.NameToLayer("AOERange");
+        playRangeInnerEdgeDown = DownEdgeGO.AddComponent<EdgeCollider2D>();
+        playRangeInnerEdgeDown.points = new []{leftdown,rightdown};
+
+        #endregion 
+        
+        #region RightEdge
+
+        GameObject RightEdgeGO = new GameObject("RightEdge");
+        RightEdgeGO.transform.SetParent(ContainerObject.transform);
+        RightEdgeGO.layer = LayerMask.NameToLayer("AOERange");
+        playRangeInnerEdgeRight = RightEdgeGO.AddComponent<EdgeCollider2D>();
+        playRangeInnerEdgeRight.points = new []{rightup,rightdown};
+
+        #endregion 
+        
+        #region RightEdge
+
+        GameObject UpEdgeGO = new GameObject("UpEdge");
+        UpEdgeGO.transform.SetParent(ContainerObject.transform);
+        UpEdgeGO.layer = LayerMask.NameToLayer("AOERange");
+        playRangeInnerEdgeUp = UpEdgeGO.AddComponent<EdgeCollider2D>();
+        playRangeInnerEdgeUp.points = new []{rightup,leftup};
+
+        #endregion 
+        
+        
+        var boundsPoints = innerEdgePoints.ToList();
+        boundsPoints.AddRange(innerEdgePoints.Select(p =>
+        {
+            var dif = p - rangeRect.center;
+            return rangeRect.center + dif * 2;
+        }));
+
+        playRangeBigSizeCheck = playRangeGO.AddComponent<PolygonCollider2D>();
+        playRangeBigSizeCheck.points = boundsPoints.ToArray();
+        
+    }
+
+    private void CheckPlayerIsOutOfPlayRange()
+    {
+        if (!playRangeLimitEnable)
+        {
+            return;
+        }
+        EdgeReflect(playRangeInnerEdgeLeft,Vector2.right);
+        EdgeReflect(playRangeInnerEdgeDown,Vector2.up);
+        EdgeReflect(playRangeInnerEdgeRight,Vector2.left);
+        EdgeReflect(playRangeInnerEdgeUp,Vector2.down);
+        
+        PlayerInBoundOfPlayRangeResult.Clear();
+        CharacterCollection.GetEntityInArea(playRangeBigSizeCheck,PlayerInBoundOfPlayRangeResult);
+        foreach (var handler in PlayerInBoundOfPlayRangeResult)
+        {
+            if (handler.TryGetComponet(EntityComponetUsage.Moveable,out PlayerMoveComponent playerMoveComponent)
+                &&handler.TryGetComponet(EntityComponetUsage.EntityBaseCollider,out Collider2D playerCollider))
+            {
+                //找到最小包围盒
+                var mul = 1.03f;
+                var playerBound = playerCollider.bounds;
+                var playRangeSize = _characterConfig.PlayerCanPlayRange.size;
+                var boundsize = new Vector3(playRangeSize.x,playRangeSize.y, 0) - new Vector3(playerBound.size.x *mul,playerBound.size.y *mul,0);
+                var cBound = new Bounds(_characterConfig.PlayerCanPlayRange.center, boundsize);
+
+                playerMoveComponent.Rigidbody2D.position =cBound.ClosestPoint(playerMoveComponent.GetEntityPosition());
+
+            }
+        }
+    }
+
+    private void EdgeReflect(EdgeCollider2D edge, Vector2 reflectNormal)
+    {
+        PlayerInEdgeOfPlayRangeResult.Clear();
+        CharacterCollection.GetEntityInArea(edge,PlayerInEdgeOfPlayRangeResult);
+        foreach (var handler in PlayerInEdgeOfPlayRangeResult)
+        {
+            if (handler.TryGetComponet(EntityComponetUsage.Moveable,out PlayerMoveComponent playerMoveComponent))
+            {
+                if ((playerMoveComponent.GetEntityVelocity() * reflectNormal).magnitude < _characterConfig.MinCanBounceSpeed)
+                {
+                    playerMoveComponent.Rigidbody2D.velocity *= (Vector2.one - new Vector2(Mathf.Abs(reflectNormal.x), Mathf.Abs(reflectNormal.y)));
+                    continue;
+                }
+                Vector2 reflectedVelocity = Vector2.Reflect(playerMoveComponent.GetEntityVelocity(), reflectNormal);
+                playerMoveComponent.Rigidbody2D.velocity = reflectedVelocity * _characterConfig.PlayerRangeEdgeBounciness;
+            }
+        }
+    }
+
+    public void EnablePlayRangeLimit()
+    {
+        playRangeLimitEnable = true;
+    }
+
+    public void DisablePlayRangeLimit()
+    {
+        playRangeLimitEnable = false;
+    }
+    
+    
     #endregion
 }

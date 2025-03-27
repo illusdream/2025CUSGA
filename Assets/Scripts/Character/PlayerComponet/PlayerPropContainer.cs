@@ -15,14 +15,12 @@ public class PlayerPropContainer : BasePropContainer
     public override void OnInitialized(EntityHandler handler)
     {
         AddEventListener(PlayerEvent.BeOrderToUseProp,EEntityEventScope.Component,Listener_BeOrderToUseProp);
-        AddEventListener(PlayerEvent.HasEnoughEnergyToMakeProp,EEntityEventScope.Component,Listener_HasEnoughEnergyToMakeProp);
         base.OnInitialized(handler);
     }
 
     public override void OnEntityDestroy(EntityHandler handler)
     {
         RemoveEventListener(PlayerEvent.BeOrderToUseProp,EEntityEventScope.Component,Listener_BeOrderToUseProp);
-        RemoveEventListener(PlayerEvent.HasEnoughEnergyToMakeProp,EEntityEventScope.Component,Listener_HasEnoughEnergyToMakeProp);
         base.OnEntityDestroy(handler);
     }
 
@@ -62,16 +60,5 @@ public class PlayerPropContainer : BasePropContainer
     private void Listener_BeOrderToUseProp(EventArgs args)
     {
         TryUseProp();
-    }
-
-    private void Listener_HasEnoughEnergyToMakeProp(EventArgs args)
-    {
-        if (args is PlayerEvent.HasEnoughEnergyToMakePropEventArgs _args)
-        {
-            if (!IsFullProp() &&TryInputProp(PropManager.Instance.CreateTargetProp(typeof(LaserGunProp))))
-            {
-                _args.energyContainer.CumsumEnergy(100);
-            }
-        }
     }
 }

@@ -8,32 +8,64 @@ public class PlayerTileHandler : EntityComponent
         public override string TargetUsage => EntityComponetUsage.playerTileHandler;
 
         public PlayerController playerController;
+
+        private TimerCollection timerCollection;
+        private const string PlayerAttackTileTimer = "PlayerAttackTileTimer";
         
+        public int PlayerDamageToTile;
         /// <summary>
         /// 玩家最大持有方块数目
         /// </summary>
         public int MaxPlayerCanHasTileCount;
         [ShowInInspector]
         public int PlayerTileCurrentHas { get;private set; }
+
+
+        private bool NeedToAttackTile;
+
+        public float MinBreakTileTime;
         
         public override void OnInitialized(EntityHandler handler)
         {
-                AddEventListener(PlayerEvent.BeOrderToBreakTile,EEntityEventScope.Component,Listener_BeOrderToBreakTile);
+                timerCollection = new TimerCollection();
+                AddEventListener(PlayerEvent.BeOrderToStartBreakTile,EEntityEventScope.Entity,Listener_BeOrderToStartBreakTile);
+                AddEventListener(PlayerEvent.BeOrderToEndBreakTile,EEntityEventScope.Entity,Listener_BeOrderToEndBreakTile);
+                
                 AddEventListener(PlayerEvent.BeOrderToPlaceTile,EEntityEventScope.Component,Listener_BeOrderToPlaceTile);
                 base.OnInitialized(handler);
         }
 
         public override void OnEntityDestroy(EntityHandler handler)
         {
-                RemoveEventListener(PlayerEvent.BeOrderToBreakTile,EEntityEventScope.Component,Listener_BeOrderToBreakTile);
+                timerCollection.ClearAllTimers();
+                RemoveEventListener(PlayerEvent.BeOrderToStartBreakTile,EEntityEventScope.Entity,Listener_BeOrderToStartBreakTile);
+                RemoveEventListener(PlayerEvent.BeOrderToEndBreakTile,EEntityEventScope.Entity,Listener_BeOrderToEndBreakTile);
+                
                 RemoveEventListener(PlayerEvent.BeOrderToPlaceTile,EEntityEventScope.Component,Listener_BeOrderToPlaceTile);
                 base.OnEntityDestroy(handler);
         }
         
 
-        private void Listener_BeOrderToBreakTile(EventArgs args)
+        private void Listener_BeOrderToStartBreakTile(EventArgs args)
         {
-                ApplyDamageToTile();
+                timerCollection.RemoveTimer(PlayerAttackTileTimer);
+                NeedToAttackTile = true;
+        }
+        private void Listener_BeOrderToEndBreakTile(EventArgs args)
+        {
+                if (args is PlayerEvent.BeOrderToEndBreakTileEventArgs _args)
+                {
+                        var time = MinBreakTileTime - _args.BreakOrderContinueTime + 0.001f;
+                        if (time >0)
+                        {
+                                timerCollection
+                                        .CreateTimer(time, 1, PlayerAttackTileTimer)
+                                        .SetOnFinish(_=> NeedToAttackTile = false)
+                                        .Register();
+                                return;
+                        }
+                        NeedToAttackTile = false;
+                }
         }
 
         private void Listener_BeOrderToPlaceTile(EventArgs args)
@@ -44,7 +76,7 @@ public class PlayerTileHandler : EntityComponent
         public void ApplyDamageToTile()
         {
                 Vector2Int pos  = TileManager.Instance.GetTilePosition(new Vector2(transform.position.x, transform.position.y));
-                TileManager.Instance.ApplyDamageToTile(pos,DamageInfo.BuildDamageInfo(50,ID),out var beHittedInfo);
+                TileManager.Instance.ApplyDamageToTile(pos,DamageInfo.BuildDamageInfo(PlayerDamageToTile * Time.fixedDeltaTime,ID),out var beHittedInfo);
                 if (beHittedInfo.IsKilledEntity)
                 {
                         PlayerTileCurrentHas++;
@@ -70,5 +102,13 @@ public class PlayerTileHandler : EntityComponent
                 }
 
                 return false;
+        }
+
+        public void FixedUpdate()
+        {
+                if (NeedToAttackTile)
+                {
+                        ApplyDamageToTile();
+                }
         }
 }

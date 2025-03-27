@@ -16,6 +16,7 @@ public static class PlayerEvent
                 {
                         PlayerMoveDirection = playerMoveDirection;
                 }
+
         }
         
         /// <summary>
@@ -30,6 +31,23 @@ public static class PlayerEvent
         
         public const string BeOrderToPlaceTile = "BeOrderToPlaceTile";
         
+        public const string BeOrderToStartBreakTile = "BeOrderToStartBreakTile";
+        
+        public const string BeOrderToEndBreakTile = "BeOrderToEndBreakTile";
+
+        public class BeOrderToEndBreakTileEventArgs : EventArgs
+        {
+                public float BreakOrderContinueTime;
+                public float startOrderTime;
+                public float endOrderTime;
+                public BeOrderToEndBreakTileEventArgs(float breakOrderContinueTime, float startOrderTime, float endOrderTime)
+                {
+                        BreakOrderContinueTime = breakOrderContinueTime;
+                        this.startOrderTime = startOrderTime;
+                        this.endOrderTime = endOrderTime;
+                }
+        }
+        
         public const string BeOrderToUseProp = "BeOrderToUseProp";
         
         public const string BeHitted = "BeHitted";
@@ -40,18 +58,6 @@ public static class PlayerEvent
                 public BeHittedEventArgs(DamageInfo damageInfo)
                 {
                         DamageInfo = damageInfo;
-                }
-        }
-        
-        public const string HasEnoughEnergyToMakeProp = "HasEnoughEnergyToMakeProp";
-        
-        public class HasEnoughEnergyToMakePropEventArgs : EventArgs
-        {
-                public PlayerEnergyContainer energyContainer;
-
-                public HasEnoughEnergyToMakePropEventArgs(PlayerEnergyContainer energyContainer)
-                {
-                        this.energyContainer = energyContainer;
                 }
         }
                 

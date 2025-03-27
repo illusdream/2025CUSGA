@@ -17,7 +17,7 @@ MonoBehaviour:
   - EntityTypeName: Other
     LayerMask:
       serializedVersion: 2
-      m_Bits: 32
+      m_Bits: 128
   - EntityTypeName: Character
     LayerMask:
       serializedVersion: 2
@@ -41,7 +41,7 @@ MonoBehaviour:
         EntityTypeName: Other
         LayerMask:
           serializedVersion: 2
-          m_Bits: 32
+          m_Bits: 128
     - Key: 1
       Value:
         EntityTypeName: Character

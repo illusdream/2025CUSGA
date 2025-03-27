@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171c90c16e1b488ea03bfad4a9f4703b, type: 3}
   m_Name: CommonTileProperty
   m_EditorClassIdentifier: 
-  BaseMaxHealth: 100
+  BaseMaxHealth: 5
   CanBeDestroyed: 1
   CanBeMerged: 1
-  BaseMergeScore: 5
+  BaseMergeScore: 2
   TargetType: Tiles.CommonTile
-  UseRenderTile: {fileID: 11400000, guid: cbdebef5841df1541be5d631a37c259c, type: 2}
+  UseRenderTile: {fileID: 11400000, guid: da12e6ce063fa4c4ea223be03e5946ca, type: 2}

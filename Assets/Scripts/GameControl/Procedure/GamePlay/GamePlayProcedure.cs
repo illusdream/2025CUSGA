@@ -13,6 +13,7 @@
 
     public override void OnEnter()
     {
+        CharacterManager.Instance.EnablePlayRangeLimit();
         base.OnEnter();
     }
 
@@ -23,6 +24,7 @@
 
     public override void OnExit()
     {
+        CharacterManager.Instance.DisablePlayRangeLimit();
         SetCurrentState<GamePlay_InitProcedure>();
         base.OnExit();
     }

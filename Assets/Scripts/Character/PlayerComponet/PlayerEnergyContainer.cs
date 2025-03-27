@@ -8,8 +8,6 @@ public class PlayerEnergyContainer : EntityComponent
         public int MaxEnergy;
         
         public float CurrentEnergy;
-
-        public float EnergyCanBeComeProp =100;
         
         public float GetCurrentEnergy()
         {
@@ -47,12 +45,6 @@ public class PlayerEnergyContainer : EntityComponent
         public void AddEnergy(float energy)
         {
                 CurrentEnergy += energy;
-                
-                if (CurrentEnergy > EnergyCanBeComeProp)
-                {
-                        BroadcastEvent(PlayerEvent.HasEnoughEnergyToMakeProp,EEntityEventScope.Component,new PlayerEvent.HasEnoughEnergyToMakePropEventArgs(this));
-                }
-                
         }
         
         public void Update()
