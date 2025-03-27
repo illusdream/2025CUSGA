@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem;
+﻿using ilsFramework;
+using UnityEngine.InputSystem;
 
 public class GamePlay_PlayingProcedure : ProcedureNode
 {
@@ -9,6 +10,8 @@ public class GamePlay_PlayingProcedure : ProcedureNode
 
     public override void OnEnter()
     {
+        UIManager.Instance.GetUIPanel<InHouseUI>().Open();
+        
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed += Listener_PauseOnperformed;
         base.OnEnter();
@@ -41,6 +44,8 @@ public class GamePlay_PlayingProcedure : ProcedureNode
 
     public override void OnExit()
     {     
+        UIManager.Instance.GetUIPanel<InHouseUI>().Close();
+        
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed -= Listener_PauseOnperformed;
         base.OnExit();
