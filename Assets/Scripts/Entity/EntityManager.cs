@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ilsFramework;
+using Props;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
     private EntityManagerConfig _managerConfig;
     [ShowInInspector]
     private Dictionary<EEntityType,EntityTypeInfo> entityTypeInfos;
+
+    private Dictionary<GameObject, SpawnSource> spwanSourcesNeedAdd;
     
     bool isOnDestory = false;
     public void Init()
@@ -21,6 +24,8 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         
         _managerConfig = Config.GetConfig<EntityManagerConfig>();
         entityTypeInfos = _managerConfig.GetEntityTypesDictionary();
+        
+        spwanSourcesNeedAdd = new Dictionary<GameObject, SpawnSource>();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -117,14 +122,25 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
 
+    public void GetEntityInArea(Collider2D areaCollider, EEntityType targetEntityType, List<EntityHandler> result)
+    {
+        var instance = GetEntityCollection(targetEntityType);
+        instance.GetEntityInArea(areaCollider, result);
+    }
+
+    public void GetEntityInArea(Collider2D areaCollider, string targetEntityType, List<EntityHandler> result)
+    {
+        if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
+        {
+            entityCollection.GetEntityInArea(areaCollider, result);
+        }
+    }
+    
     public void GetEntityInArea(Collider2D areaCollider,List<string> targetEntityTypes,List<EntityHandler> result)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
-            if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
-            {
-                entityCollection.GetEntityInArea(areaCollider, result);
-            }
+            GetEntityInArea(areaCollider, targetEntityType, result);
         }
     }
 
@@ -132,28 +148,34 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
-            var instance = GetEntityCollection(targetEntityType);
-            instance.GetEntityInArea(areaCollider, result);
+            GetEntityInArea(areaCollider, targetEntityType, result);
         }
     }
 
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,string targetEntityType,List<EntityHandler> result)
+    {
+        if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
+        {
+            entityCollection.GetEntityByRaycast(rayOrigin,rayVector, result);
+        }
+    }
     public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<string> targetEntityTypes,List<EntityHandler> result)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
-            if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
-            {
-                entityCollection.GetEntityByRaycast(rayOrigin,rayVector, result);
-            }
+            GetEntityByRaycast(rayOrigin, rayVector, targetEntityType, result);
         }
     }
-
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,EEntityType targetEntityType ,List<EntityHandler> result)
+    {
+        var instance = GetEntityCollection(targetEntityType);
+        instance.GetEntityByRaycast(rayOrigin,rayVector, result);
+    }
     public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<EEntityType> targetEntityTypes,List<EntityHandler> result)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
-            var instance = GetEntityCollection(targetEntityType);
-            instance.GetEntityByRaycast(rayOrigin,rayVector, result);
+            GetEntityByRaycast(rayOrigin, rayVector, targetEntityType, result);
         }
     }
     
@@ -166,5 +188,16 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
                 entityCollection.GetEntityByRaycast(rayOrigin,rayDirection, result, distance);
             }
         }
+    }
+
+
+    public GameObject Instantiate(GameObject prefab,SpawnSource spawnSource,Vector3 position,Quaternion rotation)
+    {
+        var go = GameObject.Instantiate(prefab,position,rotation);
+        if (go.TryGetComponent<EntityHandler>(out EntityHandler component))
+        {
+            component.SpawnSource = spawnSource;
+        }
+        return go;
     }
 }

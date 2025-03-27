@@ -6,29 +6,40 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
 {
     [ShowInInspector]
     ProcedureSwitcher procedureSwitcher;
+    
+    GameControlConfig gameControlConfig;
+    
+    public bool GameProcedureEnabled { get; private set; }
     public void Init()
     {
-        procedureSwitcher = new ProcedureSwitcher();
+        gameControlConfig = Config.GetConfig<GameControlConfig>();
         
-        procedureSwitcher.AddProcedureNode<StartMenuProcedure>();
-        procedureSwitcher.AddProcedureNode<GamePlayProcedure>();
-        procedureSwitcher.StartProcedure<StartMenuProcedure>();
-        
+
+        InitGameProcedureStateMachine();
     }
 
     public void Update()
     {
-        procedureSwitcher.Update();
+        if (GameProcedureEnabled)
+        {
+            procedureSwitcher.Update();
+        }
     }
 
     public void LateUpdate()
     {
-        procedureSwitcher.LateUpdate();
+        if (GameProcedureEnabled)
+        {
+            procedureSwitcher.LateUpdate();
+        }
     }
 
     public void FixedUpdate()
     {
-        procedureSwitcher.FixedUpdate();
+        if (GameProcedureEnabled)
+        {
+            procedureSwitcher.FixedUpdate();
+        }
     }
 
     public void OnDestroy()
@@ -44,5 +55,36 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
     public void OnDrawGizmosSelected()
     {
         
+    }
+
+    public void InitGameProcedureStateMachine()
+    {
+        GameProcedureEnabled = gameControlConfig.EnableCommenProcedure;
+        
+        procedureSwitcher = new ProcedureSwitcher();
+        
+        procedureSwitcher.AddProcedureNode<StartMenuProcedure>();
+        procedureSwitcher.AddProcedureNode<GamePlayProcedure>();
+        if (GameProcedureEnabled)
+        {
+            procedureSwitcher.StartProcedure<StartMenuProcedure>();
+        }
+    }
+    [Button]
+    public void StartGameProcedureStateMachine()
+    {
+        if (!GameProcedureEnabled)
+        {
+            GameProcedureEnabled = true;
+            procedureSwitcher.StartProcedure<StartMenuProcedure>();
+        }
+    }
+    [Button]
+    public void StopGameProcedureStateMachine()
+    {
+        if (GameProcedureEnabled)
+        {
+            GameProcedureEnabled = false;
+        }
     }
 }

@@ -78,4 +78,9 @@ public abstract class EntityComponent : MonoBehaviour
     {
         handler?.BroadcastEvent(eventType, scope, args);
     }
+    
+    public SpawnSource SpawnEntityBySelf()
+    {
+        return handler.SpawnEntityBySelf();
+    }
 }

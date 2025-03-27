@@ -1,7 +1,6 @@
-﻿using System;
-
-public abstract class BasePropContainer : EntityComponent
-{
+﻿public abstract class BasePropContainer : EntityComponent
+{    
+        public bool canUseProp;
         public sealed override string TargetUsage => EntityComponetUsage.PropContainer;
 
         /// <summary>
@@ -17,4 +16,9 @@ public abstract class BasePropContainer : EntityComponent
         public abstract bool TryInputProp(BaseProp prop);
         
         public abstract bool IsFullProp();
+        
+        public virtual bool CanUseProp()
+        {
+                return canUseProp;
+        }
 }

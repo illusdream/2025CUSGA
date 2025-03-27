@@ -11,9 +11,17 @@ public class PlayerPropContainer : BasePropContainer
     public Stack<BaseProp> propInventory;
 
     public int MaxInventorySize;
+    
+    private TimerCollection timerCollection;
+    public const string UseTimeColdDownTimer = "UseTimeColdDown";
+    public void Awake()
+    {
+        timerCollection = new TimerCollection();
+    }
 
     public override void OnInitialized(EntityHandler handler)
     {
+        canUseProp = true;
         AddEventListener(PlayerEvent.BeOrderToUseProp,EEntityEventScope.Component,Listener_BeOrderToUseProp);
         base.OnInitialized(handler);
     }
@@ -31,11 +39,19 @@ public class PlayerPropContainer : BasePropContainer
 
     public override bool TryUseProp()
     {
-        if (propInventory.Count>0 &&propInventory.Peek().CanUseProp(handler))
+        if (propInventory.Count>0 &&propInventory.Peek().CanUseProp(handler) && CanUseProp())
         {
            var p =  propInventory.Pop();
            p.UseProp(handler);
            p.BeRemovedFromContainer(handler);
+           
+           canUseProp = false;
+           timerCollection
+                .CreateTimer(p.GetUsePropColdDown(handler),1,UseTimeColdDownTimer)
+                .SetOnFinish(_ =>
+                {
+                    canUseProp = true;
+                }).Register();
         }
         return false;
     }
@@ -61,4 +77,10 @@ public class PlayerPropContainer : BasePropContainer
     {
         TryUseProp();
     }
+    [Button]
+    public void GetLaserGun()
+    {
+        TryInputProp(PropManager.Instance.CreateTargetProp(typeof(LaserGunProp)));
+    }
+
 }

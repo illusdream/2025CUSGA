@@ -12,7 +12,8 @@ public class EntityHandler : MonoBehaviour
 {
         [ShowInInspector]
         public EntityID ID;
-        
+
+        public SpawnSource SpawnSource;
         
         [ValueDropdown("GetAllEntityTypes",IsUniqueList = true)]
         [ListDrawerSettings(HideRemoveButton = true,DraggableItems = false)]
@@ -106,12 +107,10 @@ public class EntityHandler : MonoBehaviour
         {
                 components = new SerializableDictionary<string, Component>();
         }
-
+        
         public void Start()
         {
-                eventHandler = new Dictionary<(string,EEntityEventScope),HashSet<Action<EventArgs>>>();
-                InitEntityToManager();
-                InitializedEntityComponents();
+
         }
 
         private void InitializedEntityComponents()
@@ -134,7 +133,9 @@ public class EntityHandler : MonoBehaviour
 
         public void Awake()
         {
-                
+                eventHandler = new Dictionary<(string,EEntityEventScope),HashSet<Action<EventArgs>>>();
+                InitEntityToManager();
+                InitializedEntityComponents();
         }
 
         public void Update()
@@ -173,5 +174,10 @@ public class EntityHandler : MonoBehaviour
         private void UnregisterEntityFromManager()
         {
                 EntityManager.Instance.UnregisterEntity(this);
+        }
+
+        public SpawnSource SpawnEntityBySelf()
+        {
+                return SpawnSource.SpawnByEntity(ID, transform.position);
         }
 }

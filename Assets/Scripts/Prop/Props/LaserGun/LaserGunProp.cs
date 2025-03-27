@@ -29,7 +29,7 @@ namespace Props
         public override void UseProp(EntityHandler handler)
         {
             var rot = Mathf.Atan2(firDirection.y, firDirection.x) * Mathf.Rad2Deg;
-            Object.Instantiate(config.projectilePrefab, handler.transform.position, Quaternion.Euler(0, 0, rot));
+            Entity.Instantiate(config.projectilePrefab, handler.SpawnEntityBySelf(),handler.transform.position, Quaternion.Euler(0, 0, rot));
             //生成预制体
         }
 

@@ -111,7 +111,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         for (int i = 1; i <= 2; i++)
         {
             var prefab = _characterConfig.characterPrefabClone;
-            var go = GameObject.Instantiate(prefab);
+            var go = Entity.Instantiate(prefab,SpawnSource.SystemGenerate,new Vector3(0, 0, 0),Quaternion.identity);
             if (go.TryGetComponent<PlayerController>(out var characterController))
             {
                 characterController.Initialize(i);

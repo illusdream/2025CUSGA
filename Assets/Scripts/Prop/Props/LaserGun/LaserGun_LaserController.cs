@@ -43,6 +43,10 @@ namespace Props
             EntityManager.Instance.GetEntityInArea(attackCollider,config.AttackEntityType,attackResult);
             foreach (var entityHandler in attackResult)
             {
+                if (entityHandler.ID == handler.SpawnSource.SpawnerID)
+                {
+                    continue;
+                }
                 DamageInfo damageInfo = DamageInfo.BuildDamageInfo(LaserDamage,ID);
                 entityHandler.BroadcastEvent(EntityEvent.EntityBeHitted,EEntityEventScope.Entity,new EntityEvent.EntityBeHittedEventArgs(damageInfo));
             }

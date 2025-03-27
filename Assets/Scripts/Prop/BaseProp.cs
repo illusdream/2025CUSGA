@@ -3,7 +3,13 @@
 public abstract class BaseProp
 {
         public abstract Type ConfigType { get;}
-        public virtual void Initialize(BasePropConfig config) { }
+
+        public float BaseUsePropColdDown;
+
+        public virtual void Initialize(BasePropConfig config)
+        {
+                BaseUsePropColdDown = config.BasePropUseColdDown;
+        }
 
         public virtual void BeAddPropContainer(EntityHandler handler){}
         
@@ -37,5 +43,10 @@ public abstract class BaseProp
         public virtual void OnDestroy(EntityHandler handler)
         {
                 
+        }
+
+        public virtual float GetUsePropColdDown(EntityHandler handler)
+        {
+                return BaseUsePropColdDown;
         }
 }

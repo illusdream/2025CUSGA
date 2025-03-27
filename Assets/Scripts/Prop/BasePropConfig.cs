@@ -20,4 +20,7 @@ public class BasePropConfig : ScriptableObject
     }
     [HideInInspector]
     public string TargetType;
+    
+    public float BasePropUseColdDown = 1;
+
 }
