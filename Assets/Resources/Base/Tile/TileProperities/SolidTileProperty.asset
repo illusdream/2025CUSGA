@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5945956c744943dbaa3fbf50504adb5f, type: 3}
   m_Name: SolidTileProperty
   m_EditorClassIdentifier: 
-  BaseMaxHealth: 0
+  BaseMaxHealth: 50
   CanBeDestroyed: 0
-  CanBeMerged: 0
-  BaseMergeScore: 0
+  CanBeMerged: 1
+  BaseMergeScore: 2
+  DefaultSprite: {fileID: 21300000, guid: 60e371d094d14f544947c918e01d0aa6, type: 3}
+  DestoryAnimationFrames:
+  - {fileID: 21300000, guid: 60e371d094d14f544947c918e01d0aa6, type: 3}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  ColliderType: 0
   TargetType: Tiles.SolidTile

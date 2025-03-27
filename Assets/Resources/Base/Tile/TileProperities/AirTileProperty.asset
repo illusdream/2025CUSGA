@@ -16,4 +16,9 @@ MonoBehaviour:
   CanBeDestroyed: 0
   CanBeMerged: 0
   BaseMergeScore: 0
+  DefaultSprite: {fileID: 0}
+  DestoryAnimationFrames:
+  - {fileID: 0}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  ColliderType: 0
   TargetType: Tiles.AirTile

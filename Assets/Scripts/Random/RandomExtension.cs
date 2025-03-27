@@ -5,6 +5,11 @@ using Random = UnityEngine.Random;
 
 public static class RandomExtension
 {
+
+        public static bool RandomBool(this float probability)
+        {
+                return Random.value < probability;
+        }
         public static int RandomRange(this (int, int) range)
         {
                 return Random.Range(range.Item1, range.Item2);

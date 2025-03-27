@@ -15,11 +15,6 @@ namespace Tiles
 
         public override void SetTileRender(BaseTileProperty tileProperty, Tilemap renderer)
         {
-            if (tileProperty is CharactorTileProperty property)
-            {
-                renderer.SetTile(new Vector3Int(Position.x,Position.y,0),property.UseRenderTile);
-            }
-
             base.SetTileRender(tileProperty, renderer);
         }
     }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Utils.EditorUtils;
 
 [InlineEditor(InlineEditorObjectFieldModes.Hidden)]
@@ -27,7 +29,24 @@ public  class BaseTileProperty : ScriptableObject
     public bool CanBeMerged;
     [ShowInInspector]
     public int BaseMergeScore;
+    
+    [OnValueChanged("SetDestroyFramesDefault")]
+    public Sprite DefaultSprite;
+
+    public Sprite[] DestoryAnimationFrames;
+    
+    public Color DefaultColor = Color.white;
+    
+    public Tile.ColliderType ColliderType =Tile.ColliderType.None;
 
     [HideInInspector]
     public string TargetType;
+    
+    private void SetDestroyFramesDefault()
+    {
+        if (DestoryAnimationFrames is not { Length: > 1 })
+        {
+            DestoryAnimationFrames = new Sprite[1] {DefaultSprite};
+        }
+    }
 }

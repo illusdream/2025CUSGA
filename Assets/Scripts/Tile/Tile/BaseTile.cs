@@ -16,6 +16,7 @@ public abstract class BaseTile : IHitable
     public float MaxHealth;
 
     public int BaseMaxHealth;
+    public float HealthPercent => Health / MaxHealth;
 
     /// <summary>
     /// 这个Tile隶属于哪个玩家或者系统
@@ -42,6 +43,16 @@ public abstract class BaseTile : IHitable
     /// </summary>
     public abstract Type TilePropertyType { get; }
 
+    public BaseTileProperty TileProperty { get; set; }
+    
+    public Sprite CurrentRenderSprite;
+
+    public Color CurrentRenderColor;
+    
+    public Tile.ColliderType CurrentColliderType;
+
+
+    
     protected BaseTile()
     {
         
@@ -54,16 +65,29 @@ public abstract class BaseTile : IHitable
 
     public void BasePropertyInitialize(BaseTileProperty tileProperty)
     {
-
-        BaseMaxHealth = tileProperty.BaseMaxHealth;
-        Health = BaseMaxHealth;
+        SetupHealthData(tileProperty.BaseMaxHealth,out MaxHealth,out Health);
+        
         CanBeDestroyed = tileProperty.CanBeDestroyed;
 
         CanBeMerged = tileProperty.CanBeMerged;
 
         BaseMergeScore = tileProperty.BaseMergeScore;
+        
+        SetupBaseRenderAndColliderData();
     }
 
+    public virtual void SetupHealthData(int baseMaxHealth, out float MaxHealth, out float CurrentHealth)
+    {
+        MaxHealth = baseMaxHealth;
+        CurrentHealth = MaxHealth;
+    }
+
+    public virtual void SetupBaseRenderAndColliderData()
+    {
+        CurrentRenderSprite = TileProperty.DefaultSprite;
+        CurrentRenderColor = TileProperty.DefaultColor;
+        CurrentColliderType = TileProperty.ColliderType;
+    }
     
     public virtual void Update()
     {
@@ -116,5 +140,39 @@ public abstract class BaseTile : IHitable
             IsHitted = true,
             IsKilledEntity = IsDestroyed
         };
+        Health.LogSelf();
+        CalculateSpriteRenderingAfterHit();
+    }
+
+    public virtual void CalculateSpriteRenderingAfterHit()
+    {
+        if (!TileProperty  || TileProperty.DestoryAnimationFrames == null || TileProperty.DestoryAnimationFrames.Length == 0)
+        {
+            CurrentRenderSprite = TileProperty.DefaultSprite;
+            return;
+        }
+        
+        var maxIndex = TileProperty.DestoryAnimationFrames.Length - 1;
+        var curIndex = Mathf.CeilToInt(maxIndex * HealthPercent);
+        
+        CurrentRenderSprite = TileProperty.DestoryAnimationFrames[curIndex];
+        RefreshTileRenderAndCollison();
+        //根据血量显示不同图片
+    }
+
+    public virtual void GetRenderingData(out Sprite renderingSprite,out Color renderingColor)
+    {
+        renderingColor = CurrentRenderColor;
+        renderingSprite = CurrentRenderSprite;
+    }
+
+    public virtual Tile.ColliderType GetColliderType()
+    {
+        return CurrentColliderType;
+    }
+
+    public void RefreshTileRenderAndCollison()
+    {
+        TileManager.Instance.RefreshTileRenderingAndCollison(Position);
     }
 }

@@ -61,6 +61,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     /// </summary>
     public bool GameLogicRunning { get;private set; }
     
+    public TilePRHandler TilePRHandler { get; private set; }
+    
     public void Init()
     {
         _managerConfig = Config.GetConfig<TileManagerConfig>();
@@ -79,6 +81,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         canUseEmptyRange = new List<Vector2Int>();
         
         timerCollection = new TimerCollection();
+        
+        TilePRHandler = ScriptableObject.CreateInstance<TilePRHandler>();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -124,6 +128,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         {
             if(baseTile is null)
                 return;
+            baseTile.Update();
         }
     }
     
@@ -407,11 +412,13 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         //创建新的Tile
         if (InnerCreateTile(type, out BaseTile tile) && TryGetTileProperty(type, out BaseTileProperty tileProperty))
         {
+            tile.TileProperty = tileProperty;
             tile.Initialize(tileProperty);
             tile.TileBelongToID = belongsToID;
             tile.Position = position;
             tiles[position.x, position.y] = tile;
             tileInstance = tile;
+            tilemap.SetTile(new Vector3Int(position.x,position.y,0),TilePRHandler);
             return true;
         }
 
@@ -898,7 +905,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             for (int j = 0; j < _managerConfig.FindEmptySize.y; j++)
             {
                 var pos = new Vector2Int(i+result.x, j+result.y);
-                TryPlaceTile(typeof(CommonTile),pos,EntityID.Empty);
+                
+                TryPlaceTile(0.5f.RandomBool() ?typeof(CommonTile) : typeof(SolidTile),pos,EntityID.Empty);
             }
         }
     }
@@ -912,18 +920,12 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         FreshOneEmptyRange = false;
     }
 
-    [Button]
-    public void ChangeColliderType(Vector3Int position, Tile.ColliderType type)
+    public void RefreshTileRenderingAndCollison(Vector2Int position)
     {
-        TileBase tile = tilemap.GetTile(position);
-        if (tile is Tile concreteTile) {
-            444.LogSelf();
-            concreteTile.colliderType = type;
-            tilemap.RefreshTile(position);
-            tilemap.gameObject.GetComponent<TilemapCollider2D>().ProcessTilemapChanges();
+        var posistion = new Vector3Int(position.x, position.y, 0);
+        TileBase tile = tilemap.GetTile(new Vector3Int(position.x, position.y, 0));
+        if (tile is TilePRHandler concreteTile) {
+            tilemap.RefreshTile(posistion);
         }
     }
-
-    [ShowInInspector]
-    public Tile.ColliderType Type;
 }

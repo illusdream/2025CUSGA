@@ -24,4 +24,4 @@ MonoBehaviour:
     width: 16
     height: 16
   PlayerRangeEdgeBounciness: 1.4
-  MinCanBounceSpeed: 1
+  MinCanBounceSpeed: 2

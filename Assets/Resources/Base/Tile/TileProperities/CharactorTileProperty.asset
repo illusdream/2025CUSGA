@@ -16,5 +16,9 @@ MonoBehaviour:
   CanBeDestroyed: 1
   CanBeMerged: 1
   BaseMergeScore: 3
+  DefaultSprite: {fileID: 21300000, guid: 06bac26101347594d8e74883d5aa2941, type: 3}
+  DestoryAnimationFrames:
+  - {fileID: 21300000, guid: 06bac26101347594d8e74883d5aa2941, type: 3}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  ColliderType: 0
   TargetType: Tiles.CharactorTile
-  UseRenderTile: {fileID: 11400000, guid: da12e6ce063fa4c4ea223be03e5946ca, type: 2}
