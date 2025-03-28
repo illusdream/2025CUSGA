@@ -64,10 +64,15 @@ public class ChangeKeyCodes : MonoBehaviour
             if (conflict)
             {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
                 operation.Dispose();
                 inputAction.Enable();
                 return;
+=======
+                Debug.Log("冲突");
+                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
+>>>>>>> Stashed changes
 =======
                 Debug.Log("冲突");
                 GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
