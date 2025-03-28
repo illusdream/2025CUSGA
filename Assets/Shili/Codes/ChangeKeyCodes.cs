@@ -63,20 +63,8 @@ public class ChangeKeyCodes : MonoBehaviour
 
             if (conflict)
             {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+                Debug.Log("冲突");
                 GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
-                operation.Dispose();
-                inputAction.Enable();
-                return;
-=======
-                Debug.Log("冲突");
-                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
->>>>>>> Stashed changes
-=======
-                Debug.Log("冲突");
-                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
->>>>>>> Stashed changes
             }
             else
             {
@@ -107,6 +95,7 @@ public class ChangeKeyCodes : MonoBehaviour
         {
             return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
+
 
     }
     // 新增路径标准化方法
