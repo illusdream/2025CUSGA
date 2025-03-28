@@ -140,7 +140,6 @@ public abstract class BaseTile : IHitable
             IsHitted = true,
             IsKilledEntity = IsDestroyed
         };
-        Health.LogSelf();
         CalculateSpriteRenderingAfterHit();
     }
 

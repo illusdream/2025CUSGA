@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   canvas: {fileID: 6744071067973432405}
+  player: {fileID: 3552688374575338249}
 --- !u!1 &1374568070538825114
 GameObject:
   m_ObjectHideFlags: 0

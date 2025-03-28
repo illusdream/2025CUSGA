@@ -8,7 +8,7 @@ namespace ilsFramework
     public interface IEventCenter
     {
         public void AddListener(string messageType, params Action<EventArgs>[] action);
-        public void BoardCastMessage(string messageType, EventArgs eventArgs);
+        public void BroadcastMessage(string messageType, EventArgs eventArgs);
         public void RemoveListener(string messageType, params Action<EventArgs>[] action);
     }
 }

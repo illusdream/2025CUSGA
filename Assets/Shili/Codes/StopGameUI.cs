@@ -36,7 +36,7 @@ public class StopGameUI : UIPanel
     }
     private void OnContinue()
     {
-        GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
     }
     private void OnSetting()
     {

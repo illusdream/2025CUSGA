@@ -29,7 +29,8 @@ public static class PlayerEvent
         
         
         
-        public const string BeOrderToPlaceTile = "BeOrderToPlaceTile";
+        public const string BeOrderToStartPlaceTile = "BeOrderToStartPlaceTile";
+        public const string BeOrderToEndPlaceTile = "BeOrderToEndPlaceTile";
         
         public const string BeOrderToStartBreakTile = "BeOrderToStartBreakTile";
         
@@ -48,6 +49,10 @@ public static class PlayerEvent
                 }
         }
         
+        
+        
+        
+        
         public const string BeOrderToUseProp = "BeOrderToUseProp";
         
         public const string BeHitted = "BeHitted";
@@ -58,6 +63,45 @@ public static class PlayerEvent
                 public BeHittedEventArgs(DamageInfo damageInfo)
                 {
                         DamageInfo = damageInfo;
+                }
+        }
+        
+        /// <summary>
+        /// 玩家获取到一个新的的Prop,对应的Args：<see cref="PlayerGetNewPropEventArgs"/>
+        /// </summary>
+        public const string PlayerGetNewProp = "PlayerGetNewProp";
+
+        public class PlayerGetNewPropEventArgs : EventArgs
+        {
+                public EntityID PlayerEntityID;
+                public int PlayerID;
+                public Type PropType;
+
+                public PlayerGetNewPropEventArgs(EntityID playerEntityID, int playerID, Type propType)
+                {
+                        PlayerEntityID = playerEntityID;
+                        PlayerID = playerID;
+                        PropType = propType;
+                }
+        }
+        
+        /// <summary>
+        /// 玩家使用了一个道具,对应的Args：<see cref="PlayerUsingPropEventArgs"/>
+        /// </summary>
+        public const string PlayerUsingProp = "PlayerUsingProp";
+        
+        
+        public class PlayerUsingPropEventArgs : EventArgs
+        {
+                public EntityID PlayerEntityID;
+                public int PlayerID;
+                public Type PropType;
+
+                public PlayerUsingPropEventArgs(EntityID playerEntityID, int playerID, Type propType)
+                {
+                        PlayerEntityID = playerEntityID;
+                        PlayerID = playerID;
+                        PropType = propType;
                 }
         }
                 

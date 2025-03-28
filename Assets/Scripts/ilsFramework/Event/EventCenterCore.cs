@@ -69,7 +69,7 @@ namespace ilsFramework
                 }
             }
         }
-        public void BoardCastMessage(string messageType, EventArgs eventArgs)
+        public void BroadcastMessage(string messageType, EventArgs eventArgs)
         {
             IsExcutingEvent = messageType;
             List<Action<EventArgs>> actions = GetEventList(messageType);

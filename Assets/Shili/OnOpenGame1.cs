@@ -8,6 +8,9 @@ public class OnOpenGame1 : MonoBehaviour
     public int playerID;
     private SpriteRenderer spriteRenderer;
     public GameObject canvas;
+    
+    public PlayerController player;
+    public float FadeTime =3;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -15,20 +18,21 @@ public class OnOpenGame1 : MonoBehaviour
     }
     private void Start()
     {
-        playerID = transform.parent.GetComponent<PlayerController>().PlayerID;
+        playerID = player.PlayerID;
+        CharacterConfig config = Config.GetConfig<CharacterConfig>();
         if (playerID == 1)
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.color = config.Player1Color;
         }
         else
         {
-            spriteRenderer.color = Color.blue;
+            spriteRenderer.color = config.Player2Color;
         }
         
     }
     private void OnEnable()
     {
-        TimerManager.Instance.RegisterTimer(3f,1,0f, ETimerType.TimeScale,null,null, TimeOver,null);
+        TimerManager.Instance.RegisterTimer(FadeTime,1,0f, ETimerType.TimeScale,null,null, TimeOver,null);
     }
     private void TimeOver(Timer timer)
     {

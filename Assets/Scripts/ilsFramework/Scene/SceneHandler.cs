@@ -69,7 +69,7 @@ namespace ilsFramework
         private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene arg1)
         {
             SceneChangedEventArgs args = new SceneChangedEventArgs(arg0, arg1);
-            sceneEventCenterCore.BoardCastMessage(SceneChanged,args);
+            sceneEventCenterCore.BroadcastMessage(SceneChanged,args);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace ilsFramework
         private void SceneManagerOnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
             SceneLoadedEventArgs args = new SceneLoadedEventArgs(arg0, arg1);
-            sceneEventCenterCore.BoardCastMessage(SceneLoaded,args);
+            sceneEventCenterCore.BroadcastMessage(SceneLoaded,args);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace ilsFramework
         private void SceneManagerOnSceneUnloaded(Scene arg0)
         {
             SceneUnloadedEventArgs args = new SceneUnloadedEventArgs(arg0);
-            sceneEventCenterCore.BoardCastMessage(SceneUnloaded,args);
+            sceneEventCenterCore.BroadcastMessage(SceneUnloaded,args);
         }
         /// <summary>
         /// 向场景卸载时，添加监听器

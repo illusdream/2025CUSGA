@@ -17,4 +17,7 @@ public class CharacterConfig : ConfigScriptObject
     public float PlayerRangeEdgeBounciness;
     [LabelText("最小可触发反弹的速度")]
     public float MinCanBounceSpeed;
+    
+    public Color Player1Color = Color.white;
+    public Color Player2Color = Color.white;
 }

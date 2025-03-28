@@ -1,4 +1,6 @@
-﻿using UnityEngine.WSA;
+﻿using ilsFramework;
+using UnityEngine;
+using UnityEngine.WSA;
 
 public class GamePlay_InitProcedure : ProcedureNode
 {
@@ -9,9 +11,15 @@ public class GamePlay_InitProcedure : ProcedureNode
 
     public override void OnEnter()
     {
+        var levelSetting = FindLevelSetting();
+        if (!levelSetting)
+        {
+            //default设置
+        }
+        
         TileManager.Instance.GenerateTiles();
         TileManager.Instance.StartFillRandomRange();
-        CharacterManager.Instance.InitAllPlayers();
+        CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);
         
         base.OnEnter();
     }
@@ -40,5 +48,10 @@ public class GamePlay_InitProcedure : ProcedureNode
     public override void OnDestroy()
     {
         base.OnDestroy();
+    }
+
+    public LevelSetting FindLevelSetting()
+    {
+       return GameObject.Find(LevelSetting.LevelSettingGOName).GetComponent<LevelSetting>();
     }
 }

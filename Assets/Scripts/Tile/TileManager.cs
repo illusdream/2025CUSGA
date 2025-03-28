@@ -444,12 +444,15 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         }
     }
 
-    public void TryPlaceTile(Type type, Vector2Int position, EntityID belongsToID)
+    public bool TryPlaceTile(Type type, Vector2Int position, EntityID belongsToID)
     {
         if (IsAir(position))
         {
             ReplaceTile(type, position, belongsToID);
+            return true;
         }
+
+        return false;
     }
     
     
@@ -505,7 +508,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 DestroyedTileID = tile.TileID,
                 TilePosition = position,
             };
-            BoardCastMessage(TileEvent.TileDestroyed,destoryArgs);
+            BroadcastMessage(TileEvent.TileDestroyed,destoryArgs);
         }
         ReplaceTile(typeof(AirTile),position,EntityID.Empty);
     }
@@ -542,7 +545,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             tile.Hit(damageInfo,out hittedInfo);
             if (hittedInfo.IsKilledEntity)
             {
-                BoardCastMessage(TileEvent.TileBreakedByPlayer,new TileEvent.TileBreakedByPlayerEventArgs(tile.TileID,position,damageInfo.DamageFrom));
+                BroadcastMessage(TileEvent.TileBreakedByPlayer,new TileEvent.TileBreakedByPlayerEventArgs(tile.TileID,position,damageInfo.DamageFrom));
                 DestroyTile(position);
             }
             return;
@@ -817,7 +820,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             MergeStartTilePosition = lastSetTilePosition,
             scoreCollection = this.scoreCollection
         };
-        BoardCastMessage(TileEvent.TileMerged, eventArgs);
+        BroadcastMessage(TileEvent.TileMerged, eventArgs);
     }
     
     #endregion
@@ -851,9 +854,9 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
          eventCenterCore.AddListener(messageType, action);
     }
 
-    public void BoardCastMessage(string messageType, EventArgs eventArgs)
+    public void BroadcastMessage(string messageType, EventArgs eventArgs)
     {
-        eventCenterCore.BoardCastMessage(messageType, eventArgs);
+        eventCenterCore.BroadcastMessage(messageType, eventArgs);
     }
 
     public void RemoveListener(string messageType, params Action<EventArgs>[] action)

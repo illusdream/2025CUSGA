@@ -1,13 +1,14 @@
 ﻿using System;
 using ilsFramework;
+using Sirenix.OdinInspector;
 
 public class PlayerEnergyContainer : EntityComponent
 {
         public override string TargetUsage => EntityComponetUsage.EnergyContainer;
         
-        public int MaxEnergy;
-        
-        public float CurrentEnergy;
+        public int MaxEnergy { get;private set; }
+        [ShowInInspector]
+        public float CurrentEnergy { get;private set; }
         
         public float GetCurrentEnergy()
         {

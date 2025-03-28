@@ -106,7 +106,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     /// <summary>
     /// 注册所有Player，准备进入游戏状态
     /// </summary>
-    public void InitAllPlayers()
+    public void InitAllPlayers(Transform player1SpawnPoint, Transform player2SpawnPoint)
     {
         for (int i = 1; i <= 2; i++)
         {
@@ -119,9 +119,15 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
                 {
                     case 1:
                         Player1Controller = characterController;
+                        go.transform.position = player1SpawnPoint.position;
+                        go.transform.rotation = player1SpawnPoint.rotation;
+                        go.transform.localScale = player1SpawnPoint.localScale;
                         break;
                     case 2:
                         Player2Controller = characterController;
+                        go.transform.position = player2SpawnPoint.position;
+                        go.transform.rotation = player2SpawnPoint.rotation;
+                        go.transform.localScale = player2SpawnPoint.localScale;
                         break;
                     default:
                         break;
@@ -219,24 +225,42 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     private void InitPlayerPlaceTileInputHandler()
     {
         var input =  InputUtils.GetCurrentInputAction();
-        input.GamePlay.Player1PlaceTile.performed += Player1PlaceTileOnperformed;
-        input.GamePlay.Player1PlaceTile.performed += Player2PlaceTileOnperformed;
+        input.GamePlay.Player1PlaceTile.started += Player1PlaceActionTrackerOnstarted;
+        input.GamePlay.Player1PlaceTile.canceled += Player1PlaceActionTrackerOncanceled;
+        input.GamePlay.Player1PlaceTile.started += Player2PlaceActionTrackerOnstarted;
+        input.GamePlay.Player1PlaceTile.canceled += Player2PlaceActionTrackerOncanceled;
     }
 
-    private void Player1PlaceTileOnperformed(InputAction.CallbackContext obj)
+    private void Player1PlaceActionTrackerOnstarted(InputAction.CallbackContext obj)
     {
         if (TryGetPlayerController(1,out var playerController))
         {
-            var commend =new PlayerPlaceTileCommend(playerController);
+            111.LogSelf();
+            var commend =new PlayerPlaceStartCommend(playerController);
             commend.Execute();
         }
     }
-
-    private void Player2PlaceTileOnperformed(InputAction.CallbackContext obj)
+    private void Player1PlaceActionTrackerOncanceled(InputAction.CallbackContext obj)
+    {
+        if (TryGetPlayerController(1,out var playerController))
+        {
+            var commend =new PlayerPlaceEndCommend(playerController);
+            commend.Execute();
+        }
+    }
+    private void Player2PlaceActionTrackerOnstarted(InputAction.CallbackContext obj)
     {
         if (TryGetPlayerController(2,out var playerController))
         {
-            var commend =new PlayerPlaceTileCommend(playerController);
+            var commend =new PlayerPlaceStartCommend(playerController);
+            commend.Execute();
+        }
+    }
+    private void Player2PlaceActionTrackerOncanceled(InputAction.CallbackContext obj)
+    {
+        if (TryGetPlayerController(2,out var playerController))
+        {
+            var commend =new PlayerPlaceEndCommend(playerController);
             commend.Execute();
         }
     }

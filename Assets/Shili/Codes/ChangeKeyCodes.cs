@@ -64,7 +64,7 @@ public class ChangeKeyCodes : MonoBehaviour
             if (conflict)
             {
                 Debug.Log("冲突");
-                GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
+                GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
             }
             else
             {
