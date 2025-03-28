@@ -44,40 +44,89 @@ public class ChangeKeyCodes : MonoBehaviour
     {
         inputAction.Disable();
 
-        // 启动异步重绑定操作
+        // 保存原始绑定状态
+        string originalBindings = inputAction.SaveBindingOverridesAsJson();
+
         var rebindOperation = inputAction.PerformInteractiveRebinding();
         rebindOperation.WithTargetBinding(moveIndex);
-        rebindOperation.WithControlsExcluding("<mouse>/leftButton"); // 可选：排除鼠标左键
-        rebindOperation.WithExpectedControlType("Key");          // 限制按键类型
+        rebindOperation.WithControlsExcluding("<mouse>/leftButton");
+        rebindOperation.WithExpectedControlType("Key");
+
         rebindOperation.OnComplete(operation =>
         {
-            // 检查新选择的控制是否已经被其他动作绑定
-            if (IsControlAlreadyBound(char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1)))
+            // 先不应用新绑定，获取候选按键
+            InputControl newControl = operation.selectedControl;
+            bool conflict = IsControlAlreadyBound(newControl);
+
+            // 始终先回滚到原始状态
+            inputAction.LoadBindingOverridesFromJson(originalBindings);
+
+            if (conflict)
             {
+<<<<<<< Updated upstream
                 GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
                 operation.Dispose();
                 inputAction.Enable();
                 return;
+=======
+                Debug.Log("冲突");
+                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
+>>>>>>> Stashed changes
             }
-            Debug.Log("绑定成功: " + operation.selectedControl.name.ToUpper());
-            string a = char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1);
-            playerKey.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = a;
-            InputManager.Instance.SaveBinding(inputAction);
+            else
+            {
+                // 安全应用新绑定
+                inputAction.ApplyBindingOverride(moveIndex, newControl.path);
+                Debug.Log("绑定成功: " + newControl.name.ToUpper());
+                string a = FormatKeyName(newControl.name);
+                playerKey.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = a;
+                InputManager.Instance.SaveBinding(inputAction);
+            }
+
             operation.Dispose();
             inputAction.Enable();
         });
+
         rebindOperation.OnCancel(operation =>
         {
+            inputAction.LoadBindingOverridesFromJson(originalBindings); // 注意这里也要回滚
             Debug.Log("绑定取消");
             operation.Dispose();
             inputAction.Enable();
         });
+
         rebindOperation.Start();
+
+        // 新增格式化方法
+        string FormatKeyName(string input)
+        {
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
+        }
+
+    }
+    // 新增路径标准化方法
+    static string NormalizeControlPath(string path)
+    {
+        // 统一格式：移除尖括号和开头斜杠（处理类似 <Keyboard>/w 和 /Keyboard/w 的情况）
+        return path.Replace("<", "").Replace(">", "").TrimStart('/').ToLower();
     }
 
-    private bool IsControlAlreadyBound(string selectedControl)
+    // 改进的冲突检测逻辑
+    bool IsControlAlreadyBound(InputControl targetControl)
     {
-        /*Debug.Log(selectedControl);
+        string targetPath = NormalizeControlPath(targetControl.path);
+        foreach (var binding in inputAction.bindings)
+        {
+            string bindingPath = NormalizeControlPath(binding.effectivePath);
+            if (bindingPath == targetPath)
+                return true;
+        }
+        return false;
+    }
+
+    /*private bool IsControlAlreadyBound(string selectedControl)
+    {
+        *//*Debug.Log(selectedControl);
         selectedControl = selectedControl.Replace("/","");
         foreach (var action in inputActions)
         {
@@ -95,7 +144,7 @@ public class ChangeKeyCodes : MonoBehaviour
                 
             }
         }
-        return false;*/
+        return false;*//*
         List<GameObject> textObjects = transform.parent.parent.parent.parent.parent.GetComponent<SettingUICanvas>().textObject;
         foreach (var i in textObjects)
         {
@@ -105,6 +154,6 @@ public class ChangeKeyCodes : MonoBehaviour
             }
         }
         return false;
-    }
+    }*/
 
 }
