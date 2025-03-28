@@ -56,13 +56,13 @@ public class SettingUI : UIPanel
 
     private void OnResumeGame()
     {
-        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
+        GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
         Close();
     }
     private void OnReset()
     {
         InputManager.Instance.ResetAllBindings();
-        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.ResetKey, EventArgs.Empty);
+        GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.ResetKey, EventArgs.Empty);
         Debug.Log("����");
     }
     private void OnGameSetting()

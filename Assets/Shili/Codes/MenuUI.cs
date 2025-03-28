@@ -25,7 +25,7 @@ public class MenuUI : UIPanel
     }
     private void OnSatrtGame()
     {
-        GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.OrderStartGame,EventArgs.Empty);
+        GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.OrderStartGame,EventArgs.Empty);
     }
     private void OnOpenSetting()
     {

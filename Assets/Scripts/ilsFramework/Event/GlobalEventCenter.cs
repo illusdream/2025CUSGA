@@ -50,10 +50,10 @@ namespace ilsFramework
             _eventCenterCore.AddListener(messageType, action);
         }
 
-        public void BoradCastMessage(string messageType, EventArgs eventArgs)
+        public void BoardCastMessage(string messageType, EventArgs eventArgs)
         {
 
-            _eventCenterCore.BoradCastMessage(messageType, eventArgs);
+            _eventCenterCore.BoardCastMessage(messageType, eventArgs);
         }
 
         public void RemoveListener(string messageType, params Action<EventArgs>[] action)

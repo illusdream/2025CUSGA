@@ -48,7 +48,7 @@ namespace ilsFramework
         /// <summary>
         /// 是否为帧计时器，采用每帧+1的方式计算
         /// </summary>
-        public bool IsFrameTimer;
+        public ETimerType _TimerType;
         /// <summary>
         /// 在计时器开启时调用一次，即delay《=0时
         /// </summary>
@@ -73,41 +73,46 @@ namespace ilsFramework
         /// <param name="cycleTime"></param>
         /// <param name="delayTime"></param>
         /// <param name="executingTimes"></param>
-        /// <param name="isFrameTimer"></param>
+        /// <param name="timerType"></param>
         /// <param name="onStart"></param>
         /// <param name="onCompleted"></param>
         /// <param name="onFinish"></param>
         /// <param name="onCycling"></param>
-        public Timer(int iD, float cycleTime, float delayTime, int executingTimes, bool isFrameTimer, Action<Timer> onStart, Action<Timer> onCompleted, Action<Timer> onFinish, Action<Timer> onCycling)
+        public Timer(int iD, float cycleTime, float delayTime, int executingTimes, ETimerType timerType, Action<Timer> onStart, Action<Timer> onCompleted, Action<Timer> onFinish, Action<Timer> onCycling)
         {
             ID = iD;
             IsFinish = false;
             _cycleTime = cycleTime;
             _delayTime = delayTime;
             _executingTimes = executingTimes;
-            IsFrameTimer = isFrameTimer;
+            _TimerType = timerType;
             OnStart = onStart;
             OnCompleted = onCompleted;
             OnFinish = onFinish;
             OnCycling = onCycling;
         }
 
-        public void Update(float dt)
+        public void Update(float dt,float realDeltaTime)
         {
             if (IsFinish)
                 return;
             if (_delayTime > 0)
             {
-                if (IsFrameTimer)
+                switch (_TimerType)
                 {
-                    _delayTime--;
+                    case ETimerType.TimeScale:
+                        _delayTime -= dt;
+                        break;
+                    case ETimerType.FramedByUpdate:
+                        _delayTime--;
+                        break;
+                    case ETimerType.RealTime:
+                        _delayTime -= realDeltaTime;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
-                else
-                {
-                    _delayTime -= dt;
-                }
-
-
+                
                 if (_delayTime <= 0)
                 {
                     OnStart?.Invoke(this);
@@ -119,13 +124,19 @@ namespace ilsFramework
             }
             if (_executingTimes != 0)
             {
-                if (IsFrameTimer)
+                switch (_TimerType)
                 {
-                    time++;
-                }
-                else
-                {
-                    time += dt;
+                    case ETimerType.TimeScale:
+                        time += dt;
+                        break;
+                    case ETimerType.FramedByUpdate:
+                        time++;
+                        break;
+                    case ETimerType.RealTime:
+                        time += realDeltaTime;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
                 if (time >= _cycleTime)
                 {
@@ -145,14 +156,14 @@ namespace ilsFramework
             }
         }
 
-        public void Reset(float cycleTime, float delayTime, int executingTimes, bool isFrameTimer, Action<Timer> onStart, Action<Timer> onCompleted, Action<Timer> onFinish, Action<Timer> onCycling)
+        public void Reset(float cycleTime, float delayTime, int executingTimes, ETimerType timeType, Action<Timer> onStart, Action<Timer> onCompleted, Action<Timer> onFinish, Action<Timer> onCycling)
         {
             IsFinish = false;
             time = 0;
             _cycleTime = cycleTime;
             _delayTime = delayTime;
             _executingTimes = executingTimes;
-            IsFrameTimer = isFrameTimer;
+            _TimerType = timeType;
             OnStart = onStart;
             OnCompleted = onCompleted;
             OnFinish = onFinish;

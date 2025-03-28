@@ -54,7 +54,7 @@ public class ChangeKeyCodes : MonoBehaviour
             // 检查新选择的控制是否已经被其他动作绑定
             if (IsControlAlreadyBound(char.ToUpper(operation.selectedControl.name[0]) + operation.selectedControl.name.Substring(1)))
             {
-                GlobalEventCenter.Instance.BoradCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
+                GlobalEventCenter.Instance.BoardCastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
                 operation.Dispose();
                 inputAction.Enable();
                 return;

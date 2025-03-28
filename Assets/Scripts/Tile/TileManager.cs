@@ -505,7 +505,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 DestroyedTileID = tile.TileID,
                 TilePosition = position,
             };
-            BoradCastMessage(TileEvent.TileDestroyed,destoryArgs);
+            BoardCastMessage(TileEvent.TileDestroyed,destoryArgs);
         }
         ReplaceTile(typeof(AirTile),position,EntityID.Empty);
     }
@@ -542,7 +542,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             tile.Hit(damageInfo,out hittedInfo);
             if (hittedInfo.IsKilledEntity)
             {
-                BoradCastMessage(TileEvent.TileBreakedByPlayer,new TileEvent.TileBreakedByPlayerEventArgs(tile.TileID,position,damageInfo.DamageFrom));
+                BoardCastMessage(TileEvent.TileBreakedByPlayer,new TileEvent.TileBreakedByPlayerEventArgs(tile.TileID,position,damageInfo.DamageFrom));
                 DestroyTile(position);
             }
             return;
@@ -817,7 +817,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             MergeStartTilePosition = lastSetTilePosition,
             scoreCollection = this.scoreCollection
         };
-        BoradCastMessage(TileEvent.TileMerged, eventArgs);
+        BoardCastMessage(TileEvent.TileMerged, eventArgs);
     }
     
     #endregion
@@ -851,9 +851,9 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
          eventCenterCore.AddListener(messageType, action);
     }
 
-    public void BoradCastMessage(string messageType, EventArgs eventArgs)
+    public void BoardCastMessage(string messageType, EventArgs eventArgs)
     {
-        eventCenterCore.BoradCastMessage(messageType, eventArgs);
+        eventCenterCore.BoardCastMessage(messageType, eventArgs);
     }
 
     public void RemoveListener(string messageType, params Action<EventArgs>[] action)

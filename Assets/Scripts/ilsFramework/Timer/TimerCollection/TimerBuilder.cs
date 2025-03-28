@@ -14,7 +14,7 @@ namespace ilsFramework
         private float cycleTime;
         private float delayTime =0;
         private int executingTimes;
-        private bool isFrameTimer =false;
+        private ETimerType timerType = ETimerType.TimeScale;
         private Action<Timer> onStart = null;
         private Action<Timer> onCompleted =null;
         private Action<Timer> onFinish =null;
@@ -71,9 +71,9 @@ namespace ilsFramework
         /// </summary>
         /// <param name="isFrameTimer"></param>
         /// <returns></returns>
-        public TimerBuilder SetIsFrameTimer(bool isFrameTimer)
+        public TimerBuilder SetTimerType(ETimerType timerType)
         {
-            this.isFrameTimer = isFrameTimer;
+            this.timerType = timerType;
             return this;
         }
         /// <summary>
@@ -122,7 +122,7 @@ namespace ilsFramework
         /// <returns>此次注册的计时器</returns>
         public Timer Register()
         {
-            var result =  TimerManager.Instance.RegisterTimer(cycleTime,executingTimes,delayTime,isFrameTimer,onStart,onCompleted,onFinish,onCycling);
+            var result =  TimerManager.Instance.RegisterTimer(cycleTime,executingTimes,delayTime,timerType,onStart,onCompleted,onFinish,onCycling);
             if (_timerCollection != null && timerCollectionKey != null)
             {
                 _timerCollection.AddTimer(timerCollectionKey, result);

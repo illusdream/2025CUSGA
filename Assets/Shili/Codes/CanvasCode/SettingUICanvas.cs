@@ -19,7 +19,10 @@ public class SettingUICanvas : MonoBehaviour
     private void OnAppear(EventArgs e)
     {
         panel.SetActive(true);
-        Invoke("UnAppear",3f);
+        (new TimerBuilder(3f, 1))
+            .SetTimerType(ETimerType.RealTime)
+            .SetOnFinish(_ => UnAppear())
+            .Register();
     }
     private void UnAppear()
     {
