@@ -37,23 +37,21 @@ public class StopGameUI : UIPanel
     private void OnContinue()
     {
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
+        UIManager.Instance.GetUIPanel<StopGameUI>().Close();
     }
     private void OnSetting()
     {
-        UIManager.Instance.GetUIPanel<StopGameUI>().Close();
+        //UIManager.Instance.GetUIPanel<StopGameUI>().Close();
         UIManager.Instance.GetUIPanel<SettingUI>().Open();
     }
     private void OnResume()
     {
-        UIManager.Instance.GetUIPanel<StopGameUI>().Close();
-        UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();
-        //UIManager.Instance.GetUIPanel<FadeImageUI>().Open();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
     }
     private void OnExit()
     {
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
-        SceneManager.LoadScene("TestUIScene");
+        SceneManager.LoadScene("Start");
         UIManager.Instance.GetUIPanel<InHouseUI>().Close();
         UIManager.Instance.GetUIPanel<MenuUI>().Open();
         UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();

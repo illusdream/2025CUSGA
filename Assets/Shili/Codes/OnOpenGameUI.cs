@@ -31,7 +31,7 @@ public class OnOpenGameUI : UIPanel
         if (isTimeCounts && countdown <= 0)
         {
             isTimeCounts = false;
-            UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Open();
+            //UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Open();
             Close();
         }
     }

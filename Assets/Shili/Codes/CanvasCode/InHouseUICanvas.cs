@@ -61,11 +61,11 @@ public class InHouseUICanvas : MonoBehaviour
         var p =e as PlayerEvent.PlayerUsingPropEventArgs;
         if(p.PlayerID == 1)
         {
-           Destroy(Player1SkillTransform.GetChild(0));
+           Destroy(Player1SkillTransform.GetChild(0).gameObject);
         }
         else
         {
-            Destroy(Player2SkillTransform.GetChild(0));
+            Destroy(Player2SkillTransform.GetChild(0).gameObject);
         }
     }
     private void UpEnergyAndHealth()
