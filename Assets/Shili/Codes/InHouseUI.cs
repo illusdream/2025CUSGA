@@ -39,10 +39,6 @@ public class InHouseUI : UIPanel
     public override void Update()
     {
         base.Update();
-        //player1HealthImage.fillAmount = 0��1;
-        //player1EnergyImage.fillAmount = 0��1;
-        //player2HealthImage.fillAmount = 0��1;
-        //player2EnergyImage.fillAmount = 0��1;
         
     }
 }

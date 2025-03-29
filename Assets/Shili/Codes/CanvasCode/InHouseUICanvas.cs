@@ -1,4 +1,5 @@
 using ilsFramework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 
 public class InHouseUICanvas : MonoBehaviour
 {
+    public GameObject prefanSkill;
     public Text player1HealthText;
     public Text player1EnemyText;
     public Text player2HealthText;
@@ -14,7 +16,6 @@ public class InHouseUICanvas : MonoBehaviour
     public Image player1EnergyImage;
     public Image player2HealthImage;
     public Image player2EnergyImage;
-
     //参数
     private int player1HealthInt = 1;
     private int currentPlayer1HealthInt;
@@ -24,12 +25,51 @@ public class InHouseUICanvas : MonoBehaviour
     private int currentPlayer2HealthInt;
     private int player2EnemyInt = 1;
     private int currentPlayer2EnemyInt;
+    [Header("技能父物体")]
+    public RectTransform Player1SkillTransform;
+    public RectTransform Player2SkillTransform;
+
     private void OnEnable()
     {
-        currentPlayer1HealthInt = player1HealthInt;
-        currentPlayer1EnemyInt = player1EnemyInt;
-        currentPlayer2HealthInt = player2HealthInt;
-        currentPlayer2EnemyInt = player2EnemyInt;
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
+    }
+    private void OnDisable()
+    {
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
+    }
+    public void OnOpenSet()
+    {
+        UIManager.Instance.GetUIPanel<StopGameUI>().Open();
+    }
+    private void OnAddSkillUI(EventArgs e)
+    {
+        var p = e as PlayerEvent.PlayerGetNewPropEventArgs;
+        GameObject go = Instantiate(prefanSkill);
+        if(p.PlayerID == 1)
+        {
+            go.transform.parent = Player1SkillTransform;
+        }
+        else
+        {
+            go.transform.parent = Player2SkillTransform;
+        }
+    }
+    private void OnUseSkill(EventArgs e)
+    {
+        var p =e as PlayerEvent.PlayerUsingPropEventArgs;
+        if(p.PlayerID == 1)
+        {
+           Destroy(Player1SkillTransform.GetChild(0));
+        }
+        else
+        {
+            Destroy(Player2SkillTransform.GetChild(0));
+        }
+    }
+    private void UpEnergyAndHealth()
+    {
         //获取血量和能量上限与当前能量血量，再赋值
         player1HealthText.text = currentPlayer1HealthInt + "/" + player1HealthInt;
         player1EnemyText.text = currentPlayer1EnemyInt + "/" + player1EnemyInt;
@@ -40,13 +80,5 @@ public class InHouseUICanvas : MonoBehaviour
         player1EnergyImage.fillAmount = currentPlayer1EnemyInt / player1EnemyInt;
         player2HealthImage.fillAmount = currentPlayer2HealthInt / player2HealthInt;
         player2EnergyImage.fillAmount = currentPlayer2EnemyInt / player2EnemyInt;
-    }
-    private void OnDisable()
-    {
-        
-    }
-    public void OnOpenSet()
-    {
-        UIManager.Instance.GetUIPanel<StopGameUI>().Open();
     }
 }

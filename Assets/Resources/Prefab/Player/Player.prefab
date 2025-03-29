@@ -429,7 +429,7 @@ MonoBehaviour:
   handler: {fileID: 0}
   canUseProp: 0
   MaxInventorySize: 3
-  playerController: {fileID: 0}
+  playerController: {fileID: 3552688374575338249}
 --- !u!114 &1723513025055233921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 8802509320463639211}
   - component: {fileID: 5141556916060279819}
   - component: {fileID: 1941578247856009070}
+  - component: {fileID: 7127604840686303245}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -559,6 +560,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 6
+--- !u!114 &7127604840686303245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5677464819861992578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b306c33d73c61e34c8fee4a18dd4772d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileHandler: {fileID: 2598141953491336947}
 --- !u!1 &6744071067973432405
 GameObject:
   m_ObjectHideFlags: 0

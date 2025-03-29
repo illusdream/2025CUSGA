@@ -70,7 +70,12 @@ public class PlayerPropContainer : BasePropContainer
         {
             prop.BeAddPropContainer(handler);
             propInventory.Add(prop);
-            
+
+            ID.LogSelf();
+            playerController.PlayerID.LogSelf();
+            prop.GetType().LogSelf();
+
+
             var args = new PlayerEvent.PlayerGetNewPropEventArgs(ID, playerController.PlayerID, prop.GetType());
            
             handler.BroadcastEvent(PlayerEvent.PlayerGetNewProp,EEntityEventScope.Component,args);
