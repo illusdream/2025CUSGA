@@ -38,6 +38,7 @@ public class StopGameUI : UIPanel
     {
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
+        UIManager.Instance.GetUIPanel<InHouseUI>().Open();
     }
     private void OnSetting()
     {
@@ -46,12 +47,12 @@ public class StopGameUI : UIPanel
     }
     private void OnResume()
     {
-        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToRestartGamePlay, EventArgs.Empty);
     }
     private void OnExit()
     {
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
-        SceneManager.LoadScene("Start");
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToSwitchToMainMenu, EventArgs.Empty);
         UIManager.Instance.GetUIPanel<InHouseUI>().Close();
         UIManager.Instance.GetUIPanel<MenuUI>().Open();
         //UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();

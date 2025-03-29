@@ -4,9 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static ilsFramework.GlobalEventSets;
 
 public class InHouseUICanvas : MonoBehaviour
 {
+    private PlayerEnergyContainer playerEnergyContainer1;
+    private PlayerEnergyContainer playerEnergyContainer2;
+    private PlayerHealth playerHealth1;
+    private PlayerHealth playerHealth2;
     public GameObject prefanSkill;
     public Text player1HealthText;
     public Text player1EnemyText;
@@ -17,27 +22,30 @@ public class InHouseUICanvas : MonoBehaviour
     public Image player2HealthImage;
     public Image player2EnergyImage;
     //参数
-    private int player1HealthInt = 1;
-    private int currentPlayer1HealthInt;
-    private int player1EnemyInt = 1;
-    private int currentPlayer1EnemyInt;
-    private int player2HealthInt = 1;
-    private int currentPlayer2HealthInt;
-    private int player2EnemyInt = 1;
-    private int currentPlayer2EnemyInt;
+    private float player1HealthInt = 1;
+    private float currentPlayer1HealthInt;
+    private float player1EnemyInt = 1;
+    private float currentPlayer1EnemyInt;
+    private float player2HealthInt = 1;
+    private float currentPlayer2HealthInt;
+    private float player2EnemyInt = 1;
+    private float currentPlayer2EnemyInt;
     [Header("技能父物体")]
     public RectTransform Player1SkillTransform;
     public RectTransform Player2SkillTransform;
+    private bool shouldUpdata;
 
     private void OnEnable()
     {
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
     }
     private void OnDisable()
     {
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
     }
     public void OnOpenSet()
     {
@@ -68,8 +76,49 @@ public class InHouseUICanvas : MonoBehaviour
             Destroy(Player2SkillTransform.GetChild(0).gameObject);
         }
     }
-    private void UpEnergyAndHealth()
+    private void UpEnergyAndHealth(EventArgs e)
     {
+       
+        PlayerSpawnEventArgs playerSpawnEventArgs = e as PlayerSpawnEventArgs;
+        var handler = playerSpawnEventArgs.Controller.handler;
+        if (playerSpawnEventArgs.PlayerID == 1)
+        {
+            if (handler.TryGetComponet(EntityComponetUsage.EnergyContainer, out playerEnergyContainer1))
+            {
+            }
+
+            if(handler.TryGetComponet(EntityComponetUsage.Health,out playerHealth1))
+            {
+            }
+        }
+        if (playerSpawnEventArgs.PlayerID == 2)
+        {
+            if (handler.TryGetComponet(EntityComponetUsage.EnergyContainer, out playerEnergyContainer2))
+            {
+            }
+            if (handler.TryGetComponet(EntityComponetUsage.Health, out playerHealth2))
+            {
+            }
+        }
+        if(playerEnergyContainer1!=null&& playerEnergyContainer2 != null)
+        {
+            shouldUpdata = true;
+        }
+    }
+    private void Update()
+    {
+        if (!shouldUpdata)
+        {
+            return;
+        }
+        currentPlayer1EnemyInt = playerEnergyContainer1.CurrentEnergy;
+        player1EnemyInt = playerEnergyContainer1.MaxEnergy;
+        player1HealthInt = playerHealth1.healthSources[EHealthSourceType.Life].BaseMaxHealth;
+        currentPlayer1HealthInt = playerHealth1.healthSources[EHealthSourceType.Life].CurrentHealth;
+        currentPlayer2EnemyInt = playerEnergyContainer2.CurrentEnergy;
+        player2EnemyInt = playerEnergyContainer2.MaxEnergy;
+        player2HealthInt = playerHealth2.healthSources[EHealthSourceType.Life].BaseMaxHealth;
+        currentPlayer2HealthInt = playerHealth2.healthSources[EHealthSourceType.Life].CurrentHealth;
         //获取血量和能量上限与当前能量血量，再赋值
         player1HealthText.text = currentPlayer1HealthInt + "/" + player1HealthInt;
         player1EnemyText.text = currentPlayer1EnemyInt + "/" + player1EnemyInt;
@@ -80,5 +129,6 @@ public class InHouseUICanvas : MonoBehaviour
         player1EnergyImage.fillAmount = currentPlayer1EnemyInt / player1EnemyInt;
         player2HealthImage.fillAmount = currentPlayer2HealthInt / player2HealthInt;
         player2EnergyImage.fillAmount = currentPlayer2EnemyInt / player2EnemyInt;
+
     }
 }

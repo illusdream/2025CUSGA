@@ -56,7 +56,7 @@ public class SettingUI : UIPanel
 
     private void OnResumeGame()
     {
-        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
+        //GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
         Close();
     }
     private void OnReset()
