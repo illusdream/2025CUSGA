@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using ilsFramework;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.WSA;
 
 public class GamePlay_InitProcedure : ProcedureNode
@@ -11,8 +12,23 @@ public class GamePlay_InitProcedure : ProcedureNode
         base.OnInit();
     }
 
-    public override void OnEnter()
+    public async override void OnEnter()
     {
+        var loadScene = SceneManager.LoadSceneAsync("SampleScene");
+        loadScene.allowSceneActivation = false;
+        
+        var fadeHandler =  UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>();
+        fadeHandler.Open();
+        fadeHandler.FadeIn(out var duration);
+        await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.Realtime);
+        UIManager.Instance.GetUIPanel<MenuUI>().Close();
+        loadScene.allowSceneActivation = true;
+        
+        
+        await loadScene;
+        
+        
+        
         var levelSetting = FindLevelSetting();
         if (!levelSetting)
         {
@@ -22,13 +38,19 @@ public class GamePlay_InitProcedure : ProcedureNode
         TileManager.Instance.GenerateTiles();
         TileManager.Instance.StartFillRandomRange();
         CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);
+        UIManager.Instance.GetUIPanel<InHouseUI>().Open();
+        
+        
+        UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
+        await UniTask.Delay(TimeSpan.FromSeconds(fadeOutDuration), DelayType.Realtime);
+        
+        ChangeState<GamePlay_PlayerObserveProcedure>();
         
         base.OnEnter();
     }
 
     public  override void OnUpdate()
     {
-        ChangeState<GamePlay_PlayingProcedure>();
         base.OnUpdate();
     }
 
@@ -44,9 +66,6 @@ public class GamePlay_InitProcedure : ProcedureNode
 
     public async override void OnExit()
     {
-        UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
-        await UniTask.Delay(TimeSpan.FromSeconds(fadeOutDuration), DelayType.Realtime);
-        CharacterManager.Instance.SetAllPlayerCanBeControlled(true);
         base.OnExit();
     }
 

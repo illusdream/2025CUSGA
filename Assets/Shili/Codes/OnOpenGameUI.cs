@@ -4,18 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
+
 [UIPanelSetting(EUILayer.Lower, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/OnOpenGame")]
 public class OnOpenGameUI : UIPanel
 {
-    //°ÑÁ½¸ö·½¿é·Åµ½Íæ¼ÒÍ·ÉÏ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½
     [AutoUIElement("Countdown")]
-    private Text countDownTime;
+    private TMP_Text countDownTime;
     private float countdown;
     private bool isTimeCounts;
     public override void Open()
     {
         base.Open();
-        countdown = 3f;
+        countdown = Config.GetConfig<GameControlConfig>().ObservePlayerTimeWhenStarted;
         isTimeCounts = true;
     }
     public override void Close()

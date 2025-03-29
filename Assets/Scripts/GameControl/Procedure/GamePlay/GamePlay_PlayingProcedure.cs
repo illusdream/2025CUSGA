@@ -11,8 +11,6 @@ public class GamePlay_PlayingProcedure : ProcedureNode
 
     public override void OnEnter()
     {
-        UIManager.Instance.GetUIPanel<InHouseUI>().Open();
-        
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed += Listener_PauseOnperformed;
         
@@ -52,7 +50,6 @@ public class GamePlay_PlayingProcedure : ProcedureNode
         
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed -= Listener_PauseOnperformed;
-        
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.OrderToPauseGame,Listener_OrderToPauseGame);
         base.OnExit();
     }

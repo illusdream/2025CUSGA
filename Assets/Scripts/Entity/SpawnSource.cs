@@ -29,6 +29,15 @@ public struct SpawnSource
         
         public static SpawnSource SystemGenerate => new SpawnSource() { SpawnerID = EntityID.Empty, GenerateBySystem = true, SpawnTime = Time.time };
 
+        public static SpawnSource SpawnBySystem(Vector2 spawnPosition)
+        {
+                return new SpawnSource()
+                {
+                        SpawnerID = EntityID.Empty, GenerateBySystem = true, SpawnTime = Time.time,
+                        SpawnPosition = spawnPosition,
+                };
+        }
+        
         public static SpawnSource SpawnByEntity(EntityID id, Vector2 spawnPosition)
         {
                 return new SpawnSource() { SpawnerID = id, SpawnPosition = spawnPosition ,SpawnTime = Time.time };

@@ -1,4 +1,8 @@
-﻿public class GamePlay_EndProcedure : ProcedureNode
+﻿using System;
+using ilsFramework;
+using UnityEngine.WSA;
+
+public class GamePlay_EndProcedure : ProcedureNode
 {
     public override void OnInit()
     {
@@ -7,12 +11,13 @@
 
     public override void OnEnter()
     {
+
         base.OnEnter();
     }
 
     public override void OnUpdate()
     {
-        (switcher as GamePlayProcedure)?.ChangeState<StartMenuProcedure>();
+        //(switcher as GamePlayProcedure)?.ChangeState<StartMenuProcedure>();
         base.OnUpdate();
     }
 
@@ -35,4 +40,6 @@
     {
         base.OnDestroy();
     }
+
+
 }

@@ -1,8 +1,12 @@
-﻿public class GamePlayProcedure : SubProcedureSwitcher
+﻿using System;
+using ilsFramework;
+
+public class GamePlayProcedure : SubProcedureSwitcher
 {
     public override void OnInit()
     {
         AddProcedureNode<GamePlay_InitProcedure>();
+        AddProcedureNode<GamePlay_PlayerObserveProcedure>();
         AddProcedureNode<GamePlay_PlayingProcedure>();
         AddProcedureNode<GamePlay_EndProcedure>();
         AddProcedureNode<GamePlay_PauseProcedure>();
@@ -13,6 +17,9 @@
 
     public override void OnEnter()
     {
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToRestartGamePlay,Listener_OrderToRestartGamePlay);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToSwitchToMainMenu,Listener_OrderToSwitchToMainMenu);
+        
         CharacterManager.Instance.EnablePlayRangeLimit();
         base.OnEnter();
     }
@@ -25,6 +32,10 @@
     public override void OnExit()
     {
         CharacterManager.Instance.DisablePlayRangeLimit();
+        
+        GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToRestartGamePlay,Listener_OrderToRestartGamePlay);
+        GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToSwitchToMainMenu,Listener_OrderToSwitchToMainMenu);
+        
         SetCurrentState<GamePlay_InitProcedure>();
         base.OnExit();
     }
@@ -52,5 +63,16 @@
     public override void LateUpdate()
     {
         base.LateUpdate();
+    }
+
+    private void Listener_OrderToRestartGamePlay(EventArgs args)
+    {
+        TileManager.Instance.StopFillRandomRange();
+        ChangeProcedureNode<GamePlay_InitProcedure>();
+    }
+
+    private void Listener_OrderToSwitchToMainMenu(EventArgs args)
+    {
+        ChangeState<StartMenuProcedure>();
     }
 }

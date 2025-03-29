@@ -40,6 +40,7 @@ public class SubProcedureSwitcher : ProcedureSwitcher,IProcedureNode
 
     public virtual void ChangeState<T>() where T : IProcedureNode
     {
+        _currentState.OnExit();
         switcher.ChangeProcedureNode<T>();
     }
 

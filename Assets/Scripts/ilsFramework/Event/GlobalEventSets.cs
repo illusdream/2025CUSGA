@@ -1,3 +1,5 @@
+using System;
+
 namespace ilsFramework
 {
     public partial class GlobalEventSets
@@ -19,5 +21,30 @@ namespace ilsFramework
         /// 命令游戏流程控制器 从暂停出继续游戏流程
         /// </summary>
         public const string OrderToResumeGame = "OrderToResumeGame";
+        
+        /// <summary>
+        ///  命令游戏流程控制器 重新开始游戏(这个事件在主界面是没有用的)
+        /// </summary>
+        public const string OrderToRestartGamePlay = "OrderToRestartGame";
+        /// <summary>
+        /// 命令游戏流程控制器 切换至主界面，无限制
+        /// </summary>
+        public const string OrderToSwitchToMainMenu = "OrderToSwitchToMainMenu";
+        
+        public const string PlayerSpawn = "PlayerSpawn";
+        
+        public class PlayerSpawnEventArgs : EventArgs
+        {
+            public PlayerController Controller;
+            public int PlayerID;
+            public SpawnSource SpawnSource;
+
+            public PlayerSpawnEventArgs(PlayerController controller, int playerID, SpawnSource spawnSource)
+            {
+                Controller = controller;
+                PlayerID = playerID;
+                SpawnSource = spawnSource;
+            }
+        }
     }
 }

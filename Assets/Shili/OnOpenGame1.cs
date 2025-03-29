@@ -1,3 +1,4 @@
+using System;
 using ilsFramework;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ public class OnOpenGame1 : MonoBehaviour
     
     public PlayerController player;
     public float FadeTime =3;
+    
+    private Timer timer;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -32,11 +35,17 @@ public class OnOpenGame1 : MonoBehaviour
     }
     private void OnEnable()
     {
-        TimerManager.Instance.RegisterTimer(FadeTime,1,0f, ETimerType.TimeScale,null,null, TimeOver,null);
+        timer= TimerManager.Instance.RegisterTimer(FadeTime,1,0f, ETimerType.TimeScale,null,null, TimeOver,null);
     }
+
+    public void OnDisable()
+    {
+        TimerManager.Instance.RemoveTimer(timer);
+    }
+
     private void TimeOver(Timer timer)
     {
-        gameObject.SetActive(false);
-        canvas.SetActive(true);
+        gameObject?.SetActive(false);
+        canvas?.SetActive(true);
     }
 }

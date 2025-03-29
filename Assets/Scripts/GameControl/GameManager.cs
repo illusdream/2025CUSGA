@@ -1,4 +1,5 @@
-﻿using ilsFramework;
+﻿using System;
+using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
 
@@ -86,5 +87,15 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
         {
             GameProcedureEnabled = false;
         }
+    }
+    [Button]
+    public void RestartGame()
+    {
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToRestartGamePlay,EventArgs.Empty);
+    }
+    [Button]
+    public void ToMainMenu()
+    {
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToSwitchToMainMenu,EventArgs.Empty);
     }
 }

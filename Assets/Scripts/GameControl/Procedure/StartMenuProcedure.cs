@@ -18,6 +18,7 @@ public class StartMenuProcedure : ProcedureNode
                 }
                 
                 GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
+                
                 UIManager.Instance.GetUIPanel<MenuUI>().Open();
                 UIManager.Instance.LoadUIPanel<UI_SystemFadeHandler>();
                 
@@ -61,18 +62,10 @@ public class StartMenuProcedure : ProcedureNode
         }
 
 
-        private async void ListenerToStartGame(EventArgs args)
+        private void ListenerToStartGame(EventArgs args)
         {
                 if (!IsExecuting)
                         return;
-
-                var fadeHandler =  UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>();
-                fadeHandler.Open();
-                fadeHandler.FadeIn(out var duration);
-                
-                await SceneManager.LoadSceneAsync("SampleScene");
-                await UniTask.Delay(TimeSpan.FromSeconds(duration),DelayType.Realtime);
-                UIManager.Instance.GetUIPanel<MenuUI>().Close();
                 ChangeState<GamePlayProcedure>();
         }
 }

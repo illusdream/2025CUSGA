@@ -32,4 +32,18 @@ public class UI_SystemFadeHandler : UIPanel
         }
         duration = 0f;
     }
+
+    public override void Open()
+    {
+        UIPanelCanvasGroup.alpha = 1;
+        UIPanelCanvasGroup.blocksRaycasts = false;
+        UIPanelCanvasGroup.interactable = false;
+    }
+
+    public override void Close()
+    {
+        UIPanelCanvasGroup.alpha = 0;
+        UIPanelCanvasGroup.blocksRaycasts = false;
+        UIPanelCanvasGroup.interactable = false;
+    }
 }

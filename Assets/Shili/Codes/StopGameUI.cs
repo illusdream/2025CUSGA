@@ -54,6 +54,6 @@ public class StopGameUI : UIPanel
         SceneManager.LoadScene("Start");
         UIManager.Instance.GetUIPanel<InHouseUI>().Close();
         UIManager.Instance.GetUIPanel<MenuUI>().Open();
-        UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();
+        //UIManager.Instance.GetUIPanel<OnOpenGameNextUI>().Close();
     }
 }

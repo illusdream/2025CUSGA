@@ -10,5 +10,8 @@ public class GameControlConfig : ConfigScriptObject
     [LabelText("是否启用正常的游戏流程")]
     [ToggleLeft]
     public bool EnableCommenProcedure;
-    
+
+
+    [LabelText("观察时间")]
+    public float ObservePlayerTimeWhenStarted;
 }

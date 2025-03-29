@@ -111,7 +111,8 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         for (int i = 1; i <= 2; i++)
         {
             var prefab = _characterConfig.characterPrefabClone;
-            var go = Entity.Instantiate(prefab,SpawnSource.SystemGenerate,new Vector3(0, 0, 0),Quaternion.identity);
+            var SS = SpawnSource.SpawnBySystem(player1SpawnPoint.position);
+            var go = Entity.Instantiate(prefab,SS,new Vector3(0, 0, 0),Quaternion.identity);
             if (go.TryGetComponent<PlayerController>(out var characterController))
             {
                 characterController.Initialize(i);
@@ -135,6 +136,9 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
                     default:
                         break;
                 }
+
+                var psea = new GlobalEventSets.PlayerSpawnEventArgs(characterController, i, SS);
+                GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerSpawn, psea);
             }
         }
     }

@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GameControl
   m_EditorClassIdentifier: 
   EnableCommenProcedure: 1
+  ObservePlayerTimeWhenStarted: 3
