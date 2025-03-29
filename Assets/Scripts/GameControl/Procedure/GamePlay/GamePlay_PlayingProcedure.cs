@@ -22,7 +22,7 @@ public class GamePlay_PlayingProcedure : ProcedureNode
         bool gameIsOver = false;
         foreach (var playerController in CharacterManager.Instance.GetAllPlayers())
         {
-            gameIsOver |= (!playerController.IsAlive());
+            gameIsOver |= (!playerController?.IsAlive()).GetValueOrDefault(true);
         }
 
         if (gameIsOver)
