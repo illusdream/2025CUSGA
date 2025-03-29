@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace ilsFramework
@@ -26,8 +27,8 @@ namespace ilsFramework
         private Dictionary<Type, UIPanelSetting> uiPanelSettings;
         [ShowInInspector]
         private Dictionary<Type, UIPanel> uiPanels;
-
-        private List<(Type, UIPanel)> needAddToDic;
+        
+        private Dictionary<Type, UIPanel> needAddToDic;
         private List<Type> needRemoveFromDic;
         
         private UIConfig uiConfig;
@@ -36,7 +37,7 @@ namespace ilsFramework
             uiPanelSettings = new Dictionary<Type, UIPanelSetting>();
             uiPanels= new Dictionary<Type, UIPanel>();
             
-            needAddToDic = new List<(Type, UIPanel)>();
+            needAddToDic = new Dictionary<Type, UIPanel>();
             needRemoveFromDic = new List<Type>();
 
             uiConfig = Config.GetConfig<UIConfig>();
@@ -66,7 +67,7 @@ namespace ilsFramework
         {
             foreach (var tuple in needAddToDic)
             {
-                uiPanels[tuple.Item1]= tuple.Item2;
+                uiPanels[tuple.Key]= tuple.Value;
             }
 
             foreach (var needRemove in needRemoveFromDic)
@@ -319,7 +320,7 @@ namespace ilsFramework
                     
                     instance.Canvas.sortingOrder = LayerInfo.Item2 + setting.LayerOffest;
                 }
-                needAddToDic.Add((type, instance));
+                needAddToDic.Add(type, instance);
                 instance.InitUIPanel();
                 instance.Close();
                 return instance as T;
@@ -334,10 +335,15 @@ namespace ilsFramework
             {
                 return panel;
             }
-            else
+
+            if (needAddToDic.TryGetValue(typeof(T),out var result2) && result2 is T panel2)
             {
-                return LoadUIPanel<T>();;
+                return panel2;
             }
+
+            
+            return LoadUIPanel<T>();;
+
         }
 
         public void UnLoadUIPanel<T>() where T : UIPanel
