@@ -19,6 +19,8 @@ public class StartMenuProcedure : ProcedureNode
                 
                 GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
                 UIManager.Instance.GetUIPanel<MenuUI>().Open();
+                UIManager.Instance.LoadUIPanel<UI_SystemFadeHandler>();
+                
                 base.OnEnter();
         }
 
@@ -38,9 +40,7 @@ public class StartMenuProcedure : ProcedureNode
 
         public override void OnExit()
         {
-                GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
-                
-                UIManager.Instance.GetUIPanel<MenuUI>().Close();
+                GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
                 base.OnExit();
         }
 
@@ -65,7 +65,14 @@ public class StartMenuProcedure : ProcedureNode
         {
                 if (!IsExecuting)
                         return;
+
+                var fadeHandler =  UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>();
+                fadeHandler.Open();
+                fadeHandler.FadeIn(out var duration);
+                
                 await SceneManager.LoadSceneAsync("SampleScene");
+                await UniTask.Delay(TimeSpan.FromSeconds(duration),DelayType.Realtime);
+                UIManager.Instance.GetUIPanel<MenuUI>().Close();
                 ChangeState<GamePlayProcedure>();
         }
 }

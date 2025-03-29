@@ -12,6 +12,11 @@ public class PlayerMoveCommend : BasePlayerCommend
 
     public override void Execute()
     {
+        if (!playerController.CanBeControlled)
+        {
+            return;
+        }
+
         playerController?.ExecuteMoveCommand(moveDirection);
     }
 

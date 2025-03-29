@@ -8,7 +8,12 @@
 
     public override void Execute()
     {
-            var args = new PlayerEvent.BeOrderToEndBreakTileEventArgs(tracker.ContinueScaledTime,tracker.StartScaledTime, tracker.EndScaledTime);
-            playerController.BroadcastEvent(PlayerEvent.BeOrderToEndBreakTile,EEntityEventScope.Entity,args);
+        if (!playerController.CanBeControlled)
+        {
+            return;
+        }
+
+        var args = new PlayerEvent.BeOrderToEndBreakTileEventArgs(tracker.ContinueScaledTime, tracker.StartScaledTime, tracker.EndScaledTime);
+        playerController.BroadcastEvent(PlayerEvent.BeOrderToEndBreakTile, EEntityEventScope.Entity, args);
     }
 }

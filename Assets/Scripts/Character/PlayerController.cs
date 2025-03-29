@@ -7,10 +7,14 @@ public class PlayerController : EntityComponent
 {
         public override string TargetUsage => EntityComponetUsage.playerController;
 
+        public SpriteRenderer spriteRenderer;
+        
         [ShowInInspector]
         public int PlayerID { get;private set; }
 
         public float EnergyCanBeComeProp =100;
+        
+        public bool CanBeControlled { get;private set; }
         public void Initialize(int playerID)
         {
                 PlayerID = playerID;
@@ -47,7 +51,15 @@ public class PlayerController : EntityComponent
                 }
                 return false;
         }
-        
-        
+
+        public void SetCanBeControlled(bool canBeControlled)
+        {
+                CanBeControlled = canBeControlled;
+        }
+
+        public void SetPlayerSpriteColor(Color color)
+        {
+                spriteRenderer.color = color;
+        }
         
 }

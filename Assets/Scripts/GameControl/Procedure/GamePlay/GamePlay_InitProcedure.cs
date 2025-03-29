@@ -1,4 +1,6 @@
-﻿using ilsFramework;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using ilsFramework;
 using UnityEngine;
 using UnityEngine.WSA;
 
@@ -24,7 +26,7 @@ public class GamePlay_InitProcedure : ProcedureNode
         base.OnEnter();
     }
 
-    public override void OnUpdate()
+    public  override void OnUpdate()
     {
         ChangeState<GamePlay_PlayingProcedure>();
         base.OnUpdate();
@@ -40,8 +42,11 @@ public class GamePlay_InitProcedure : ProcedureNode
         base.OnFixedUpdate();
     }
 
-    public override void OnExit()
+    public async override void OnExit()
     {
+        UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
+        await UniTask.Delay(TimeSpan.FromSeconds(fadeOutDuration), DelayType.Realtime);
+        CharacterManager.Instance.SetAllPlayerCanBeControlled(true);
         base.OnExit();
     }
 

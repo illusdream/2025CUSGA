@@ -8,6 +8,10 @@ public class PlayerPlaceStartCommend: BasePlayerCommend
 
     public override void Execute()
     {
+        if (!playerController.CanBeControlled)
+        {
+            return;
+        }
         playerController.BroadcastEvent(PlayerEvent.BeOrderToStartPlaceTile,EEntityEventScope.Entity,EventArgs.Empty);
     }
 }

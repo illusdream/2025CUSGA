@@ -100,6 +100,7 @@ MonoBehaviour:
   playerID: 0
   canvas: {fileID: 6744071067973432405}
   player: {fileID: 3552688374575338249}
+  FadeTime: 3
 --- !u!1 &1374568070538825114
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  spriteRenderer: {fileID: 8556531300256380584}
   EnergyCanBeComeProp: 100
 --- !u!50 &7418803142098904480
 Rigidbody2D:
@@ -427,6 +429,7 @@ MonoBehaviour:
   handler: {fileID: 0}
   canUseProp: 0
   MaxInventorySize: 3
+  playerController: {fileID: 0}
 --- !u!114 &1723513025055233921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,8 +443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
-  MaxEnergy: 1000
-  CurrentEnergy: 0
 --- !u!114 &3230493686241053708
 MonoBehaviour:
   m_ObjectHideFlags: 0

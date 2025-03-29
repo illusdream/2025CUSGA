@@ -11,6 +11,13 @@ namespace ilsFramework
         /// </summary>
         public const string OrderStartGame = "OrderStartGame";
         
+        /// <summary>
+        /// 命令游戏流程控制器 暂停游戏流程
+        /// </summary>
+        public const string OrderToPauseGame = "OrderToPauseGame";
+        /// <summary>
+        /// 命令游戏流程控制器 从暂停出继续游戏流程
+        /// </summary>
         public const string OrderToResumeGame = "OrderToResumeGame";
     }
 }

@@ -8,6 +8,10 @@ public class PlayerPlaceEndCommend: BasePlayerCommend
 
     public override void Execute()
     {
+        if (!playerController.CanBeControlled)
+        {
+            return;
+        }
         playerController.BroadcastEvent(PlayerEvent.BeOrderToEndPlaceTile,EEntityEventScope.Entity,EventArgs.Empty);
     }
 }

@@ -115,16 +115,19 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
             if (go.TryGetComponent<PlayerController>(out var characterController))
             {
                 characterController.Initialize(i);
+                characterController.SetCanBeControlled(false);
                 switch (i)
                 {
                     case 1:
                         Player1Controller = characterController;
+                        characterController.SetPlayerSpriteColor(_characterConfig.Player1Color);
                         go.transform.position = player1SpawnPoint.position;
                         go.transform.rotation = player1SpawnPoint.rotation;
                         go.transform.localScale = player1SpawnPoint.localScale;
                         break;
                     case 2:
                         Player2Controller = characterController;
+                        characterController.SetPlayerSpriteColor(_characterConfig.Player2Color);
                         go.transform.position = player2SpawnPoint.position;
                         go.transform.rotation = player2SpawnPoint.rotation;
                         go.transform.localScale = player2SpawnPoint.localScale;
@@ -133,6 +136,14 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
                         break;
                 }
             }
+        }
+    }
+
+    public void SetAllPlayerCanBeControlled(bool canBeControlled)
+    {
+        foreach (var playerController in GetAllPlayers())
+        {
+            playerController.SetCanBeControlled(canBeControlled);
         }
     }
     
@@ -235,7 +246,6 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         if (TryGetPlayerController(1,out var playerController))
         {
-            111.LogSelf();
             var commend =new PlayerPlaceStartCommend(playerController);
             commend.Execute();
         }

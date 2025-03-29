@@ -1,4 +1,5 @@
-﻿using ilsFramework;
+﻿using System;
+using ilsFramework;
 using UnityEngine.InputSystem;
 
 public class GamePlay_PlayingProcedure : ProcedureNode
@@ -14,6 +15,9 @@ public class GamePlay_PlayingProcedure : ProcedureNode
         
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed += Listener_PauseOnperformed;
+        
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToPauseGame,Listener_OrderToPauseGame);
+        
         base.OnEnter();
     }
 
@@ -48,6 +52,8 @@ public class GamePlay_PlayingProcedure : ProcedureNode
         
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed -= Listener_PauseOnperformed;
+        
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.OrderToPauseGame,Listener_OrderToPauseGame);
         base.OnExit();
     }
 
@@ -56,6 +62,12 @@ public class GamePlay_PlayingProcedure : ProcedureNode
         base.OnDestroy();
     }
     private void Listener_PauseOnperformed(InputAction.CallbackContext obj)
+    {
+        //停止游戏
+        ChangeState<GamePlay_PauseProcedure>();
+    }
+
+    private void Listener_OrderToPauseGame(EventArgs args)
     {
         //停止游戏
         ChangeState<GamePlay_PauseProcedure>();

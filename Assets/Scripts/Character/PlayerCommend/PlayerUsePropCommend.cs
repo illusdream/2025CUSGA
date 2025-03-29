@@ -8,6 +8,11 @@ public class PlayerUsePropCommend : BasePlayerCommend
 
     public override void Execute()
     {
+        if (!playerController.CanBeControlled)
+        {
+            return;
+        }
+
         playerController.BroadcastEvent(PlayerEvent.BeOrderToUseProp,EEntityEventScope.Component,EventArgs.Empty);
     }
 }
