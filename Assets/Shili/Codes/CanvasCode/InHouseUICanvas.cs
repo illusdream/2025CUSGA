@@ -40,12 +40,18 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameOver, OnGameOver);
     }
     private void OnDisable()
     {
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameOver, OnGameOver);
+    }
+    private void OnGameOver(EventArgs e)
+    {
+        UIManager.Instance.GetUIPanel<GameOverUI>().Open();
     }
     public void OnOpenSet()
     {
