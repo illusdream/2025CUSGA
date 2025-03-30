@@ -1,9 +1,11 @@
 ﻿using System;
 using ilsFramework;
+using UnityEngine;
 using UnityEngine.WSA;
 
 public class GamePlay_EndProcedure : ProcedureNode
 {
+    private float oldtimeScale;
     public override void OnInit()
     {
         base.OnInit();
@@ -11,12 +13,14 @@ public class GamePlay_EndProcedure : ProcedureNode
 
     public override void OnEnter()
     {
-
+        oldtimeScale = Time.timeScale;
+        Time.timeScale = 0;
         base.OnEnter();
     }
 
     public override void OnUpdate()
     {
+        
         //(switcher as GamePlayProcedure)?.ChangeState<StartMenuProcedure>();
         base.OnUpdate();
     }
@@ -33,6 +37,7 @@ public class GamePlay_EndProcedure : ProcedureNode
 
     public override void OnExit()
     {
+        Time.timeScale = oldtimeScale;
         base.OnExit();
     }
 

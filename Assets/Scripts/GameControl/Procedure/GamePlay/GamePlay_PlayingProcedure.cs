@@ -22,11 +22,34 @@ public class GamePlay_PlayingProcedure : ProcedureNode
     public override void OnUpdate()
     {
         bool gameIsOver = false;
+        bool isPlayer1Win = false;
         foreach (var playerController in CharacterManager.Instance.GetAllPlayers())
         {
             gameIsOver |= (!playerController?.IsAlive()).GetValueOrDefault(true);
+            if (playerController.PlayerID == 2 && gameIsOver)
+            {
+                isPlayer1Win = true;
+            }
         }
 
+        GlobalEventSets.GameOverEventArgs args = null;
+
+        CharacterManager.Instance.TryGetPlayerController(1, out var player1);
+        CharacterManager.Instance.TryGetPlayerController(2, out var player2);
+
+        if (isPlayer1Win)
+        {
+            args = new GlobalEventSets.GameOverEventArgs(player1, player2);
+        }
+        else
+        {
+            args = new GlobalEventSets.GameOverEventArgs(player2, player1);
+        }
+
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameOver, args);
+        
+
+        
         if (gameIsOver)
         {
             ChangeState<GamePlay_EndProcedure>();

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ilsFramework
 {
@@ -30,6 +31,41 @@ namespace ilsFramework
         /// 命令游戏流程控制器 切换至主界面，无限制
         /// </summary>
         public const string OrderToSwitchToMainMenu = "OrderToSwitchToMainMenu";
+        
+        
+        /// <summary>
+        /// 一局游戏结束的事件,对应的EventArgs<see cref="GameOverEventArgs"/>
+        /// </summary>
+        public const string GameOver = "GameOver";
+        public class GameOverEventArgs: EventArgs
+        {
+            /// <summary>
+            /// 赢的人的PlayerID，要拿实例用CharactorManager的TryGetPlayerController
+            /// </summary>
+            public int WinPlayerID;
+            /// <summary>
+            /// 赢的人的EntityID，要拿实例用CharactorManager的TryGetPlayerController
+            /// </summary>
+            public EntityID WinnerID;
+            /// <summary>
+            /// 输的人的PlayerID，要拿实例用CharactorManager的TryGetPlayerController
+            /// </summary>
+            public int LosePlayerID;
+            /// <summary>
+            /// 输的人的EntityID，要拿实例用CharactorManager的TryGetPlayerController
+            /// </summary>
+            public EntityID LoserID;
+
+            public GameOverEventArgs(PlayerController winner,PlayerController loser)
+            {
+                WinPlayerID = (winner?.PlayerID).GetValueOrDefault(-1);
+                WinnerID = (winner?.ID).GetValueOrDefault(EntityID.Empty);
+                
+                LosePlayerID = (loser?.PlayerID).GetValueOrDefault(-1);
+                LoserID = (loser?.ID).GetValueOrDefault(EntityID.Empty);
+            }
+        }
+        
         
         public const string PlayerSpawn = "PlayerSpawn";
         

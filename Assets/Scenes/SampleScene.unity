@@ -625,7 +625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1430875988
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -678,16 +678,14 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430875987}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: f87307a5298622443b2e44ea29191185, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 2323766073778207681, guid: f87307a5298622443b2e44ea29191185, type: 2}
-    value: {fileID: 1430875988}
+  m_SceneBindings: []
   m_ExposedReferences:
     m_References:
     - 2a01748c5b3d7624b949abdeca7f400f: {fileID: 1430875988}
