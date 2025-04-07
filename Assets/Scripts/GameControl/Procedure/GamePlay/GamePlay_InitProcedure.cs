@@ -37,7 +37,7 @@ public class GamePlay_InitProcedure : ProcedureNode
         
         //先加载一下就好了
         UIManager.Instance.GetUIPanel<InHouseUI>().Open();
-        
+        TileManager.Instance.InitTileHandlers();
         TileManager.Instance.GenerateTiles();
         TileManager.Instance.StartFillRandomRange();
         CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);

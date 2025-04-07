@@ -33,7 +33,10 @@ public  class BaseTileProperty : ScriptableObject
     [OnValueChanged("SetDestroyFramesDefault")]
     public Sprite DefaultSprite;
 
+    //这个要改成Texture了
     public Sprite[] DestoryAnimationFrames;
+    
+    public AnimationClip SpawnAnimationClip;
     
     public Color DefaultColor = Color.white;
     

@@ -150,7 +150,16 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
             playerController.SetCanBeControlled(canBeControlled);
         }
     }
-    
+
+    public bool IsPlayer1(EntityID id)
+    {
+        return id == Player1Controller.ID;
+    }
+
+    public bool IsPlayer2(EntityID id)
+    {
+        return id == Player2Controller.ID;
+    }
     public bool TryGetPlayerController(int id, out PlayerController controller)
     {
 
@@ -185,12 +194,42 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
 
     #region PlayerInputHandler
 
+    
     private void InitPlayerAllInputHandler()
     {
+        InitPlayerStopMoveInputHandler();
         InitPlayerBreakTileInputHandler();
         InitPlayerPlaceTileInputHandler();
         InitPlayerUsePropInputHandler();
     }
+
+    private void InitPlayerStopMoveInputHandler()
+    {
+        var input =  InputUtils.GetCurrentInputAction();
+        
+        input.GamePlay.Player1Move.canceled += Player1MoveOncanceled;
+        input.GamePlay.Player2Move.canceled+= Player2MoveOncanceled;
+
+
+    }
+
+    private void Player1MoveOncanceled(InputAction.CallbackContext obj)
+    {
+        if (TryGetPlayerController(1,out var playerController))
+        {
+            var commend =new PlayerStopMoveCommend(playerController);
+            commend.Execute();
+        }
+    }
+    private void Player2MoveOncanceled(InputAction.CallbackContext obj)
+    {
+        if (TryGetPlayerController(1,out var playerController))
+        {
+            var commend =new PlayerStopMoveCommend(playerController);
+            commend.Execute();
+        }
+    }
+
     private void InitPlayerBreakTileInputHandler()
     {
         var input =  InputUtils.GetCurrentInputAction();

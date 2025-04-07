@@ -15,22 +15,13 @@ namespace Tiles
     {
         public override Type TilePropertyType => typeof(CommonTileProperty);
         
-        public override void SetTileRender(BaseTileProperty tileProperty, Tilemap renderer)
-        {
-            base.SetTileRender(tileProperty, renderer);
-        }
+
 
         public override void Initialize(BaseTileProperty tileProperty)
         {
             base.Initialize(tileProperty);
         }
-
-        public override void RemoveTileRender(BaseTileProperty tileProperty, Tilemap renderer)
-        {           
-
-            base.RemoveTileRender(tileProperty, renderer);
-        }
-
+        
         public override void Update()
         {
             base.Update();

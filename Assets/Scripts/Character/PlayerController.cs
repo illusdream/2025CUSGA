@@ -1,6 +1,7 @@
 ﻿using System;
 using ilsFramework;
 using Sirenix.OdinInspector;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerController : EntityComponent
@@ -9,12 +10,20 @@ public class PlayerController : EntityComponent
 
         public SpriteRenderer spriteRenderer;
         
+        public Animator animator;
+        
+        public Rigidbody2D rigidbody2D;
+        
         [ShowInInspector]
         public int PlayerID { get;private set; }
 
         public float EnergyCanBeComeProp =100;
         
         public bool CanBeControlled { get;private set; }
+        
+        
+        
+        
         public void Initialize(int playerID)
         {
                 PlayerID = playerID;
@@ -23,6 +32,7 @@ public class PlayerController : EntityComponent
         public void Update()
         {
                 
+
         }
 
         public void FixedUpdate()
@@ -40,7 +50,18 @@ public class PlayerController : EntityComponent
 
         public void ExecuteMoveCommand(Vector2 playerMoveDirection)
         {
+                var x = math.sign(playerMoveDirection.x);
+                var y = math.sign(playerMoveDirection.y);
+                spriteRenderer.flipX = x < 0;
+                animator?.SetFloat("XSpeed",Mathf.Abs(x));
+                animator?.SetFloat("YSpeed",y);
                 BroadcastEvent(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,new PlayerEvent.PlayerMoveCommendEventArgs(playerMoveDirection));
+        }
+
+        public void ExecuteStopMoveCommand()
+        {
+                animator?.SetFloat("XSpeed",0);
+                animator?.SetFloat("YSpeed",0);  
         }
 
         public bool IsAlive()

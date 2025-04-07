@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TestImpluse : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class TestImpluse : MonoBehaviour
     [Button]
     public void GenerateImpluse(Vector3 vel)
     {
+
         impulseSource.GenerateImpulse(vel);
     }
 }

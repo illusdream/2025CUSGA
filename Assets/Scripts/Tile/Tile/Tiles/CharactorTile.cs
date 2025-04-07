@@ -13,9 +13,25 @@ namespace Tiles
             base.Initialize(tileProperty);
         }
 
-        public override void SetTileRender(BaseTileProperty tileProperty, Tilemap renderer)
+        public override void OnSpawn()
         {
-            base.SetTileRender(tileProperty, renderer);
+            if (TileProperty is CharactorTileProperty charactorProperty)
+            {
+                if (CharacterManager.Instance.IsPlayer1(TileBelongToID))
+                {
+                    tileHandler.PlayTileAnimation(charactorProperty.Charactor1SpawnClip);
+                    tileHandler.SetDestroySprite(TileProperty.DestoryAnimationFrames[0]);
+                }
+
+                if (CharacterManager.Instance.IsPlayer2(TileBelongToID))
+                {
+                    tileHandler.PlayTileAnimation(charactorProperty.Charactor2SpawnClip);
+                    tileHandler.SetDestroySprite(TileProperty.DestoryAnimationFrames[0]);
+                }
+
+                return;
+            }
+            base.OnSpawn();
         }
     }
 }

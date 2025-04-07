@@ -18,7 +18,16 @@ MonoBehaviour:
   BaseMergeScore: 2
   DefaultSprite: {fileID: 21300000, guid: 60e371d094d14f544947c918e01d0aa6, type: 3}
   DestoryAnimationFrames:
-  - {fileID: 21300000, guid: 60e371d094d14f544947c918e01d0aa6, type: 3}
+  - {fileID: 21300000, guid: 1209c535ae1eb7d43a9b14e62717fcc3, type: 3}
+  - {fileID: 244645132, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: -221946372, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: 2008410657, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: -272072164, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: 140737395, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: 827406404, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: -702500914, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: 480972856, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  SpawnAnimationClip: {fileID: 7400000, guid: 215fc112ac2bfad448fb952eaf159671, type: 2}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}
   ColliderType: 0
   TargetType: Tiles.SolidTile

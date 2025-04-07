@@ -19,6 +19,7 @@ public class TileConfig : ConfigScriptObject
 
     public const string TilePropertyFolderPath = "Assets/Resources/Base/Tile/TileProperities";
     
+    
     private Dictionary<string,BaseTileProperty> TileProperties;
     
     [SerializeField]

@@ -11,6 +11,8 @@ public class GamePlay_PlayingProcedure : ProcedureNode
 
     public override void OnEnter()
     {
+        UIManager.Instance.GetUIPanel<InHouseUI>().Open();
+        
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed += Listener_PauseOnperformed;
         
@@ -40,18 +42,21 @@ public class GamePlay_PlayingProcedure : ProcedureNode
         if (isPlayer1Win)
         {
             args = new GlobalEventSets.GameOverEventArgs(player1, player2);
+            
         }
         else
         {
             args = new GlobalEventSets.GameOverEventArgs(player2, player1);
+            
         }
 
-        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameOver, args);
+
         
 
         
         if (gameIsOver)
         {
+            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameOver, args);
             ChangeState<GamePlay_EndProcedure>();
         }
         base.OnUpdate();

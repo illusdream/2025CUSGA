@@ -26,11 +26,11 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private GameObject unityTileHandler;
     [ShowInInspector]
     private Grid grid;
-    [ShowInInspector]
-    private TilemapRenderer tilemapRenderer;
-    [ShowInInspector]
-    private Tilemap tilemap;
 
+    private TileHandler[,] tileHandlers;
+
+    private Transform tileHandlerCollection;
+    
     private BaseTile[,] tiles;
     private RectInt tilesRange;
     private TileFenwickTree2D _fenwickTree2D;
@@ -156,18 +156,53 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     {
         return tilesRange.Contains(position);
     }
-    
+
+    #region TileHandler
+
+    public void InitTileHandlers()
+    {
+        tileHandlers = new TileHandler[_managerConfig.MapSize.x, _managerConfig.MapSize.y];
+        
+        tileHandlerCollection = new GameObject("TileHandlers").transform;
+        
+        var hanlderPrefab = _managerConfig.TileHandlerPrefab;
+        for (int x = 0; x < _managerConfig.MapSize.x; x++)
+        {
+            for (int y = 0; y < _managerConfig.MapSize.y; y++)
+            {
+                var instance = Object.Instantiate(hanlderPrefab,new Vector3(x+0.5f,y+0.5f,0),quaternion.identity, tileHandlerCollection);
+                if (instance.TryGetComponent<TileHandler>(out var handler))
+                {
+                    tileHandlers[x, y]= handler;
+                }
+            }
+        }
+    }
+
+    public bool TryGetTileHandler(Vector2Int position, out TileHandler handler)
+    {
+        if (tileHandlers != null)
+        {
+            handler = tileHandlers[position.x, position.y];
+            return true;
+        }
+        handler = null;
+        return false;
+    }
+
+    #endregion
     
     
     #region TileMethod
 
+    
+    
+    
     private void InitTileGrids()
     {
         unityTileHandler = Object.Instantiate(_managerConfig.UnityTileHandler, Vector3.zero, Quaternion.identity,ContainerObject.transform);  
         
         grid = unityTileHandler.GetComponent<Grid>();
-        tilemapRenderer = unityTileHandler.GetComponentInChildren<TilemapRenderer>();
-        tilemap = unityTileHandler.GetComponentInChildren<Tilemap>();
         TileIDMap = new Dictionary<Type, int>();
         
         
@@ -410,15 +445,18 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             return false;
         }
         //创建新的Tile
-        if (InnerCreateTile(type, out BaseTile tile) && TryGetTileProperty(type, out BaseTileProperty tileProperty))
+        if (InnerCreateTile(type, out BaseTile tile)
+            && TryGetTileProperty(type, out BaseTileProperty tileProperty)
+            && TryGetTileHandler(position,out var handler))
         {
             tile.TileProperty = tileProperty;
-            tile.Initialize(tileProperty);
             tile.TileBelongToID = belongsToID;
             tile.Position = position;
+            tile.tileHandler = handler;
+            tile.Initialize(tileProperty);
             tiles[position.x, position.y] = tile;
+            tile.OnSpawn();
             tileInstance = tile;
-            tilemap.SetTile(new Vector3Int(position.x,position.y,0),TilePRHandler);
             return true;
         }
 
@@ -437,7 +475,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         if (InnerSetTile(type,position,belongsToID, out BaseTile tile))
         {
             //程序化的音效什么的
-            SetTileRender(tile,type);
+
             
             //检查合并
             //CheckTileCanMerge(position);
@@ -482,10 +520,6 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             fenwickTreeDelta = 1;
         }
         
-        if (TryGetTileProperty(oldTile.GetType(),out var property))
-        {
-            oldTile.RemoveTileRender(property,tilemap);
-        }
         oldTile.Destroy();
         //程序化的执行
         //放置方块
@@ -555,19 +589,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     
     
     #endregion
-
-    #region 方块渲染相关
-
-    public void SetTileRender(BaseTile tile,Type tileType)
-    {
-        if (TryGetTileProperty(tileType,out var property))
-        {
-            tile.SetTileRender(property,tilemap);
-        }
-    }
-
-    #endregion
-
+    
     #region 格子相关
 
     public Vector2Int GetTilePosition(Vector2 position)
@@ -922,13 +944,5 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         }
         FreshOneEmptyRange = false;
     }
-
-    public void RefreshTileRenderingAndCollison(Vector2Int position)
-    {
-        var posistion = new Vector3Int(position.x, position.y, 0);
-        TileBase tile = tilemap.GetTile(new Vector3Int(position.x, position.y, 0));
-        if (tile is TilePRHandler concreteTile) {
-            tilemap.RefreshTile(posistion);
-        }
-    }
+    
 }

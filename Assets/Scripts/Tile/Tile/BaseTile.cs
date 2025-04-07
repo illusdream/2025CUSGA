@@ -9,6 +9,8 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public abstract class BaseTile : IHitable
 {
+    public TileHandler tileHandler;
+    
     public Vector2Int Position;
     
     public float Health;
@@ -76,6 +78,13 @@ public abstract class BaseTile : IHitable
         SetupBaseRenderAndColliderData();
     }
 
+
+    public virtual void OnSpawn()
+    {
+        tileHandler.PlayTileAnimation(TileProperty.SpawnAnimationClip);
+        tileHandler.SetDestroySprite(TileProperty.DestoryAnimationFrames[0]);
+    }
+
     public virtual void SetupHealthData(int baseMaxHealth, out float MaxHealth, out float CurrentHealth)
     {
         MaxHealth = baseMaxHealth;
@@ -103,16 +112,7 @@ public abstract class BaseTile : IHitable
     {
 
     }
-
-    public virtual void SetTileRender(BaseTileProperty tileProperty,Tilemap renderer)
-    {
-        
-    }
-
-    public virtual void RemoveTileRender(BaseTileProperty tileProperty, Tilemap renderer)
-    {
-        
-    }
+    
 
     public bool CanBeHit()
     {
@@ -121,12 +121,17 @@ public abstract class BaseTile : IHitable
 
     public virtual void Hit(DamageInfo damageInfo, out BeHittedInfo beHittedInfo)
     {
-        TileLastestBeHitByID = damageInfo.DamageFrom;
+        if (damageInfo.DamageFrom == TileBelongToID)
+        {
+            beHittedInfo = BeHittedInfo.Default;
+            return;
+        }
         if (!CanBeHit())
         {
             beHittedInfo = BeHittedInfo.Default;
             return;
         }
+        TileLastestBeHitByID = damageInfo.DamageFrom;
         Health -= damageInfo.baseDamage;
         var cDamage = math.min(Health,damageInfo.baseDamage);
         if (Health<=0)
@@ -152,10 +157,11 @@ public abstract class BaseTile : IHitable
         }
         
         var maxIndex = TileProperty.DestoryAnimationFrames.Length - 1;
-        var curIndex = Mathf.CeilToInt(maxIndex * HealthPercent);
+        var curIndex = Mathf.CeilToInt(maxIndex * (1-HealthPercent));
         
         CurrentRenderSprite = TileProperty.DestoryAnimationFrames[curIndex];
-        RefreshTileRenderAndCollison();
+        
+        tileHandler.SetDestroySprite(CurrentRenderSprite);
         //根据血量显示不同图片
     }
 
@@ -164,14 +170,12 @@ public abstract class BaseTile : IHitable
         renderingColor = CurrentRenderColor;
         renderingSprite = CurrentRenderSprite;
     }
+    
+
 
     public virtual Tile.ColliderType GetColliderType()
     {
         return CurrentColliderType;
     }
-
-    public void RefreshTileRenderAndCollison()
-    {
-        TileManager.Instance.RefreshTileRenderingAndCollison(Position);
-    }
+    
 }

@@ -29,6 +29,8 @@ public class TileManagerConfig : ConfigScriptObject
     public float RefreshBeforeSetTime = 3;
     [LabelText("显示刷新区域的预制体")]
     public GameObject RefreshAreaShow;
+    [LabelText("用于显示物块和处理碰撞的预制体")]
+    public GameObject TileHandlerPrefab;
     
     
     public bool AutoUpdateTileConfigs = true;
