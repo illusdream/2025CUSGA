@@ -10,22 +10,15 @@ using static System.Net.Mime.MediaTypeNames;
 
 public class ChangeKeyCodes : MonoBehaviour
 {
-    private MainInputAction inputActions;
     private GameObject playerKey;
-    private Keyboard keyboard;
-    private InputAction inputAction;
     public string actionName;
     public int moveIndex;
     private string keyString;
     private void Awake()
     {
-
         playerKey = gameObject;
-        inputActions = InputManager.Instance.GetCurrentInputAction();
         //按键按钮
-        playerKey.GetComponent<Button>().onClick.AddListener(TextInputPlayerKey);
-        keyboard = Keyboard.current;
-        inputAction = inputActions.FindAction(actionName);
+        playerKey.GetComponent<Button>().onClick.AddListener(SetAndUse);
         keyString = transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text;
     }
     private void OnEnable()
@@ -40,117 +33,8 @@ public class ChangeKeyCodes : MonoBehaviour
     {
         transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = keyString;
     }
-    private void TextInputPlayerKey()
+   private void SetAndUse()
     {
-        inputAction.Disable();
-        // 保存原始绑定状态
-        string originalBindings = inputAction.SaveBindingOverridesAsJson();
-
-        var rebindOperation = inputAction.PerformInteractiveRebinding();
-        rebindOperation.WithTargetBinding(moveIndex)
-        //不希望接收鼠标的输入
-        .WithControlsExcluding("Mouse")
-        //监听其它输入的间隔
-        .OnMatchWaitForAnother(0.1f);
-        rebindOperation.WithExpectedControlType("Key");
-
-        rebindOperation.OnComplete(operation =>
-        {
-            InputControl newControl = operation.selectedControl;
-            // 始终回滚临时绑定
-            inputAction.LoadBindingOverridesFromJson(originalBindings);
-            bool conflict = IsControlAlreadyBound(newControl);
-            if (conflict)
-            {
-                Debug.Log("冲突");
-                GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PromptAppears, EventArgs.Empty);
-            }
-            else
-            {
-                // 安全应用新绑定（仅在无冲突时）
-                inputAction.ApplyBindingOverride(moveIndex, newControl.path);
-                Debug.Log("绑定成功: " + newControl.name.ToUpper());
-                string a = FormatKeyName(newControl.name);
-                playerKey.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = a;
-                InputManager.Instance.SaveBinding(inputAction);
-            }
-
-            operation.Dispose();
-            inputAction.Enable();
-        }); 
-
-        rebindOperation.OnCancel(operation =>
-        {
-            inputAction.LoadBindingOverridesFromJson(originalBindings); // 注意这里也要回滚
-            Debug.Log("绑定取消");
-            operation.Dispose();
-            inputAction.Enable();
-        });
-
-        rebindOperation.Start();
-
-        // 新增格式化方法
-        string FormatKeyName(string input)
-        {
-            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
-        }
-
-
+        shili_InputManager.Instance.SetAndUse(playerKey, actionName, moveIndex);
     }
-    // 新增路径标准化方法
-    static string NormalizeControlPath(string path)
-    {
-        // 统一格式：移除尖括号和开头斜杠（处理类似 <Keyboard>/w 和 /Keyboard/w 的情况）
-        return path.Replace("<", "").Replace(">", "").TrimStart('/').ToLower();
-    }
-
-    // 改进的冲突检测逻辑
-    bool IsControlAlreadyBound(InputControl targetControl)
-    {
-        string targetPath = NormalizeControlPath(targetControl.path);
-        Debug.Log(targetPath);
-        
-        foreach (var binding in inputAction.bindings)
-        {
-            
-            string bindingPath = NormalizeControlPath(binding.effectivePath);
-            Debug.Log(bindingPath);
-            if (bindingPath == targetPath)
-                return true;
-        }
-        return false;
-    }
-
-    /*private bool IsControlAlreadyBound(string selectedControl)
-    {
-        *//*Debug.Log(selectedControl);
-        selectedControl = selectedControl.Replace("/","");
-        foreach (var action in inputActions)
-        {
-           // Debug.Log(action.name);
-            foreach (var binding in action.bindings)
-            {
-                string aaaaaaaaaa = binding.path.Replace("/", "");
-                aaaaaaaaaa = aaaaaaaaaa.Replace("<", "");
-                aaaaaaaaaa = aaaaaaaaaa.Replace(">", "");
-                Debug.Log(aaaaaaaaaa);
-                if (aaaaaaaaaa == selectedControl)
-                {
-                    return true;
-                }
-                
-            }
-        }
-        return false;*//*
-        List<GameObject> textObjects = transform.parent.parent.parent.parent.parent.GetComponent<SettingUICanvas>().textObject;
-        foreach (var i in textObjects)
-        {
-            if(i.GetComponent<UnityEngine.UI.Text>().text == selectedControl)
-            {
-                return true;
-            }
-        }
-        return false;
-    }*/
-
 }
