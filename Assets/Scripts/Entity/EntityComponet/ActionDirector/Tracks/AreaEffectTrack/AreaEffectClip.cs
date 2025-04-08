@@ -11,6 +11,7 @@ public class AreaEffectClip : PlayableAsset,ITimelineClipAsset
     //控制器
     //应该要一个pivot来选定区域
 
+    
     public List<AreaInfo> AreaInfo;
     
     private AreaEffectPlayableBehaviour template = new AreaEffectPlayableBehaviour();

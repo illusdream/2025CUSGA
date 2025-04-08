@@ -1,6 +1,7 @@
 ﻿using System;
 using ilsFramework;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -19,11 +20,16 @@ namespace AreaInfos.Shapes
 #if UNITY_EDITOR
         public override void OnSceneGUI(Transform areaPivotTransform,Object clip)
         {
-            //额外绘制一个点，用于显示
-            //Handles.DrawSolidRectangleWithOutline(new Rect(areaPivotTransform.TransformPoint(point),Vector2.one*0.3f),Color.green, Color.white);
+            var pos = areaPivotTransform.TransformPoint(point);
+            var size = Vector2.one *64/ HandleUtility.GetHandleSize(pos);
             
+            Handles.BeginGUI();
+            var icon  =EditorGUIUtility.IconContent("sv_icon_dot11_pix16_gizmo").image as Texture2D;
+            Rect rect = new Rect().SetSize(size).SetCenter(HandleUtility.WorldToGUIPoint(pos));
+            GUI.DrawTexture(rect, icon);
+            Handles.EndGUI();
             EditorGUI.BeginChangeCheck();
-            var newPosition = Handles.PositionHandle(areaPivotTransform.TransformPoint(point), areaPivotTransform.rotation);
+            var newPosition = Handles.PositionHandle(pos, areaPivotTransform.rotation);
             // 检测是否发生修改
             if (EditorGUI.EndChangeCheck())
             {

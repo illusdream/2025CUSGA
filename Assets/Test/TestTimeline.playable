@@ -578,20 +578,18 @@ MonoBehaviour:
   - AreaType: 4
     areaShape:
       rid: 5337198957902954522
-  - AreaType: 2
+  - AreaType: 3
     areaShape:
-      rid: 5337198957902954523
+      rid: 5337198957902954524
   references:
     version: 2
     RefIds:
     - rid: 5337198957902954522
       type: {class: PointShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
       data:
-        point: {x: -1.3244281, y: 0.1889261}
-    - rid: 5337198957902954523
-      type: {class: CapsuleShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
+        point: {x: 1.1701188, y: 3.9708605}
+    - rid: 5337198957902954524
+      type: {class: RayShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
       data:
-        point: {x: 0, y: 0}
-        size: {x: 0, y: 0}
-        direction: 0
-        angle: 0
+        start: {x: 0, y: 0}
+        end: {x: 0, y: 0}

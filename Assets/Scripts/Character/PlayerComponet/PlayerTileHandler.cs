@@ -18,8 +18,8 @@ public class PlayerTileHandler : EntityComponent
         /// 玩家最大持有方块数目
         /// </summary>
         public int MaxPlayerCanHasTileCount;
-        [ShowInInspector]
-        public int PlayerTileCurrentHas { get;private set; }
+
+        [ShowInInspector] public int PlayerTileCurrentHas;
 
 
         private bool NeedToAttackTile;

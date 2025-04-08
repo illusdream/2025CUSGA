@@ -437,6 +437,7 @@ MonoBehaviour:
   playerController: {fileID: 3552688374575338249}
   PlayerDamageToTile: 10
   MaxPlayerCanHasTileCount: 100
+  PlayerTileCurrentHas: 0
   MinBreakTileTime: 0.1
 --- !u!114 &2025048384620317698
 MonoBehaviour:
