@@ -121,11 +121,6 @@ public abstract class BaseTile : IHitable
 
     public virtual void Hit(DamageInfo damageInfo, out BeHittedInfo beHittedInfo)
     {
-        if (damageInfo.DamageFrom == TileBelongToID)
-        {
-            beHittedInfo = BeHittedInfo.Default;
-            return;
-        }
         if (!CanBeHit())
         {
             beHittedInfo = BeHittedInfo.Default;

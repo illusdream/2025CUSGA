@@ -20,7 +20,7 @@ namespace AreaInfos.Shapes
         public override void OnSceneGUI(Transform areaPivotTransform,Object clip)
         {
             //额外绘制一个点，用于显示
-            Handles.DrawSolidRectangleWithOutline(new Rect(areaPivotTransform.TransformPoint(point),Vector2.one*0.3f),Color.green, Color.white);
+            //Handles.DrawSolidRectangleWithOutline(new Rect(areaPivotTransform.TransformPoint(point),Vector2.one*0.3f),Color.green, Color.white);
             
             EditorGUI.BeginChangeCheck();
             var newPosition = Handles.PositionHandle(areaPivotTransform.TransformPoint(point), areaPivotTransform.rotation);
