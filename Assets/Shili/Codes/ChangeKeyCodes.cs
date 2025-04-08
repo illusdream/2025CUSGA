@@ -43,24 +43,23 @@ public class ChangeKeyCodes : MonoBehaviour
     private void TextInputPlayerKey()
     {
         inputAction.Disable();
-
         // 保存原始绑定状态
         string originalBindings = inputAction.SaveBindingOverridesAsJson();
 
         var rebindOperation = inputAction.PerformInteractiveRebinding();
-        rebindOperation.WithTargetBinding(moveIndex);
-        rebindOperation.WithControlsExcluding("<mouse>/leftButton");
+        rebindOperation.WithTargetBinding(moveIndex)
+        //不希望接收鼠标的输入
+        .WithControlsExcluding("Mouse")
+        //监听其它输入的间隔
+        .OnMatchWaitForAnother(0.1f);
         rebindOperation.WithExpectedControlType("Key");
 
         rebindOperation.OnComplete(operation =>
         {
-            // 先不应用新绑定，获取候选按键
             InputControl newControl = operation.selectedControl;
-            bool conflict = IsControlAlreadyBound(newControl);
-
-            // 始终先回滚到原始状态
+            // 始终回滚临时绑定
             inputAction.LoadBindingOverridesFromJson(originalBindings);
-
+            bool conflict = IsControlAlreadyBound(newControl);
             if (conflict)
             {
                 Debug.Log("冲突");
@@ -68,7 +67,7 @@ public class ChangeKeyCodes : MonoBehaviour
             }
             else
             {
-                // 安全应用新绑定
+                // 安全应用新绑定（仅在无冲突时）
                 inputAction.ApplyBindingOverride(moveIndex, newControl.path);
                 Debug.Log("绑定成功: " + newControl.name.ToUpper());
                 string a = FormatKeyName(newControl.name);
@@ -78,7 +77,7 @@ public class ChangeKeyCodes : MonoBehaviour
 
             operation.Dispose();
             inputAction.Enable();
-        });
+        }); 
 
         rebindOperation.OnCancel(operation =>
         {
@@ -109,9 +108,13 @@ public class ChangeKeyCodes : MonoBehaviour
     bool IsControlAlreadyBound(InputControl targetControl)
     {
         string targetPath = NormalizeControlPath(targetControl.path);
+        Debug.Log(targetPath);
+        
         foreach (var binding in inputAction.bindings)
         {
+            
             string bindingPath = NormalizeControlPath(binding.effectivePath);
+            Debug.Log(bindingPath);
             if (bindingPath == targetPath)
                 return true;
         }

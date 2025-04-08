@@ -17,13 +17,13 @@ MonoBehaviour:
     loadMode: 0
     loadStr: 
     isVaild: 0
-  characterPrefabClone: {fileID: 3196107388258662534, guid: 1eec40aa36869ed49a0b4461bef018f9, type: 3}
+  characterPrefabClone: {fileID: 0}
   PlayerCanPlayRange:
     x: 0
     y: 0
-    width: 16
-    height: 16
-  PlayerRangeEdgeBounciness: 1.4
-  MinCanBounceSpeed: 2
-  Player1Color: {r: 1, g: 0.553, b: 0.553, a: 1}
-  Player2Color: {r: 0.53999996, g: 0.53999996, b: 1, a: 1}
+    width: 0
+    height: 0
+  PlayerRangeEdgeBounciness: 0
+  MinCanBounceSpeed: 0
+  Player1Color: {r: 1, g: 1, b: 1, a: 1}
+  Player2Color: {r: 1, g: 1, b: 1, a: 1}
