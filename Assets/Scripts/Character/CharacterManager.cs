@@ -281,8 +281,8 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         var input =  InputUtils.GetCurrentInputAction();
         input.GamePlay.Player1PlaceTile.started += Player1PlaceActionTrackerOnstarted;
         input.GamePlay.Player1PlaceTile.canceled += Player1PlaceActionTrackerOncanceled;
-        input.GamePlay.Player1PlaceTile.started += Player2PlaceActionTrackerOnstarted;
-        input.GamePlay.Player1PlaceTile.canceled += Player2PlaceActionTrackerOncanceled;
+        input.GamePlay.Player2PlaceTile.started += Player2PlaceActionTrackerOnstarted;
+        input.GamePlay.Player2PlaceTile.canceled += Player2PlaceActionTrackerOncanceled;
     }
 
     private void Player1PlaceActionTrackerOnstarted(InputAction.CallbackContext obj)

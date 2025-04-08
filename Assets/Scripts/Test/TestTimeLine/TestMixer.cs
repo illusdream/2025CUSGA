@@ -19,7 +19,6 @@ namespace Test
         {
             FrameCount = 0;
             prepareFrameCount = 0;
-            $"OnPlay".LogSelf();
             base.OnBehaviourPlay(playable, info);
         }
 
@@ -31,8 +30,7 @@ namespace Test
             }
 
             TimeRun += info.deltaTime;
-            FrameCount++;
-            $"FrameCount:{FrameCount},FixedCount:{Time.fixedTime}".LogSelf();
+
             entityHandlers.Clear();
 
             base.ProcessFrame(playable, info, playerData);
@@ -41,7 +39,7 @@ namespace Test
         public override void PrepareFrame(Playable playable, FrameData info)
         {
             prepareFrameCount++;
-            $"prepareFrameCount:{prepareFrameCount},FixedCount:{Time.fixedTime}".LogSelf();
+           // $"prepareFrameCount:{prepareFrameCount},FixedCount:{Time.fixedTime}".LogSelf();
             base.PrepareFrame(playable, info);
         }
         

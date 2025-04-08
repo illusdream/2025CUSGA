@@ -19,9 +19,9 @@ public partial class EntityComponetUsage
         public const string Health = "Health";
         
         /// <summary>
-        /// 攻击组件，可以通过这个组件实现攻击功能
+        /// 行为组件： 具体是对timeline的调用组件，通过实现攻击/挖掘等需要动画/粒子/逻辑多方面配合的时间轴。。。
         /// </summary>
-        public const string AttackAble = "Attackable";
+        public const string ActionDirector = "ActionDirector";
         
         /// <summary>
         /// 可被攻击组件，被攻击首先会经过这个组件

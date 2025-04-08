@@ -7,6 +7,7 @@ namespace Test
 {
     [Serializable]
     [TrackClipType(typeof(TestClip))]
+    [TrackBindingType(typeof(Collider2D))]
     [TrackColor(0.53f,0.0f,0.08f)]
     public class TestTrack : TrackAsset
     {

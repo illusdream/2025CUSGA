@@ -82,5 +82,6 @@ public class PlayerController : EntityComponent
         {
                 spriteRenderer.color = color;
         }
-        
+
+
 }
