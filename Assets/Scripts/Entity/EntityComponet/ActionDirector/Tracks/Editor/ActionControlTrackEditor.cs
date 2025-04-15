@@ -36,6 +36,4 @@ public class ActionControlTrackEditor : TrackEditor
                 }
                 base.OnTrackChanged(track);
         }
-        
-
 }

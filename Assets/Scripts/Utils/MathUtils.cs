@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Utils
 {
@@ -39,6 +40,14 @@ namespace Utils
                 default:
                     throw new ArgumentOutOfRangeException(nameof(compareMode), compareMode, null);
             }
+        }
+
+        public static Vector2 Rotate(this Vector2 v, float degrees)
+        {
+            return new Vector2(
+                v.x * Mathf.Cos(degrees) - v.y * Mathf.Sin(degrees),
+                v.x * Mathf.Sin(degrees) + v.y * Mathf.Cos(degrees)
+            );
         }
     }
 }

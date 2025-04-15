@@ -3,11 +3,12 @@ using ilsFramework;
 using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
+using UnityEngine.Timeline;
 
-public class PlayerTileHandler : EntityComponent
+public class PlayerTileHandler : BaseTileHandler
 {
         public override string TargetUsage => EntityComponetUsage.playerTileHandler;
-
+        
         public PlayerController playerController;
 
         private TimerCollection timerCollection;
@@ -21,69 +22,21 @@ public class PlayerTileHandler : EntityComponent
 
         [ShowInInspector] public int PlayerTileCurrentHas;
 
+        
 
-        private bool NeedToAttackTile;
-
-        private bool needToPlaceTile;
-
-        public float MinBreakTileTime;
+        public TimelineAsset digAsset;
         
         public override void OnInitialized(EntityHandler handler)
         {
-                timerCollection = new TimerCollection();
-                AddEventListener(PlayerEvent.BeOrderToStartBreakTile,EEntityEventScope.Entity,Listener_BeOrderToStartBreakTile);
-                AddEventListener(PlayerEvent.BeOrderToEndBreakTile,EEntityEventScope.Entity,Listener_BeOrderToEndBreakTile);
-                
-                AddEventListener(PlayerEvent.BeOrderToStartPlaceTile,EEntityEventScope.Entity,Listener_BeOrderToStartPlaceTile);
-                AddEventListener(PlayerEvent.BeOrderToEndPlaceTile,EEntityEventScope.Entity,Listener_BeOrderToEndPlaceTile);
                 base.OnInitialized(handler);
         }
 
         public override void OnEntityDestroy(EntityHandler handler)
         {
-                timerCollection.ClearAllTimers();
-                RemoveEventListener(PlayerEvent.BeOrderToStartBreakTile,EEntityEventScope.Entity,Listener_BeOrderToStartBreakTile);
-                RemoveEventListener(PlayerEvent.BeOrderToEndBreakTile,EEntityEventScope.Entity,Listener_BeOrderToEndBreakTile);
-                
-                RemoveEventListener(PlayerEvent.BeOrderToStartPlaceTile,EEntityEventScope.Entity,Listener_BeOrderToStartPlaceTile);
-                RemoveEventListener(PlayerEvent.BeOrderToEndPlaceTile,EEntityEventScope.Entity,Listener_BeOrderToEndPlaceTile);
                 base.OnEntityDestroy(handler);
         }
         
-
-        private void Listener_BeOrderToStartBreakTile(EventArgs args)
-        {
-                timerCollection.RemoveTimer(PlayerAttackTileTimer);
-                NeedToAttackTile = true;
-        }
-        private void Listener_BeOrderToEndBreakTile(EventArgs args)
-        {
-                if (args is PlayerEvent.BeOrderToEndBreakTileEventArgs _args)
-                {
-                        var time = MinBreakTileTime - _args.BreakOrderContinueTime + 0.001f;
-                        if (time >0)
-                        {
-                                timerCollection
-                                        .CreateTimer(time, 1, PlayerAttackTileTimer)
-                                        .SetOnFinish(_=> NeedToAttackTile = false)
-                                        .Register();
-                                return;
-                        }
-                        NeedToAttackTile = false;
-                }
-        }
-
-        private void Listener_BeOrderToStartPlaceTile(EventArgs args)
-        {
-                needToPlaceTile = true;
-        }
         
-        private void Listener_BeOrderToEndPlaceTile(EventArgs args)
-        {
-                needToPlaceTile = false;
-        }
-        
-
         public void ApplyDamageToTile()
         {
                 Vector2Int pos  = TileManager.Instance.GetTilePosition(new Vector2(transform.position.x, transform.position.y));
@@ -98,6 +51,7 @@ public class PlayerTileHandler : EntityComponent
         {
                 if (CheckCanPlaceTile())
                 {
+               
                         Vector2Int pos  = TileManager.Instance.GetTilePosition(new Vector2(transform.position.x, transform.position.y));
                         if (TileManager.Instance.TryPlaceTile(typeof(Tiles.CharactorTile),pos,ID))
                         {
@@ -106,7 +60,6 @@ public class PlayerTileHandler : EntityComponent
                         }
                 }
         }
-
         public bool CheckCanPlaceTile()
         {
                 if (PlayerTileCurrentHas > 0)
@@ -116,17 +69,28 @@ public class PlayerTileHandler : EntityComponent
 
                 return false;
         }
+        public override void ApplyDamageToTile(Vector2Int targetPosition,float deltaTime)
+        {
+                TileManager.Instance.ApplyDamageToTile(targetPosition,DamageInfo.BuildDamageInfo(PlayerDamageToTile * deltaTime,ID),out var beHittedInfo);
+                if (beHittedInfo.IsKilledEntity)
+                {
+                        PlayerTileCurrentHas++;
+                }
+        }
 
+        public override void TryPlaceTile(Vector2Int targetPosition)
+        {
+                if (CheckCanPlaceTile())
+                {
+                        if (TileManager.Instance.TryPlaceTile(typeof(Tiles.CharactorTile),targetPosition,ID))
+                        {
+                                PlayerTileCurrentHas--;
+                                PlayerTileCurrentHas = Mathf.Clamp(PlayerTileCurrentHas, 0, MaxPlayerCanHasTileCount);
+                        }
+                }
+        }
         public void FixedUpdate()
         {
-                if (NeedToAttackTile)
-                {
-                        ApplyDamageToTile();
-                }
 
-                if (needToPlaceTile)
-                {
-                        TryPlaceTile();
-                }
         }
 }

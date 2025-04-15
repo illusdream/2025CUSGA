@@ -16,6 +16,8 @@ public class TileManagerConfig : ConfigScriptObject
     public override string ConfigName => "TileManagerConfig";
 
     public const int TileSystemID = -1;
+
+    public ContactFilter2D TileGridContactFilter2D;
     
     public GameObject UnityTileHandler;
     

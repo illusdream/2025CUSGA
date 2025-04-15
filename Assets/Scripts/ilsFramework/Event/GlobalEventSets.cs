@@ -33,6 +33,8 @@ namespace ilsFramework
         public const string OrderToSwitchToMainMenu = "OrderToSwitchToMainMenu";
         
         
+        public const string GameRestart = "GameRestart";
+        
         /// <summary>
         /// 一局游戏结束的事件,对应的EventArgs<see cref="GameOverEventArgs"/>
         /// </summary>

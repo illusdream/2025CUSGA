@@ -32,7 +32,7 @@ namespace ilsFramework
         }
 
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void InitFramework()
         {
             _ = FrameworkCore.Instance;

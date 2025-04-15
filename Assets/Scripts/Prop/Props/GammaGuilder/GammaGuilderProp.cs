@@ -3,7 +3,7 @@ using ilsFramework;
 
 namespace Props
 {
-    public class GammaGuilderProp : BaseProp
+    public class GammaGuilderProp : BaseProp,IPropApplyEffect
     {
         public override Type ConfigType=>typeof(GammaGuilderPropConfig);
         GammaGuilderPropConfig config;
@@ -14,6 +14,11 @@ namespace Props
         }
 
         public override void UseProp(EntityHandler handler)
+        {
+
+        }
+
+        public void ApplyEffect(EntityHandler handler)
         {
             if (handler.TryGetComponet(EntityComponetUsage.Health,out BaseHealthComponent health))
             {

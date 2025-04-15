@@ -144,6 +144,7 @@ public class TileConfig : ConfigScriptObject
 
     public void CheckTileProperty(List<Type> tileTypes)
     {
+#if UNITY_EDITOR
         CheckTilePropertyVaild();
         foreach (var type in tileTypes)
         {
@@ -155,6 +156,8 @@ public class TileConfig : ConfigScriptObject
             }
 
         }
+#endif
+
     }
 
     public bool TryGetTileID(Type type, out int tileID)

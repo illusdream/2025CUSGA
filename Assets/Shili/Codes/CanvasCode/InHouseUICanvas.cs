@@ -21,7 +21,7 @@ public class InHouseUICanvas : MonoBehaviour
     public Image player1EnergyImage;
     public Image player2HealthImage;
     public Image player2EnergyImage;
-    //²ÎÊý
+    //ï¿½ï¿½ï¿½ï¿½
     private float player1HealthInt = 1;
     private float currentPlayer1HealthInt;
     private float player1EnemyInt = 1;
@@ -30,7 +30,7 @@ public class InHouseUICanvas : MonoBehaviour
     private float currentPlayer2HealthInt;
     private float player2EnemyInt = 1;
     private float currentPlayer2EnemyInt;
-    [Header("¼¼ÄÜ¸¸ÎïÌå")]
+    [Header("ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public RectTransform Player1SkillTransform;
     public RectTransform Player2SkillTransform;
     private bool shouldUpdata;
@@ -41,6 +41,9 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameOver, OnGameOver);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameRestart,OnGameRestart);
+
+
     }
     private void OnDisable()
     {
@@ -48,10 +51,28 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameOver, OnGameOver);
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameRestart,OnGameRestart);
     }
     private void OnGameOver(EventArgs e)
     {
         UIManager.Instance.GetUIPanel<GameOverUI>().Open();
+        
+
+    }
+    private void OnGameRestart(EventArgs obj)
+    {
+        Transform transform;
+        for(int i = 0;i < Player1SkillTransform.transform.childCount; i++)
+        {
+            transform = Player1SkillTransform.transform.GetChild(i);
+            GameObject.Destroy(transform.gameObject);
+        }
+
+        for(int i = 0;i < Player2SkillTransform.transform.childCount; i++)
+        {
+            transform = Player2SkillTransform.transform.GetChild(i);
+            GameObject.Destroy(transform.gameObject);
+        }
     }
     public void OnOpenSet()
     {
@@ -61,6 +82,10 @@ public class InHouseUICanvas : MonoBehaviour
     {
         var p = e as PlayerEvent.PlayerGetNewPropEventArgs;
         GameObject go = Instantiate(prefanSkill);
+        if (go.TryGetComponent<Image>(out var img) && PropManager.Instance.TryGetPropConfig<BasePropConfig>(p.PropType,out var propConfig))
+        {
+            img.sprite = propConfig.PropSprite;
+        }
         if(p.PlayerID == 1)
         {
             go.transform.parent = Player1SkillTransform;
@@ -125,12 +150,12 @@ public class InHouseUICanvas : MonoBehaviour
         player2EnemyInt = playerEnergyContainer2.MaxEnergy;
         player2HealthInt = playerHealth2.healthSources[EHealthSourceType.Life].BaseMaxHealth;
         currentPlayer2HealthInt = playerHealth2.healthSources[EHealthSourceType.Life].CurrentHealth;
-        //»ñÈ¡ÑªÁ¿ºÍÄÜÁ¿ÉÏÏÞÓëµ±Ç°ÄÜÁ¿ÑªÁ¿£¬ÔÙ¸³Öµ
+        //ï¿½ï¿½È¡Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëµ±Ç°ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½Öµ
         player1HealthText.text = currentPlayer1HealthInt + "/" + player1HealthInt;
         player1EnemyText.text = currentPlayer1EnemyInt + "/" + player1EnemyInt;
         player2HealthText.text = currentPlayer2HealthInt + "/" + player2HealthInt;
         player2EnemyText.text = currentPlayer2EnemyInt + "/" + player2EnemyInt;
-        //ÑªÁ¿»òÄÜÁ¿±ä»¯Ê±¸üÐÂºóÕßÒÔ¼°4¸öcurrent
+        //Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»¯Ê±ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½ï¿½Ô¼ï¿½4ï¿½ï¿½current
         player1HealthImage.fillAmount = currentPlayer1HealthInt / player1HealthInt;
         player1EnergyImage.fillAmount = currentPlayer1EnemyInt / player1EnemyInt;
         player2HealthImage.fillAmount = currentPlayer2HealthInt / player2HealthInt;

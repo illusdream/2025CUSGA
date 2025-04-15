@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.Timeline;
 
 public abstract class BaseProp
 {
@@ -6,8 +7,13 @@ public abstract class BaseProp
 
         public float BaseUsePropColdDown;
 
+        private BasePropConfig config;
+
+        public PlayerInputHandler InputHandler;
+        
         public virtual void Initialize(BasePropConfig config)
         {
+                this.config = config;
                 BaseUsePropColdDown = config.BasePropUseColdDown;
         }
 
@@ -48,5 +54,15 @@ public abstract class BaseProp
         public virtual float GetUsePropColdDown(EntityHandler handler)
         {
                 return BaseUsePropColdDown;
+        }
+
+        public virtual TimelineAsset GetPlayTimelineAsset(PlayerController playerController)
+        {
+                return config.PlayAsset;
+        }
+
+        public void SetInputHandler(PlayerInputHandler inputHandler)
+        {
+                InputHandler = inputHandler;
         }
 }

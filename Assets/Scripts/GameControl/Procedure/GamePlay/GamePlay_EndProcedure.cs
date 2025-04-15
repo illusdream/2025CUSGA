@@ -1,7 +1,6 @@
 ﻿using System;
 using ilsFramework;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class GamePlay_EndProcedure : ProcedureNode
 {
@@ -38,6 +37,7 @@ public class GamePlay_EndProcedure : ProcedureNode
     public override void OnExit()
     {
         Time.timeScale = oldtimeScale;
+        UIManager.Instance.GetUIPanel<InHouseUI>().Close();
         base.OnExit();
     }
 

@@ -74,8 +74,6 @@ public class GamePlay_PlayingProcedure : ProcedureNode
 
     public override void OnExit()
     {     
-        UIManager.Instance.GetUIPanel<InHouseUI>().Close();
-        
         var inputAction = InputManager.Instance.GetCurrentInputAction();
         inputAction.GamePlay.Pause.performed -= Listener_PauseOnperformed;
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.OrderToPauseGame,Listener_OrderToPauseGame);

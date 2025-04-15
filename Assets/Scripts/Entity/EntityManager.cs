@@ -122,13 +122,20 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
 
-    public void GetEntityInArea(Collider2D areaCollider, EEntityType targetEntityType, List<EntityHandler> result)
+    public void GetEntityInArea(Collider2D areaCollider, EEntityType targetEntityType,ICollection<EntityHandler> result)
     {
         var instance = GetEntityCollection(targetEntityType);
         instance.GetEntityInArea(areaCollider, result);
     }
 
-    public void GetEntityInArea(Collider2D areaCollider, string targetEntityType, List<EntityHandler> result)
+    public void GetEntityInArea(Collider2D areaCollider, List<EEntityType> targetEntityTypes, ICollection<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            GetEntityInArea(areaCollider, targetEntityType, result);
+        }
+    }
+    public void GetEntityInArea(Collider2D areaCollider, string targetEntityType, ICollection<EntityHandler> result)
     {
         if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
         {
@@ -136,7 +143,7 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
     
-    public void GetEntityInArea(Collider2D areaCollider,List<string> targetEntityTypes,List<EntityHandler> result)
+    public void GetEntityInArea(Collider2D areaCollider,List<string> targetEntityTypes,ICollection<EntityHandler> result)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
@@ -144,34 +151,28 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
 
-    public void GetEntityInArea(Collider2D areaCollider, List<EEntityType> targetEntityTypes, List<EntityHandler> result)
-    {
-        foreach (var targetEntityType in targetEntityTypes)
-        {
-            GetEntityInArea(areaCollider, targetEntityType, result);
-        }
-    }
 
-    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,string targetEntityType,List<EntityHandler> result)
+
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,string targetEntityType,ICollection<EntityHandler> result)
     {
         if (TryGetEntityCollection(targetEntityType, out EntityCollection entityCollection))
         {
             entityCollection.GetEntityByRaycast(rayOrigin,rayVector, result);
         }
     }
-    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<string> targetEntityTypes,List<EntityHandler> result)
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<string> targetEntityTypes,ICollection<EntityHandler> result)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
             GetEntityByRaycast(rayOrigin, rayVector, targetEntityType, result);
         }
     }
-    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,EEntityType targetEntityType ,List<EntityHandler> result)
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,EEntityType targetEntityType ,ICollection<EntityHandler> result)
     {
         var instance = GetEntityCollection(targetEntityType);
         instance.GetEntityByRaycast(rayOrigin,rayVector, result);
     }
-    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<EEntityType> targetEntityTypes,List<EntityHandler> result)
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayVector,List<EEntityType> targetEntityTypes,ICollection<EntityHandler> result)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
@@ -179,7 +180,7 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
     
-    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayDirection,List<string> targetEntityTypes,List<EntityHandler> result,float distance)
+    public void GetEntityByRaycast(Vector2 rayOrigin,Vector2 rayDirection,List<string> targetEntityTypes,ICollection<EntityHandler> result,float distance)
     {
         foreach (var targetEntityType in targetEntityTypes)
         {
@@ -189,7 +190,62 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
             }
         }
     }
+    //只做枚举版本的吧，我想偷懒
+    public void GetEntityOverlapPoint(Vector2 point, EEntityType targetEntityType, ICollection<EntityHandler> result)
+    {
+        var instance = GetEntityCollection(targetEntityType);
+        instance.GetEntityOverlapPoint(point, result);
+    }
 
+    public void GetEntityOverlapPoint(Vector2 point, List<EEntityType> targetEntityTypes, ICollection<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            GetEntityOverlapPoint(point, targetEntityType, result);
+        }
+    }
+
+    public void GetEntityOverlapBox(Vector2 point, Vector2 size,float angle, EEntityType targetEntityType,ICollection<EntityHandler> result)
+    {
+        var instance = GetEntityCollection(targetEntityType);
+        instance.GetEntityOverlapBox(point, size, angle,result);
+    }
+    
+    public void GetEntityOverlapBox(Vector2 point, Vector2 size,float angle, List<EEntityType> targetEntityTypes, ICollection<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            GetEntityOverlapBox(point,size,angle ,targetEntityType, result);
+        }
+    }
+
+    public void GetEntityOverlapCircle(Vector2 point, float radius, EEntityType targetEntityType,ICollection<EntityHandler> result)
+    {
+        var instance = GetEntityCollection(targetEntityType);
+        instance.GetEntityOverlapCircle(point, radius, result);
+    }
+    
+    public void GetEntityOverlapCircle(Vector2 point, float radius, List<EEntityType> targetEntityTypes,ICollection<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            GetEntityOverlapCircle(point,radius,targetEntityType, result);
+        }
+    }
+
+    public void GetEntityOverlapCapsule(Vector2 point,Vector2 size,CapsuleDirection2D direction2D,float angle,EEntityType targetEntityType, ICollection<EntityHandler> result)
+    {
+        var instance = GetEntityCollection(targetEntityType);
+        instance.GetEntityOverlapCapsule(point,size,direction2D,angle,result);
+    }
+    
+    public void GetEntityOverlapCapsule(Vector2 point,Vector2 size,CapsuleDirection2D direction2D,float angle,List<EEntityType> targetEntityTypes, ICollection<EntityHandler> result)
+    {
+        foreach (var targetEntityType in targetEntityTypes)
+        {
+            GetEntityOverlapCapsule(point,size,direction2D,angle,targetEntityType, result);
+        }
+    }
 
     public GameObject Instantiate(GameObject prefab,SpawnSource spawnSource,Vector3 position,Quaternion rotation)
     {

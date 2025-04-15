@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ilsFramework;
+using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
@@ -10,7 +11,6 @@ public class ActionControlClip : PlayableAsset,ITimelineClipAsset
     {
         var playable = ScriptPlayable<ActionControlPlayableBehaviour>.Create(graph,template);
         ActionControlPlayableBehaviour behaviour = playable.GetBehaviour();
-        behaviour.ActionDirector = ActionDirector.Resolve(graph.GetResolver());
         behaviour.ClipIndex = ClipIndex;
         behaviour.ControlClipType = ControlClipType;
         behaviour.LoopCount = LoopCount;
@@ -18,10 +18,7 @@ public class ActionControlClip : PlayableAsset,ITimelineClipAsset
     }
 
     public ClipCaps clipCaps => ClipCaps.None;
-
-
-    public ExposedReference<BaseActionDirector> ActionDirector;
-
+    
     public int ClipIndex;
     
     public EControlClipType ControlClipType;

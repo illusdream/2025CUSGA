@@ -217,7 +217,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         if (TryGetPlayerController(1,out var playerController))
         {
-            var commend =new PlayerStopMoveCommend(playerController);
+            var commend =new PlayerMoveCommend(playerController,InputUtils.GetCurrentInputAction().GamePlay.Player1Move.ReadValue<Vector2>());
             commend.Execute();
         }
     }
@@ -225,7 +225,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     {
         if (TryGetPlayerController(1,out var playerController))
         {
-            var commend =new PlayerStopMoveCommend(playerController);
+            var commend =new PlayerMoveCommend(playerController,InputUtils.GetCurrentInputAction().GamePlay.Player2Move.ReadValue<Vector2>());
             commend.Execute();
         }
     }

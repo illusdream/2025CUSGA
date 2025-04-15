@@ -68,11 +68,15 @@ public class GamePlayProcedure : SubProcedureSwitcher
     private void Listener_OrderToRestartGamePlay(EventArgs args)
     {
         TileManager.Instance.StopFillRandomRange();
+        
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameRestart,EventArgs.Empty);
+        
         ChangeProcedureNode<GamePlay_InitProcedure>();
     }
 
     private void Listener_OrderToSwitchToMainMenu(EventArgs args)
     {
+        
         ChangeState<StartMenuProcedure>();
     }
 }

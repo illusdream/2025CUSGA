@@ -64,7 +64,7 @@ public class ActionControlTrackHandler
                         {
                                 if (ControlClips.TryGetValue(currentClipIndex,out var clip))
                                 {
-                                        if(LoopTime > 0  && currentFrameTime >= clip.end)
+                                        if(LoopTime > 0  && nextFrameTime >= clip.end)
                                         {
                                                 cNextFrameTime = (float)clip.start;
                                                 LoopTime--;
@@ -77,7 +77,7 @@ public class ActionControlTrackHandler
                         {
                                 if (ControlClips.TryGetValue(currentClipIndex,out var clip))
                                 {
-                                        if(Loop  && currentFrameTime >= clip.end)
+                                        if(Loop  && nextFrameTime >= clip.end)
                                         {
                                                 cNextFrameTime = (float)clip.start;
                                                 return;

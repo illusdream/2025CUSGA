@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -52,6 +53,8 @@ public class EntityHandler : MonoBehaviour
         [ShowInInspector]
         Dictionary<(string,EEntityEventScope),HashSet<Action<EventArgs>>> eventHandler;
 
+        private HashSet<Action<EventArgs>> m_buffer;
+        
         public void AddEventListener(string eventType, EEntityEventScope scope, params Action<EventArgs>[] action)
         {
                  
@@ -92,9 +95,11 @@ public class EntityHandler : MonoBehaviour
 
         public void BroadcastEvent(string eventType, EEntityEventScope scope, EventArgs args)
         {
+
                 if (eventHandler.TryGetValue((eventType,scope),out var collection))
                 {
-                        foreach (var action in collection)
+                        HashSet<Action<EventArgs>> buffer = new HashSet<Action<EventArgs>>(collection);
+                        foreach (var action in buffer)
                         {
                                 action?.Invoke(args);
                         }
@@ -134,6 +139,7 @@ public class EntityHandler : MonoBehaviour
         public void Awake()
         {
                 eventHandler = new Dictionary<(string,EEntityEventScope),HashSet<Action<EventArgs>>>();
+                m_buffer = new HashSet<Action<EventArgs>>();
                 InitEntityToManager();
                 InitializedEntityComponents();
         }

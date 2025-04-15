@@ -18,6 +18,8 @@ public class EntityCollection :IEnumerable<EntityHandler>
       private ContactFilter2D ContactFilter;
 
       private List<Collider2D> colliderBuffer;
+      
+
 
       private List<RaycastHit2D> raycastHitBuffer;
       
@@ -78,7 +80,7 @@ public class EntityCollection :IEnumerable<EntityHandler>
             return GameObjectToEntityHandlerMap.TryGetValue(gameObject, out entity);
       }
 
-      public virtual void GetEntityInArea(Collider2D areaCollider, List<EntityHandler> result)
+      public virtual void GetEntityInArea(Collider2D areaCollider, ICollection<EntityHandler> result)
       {
             InnerGetEntityInArea(areaCollider, result);
       }
@@ -93,7 +95,7 @@ public class EntityCollection :IEnumerable<EntityHandler>
             return GameObjectToEntityHandlerMap.Values.GetEnumerator();
       }
 
-      protected void InnerGetEntityInArea(Collider2D areaCollider, List<EntityHandler> result)
+      protected void InnerGetEntityInArea(Collider2D areaCollider, ICollection<EntityHandler> result)
       {
             colliderBuffer.Clear();
             hasFindedEntity.Clear();
@@ -109,7 +111,7 @@ public class EntityCollection :IEnumerable<EntityHandler>
             }
       }
 
-      public virtual void GetEntityByRaycast(Vector2 raycastOrigin,Vector2 raycastVector, List<EntityHandler> result)
+      public virtual void GetEntityByRaycast(Vector2 raycastOrigin,Vector2 raycastVector, ICollection<EntityHandler> result)
       {
             var raycastDir = raycastVector.normalized;
             var raycastDistance = raycastVector.magnitude;
@@ -127,7 +129,7 @@ public class EntityCollection :IEnumerable<EntityHandler>
             }
       }
       
-      public virtual void GetEntityByRaycast(Vector2 raycastOrigin,Vector2 raycastDir, List<EntityHandler> result,float distance)
+      public virtual void GetEntityByRaycast(Vector2 raycastOrigin,Vector2 raycastDir, ICollection<EntityHandler> result,float distance)
       {
             raycastHitBuffer.Clear();
             hasFindedEntity.Clear();
@@ -143,4 +145,69 @@ public class EntityCollection :IEnumerable<EntityHandler>
             }
       }
 
+      //点查找
+      public virtual void GetEntityOverlapPoint(Vector2 point, ICollection<EntityHandler> result)
+      {
+            colliderBuffer.Clear();
+            hasFindedEntity.Clear();
+            Physics2D.OverlapPoint(point,ContactFilter,colliderBuffer);
+            foreach (var collider2D in colliderBuffer)
+            {
+                  if (GameObjectToEntityHandlerMap.TryGetValue(collider2D.gameObject, out EntityHandler handler) &&
+                      hasFindedEntity.Add(handler.gameObject))
+                  {
+                        OnEntityFindedByArea?.Invoke(handler);
+                        result.Add(handler);
+                  }
+            }
+      }
+      //box查找
+      public virtual void GetEntityOverlapBox(Vector2 point, Vector2 size, float angle,ICollection<EntityHandler> result)
+      {
+            colliderBuffer.Clear();
+            hasFindedEntity.Clear();
+            Physics2D.OverlapBox(point,size,angle,ContactFilter,colliderBuffer);
+            foreach (var collider2D in colliderBuffer)
+            {
+                  if (GameObjectToEntityHandlerMap.TryGetValue(collider2D.gameObject, out EntityHandler handler) &&
+                      hasFindedEntity.Add(handler.gameObject))
+                  {
+                        OnEntityFindedByArea?.Invoke(handler);
+                        result.Add(handler);
+                  }
+            }
+      }
+      //圆查找
+      public virtual void GetEntityOverlapCircle(Vector2 center, float radius,ICollection<EntityHandler> result)
+      {
+            colliderBuffer.Clear();
+            hasFindedEntity.Clear();
+            Physics2D.OverlapCircle(center,radius,ContactFilter,colliderBuffer);
+            foreach (var collider2D in colliderBuffer)
+            {
+
+                  if (GameObjectToEntityHandlerMap.TryGetValue(collider2D.gameObject, out EntityHandler handler) &&
+                      hasFindedEntity.Add(handler.gameObject))
+                  {
+                        OnEntityFindedByArea?.Invoke(handler);
+                        result.Add(handler);
+                  }
+            }
+      }
+      //胶囊体查找
+      public virtual void GetEntityOverlapCapsule(Vector2 center,Vector2 size, CapsuleDirection2D direction2D,float angle,ICollection<EntityHandler> result)
+      {
+            colliderBuffer.Clear();
+            hasFindedEntity.Clear();
+            Physics2D.OverlapCapsule(center,size,direction2D,angle,ContactFilter,colliderBuffer);
+            foreach (var collider2D in colliderBuffer)
+            {
+                  if (GameObjectToEntityHandlerMap.TryGetValue(collider2D.gameObject, out EntityHandler handler) &&
+                      hasFindedEntity.Add(handler.gameObject))
+                  {
+                        OnEntityFindedByArea?.Invoke(handler);
+                        result.Add(handler);
+                  }
+            }
+      }
 }

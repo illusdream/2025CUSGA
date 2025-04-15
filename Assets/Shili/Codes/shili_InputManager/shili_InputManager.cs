@@ -40,24 +40,24 @@ public class shili_InputManager : MonoBehaviour
     {
         if (rebindOperation != null && rebindOperation.started)
         {
-            Debug.Log("µã»÷ÁËÆäËûµØ·½");
+            Debug.Log("ç‚¹å‡»äº†å…¶ä»–åœ°æ–¹");
             rebindOperation.Cancel();
             rebindOperation = null;
         }
         inputActions.Disable();
-        // ±£´æÔ­Ê¼°ó¶¨×´Ì¬
+        // ä¿å­˜åŸå§‹ç»‘å®šçŠ¶æ€
         string originalBinding = inputAction.SaveBindingOverridesAsJson();
         rebindOperation = inputAction.PerformInteractiveRebinding();
         rebindOperation.WithTargetBinding(moveIndex)
-        //²»Ï£Íû½ÓÊÕÊó±êµÄÊäÈë
+        //ä¸å¸Œæœ›æ¥æ”¶é¼ æ ‡çš„è¾“å…¥
         .WithControlsExcluding("Mouse")
-        //¼àÌıÆäËüÊäÈëµÄ¼ä¸ô
+        //ç›‘å¬å…¶å®ƒè¾“å…¥çš„é—´éš”
         .OnMatchWaitForAnother(0.1f);
         rebindOperation.WithExpectedControlType("Key");
         rebindOperation.OnComplete(operation =>
         {
             InputControl newControl = operation.selectedControl;
-            // »Ø¹öÁÙÊ±°ó¶¨
+            // å›æ»šä¸´æ—¶ç»‘å®š
             inputAction.LoadBindingOverridesFromJson(originalBinding);
             bool conflict = IsControlAlreadyBound(newControl);
             if (conflict)
@@ -66,7 +66,7 @@ public class shili_InputManager : MonoBehaviour
             }
             else
             {
-                // °²È«Ó¦ÓÃĞÂ°ó¶¨£¨½öÔÚÎŞ³åÍ»Ê±£©
+                // å®‰å…¨åº”ç”¨æ–°ç»‘å®šï¼ˆä»…åœ¨æ— å†²çªæ—¶ï¼‰
                 inputAction.ApplyBindingOverride(moveIndex, newControl.path);
                 string a = FormatKeyName(newControl.name);
                 playerKey.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = a;
@@ -80,8 +80,8 @@ public class shili_InputManager : MonoBehaviour
 
         rebindOperation.OnCancel(operation =>
         {
-            inputAction.LoadBindingOverridesFromJson(originalBinding); // ×¢ÒâÕâÀïÒ²Òª»Ø¹ö
-            Debug.Log("°ó¶¨È¡Ïû");
+            inputAction.LoadBindingOverridesFromJson(originalBinding); // æ³¨æ„è¿™é‡Œä¹Ÿè¦å›æ»š
+            Debug.Log("ç»‘å®šå–æ¶ˆ");
             operation.Dispose();
             inputActions.Enable();
             rebindOperation = null;
@@ -89,19 +89,19 @@ public class shili_InputManager : MonoBehaviour
 
         rebindOperation.Start();
 
-        // ĞÂÔö¸ñÊ½»¯·½·¨
+        // æ–°å¢æ ¼å¼åŒ–æ–¹æ³•
         string FormatKeyName(string input)
         {
             return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
     }
-    // ĞÂÔöÂ·¾¶±ê×¼»¯·½·¨
+    // æ–°å¢è·¯å¾„æ ‡å‡†åŒ–æ–¹æ³•
     static string NormalizeControlPath(string path)
     {
-        // Í³Ò»¸ñÊ½£ºÒÆ³ı¼âÀ¨ºÅºÍ¿ªÍ·Ğ±¸Ü£¨´¦ÀíÀàËÆ <Keyboard>/w ºÍ /Keyboard/w µÄÇé¿ö£©
+        // ç»Ÿä¸€æ ¼å¼ï¼šç§»é™¤å°–æ‹¬å·å’Œå¼€å¤´æ–œæ ï¼ˆå¤„ç†ç±»ä¼¼ <Keyboard>/w å’Œ /Keyboard/w çš„æƒ…å†µï¼‰
         return path.Replace("<", "").Replace(">", "").TrimStart('/').ToLower();
     }
-    // ¸Ä½øµÄ³åÍ»¼ì²âÂß¼­
+    // æ”¹è¿›çš„å†²çªæ£€æµ‹é€»è¾‘
     private bool IsControlAlreadyBound(InputControl targetControl)
     {
         string targetPath = NormalizeControlPath(targetControl.path);
@@ -114,7 +114,7 @@ public class shili_InputManager : MonoBehaviour
         {
             foreach (InputBinding binding in action.bindings)
             {
-                // Ìø¹ıµ±Ç°ÕıÔÚĞŞ¸ÄµÄ°ó¶¨
+                // è·³è¿‡å½“å‰æ­£åœ¨ä¿®æ”¹çš„ç»‘å®š
                 if (action == inputAction && binding.id == inputAction.bindings[moveIndex].id)
                     continue;
 

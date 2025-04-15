@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using ilsFramework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.WSA;
 
 public class GamePlay_InitProcedure : ProcedureNode
 {

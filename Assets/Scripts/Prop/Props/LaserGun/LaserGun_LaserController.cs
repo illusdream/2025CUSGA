@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -24,6 +25,8 @@ namespace Props
         private float counter;
 
         private Vector3 baseSize;
+        
+        public CommenActionDirector Director;
         public void Start()
         {
             attackResult = new List<EntityHandler>();
@@ -32,39 +35,57 @@ namespace Props
                 this.config = config;
                 LaserDamage = config.Damage;
             }
+
+            if (handler.TryGetComponet(EntityComponetUsage.Attacker,out CommenAttacker attacker))
+            {
+                attacker.Damage = config.Damage;
+            }
             baseSize = Visual.transform.localScale;
+            Director.Play(config.LaserGameObjectTimeline);
+            Director.onStopped+= DirectorOnonStopped;
+        }
+
+        private void DirectorOnonStopped(BaseActionDirector obj)
+        {
+            Destroy(this.gameObject);
         }
 
 
         [Button]
         public void TestAttack()
         {
-            attackResult.Clear();
-            EntityManager.Instance.GetEntityInArea(attackCollider,config.AttackEntityType,attackResult);
-            foreach (var entityHandler in attackResult)
-            {
-                if (entityHandler.ID == handler.SpawnSource.SpawnerID)
-                {
-                    continue;
-                }
-                DamageInfo damageInfo = DamageInfo.BuildDamageInfo(LaserDamage,ID);
-                entityHandler.BroadcastEvent(EntityEvent.EntityBeHitted,EEntityEventScope.Entity,new EntityEvent.EntityBeHittedEventArgs(damageInfo));
-            }
+
+
         }
 
         public void Update()
         {
+            return;
             counter += Time.deltaTime;
             Visual.localScale =new Vector3(baseSize.x,(1 - counter) *baseSize.y,baseSize.z);
             if (counter >0.5f && !HasAttacked)
             {
-                TestAttack();
+                if (handler.TryGetComponet(EntityComponetUsage.Attacker,out CommenAttacker commenAttacker))
+                {
+                    attackResult.Clear();
+                    EntityManager.Instance.GetEntityInArea(attackCollider,config.AttackEntityType,attackResult);
+                    foreach (var entityHandler in attackResult)
+                    {
+                        if (entityHandler.ID == handler.SpawnSource.SpawnerID)
+                        {
+                            continue;
+                        }
+                        DamageInfo damageInfo = DamageInfo.BuildDamageInfo(LaserDamage,ID);
+                        commenAttacker.Attack(entityHandler);
+                    }
+                    //TestAttack();
+                }
                 HasAttacked = true;
             }
 
             if (counter>1)
             {
-                Destroy(this.gameObject);
+                
             }
         }
     }

@@ -7,8 +7,6 @@ using Sirenix.OdinInspector;
 using Tiles;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem.iOS;
-using UnityEngine.Tilemaps;
 using Utils;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -28,14 +26,16 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     private Grid grid;
 
     private TileHandler[,] tileHandlers;
-
+    private Dictionary<Collider2D,Vector2Int> gridColliders;
+    private ContactFilter2D gridContactFilter;
+    
     private Transform tileHandlerCollection;
     
     private BaseTile[,] tiles;
     private RectInt tilesRange;
     private TileFenwickTree2D _fenwickTree2D;
- 
-    
+
+    private List<RaycastHit2D> rayHitCastBuffer;
     private List<Collider2D> areaCheckBuffer;
     private List<Vector2Int> areaGetTileBuffer;
     
@@ -68,6 +68,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         _managerConfig = Config.GetConfig<TileManagerConfig>();
         _tileConfig = Config.GetConfig<TileConfig>();
 
+        rayHitCastBuffer = new List<RaycastHit2D>();
         areaCheckBuffer = new List<Collider2D>();
         areaGetTileBuffer = new List<Vector2Int>();
         
@@ -162,7 +163,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     public void InitTileHandlers()
     {
         tileHandlers = new TileHandler[_managerConfig.MapSize.x, _managerConfig.MapSize.y];
-        
+        gridColliders = new Dictionary<Collider2D, Vector2Int>();
+        gridContactFilter = _managerConfig.TileGridContactFilter2D;
         tileHandlerCollection = new GameObject("TileHandlers").transform;
         
         var hanlderPrefab = _managerConfig.TileHandlerPrefab;
@@ -174,6 +176,11 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 if (instance.TryGetComponent<TileHandler>(out var handler))
                 {
                     tileHandlers[x, y]= handler;
+                }
+
+                if (instance.TryGetComponent<BoxCollider2D>(out var collider))
+                {
+                    gridColliders.Add(collider,new Vector2Int(x,y));
                 }
             }
         }
@@ -398,7 +405,72 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             }
         }
     }
+    
+    //点查找
+    public void GetTileOverlapPoint(Vector2 point, ICollection<Vector2Int> result)
+    {
+        areaCheckBuffer.Clear();
+        Physics2D.OverlapPoint(point, gridContactFilter, areaCheckBuffer);
+        foreach (var collider2D in areaCheckBuffer)
+        {
+            if (gridColliders.TryGetValue(collider2D, out var position))
+            {
+                result.Add(position);
+            }
+        }
+    }
 
+    public void GetTileOverlapBox(Vector2 point, Vector2 size, float angle, ICollection<Vector2Int> result)
+    {
+        areaCheckBuffer.Clear();
+        Physics2D.OverlapBox(point, size, angle, gridContactFilter, areaCheckBuffer);
+        foreach (var collider2D in areaCheckBuffer)
+        {
+            if (gridColliders.TryGetValue(collider2D, out var position))
+            {
+                result.Add(position);
+            }
+        }
+    }
+
+    public void GetTileOverlapCircle(Vector2 point, float radius, ICollection<Vector2Int> result)
+    {
+        areaCheckBuffer.Clear();
+        Physics2D.OverlapCircle(point, radius, gridContactFilter, areaCheckBuffer);
+        foreach (var collider2D in areaCheckBuffer)
+        {
+            if (gridColliders.TryGetValue(collider2D, out var position))
+            {
+                result.Add(position);
+            }
+        }
+    }
+
+    public void GetTileOverlapCapsule(Vector2 point, Vector2 size, CapsuleDirection2D direction2D, float angle, ICollection<Vector2Int> result)
+    {
+        areaCheckBuffer.Clear();
+        Physics2D.OverlapCapsule(point, size, direction2D, angle, gridContactFilter, areaCheckBuffer);
+        foreach (var collider2D in areaCheckBuffer)
+        {
+            if (gridColliders.TryGetValue(collider2D, out var position))
+            {
+                result.Add(position);
+            }
+        }
+    }
+
+    public void GetTileByRayCast(Vector2 start, Vector2 end, ICollection<Vector2Int> result)
+    {
+        rayHitCastBuffer.Clear();
+        Physics2D.Raycast(start,end.normalized,gridContactFilter,rayHitCastBuffer,(end-start).magnitude);
+        foreach (var raycastHit2D in rayHitCastBuffer)
+        {
+            if (gridColliders.TryGetValue(raycastHit2D.collider, out var position))
+            {
+                result.Add(position);
+            }
+        }
+    }
     #endregion
 
     
@@ -645,6 +717,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         return false;
     }
 
+    
+    
     #endregion
 
 

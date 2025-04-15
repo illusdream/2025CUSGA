@@ -11,5 +11,7 @@
         /// 玩家使用了一个道具,对应的Args：<see cref="PlayerEvent.PlayerGetNewPropEventArgs"/>
         /// </summary>
         public const string PlayerUsingProp = "PlayerUsingProp";
+        
+
     }
 }

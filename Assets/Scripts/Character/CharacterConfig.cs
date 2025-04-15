@@ -12,7 +12,7 @@ public class CharacterConfig : ConfigScriptObject
     public GameObject characterPrefabClone;
 
     [LabelText("可活动范围")]
-    public RectInt PlayerCanPlayRange;
+    public Rect PlayerCanPlayRange;
     [LabelText("遇到边界后的反弹倍率")]
     public float PlayerRangeEdgeBounciness;
     [LabelText("最小可触发反弹的速度")]

@@ -15,6 +15,16 @@ public class PlayerPropContainer : BasePropContainer
     public PlayerController playerController;
     private TimerCollection timerCollection;
     public const string UseTimeColdDownTimer = "UseTimeColdDown";
+
+    public BaseProp GetCurrentTopProp()
+    {
+        if (propInventory.Count == 0)
+        {
+            return null;
+        }
+        return propInventory.Last();
+    }
+    
     public void Awake()
     {
         timerCollection = new TimerCollection();
@@ -43,7 +53,7 @@ public class PlayerPropContainer : BasePropContainer
         if (propInventory.Count>0 &&propInventory.Last().CanUseProp(handler) && CanUseProp())
         {
            var p =  propInventory.Last();
-           propInventory.RemoveAt(propInventory.Count - 1);
+           propInventory.RemoveAt(0);
            p.UseProp(handler);
            p.BeRemovedFromContainer(handler);
            
@@ -55,14 +65,28 @@ public class PlayerPropContainer : BasePropContainer
                     canUseProp = true;
                 }).Register();
 
-           var args = new PlayerEvent.PlayerUsingPropEventArgs(ID, playerController.PlayerID, p.GetType());
-           
-           handler.BroadcastEvent(PlayerEvent.PlayerUsingProp,EEntityEventScope.Component,args);
-           GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerUsingProp,args);
+
            
         }
         return false;
     }
+
+    public BaseProp PopLastProp()
+    {
+        if(propInventory.Count ==0)
+            return null;
+        var p =  propInventory.First();
+        propInventory.RemoveAt(0);
+        p.BeRemovedFromContainer(handler);
+        
+        var args = new PlayerEvent.PlayerUsingPropEventArgs(ID, playerController.PlayerID, p.GetType());
+           
+        handler.BroadcastEvent(PlayerEvent.PlayerUsingProp,EEntityEventScope.Component,args);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerUsingProp,args);
+
+        return p;
+    }
+    
 
     public override bool TryInputProp(BaseProp prop)
     {
@@ -70,12 +94,7 @@ public class PlayerPropContainer : BasePropContainer
         {
             prop.BeAddPropContainer(handler);
             propInventory.Add(prop);
-
-            ID.LogSelf();
-            playerController.PlayerID.LogSelf();
-            prop.GetType().LogSelf();
-
-
+            
             var args = new PlayerEvent.PlayerGetNewPropEventArgs(ID, playerController.PlayerID, prop.GetType());
            
             handler.BroadcastEvent(PlayerEvent.PlayerGetNewProp,EEntityEventScope.Component,args);
@@ -94,7 +113,7 @@ public class PlayerPropContainer : BasePropContainer
 
     private void Listener_BeOrderToUseProp(EventArgs args)
     {
-        TryUseProp();
+        //TryUseProp();
     }
 
     /// <summary>

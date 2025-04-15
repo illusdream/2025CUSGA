@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Timeline;
 using Utils.EditorUtils;
 
 /// <summary>
@@ -24,7 +25,7 @@ public class BasePropConfig : ScriptableObject
     public Sprite PropSprite;
     
     public float BasePropUseColdDown = 1;
-    
-    
+
+    public TimelineAsset PlayAsset;
 
 }

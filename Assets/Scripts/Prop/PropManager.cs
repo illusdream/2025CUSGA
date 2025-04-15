@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ilsFramework;
+using Props;
 
 public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForeach
 {
@@ -93,7 +94,6 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
     {
         var selectList = propID_TypeMap.Select((p => p.Value)).ToList();
         var randomResult = selectList.Shuffle()[0];
-        randomResult.LogSelf();
         return CreateTargetProp(randomResult);
     }
 

@@ -9,4 +9,7 @@
         /// 角色操作地块相关的组件，类型<see cref=""/>
         /// </summary>
         public const string playerTileHandler = "PlayerTileHandler";
+        
+        
+        public const string playerVisualHandler = "PlayerVisualHandler";
 }

@@ -29,6 +29,10 @@ public partial class EntityComponetUsage
         public const string Hitable = "Hitable";
         
         /// <summary>
+        /// 攻击脚本
+        /// </summary>
+        public const string Attacker = "Attacker";
+        /// <summary>
         /// Buff组件，有这个组件的实体可以被上Buff（未实现）
         /// </summary>
         public const string Buff = "Buff";
@@ -44,4 +48,9 @@ public partial class EntityComponetUsage
         public const string EntityStat = "EntityStat";
         
         public const string EnergyContainer = "EnergyContainer";
+        
+        /// <summary>
+        /// 用于处理与物块相关的互动（破坏和放置）
+        /// </summary>
+        public const string TileHandler = "TileHandler";
 }

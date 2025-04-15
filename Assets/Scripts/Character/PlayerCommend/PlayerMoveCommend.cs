@@ -17,7 +17,7 @@ public class PlayerMoveCommend : BasePlayerCommend
             return;
         }
 
-        playerController?.ExecuteMoveCommand(moveDirection);
+        playerController.BroadcastEvent(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,new PlayerEvent.PlayerMoveCommendEventArgs(moveDirection));
     }
 
 }

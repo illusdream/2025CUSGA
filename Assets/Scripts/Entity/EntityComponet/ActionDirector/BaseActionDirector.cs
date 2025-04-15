@@ -4,6 +4,7 @@ using ilsFramework;
 using Sirenix.OdinInspector;
 using Test;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 using Object = UnityEngine.Object;
@@ -34,34 +35,39 @@ public abstract class BaseActionDirector : EntityComponent
         [ShowInInspector]
         public ActionControlTrackHandler ControlTrackHandler { get;private set; }
         
-        public void Awake()
+
+        public virtual  void Awake()
         {
                 bindingBuffer ??= new Dictionary<string, Object>();
                 ControlTrackHandler = new ActionControlTrackHandler();
         }
 
-        public void Start()
+        public virtual void Start()
         {
                 director.timeUpdateMode = DirectorUpdateMode.Manual;
         }
 
-        public void FixedUpdate()
+        public virtual  void FixedUpdate()
         {
                 //在这个里面更新Director吧，固定帧数
                 if (isPlaying)
                 {
-                        if (directorTime >= director.duration)
-                        {
-                                isPlaying = false;
-                                onStopped?.Invoke(this);
-                                return;      
-                        }
                         ControlTrackHandler.GetNextFrameTime(directorTime,directorTime + Time.fixedDeltaTime,out directorTime);
                         director.time = directorTime;
                         director.Evaluate();
                         onAction?.Invoke(this);
                 }
 
+        }
+
+        public void Update()
+        {
+                if (directorTime >= director.duration)
+                {
+                        isPlaying = false;
+                        onStopped?.Invoke(this);
+                        return;      
+                }
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ public abstract class BaseActionDirector : EntityComponent
         /// </summary>
         /// <param name="timelineAsset"></param>
         /// <returns></returns>
-        public bool TryPlay(TimelineAsset timelineAsset)
+        public virtual  bool TryPlay(TimelineAsset timelineAsset)
         {
                 if (CanPlay())
                 {
@@ -90,8 +96,11 @@ public abstract class BaseActionDirector : EntityComponent
         /// </summary>
         /// <param name="timelineAsset"></param>
         [Button]
-        public void Play(TimelineAsset timelineAsset)
+        public virtual  void Play(TimelineAsset timelineAsset)
         {
+
+                
+                
                 ControlTrackHandler.Reset(timelineAsset);
                 directorTime = 0;
                 isPlaying = true;
@@ -108,4 +117,5 @@ public abstract class BaseActionDirector : EntityComponent
         {
                 director.Pause();
         }
+
 }

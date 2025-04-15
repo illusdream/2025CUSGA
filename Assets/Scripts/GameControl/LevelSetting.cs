@@ -32,11 +32,13 @@ public class LevelSetting : MonoBehaviour
 
         public void OnDrawGizmos()
         {
+#if UNITY_EDITOR
                 if (ShowPlayableRange)
-                {             
+                {
                         var playRange = Config.GetConfigInEditor<CharacterConfig>().PlayerCanPlayRange;
-                        Gizmos.color = Color.green * new Color(1,1,1,0.1f);
+                        Gizmos.color = Color.green * new Color(1, 1, 1, 0.1f);
                         Gizmos.DrawWireCube(playRange.center, new Vector3(playRange.size.x, playRange.size.y, 1));
                 }
+#endif
         }
 }
