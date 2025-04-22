@@ -3,7 +3,7 @@ using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PlayerMoveComponent : EntityComponent,IEntityMove
+public class PlayerMoveComponent : BaseEntityMove
 {
     public override string TargetUsage => EntityComponetUsage.Moveable;
 
@@ -20,6 +20,7 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
     private Vector2 finalInputMoveDir;
     
     public bool CanBeControlled { get;set; }
+    
     public Vector3 GetEntityPosition()
     {
         return transform.position;
@@ -74,8 +75,8 @@ public class PlayerMoveComponent : EntityComponent,IEntityMove
             Rigidbody2D.velocity -= Rigidbody2D.velocity.normalized * tickFalloffVector;
         }
 
-        var result = Rigidbody2D.velocity + finalInputMoveDir * (MoveAcceleration * Time.fixedDeltaTime);
-        if (result.magnitude <= MaxMoveSpeed && finalInputMoveDir != Vector2.zero)
+        var result = Rigidbody2D.velocity + finalInputMoveDir * (AccelerationModifiers.Apply(MoveAcceleration) * Time.fixedDeltaTime);
+        if (result.magnitude <= MaxMoveSpeedModifiers.Apply(MaxMoveSpeed) && finalInputMoveDir != Vector2.zero)
         {
             Rigidbody2D.velocity = result;
             finalInputMoveDir = Vector2.zero;

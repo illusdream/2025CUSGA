@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e223fb9a46d4e7599375aedaee3d1b9, type: 3}
+  m_Name: BuffConfig
+  m_EditorClassIdentifier: 
+  BuffConfigs:
+  - {fileID: 11400000, guid: 008a7dcf78c96474a81406154b52b7f6, type: 2}
+  - {fileID: 11400000, guid: 88f00437e733fe64b9d89b98b938b8f6, type: 2}
+  BuffIDsMap:
+    list:
+    - Key: EnergySugarBuff
+      Value: 0
+    - Key: AcceleratingFieldBuff
+      Value: 1
+  AutoBuildOrUpdateSingleBuffConfigs: 1

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AreaInfos.Shapes;
 using ilsFramework;
 using Props;
 using Sirenix.OdinInspector;
@@ -18,6 +19,8 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
     private Dictionary<GameObject, SpawnSource> spwanSourcesNeedAdd;
     
     bool isOnDestory = false;
+
+    private HashSet<EntityHandler> checkOverlapBuffer;
     public void Init()
     {
         entityCollections = new Dictionary<string, EntityCollection>();
@@ -26,6 +29,7 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         entityTypeInfos = _managerConfig.GetEntityTypesDictionary();
         
         spwanSourcesNeedAdd = new Dictionary<GameObject, SpawnSource>();
+        checkOverlapBuffer = new HashSet<EntityHandler>();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -247,6 +251,75 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
     }
 
+    public bool ShapeIsOverlapByEntity(Transform shapeTransform,AreaShape shape, List<EEntityType> targetEntityTypes)
+    {
+        checkOverlapBuffer.Clear();
+        GetEntityOverlapByShape(shapeTransform,shape,targetEntityTypes,checkOverlapBuffer);
+        return checkOverlapBuffer.Count > 0;
+    }
+    
+    public bool ShapeIsOverlapByEntity(Transform shapeTransform,AreaShape shape, EEntityType targetEntityType)
+    {
+        checkOverlapBuffer.Clear();
+        GetEntityOverlapByShape(shapeTransform,shape,targetEntityType,checkOverlapBuffer);
+        return checkOverlapBuffer.Count > 0;
+    }
+
+    public void GetEntityOverlapByShape(Transform shapeTransform,AreaShape shape, List<EEntityType> targetEntityTypes, ICollection<EntityHandler> result)
+    {
+        //查看形状
+        switch (shape)
+        {
+            case BoxShape boxShape:
+                boxShape.GetCurrentData(shapeTransform,out var boxPoint,out var boxSize,out var boxAngle);
+                GetEntityOverlapBox(boxPoint,boxSize,boxAngle,targetEntityTypes,result);
+                break;
+            case CapsuleShape capsuleShape:
+                capsuleShape.GetCurrentData(shapeTransform,out var capPoint,out var capSize,out var capsuleDirection2D,out var capAngle);
+                GetEntityOverlapCapsule(capPoint,capSize,capsuleDirection2D,capAngle,targetEntityTypes,result);
+                break;
+            case CircleShape circleShape:
+                circleShape.GetCurrentData(shapeTransform,out var circlePoint,out var circleSizeRadius);
+                GetEntityOverlapCircle(circlePoint,circleSizeRadius,targetEntityTypes,result);
+                break;
+            case PointShape pointShape:
+                pointShape.GetCurrentData(shapeTransform,out var pointPoint);
+                GetEntityOverlapPoint(pointPoint,targetEntityTypes,result);
+                break;
+            case RayShape rayShape:
+                rayShape.GetCurrentData(shapeTransform,out var rayStart,out var rayEnd);
+                GetEntityByRaycast(rayStart,(rayEnd - rayStart),targetEntityTypes,result);
+                break;
+        }
+    }
+    public void GetEntityOverlapByShape(Transform shapeTransform,AreaShape shape, EEntityType targetEntityType, ICollection<EntityHandler> result)
+    {
+        //查看形状
+        switch (shape)
+        {
+            case BoxShape boxShape:
+                boxShape.GetCurrentData(shapeTransform,out var boxPoint,out var boxSize,out var boxAngle);
+                GetEntityOverlapBox(boxPoint,boxSize,boxAngle,targetEntityType,result);
+                break;
+            case CapsuleShape capsuleShape:
+                capsuleShape.GetCurrentData(shapeTransform,out var capPoint,out var capSize,out var capsuleDirection2D,out var capAngle);
+                GetEntityOverlapCapsule(capPoint,capSize,capsuleDirection2D,capAngle,targetEntityType,result);
+                break;
+            case CircleShape circleShape:
+                circleShape.GetCurrentData(shapeTransform,out var circlePoint,out var circleSizeRadius);
+                GetEntityOverlapCircle(circlePoint,circleSizeRadius,targetEntityType,result);
+                break;
+            case PointShape pointShape:
+                pointShape.GetCurrentData(shapeTransform,out var pointPoint);
+                GetEntityOverlapPoint(pointPoint,targetEntityType,result);
+                break;
+            case RayShape rayShape:
+                rayShape.GetCurrentData(shapeTransform,out var rayStart,out var rayEnd);
+                GetEntityByRaycast(rayStart,(rayEnd - rayStart),targetEntityType,result);
+                break;
+        }
+    }
+    
     public GameObject Instantiate(GameObject prefab,SpawnSource spawnSource,Vector3 position,Quaternion rotation)
     {
         var go = GameObject.Instantiate(prefab,position,rotation);
@@ -256,4 +329,7 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
         return go;
     }
+    
+    
+
 }

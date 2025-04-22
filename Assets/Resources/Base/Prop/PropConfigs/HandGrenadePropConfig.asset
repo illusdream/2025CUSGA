@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d6af4efdb074bc39e8e3368c873c21b, type: 3}
+  m_Name: HandGrenadePropConfig
+  m_EditorClassIdentifier: 
+  TargetType: Props.HandGrenadeProp
+  PropSprite: {fileID: 21300000, guid: 22e04bb18c2c4e646aabcd94ecd78321, type: 3}
+  BasePropUseColdDown: 1
+  PlayAsset: {fileID: 11400000, guid: efd8c9a71b1aab1438b5147a1c0b0e3b, type: 2}
+  BaseDamage: 100
+  HandGrenadeBoomTimeline: {fileID: 11400000, guid: 53cac9539f5170b498bb1688530df448, type: 2}
+  HandGrenadeBoomerPrefab: {fileID: 5974341084226847042, guid: 72ab9859f84c26a469e99956554d163f, type: 3}

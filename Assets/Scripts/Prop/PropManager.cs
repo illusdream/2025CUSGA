@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ilsFramework;
 using Props;
+using Sirenix.OdinInspector;
 
 public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForeach
 {
@@ -10,12 +11,19 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
     
     private Dictionary<Type, BasePropConfig> propConfigs;
     private BiMap<int, Type> propID_TypeMap;
+    [ShowInInspector]
+    private BiMap<EPropType, Type> propEnum_TypeMap;
+
+    public List<EPropType> RandomSelectList;
     public void Init()
     {
         propsConfig = Config.GetConfig<PropConfig>();
+
+        RandomSelectList = propsConfig.BeRandomSelectProps;
         
         propConfigs = new Dictionary<Type, BasePropConfig>();
         propID_TypeMap = new BiMap<int, Type>();
+        propEnum_TypeMap = new BiMap<EPropType, Type>();
     }
     public void ForeachCurrentAssembly(Type[] types)
     {
@@ -31,7 +39,10 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
                 if (propsConfig.TryGetPropID(type.Name, out var propID))
                 {
                     propID_TypeMap.Add(propID, type);
+                    propEnum_TypeMap.Add((EPropType)propID, type);
                 }
+
+
             }
         }
     }
@@ -89,12 +100,16 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
 
         return null;
     }
+
+    public BaseProp CreateTargetProp(EPropType propType)
+    {
+        return CreateTargetProp(propEnum_TypeMap.GetRight(propType));
+    }
     
     public BaseProp CreateRandomProp()
     {
-        var selectList = propID_TypeMap.Select((p => p.Value)).ToList();
-        var randomResult = selectList.Shuffle()[0];
-        return CreateTargetProp(randomResult);
+        var randomResult = RandomSelectList.Shuffle()[0];
+        return CreateTargetProp(propEnum_TypeMap.GetRight(randomResult));
     }
 
 }

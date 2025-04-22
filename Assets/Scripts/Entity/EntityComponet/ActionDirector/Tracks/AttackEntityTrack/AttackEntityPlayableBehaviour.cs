@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine.Playables;
 
 public class AttackEntityPlayableBehaviour : PlayableBehaviour
@@ -13,6 +14,12 @@ public class AttackEntityPlayableBehaviour : PlayableBehaviour
     
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
+#if UNITY_EDITOR
+        if (!EditorApplication.isPlaying)
+        {
+            return;
+        }
+#endif
         var attacker = (BaseAttacker)playerData;
         var transform = attacker.transform;
         targetEntity.Clear();

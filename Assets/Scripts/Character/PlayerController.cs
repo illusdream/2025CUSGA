@@ -9,6 +9,8 @@ public class PlayerController : EntityComponent
 {
         public override string TargetUsage => EntityComponetUsage.playerController;
 
+        public Transform directionTransform;
+        
         public SpriteRenderer spriteRenderer;
         
         public Animator animator;
@@ -60,6 +62,9 @@ public class PlayerController : EntityComponent
 
         public void Update()
         {
+                var dir = playerInputHandler.LastActiveMoveDirection;
+                var rot = Mathf.Atan2(dir.y, dir.x);
+                directionTransform.rotation = quaternion.Euler(0,0,rot);
                 stateMachine?.Update();
         }
 
@@ -121,5 +126,15 @@ public class PlayerController : EntityComponent
         public void OnDestroy()
         {
                 stateMachine?.OnDestroy();
+        }
+
+        [Button]
+        public void TestProp(EPropType propType)
+        {
+                if (handler.TryGetComponet(EntityComponetUsage.PropContainer,out BasePropContainer playerPropContainer))
+                {
+                        playerPropContainer.TryInputProp(PropManager.Instance.CreateTargetProp(propType));
+                }
+
         }
 }

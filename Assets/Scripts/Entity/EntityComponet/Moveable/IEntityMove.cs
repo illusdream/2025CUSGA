@@ -10,5 +10,5 @@ public interface IEntityMove
         
         public void SetTargetVelocity(Vector3 velocity);
         
-        public void AddForce(Vector3 force);
+        public void AddForce(Vector3 force,ForceMode2D mode = ForceMode2D.Impulse);
 }

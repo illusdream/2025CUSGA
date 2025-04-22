@@ -15,36 +15,31 @@ namespace Editor
     {
         protected override void OnEnable()
         {
-            SceneView.duringSceneGui += SceneViewOnduringSceneGui;
-        }
-
-        private void SceneViewOnduringSceneGui(SceneView obj)
-        {
             if (this.CheckTimelineClipIsSelected(out var clip) &&TimelineEditor.inspectedDirector)
-            {
-
-                if (TimelineEditor.inspectedDirector.GetGenericBinding(clip.GetParentTrack()) is Transform go)
+            {                
+                var resolver = TimelineEditor.inspectedDirector.playableGraph.GetResolver();
+                if (resolver == null)
                 {
-                    // 检测是否发生修改
-                    foreach (var info in (target as AreaEffectClip).AreaInfo)
+                    return;
+                }
+                if (target is AreaEffectClip _clip)
+                {
+                    foreach (var info in _clip.AreaInfo)
                     {
-                        info.areaShape.OnSceneGUI(go,target);
-                    }
+                        TrackSceneOrInsperctorManager.Instance.TrySetDrawerPivotTransfrom_Clip(info.areaShape,_clip.PivotTrasform.Resolve(resolver),target);
+                        TrackSceneOrInsperctorManager.Instance.SetDrawerSceneVisbale(info.areaShape,true);   
+                    }                     
                 }
-                else
-                {
-  
-                }
-                Repaint();
             }
-
         }
-    
-        public void OnSceneGUI()
+        protected override void OnDisable()
         {
-
+            foreach (var info in (target as AreaEffectClip).AreaInfo)
+            {
+                TrackSceneOrInsperctorManager.Instance.SetDrawerSceneVisbale(info.areaShape,false);
+            }
+            base.OnDisable();
         }
-   
 
         
     }

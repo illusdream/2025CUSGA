@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 /// <summary>
 /// 双向哈希表
 /// </summary>
 public class BiMap<TLeft, TRight> : IEnumerable<KeyValuePair<TLeft, TRight>>
 {
+        [ShowInInspector]
         private Dictionary<TLeft, TRight> leftMap;
         private Dictionary<TRight, TLeft> rightMap;
 

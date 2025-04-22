@@ -9,6 +9,8 @@ public class PlayerEnergyContainer : EntityComponent
         public int MaxEnergy { get;private set; }
         [ShowInInspector]
         public float CurrentEnergy { get;private set; }
+        [ShowInInspector]
+        public NumericModifierCollection EnergyModifiers { get;private set; }
         
         public float GetCurrentEnergy()
         {
@@ -17,6 +19,7 @@ public class PlayerEnergyContainer : EntityComponent
 
         public override void OnInitialized(EntityHandler handler)
         {
+                EnergyModifiers = new NumericModifierCollection();
                 TileManager.Instance.AddListener(TileEvent.TileMerged,Listener_TileMerge);
                 base.OnInitialized(handler);
         }
@@ -45,7 +48,7 @@ public class PlayerEnergyContainer : EntityComponent
 
         public void AddEnergy(float energy)
         {
-                CurrentEnergy += energy;
+                CurrentEnergy += EnergyModifiers.Apply(energy);
         }
         
         public void Update()

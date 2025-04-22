@@ -7,7 +7,7 @@ public abstract class BaseProp
 
         public float BaseUsePropColdDown;
 
-        private BasePropConfig config;
+        protected BasePropConfig config;
 
         public PlayerInputHandler InputHandler;
         

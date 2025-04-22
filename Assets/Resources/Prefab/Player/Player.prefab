@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &108199733771111801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4826395795178948793}
+  m_Layer: 10
+  m_Name: DirectionPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4826395795178948793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108199733771111801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3804707663534507003}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &158737766174472020
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +308,7 @@ GameObject:
   - component: {fileID: 8014784037854214011}
   - component: {fileID: 7560538213211143685}
   - component: {fileID: 3255718516033665980}
+  - component: {fileID: 8143117921604201761}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -297,6 +329,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4826395795178948793}
   - {fileID: 1626390696340807414}
   - {fileID: 2130176299341361825}
   - {fileID: 1915994063827375736}
@@ -336,6 +369,8 @@ MonoBehaviour:
       Value: {fileID: 7560538213211143685}
     - Key: PlayerVisualHandler
       Value: {fileID: 1359947970017701781}
+    - Key: Buff
+      Value: {fileID: 8143117921604201761}
 --- !u!114 &3552688374575338249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,6 +384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  directionTransform: {fileID: 4826395795178948793}
   spriteRenderer: {fileID: 8556531300256380584}
   animator: {fileID: 3007290409442275661}
   visualController: {fileID: 1359947970017701781}
@@ -440,6 +476,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  rigidbody2D: {fileID: 0}
+  MaxSpeed: 0
+  Acceleration: 0
   Rigidbody2D: {fileID: 7418803142098904480}
   MaxMoveSpeed: 5
   MoveAcceleration: 10
@@ -538,7 +577,7 @@ PlayableDirector:
   m_GameObject: {fileID: 3196107388258662534}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 8f15c2213d940f543a89351d48afe175, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: bf4f7e58073c1fe45a2b79553ed06d86, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 3
@@ -564,18 +603,46 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 8716410050194284678, guid: 3e9f039cd79ab90488c71210395344b2, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 4389493153714078367, guid: 71334837cbd18934c94f09fb7ee97e07, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: -6932334673836450238, guid: 71334837cbd18934c94f09fb7ee97e07, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1125304942494084429, guid: 71334837cbd18934c94f09fb7ee97e07, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5467635816323892621, guid: 71334837cbd18934c94f09fb7ee97e07, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 6021697588945650546, guid: efd8c9a71b1aab1438b5147a1c0b0e3b, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: -8469797901077438033, guid: efd8c9a71b1aab1438b5147a1c0b0e3b, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5953807679795794240, guid: 0cf9deea67518c04d92c4ffd8370b724, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5007676536928555389, guid: 0cf9deea67518c04d92c4ffd8370b724, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5335002639897528123, guid: 360e3ad2f032abb4d89514324abd32f1, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: -5888444010581115383, guid: 360e3ad2f032abb4d89514324abd32f1, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -7310130464273722697, guid: bf4f7e58073c1fe45a2b79553ed06d86, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - 8072ab97b44fa324c992d3e88f021930: {fileID: 1626390696340807414}
+    - 1b859e6eb46ea7d42b9fca7b5ac1eaca: {fileID: 1626390696340807414}
     - 20aea1e4d8e47bc458c75307f15c5fc8: {fileID: 1626390696340807414}
     - 88cdea2309b487a4d9b987194d1abd50: {fileID: 1626390696340807414}
     - 4d1effac1c4a6644d90caa9bc81a33f0: {fileID: 1626390696340807414}
+    - 1efd1ea679fb09242ba2da7843a853b8: {fileID: 4826395795178948793}
     - 26c4aa032aaaadc439e2b249073c5e08: {fileID: 1626390696340807414}
+    - 23c42435f035feb49b9f7ba8a5b58df0: {fileID: 4826395795178948793}
     - c537ff80066244042a7c98978dc77671: {fileID: 3804707663534507003}
+    - 674a092fe7ba1cb40a93a63d560083eb: {fileID: 4826395795178948793}
     - 511c102d8f3693a4eb8185f490af55b3: {fileID: 1626390696340807414}
     - 57e08ec30caeac642897db3c3dd4ee75: {fileID: 1626390696340807414}
     - 846e5285c5bb6b64d8857c6941e3fcbe: {fileID: 1626390696340807414}
+    - 08293b2a858e8cc408676ea99e93d68a: {fileID: 4826395795178948793}
     - 895da4bc456db124e9a431510bfffba8: {fileID: 1626390696340807414}
+    - c64ff1d8c5221734582fa9e4cc25af69: {fileID: 4826395795178948793}
 --- !u!114 &7560538213211143685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +693,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.02230063, y: -0.0111503005}
   m_Size: {x: 0.7007058, y: 1.9143263}
   m_Direction: 0
+--- !u!114 &8143117921604201761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196107388258662534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449517aa674a424ea711b00b5f38d653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
 --- !u!1 &5677464819861992578
 GameObject:
   m_ObjectHideFlags: 0

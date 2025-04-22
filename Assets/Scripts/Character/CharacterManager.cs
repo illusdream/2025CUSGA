@@ -182,6 +182,27 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         return false;
     }
     
+    public bool TryGetPlayerController(EntityID id, out PlayerController controller)
+    {
+
+        if (IsGamePlayState)
+        {
+            if (IsPlayer1(id))
+            {
+                controller = Player1Controller;
+                return true;
+            }
+
+            if (IsPlayer2(id))
+            {
+                controller = Player2Controller;
+                return true;
+            }
+        }
+        controller = null;
+        return false;
+    }
+    
     public List<EntityID> GetAllPlayerID()
     {
         return CharacterCollection.Select(player=>player.ID).ToList();

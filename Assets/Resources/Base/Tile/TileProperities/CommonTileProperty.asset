@@ -15,7 +15,7 @@ MonoBehaviour:
   BaseMaxHealth: 5
   CanBeDestroyed: 1
   CanBeMerged: 1
-  BaseMergeScore: 2
+  BaseMergeScore: 5
   DefaultSprite: {fileID: 21300000, guid: b030b9745f9dba54faf26c49459e2692, type: 3}
   DestoryAnimationFrames:
   - {fileID: 21300000, guid: 1209c535ae1eb7d43a9b14e62717fcc3, type: 3}

@@ -13,15 +13,37 @@ MonoBehaviour:
   m_Name: PropConfig
   m_EditorClassIdentifier: 
   PropConfigs:
+  - {fileID: 11400000, guid: 927e83bfe3a77a94993c2cda67e688b1, type: 2}
+  - {fileID: 11400000, guid: 0e708b6f83dac91409a6554eed3ed3b7, type: 2}
   - {fileID: 11400000, guid: 87695a9b77fa499468fee26a5f0766c3, type: 2}
   - {fileID: 11400000, guid: 2019173b8f17ac5439bdcf00db816798, type: 2}
-  - {fileID: 11400000, guid: 0e708b6f83dac91409a6554eed3ed3b7, type: 2}
+  - {fileID: 11400000, guid: 2ff7c2a6c6c4a8344b3503b1468a6d04, type: 2}
+  - {fileID: 11400000, guid: 08effbda62d9943479940ff9c7027e7b, type: 2}
+  - {fileID: 11400000, guid: ba01f7e116fc06a4abb85e53a6758e90, type: 2}
+  - {fileID: 11400000, guid: 7ede1a9e59d40854aa418c29aa5d20ec, type: 2}
+  - {fileID: 11400000, guid: 26e2a3c57b33ca346b247dd02a5504ff, type: 2}
+  - {fileID: 11400000, guid: ea56c73164e9ab244912b391d5bb5d9c, type: 2}
   PropIDsMap:
     list:
-    - Key: QuantumSwapProp
+    - Key: BlackHoleCannonProp
       Value: 0
-    - Key: GammaGuilderProp
+    - Key: SwarmMissileProp
       Value: 1
-    - Key: LaserGunProp
+    - Key: AnchorPointProp
       Value: 2
+    - Key: EnergySugarProp
+      Value: 3
+    - Key: AcceleratingFieldProp
+      Value: 4
+    - Key: QuantumSwapProp
+      Value: 5
+    - Key: ReflectingPrismProp
+      Value: 6
+    - Key: GammaGuilderProp
+      Value: 7
+    - Key: LaserGunProp
+      Value: 8
+    - Key: HandGrenadeProp
+      Value: 9
+  BeRandomSelectProps: 02000000030000000400000005000000070000000800000009000000
   AutoBuildOrUpdateSinglePropConfigs: 1

@@ -18,48 +18,48 @@ MonoBehaviour:
   PlayAsset: {fileID: 11400000, guid: 8f15c2213d940f543a89351d48afe175, type: 2}
   projectilePrefab: {fileID: 5604698040606987343, guid: 52c9352f36ce4ef4d8ae84ea66fcc40c, type: 3}
   Damage: 40
-  AttackEntityType: 01000000
+  AttackEntityType: 
   lerpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 28.759178
+      inSlope: 2.5
       outSlope: 2.5
-      tangentMode: 69
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.012926675
+      inWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.4
       value: 1
-      inSlope: 0.06380009
+      inSlope: 0
       outSlope: 0
-      tangentMode: 65
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.5540328
+      inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 0.6
       value: 1
-      inSlope: -0
-      outSlope: -0.014350262
-      tangentMode: 5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 0
       inSlope: -2.5000002
-      outSlope: Infinity
-      tangentMode: 101
+      outSlope: -2.5000002
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  ShootForce: 6
+  ShootForce: 5
   LaserGameObjectTimeline: {fileID: 11400000, guid: cab109697f0710247a970e6fa18ea5c3, type: 2}

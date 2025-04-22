@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEditor;
@@ -29,6 +30,14 @@ public class PropConfig : ConfigScriptObject
 
     public SerializableDictionary<string, int> PropIDsMap;
     
+    [ValueDropdown("GetAllPropTypes",IsUniqueList = true)]
+    [ListDrawerSettings(DraggableItems = false)]
+    public List<EPropType> BeRandomSelectProps;
+
+    public List<EPropType> GetAllPropTypes()
+    {
+        return new List<EPropType>(Enum.GetValues(typeof(EPropType)).OfType<EPropType>());
+    }
     
     public bool AutoBuildOrUpdateSinglePropConfigs = true;
 
