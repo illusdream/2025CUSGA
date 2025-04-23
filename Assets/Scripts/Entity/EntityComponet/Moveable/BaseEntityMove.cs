@@ -39,22 +39,16 @@ public class BaseEntityMove : EntityComponent,IEntityMove
         rigidbody2D.AddForce(force, mode);
     }
 
-    public void Move(Vector2 dir)
+    public virtual void Move(Vector2 dir)
     {
         Vector2 cVelocity = rigidbody2D.velocity;
-        var preVelocity =cVelocity+ dir * AccelerationModifiers.Apply(Acceleration) * Time.fixedDeltaTime;
+        var preVelocity =cVelocity+ dir * (AccelerationModifiers.Apply(Acceleration) * Time.fixedDeltaTime);
         
         var cMaxSpeed = MaxMoveSpeedModifiers.Apply(MaxSpeed);
         
-        if (preVelocity.magnitude > cMaxSpeed && cVelocity.magnitude < cMaxSpeed)
-        {
-            cVelocity = cMaxSpeed * preVelocity.normalized;
-        }
 
-        if (preVelocity.magnitude < cMaxSpeed)
-        {
-            cVelocity = preVelocity;
-        }
+
+        cVelocity = Vector2.ClampMagnitude(preVelocity, cMaxSpeed);
         
         rigidbody2D.velocity = cVelocity;
     }

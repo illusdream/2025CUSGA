@@ -14,7 +14,7 @@ public abstract class BaseBuff
 
         protected BaseBuffConfig _config;
 
-        public string BuffName;
+        public EBuffType BuffName;
         
         public virtual void AddBuff(EntityHandler handler)
         {
@@ -46,6 +46,7 @@ public abstract class BaseBuff
 
         public void ResetBuffTimer()
         {
+                buffTimer.Reset(_config.lastTime,0,1,ETimerType.TimeScale,null,null,null,null);
                 OnResetBuffTimer();
         }
         

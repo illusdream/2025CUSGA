@@ -15,10 +15,13 @@ MonoBehaviour:
   BuffConfigs:
   - {fileID: 11400000, guid: 008a7dcf78c96474a81406154b52b7f6, type: 2}
   - {fileID: 11400000, guid: 88f00437e733fe64b9d89b98b938b8f6, type: 2}
+  - {fileID: 11400000, guid: a959acfb98630b24f82aae83cadf9505, type: 2}
   BuffIDsMap:
     list:
     - Key: EnergySugarBuff
       Value: 0
-    - Key: AcceleratingFieldBuff
+    - Key: InBlackHoleBuff
       Value: 1
+    - Key: AcceleratingFieldBuff
+      Value: 2
   AutoBuildOrUpdateSingleBuffConfigs: 1

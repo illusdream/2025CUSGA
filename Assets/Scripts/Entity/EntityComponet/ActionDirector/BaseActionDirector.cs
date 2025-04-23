@@ -49,6 +49,12 @@ public abstract class BaseActionDirector : EntityComponent
 
         public virtual  void FixedUpdate()
         {
+                if (directorTime >= director.duration && isPlaying)
+                {
+                        isPlaying = false;
+                        onStopped?.Invoke(this);
+                        return;      
+                }
                 //在这个里面更新Director吧，固定帧数
                 if (isPlaying)
                 {
@@ -62,12 +68,7 @@ public abstract class BaseActionDirector : EntityComponent
 
         public void Update()
         {
-                if (directorTime >= director.duration)
-                {
-                        isPlaying = false;
-                        onStopped?.Invoke(this);
-                        return;      
-                }
+
         }
 
         /// <summary>

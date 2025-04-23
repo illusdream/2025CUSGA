@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
+
 public class PropUsingClip : PlayableAsset,ITimelineClipAsset
 {
     private PropUsingPlayableBehaviour template = new PropUsingPlayableBehaviour();
@@ -22,9 +23,13 @@ public class PropUsingClip : PlayableAsset,ITimelineClipAsset
     [HideReferenceObjectPicker]
     [HideIf("InterfaceType",EPropInterfaceType.None)]
     public PropInterfaceSetter Setter;
-    
+
+
+    public override double duration => 1;
+
     public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
     {
+        
         var playable = ScriptPlayable<PropUsingPlayableBehaviour>.Create(graph,template);
         PropUsingPlayableBehaviour behaviour = playable.GetBehaviour();
         behaviour.prop = prop;

@@ -28,6 +28,12 @@ public class PlayerController : EntityComponent
         private PlayerStateMachine stateMachine;
         
         public TimelineAsset DigAsset;
+
+        public TimelineAsset IntoBlackHoleTimelineAsset;
+
+        public TimelineAsset ExitBlackHoleTimelineAsset;
+        
+
         
         public TimerCollection timerCollection;
 
@@ -55,6 +61,7 @@ public class PlayerController : EntityComponent
                 stateMachine.AddState(new PlayerDigState(handler,this));
                 stateMachine.AddState(new PlayerPlaceTileState(handler,this));
                 stateMachine.AddState(new PlayerUsePropState(handler,this));
+                stateMachine.AddState(new PlayerInBlackHoleState(handler,this));
                 stateMachine.SetDefaultState<PlayerMoveState>();
         }
         
@@ -128,6 +135,8 @@ public class PlayerController : EntityComponent
                 stateMachine?.OnDestroy();
         }
 
+
+
         [Button]
         public void TestProp(EPropType propType)
         {
@@ -137,4 +146,16 @@ public class PlayerController : EntityComponent
                 }
 
         }
+
+        #region InBlackHole
+
+        public void TryInToBlackHole()
+        {
+                if (stateMachine.currentStateType != typeof(PlayerInBlackHoleState))
+                {
+                        stateMachine.ChangeState<PlayerInBlackHoleState>();
+                }
+        }
+
+        #endregion
 }

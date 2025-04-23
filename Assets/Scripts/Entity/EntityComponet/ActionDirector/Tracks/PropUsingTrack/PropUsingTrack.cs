@@ -9,7 +9,6 @@ public class PropUsingTrack : PlayableTrack,ILayerable
 {
         public override bool CanCreateTrackMixer()
         {
-               
                 return true;
                 
         }
@@ -18,6 +17,7 @@ public class PropUsingTrack : PlayableTrack,ILayerable
         {
             return ScriptPlayable<PropUsingMixer>.Create(graph, inputCount);
         }
+        
 }
 
 public class PropUsingMixer : PlayableBehaviour

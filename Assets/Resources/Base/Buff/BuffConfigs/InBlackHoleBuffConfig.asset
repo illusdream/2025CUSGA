@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121c12007be84f2eb71bac0840dcf924, type: 3}
-  m_Name: ReflectingPrismPropConfig
+  m_Script: {fileID: 11500000, guid: 09057729a34740fb88f97e99f88ddc6b, type: 3}
+  m_Name: InBlackHoleBuffConfig
   m_EditorClassIdentifier: 
-  TargetType: Props.ReflectingPrismProp
-  PropSprite: {fileID: 0}
-  BasePropUseColdDown: 1
-  PlayAsset: {fileID: 0}
+  TargetType: InBlackHoleBuff
+  lastTime: 0.3

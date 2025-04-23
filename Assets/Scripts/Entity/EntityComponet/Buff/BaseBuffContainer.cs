@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ilsFramework;
 using Sirenix.OdinInspector;
 
 public class BaseBuffContainer : EntityComponent
@@ -7,25 +8,31 @@ public class BaseBuffContainer : EntityComponent
         public override string TargetUsage => EntityComponetUsage.Buff;
 
         [ShowInInspector]
-        public Dictionary<string,BaseBuff> buffs = new Dictionary<string, BaseBuff>();
+        public Dictionary<EBuffType,BaseBuff> buffs = new Dictionary<EBuffType, BaseBuff>();
 
+        public event Action<EBuffType> OnBuffAdded;
+        public event Action<EBuffType> OnBuffRemoved;
+        
+        
+        
         public List<BaseBuff> buffcache = new List<BaseBuff>();
         
         [Button]
         public virtual void AddBuff(EBuffType buffType)
         {
-                if (buffs.TryGetValue(buffType.ToString(), out BaseBuff buff))
+                if (buffs.TryGetValue(buffType, out BaseBuff buff))
                 {
-                                buff.ResetBuffTimer();
+                        buff.ResetBuffTimer();
                 }
                 else
                 {
                         var instance = BuffManager.Instance.CreateInstance(buffType);
                         if (instance != null)
                         {
-                                instance.BuffName = buffType.ToString();
+                                instance.BuffName = buffType;
                                 instance.AddBuff(handler);
-                                buffs.Add(buffType.ToString(), instance);
+                                buffs.Add(buffType, instance);
+                                OnBuffAdded?.Invoke(buffType);
                         }
                 }
 
@@ -33,14 +40,20 @@ public class BaseBuffContainer : EntityComponent
         [Button]
         public virtual void RemoveBuff(EBuffType buffType)
         {
-                RemoveBuff(buffType.ToString());
+                if (!buffs.TryGetValue(buffType, out var buff)) return;
+                buff.RemoveBuff(handler);
+                OnBuffRemoved?.Invoke(buffType);
+                buffs.Remove(buffType);
         }
 
         public virtual void RemoveBuff(string buffName)
         {
-                if (!buffs.TryGetValue(buffName, out var buff)) return;
-                buff.RemoveBuff(handler);
-                buffs.Remove(buffName);
+
+        }
+
+        public virtual bool HasBuff(EBuffType buffType)
+        {
+                return buffs.ContainsKey(buffType);
         }
 
         public virtual void Update()

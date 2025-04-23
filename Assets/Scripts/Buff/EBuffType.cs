@@ -5,6 +5,7 @@
 public enum EBuffType
 {
 	EnergySugarBuff = 0,
-	AcceleratingFieldBuff = 1
+	InBlackHoleBuff = 1,
+	AcceleratingFieldBuff = 2
 }
 

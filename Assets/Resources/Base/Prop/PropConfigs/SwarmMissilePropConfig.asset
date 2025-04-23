@@ -19,5 +19,5 @@ MonoBehaviour:
   BaseDamage: 10
   MissilePrefab: {fileID: 1623035757678550658, guid: 06c57dbd6481c2b44986f9d58626e0ec, type: 3}
   SpawnVelocity: 6
-  LifeTime: 0
+  LifeTime: 2
   AttackTimeline: {fileID: 11400000, guid: 6a0fc8e53f998714286641dd22bc5f04, type: 2}
