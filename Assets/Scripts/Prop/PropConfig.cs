@@ -30,7 +30,7 @@ public class PropConfig : ConfigScriptObject
 
     public SerializableDictionary<string, int> PropIDsMap;
     
-    [ValueDropdown("GetAllPropTypes",IsUniqueList = true)]
+    [ValueDropdown("GetAllPropTypes")]
     [ListDrawerSettings(DraggableItems = false)]
     public List<EPropType> BeRandomSelectProps;
 

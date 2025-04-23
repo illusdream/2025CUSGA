@@ -389,7 +389,7 @@ MonoBehaviour:
   animator: {fileID: 3007290409442275661}
   visualController: {fileID: 1359947970017701781}
   rigidbody2D: {fileID: 7418803142098904480}
-  EnergyCanBeComeProp: 100
+  EnergyCanBeComeProp: 50
   DigAsset: {fileID: 11400000, guid: 3add9986a83e4f245b2cc3b898fcb446, type: 2}
 --- !u!50 &7418803142098904480
 Rigidbody2D:
@@ -480,8 +480,8 @@ MonoBehaviour:
   MaxSpeed: 0
   Acceleration: 0
   Rigidbody2D: {fileID: 7418803142098904480}
-  MaxMoveSpeed: 5
-  MoveAcceleration: 10
+  MaxMoveSpeed: 8
+  MoveAcceleration: 14
   SpeedFalloff: 7
   IsInputMoving: 0
 --- !u!114 &2598141953491336947

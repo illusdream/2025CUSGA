@@ -104,7 +104,7 @@ namespace ilsFramework
         {
             try
             {
-                var sr =await File.ReadAllBytesAsync(path + ".Lnbt");
+                var sr = await File.ReadAllBytesAsync(path + ".Lnbt");
                 return NBT.Deserialize(sr);
             }
             catch (Exception e)
@@ -112,7 +112,7 @@ namespace ilsFramework
                 throw;
             }
         }
-        
+
 
         public static void SaveNBTFile(NBTCompound root, string path)
         {
