@@ -99,7 +99,7 @@ public abstract class BaseActionDirector : EntityComponent
         [Button]
         public virtual  void Play(TimelineAsset timelineAsset)
         {
-                ControlTrackHandler.Reset(timelineAsset);
+                ControlTrackHandler?.Reset(timelineAsset);
                 directorTime = 0;
                 isPlaying = true;
                 onStarted?.Invoke(this);

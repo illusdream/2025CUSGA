@@ -15,7 +15,7 @@ namespace Props
         {
             foreach (var entityHandler in findEntity)
             {
-                if (entityHandler == handler)
+                if (entityHandler.HasEntityTag(EEntityTags.DontEffectByBlackHole))
                 {
                     continue;
                 }

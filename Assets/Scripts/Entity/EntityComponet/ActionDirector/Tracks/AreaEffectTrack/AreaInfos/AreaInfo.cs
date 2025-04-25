@@ -73,7 +73,7 @@ public class AreaInfo
                 {
                     var ray = (RayShape)areaShape;
                     ray.GetCurrentData(transform, out Vector2 start, out var end);
-                    EntityManager.Instance.GetEntityByRaycast(start, end, targetEntityTypes, result);
+                    EntityManager.Instance.GetEntityByRaycast(start, (end - start), targetEntityTypes, result);
                 }
                     break;
                 case EAreaType.Point:

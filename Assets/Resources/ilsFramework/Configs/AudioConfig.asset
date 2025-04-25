@@ -12,7 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f976045d4e243feab011f9147b77c5c, type: 3}
   m_Name: AudioConfig
   m_EditorClassIdentifier: 
-  AudioMixerPath: Mixer/MainAudioMixe
+  AudioMixerPath: Mixer/MainAudioMixer
   MainChannelVolumeMin: -80
-  MainChannelVolumeMax: 0
-  audioChannelDatas: []
+  MainChannelVolumeMax: 20
+  audioChannelDatas:
+  - Name: BGM
+    AudioChannelType: 0
+    MaxAudioClipCount: 3
+    MixerGroupName: BGM
+    MixerVolumeParameterName: BGMVolume
+    ChannelVolumeMin: -80
+    ChannelVolumeMax: 20
+  - Name: Sound
+    AudioChannelType: 0
+    MaxAudioClipCount: 100
+    MixerGroupName: Sound
+    MixerVolumeParameterName: SoundVolume
+    ChannelVolumeMin: -80
+    ChannelVolumeMax: 20

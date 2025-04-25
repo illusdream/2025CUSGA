@@ -18,7 +18,9 @@ GameObject:
   - component: {fileID: 2362991853217549667}
   - component: {fileID: 7722228534592994450}
   - component: {fileID: 7083237025285712109}
-  m_Layer: 0
+  - component: {fileID: 7677908189182284368}
+  - component: {fileID: 7717270055862812129}
+  m_Layer: 11
   m_Name: BlackHole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,6 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4242338fc43e4e5192fe9f0aca75c050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EntityTags: 1
   EntityType: Flyable
   components:
     list:
@@ -67,6 +70,8 @@ MonoBehaviour:
       Value: {fileID: 7722228534592994450}
     - Key: BlackHoleDestoryArea
       Value: {fileID: 7083237025285712109}
+    - Key: Buff
+      Value: {fileID: 7717270055862812129}
 --- !u!114 &4965045216974406931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
   DragForce: 1
+  BlackHoleSize: 2
 --- !u!114 &7083237025285712109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +248,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d8dcbcbca4d4c508569dbfd8ad25c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+--- !u!58 &7677908189182284368
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2541351996609151940}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.6
+--- !u!114 &7717270055862812129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2541351996609151940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449517aa674a424ea711b00b5f38d653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
@@ -257,7 +311,7 @@ GameObject:
   - component: {fileID: 5527429641930586497}
   - component: {fileID: 934103533753901055}
   - component: {fileID: 7384287705056092020}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5589,7 +5643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8322440588549968443}
   - component: {fileID: 3729905315472500382}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: cir
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,7 +1,4 @@
-﻿namespace DefaultNamespace
+﻿public class InBlackHoleBuffConfig : BaseBuffConfig
 {
-    public class InBlackHoleBuffConfig : BaseBuffConfig
-    {
         
-    }
 }

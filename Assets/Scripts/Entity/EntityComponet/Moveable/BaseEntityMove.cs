@@ -29,12 +29,12 @@ public class BaseEntityMove : EntityComponent,IEntityMove
         return rigidbody2D.velocity;
     }
 
-    public void SetTargetVelocity(Vector3 velocity)
+    public virtual void SetTargetVelocity(Vector3 velocity)
     {
-        rigidbody2D.velocity = velocity;
+        rigidbody2D.velocity = velocity.normalized * MaxMoveSpeedModifiers.Apply(velocity.magnitude);
     }
 
-    public void AddForce(Vector3 force, ForceMode2D mode = ForceMode2D.Impulse)
+    public virtual void AddForce(Vector3 force, ForceMode2D mode = ForceMode2D.Impulse)
     {
         rigidbody2D.AddForce(force, mode);
     }

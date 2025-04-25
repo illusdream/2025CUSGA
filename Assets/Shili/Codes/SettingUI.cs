@@ -102,10 +102,12 @@ public class SettingUI : UIPanel
     }
     private void OnBackgroundMusicSlider(float a)
     {
+        AudioManager.Instance.SetChannelVolume(AudioChannelName.BGM,a);
         Debug.Log("��������" + a);
     }
     private void OnSoundSlider(float a)
     {
+        AudioManager.Instance.SetChannelVolume(AudioChannelName.Sound,a);
         Debug.Log("��Ч" + a);
     }
     private void OnShowChange(int index)
@@ -114,9 +116,11 @@ public class SettingUI : UIPanel
         {
             case 0:
                 Debug.Log("ȫ��");
+                ScreenManager.Instance.SetIsFullScreen(true);
                 break;
             case 1:
                 Debug.Log("���ڻ�");
+                ScreenManager.Instance.SetIsFullScreen(false);
                 break;
         }
     }
@@ -126,9 +130,11 @@ public class SettingUI : UIPanel
         {
             case 0:
                 Debug.Log("1920*1080");
+                ScreenManager.Instance.SetCurrentScreenSize(new Vector2Int(1920, 1080));
                 break;
             case 1:
                 Debug.Log("1280*720");
+                ScreenManager.Instance.SetCurrentScreenSize(new Vector2Int(1280, 720));
                 break;
         }
     }

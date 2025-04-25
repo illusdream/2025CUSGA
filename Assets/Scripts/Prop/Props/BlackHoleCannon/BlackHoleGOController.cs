@@ -31,18 +31,14 @@ namespace Props
                     .Register();
             }
 
-            if (handler.TryGetComponet(EntityComponetUsage.Moveable,out BaseEntityMove move))
-            {
-                moveDir = move.GetEntityVelocity().normalized;
-            }
+
         }
 
         private void OnBlackHoleFlyingEffect(Timer timer)
         {
-            if (handler.TryGetComponet(EntityComponetUsage.Moveable,out BaseEntityMove move))
-            {
-                move.SetTargetVelocity(moveDir * (config.blackHoleSpeed * (1-timer.Progress)));
-            }
+            if (!handler.TryGetComponet(EntityComponetUsage.Moveable, out BaseEntityMove move)) return;
+            moveDir = move.GetEntityVelocity().normalized;
+            move.SetTargetVelocity(moveDir * (config.blackHoleSpeed * (1-timer.Progress)));
         }
         
         private void OnBlackHoleStartEffect(Timer timer)
@@ -53,6 +49,8 @@ namespace Props
             {
                 move.SetTargetVelocity(Vector3.zero);
             }
+
+            handler.EntityTags |= EEntityTags.DontEffectByReflectPrism;
         }
 
         private void DirectorOnonStopped(BaseActionDirector obj)

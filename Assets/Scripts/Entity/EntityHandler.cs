@@ -11,10 +11,13 @@ using UnityEngine.Serialization;
 
 public class EntityHandler : MonoBehaviour
 {
-        [ShowInInspector]
         public EntityID ID;
 
         public SpawnSource SpawnSource;
+        
+        
+        public EEntityTags EntityTags;
+        
         
         [ValueDropdown("GetAllEntityTypes",IsUniqueList = true)]
         [ListDrawerSettings(HideRemoveButton = true,DraggableItems = false)]
@@ -177,6 +180,11 @@ public class EntityHandler : MonoBehaviour
                 }
         }
 
+        public bool HasEntityTag(EEntityTags tag)
+        {
+                return EntityTags.HasFlag(tag);
+        }
+        
         private void UnregisterEntityFromManager()
         {
                 EntityManager.Instance.UnregisterEntity(this);

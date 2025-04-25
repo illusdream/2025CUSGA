@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfda56da833e2384a9677cd3c976a436, type: 3}
+  m_Name: ReflectingPrismGOTimeline
+  m_EditorClassIdentifier: 
+  m_Version: 0
+  m_Tracks:
+  - {fileID: 8963666312891775539}
+  m_FixedDuration: 0
+  m_EditorSettings:
+    m_Framerate: 50
+    m_ScenePreview: 1
+  m_DurationMode: 0
+  m_MarkerTrack: {fileID: 0}
+--- !u!114 &6692709666098036314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3749e4a012034d61b8f59235b9904ca6, type: 3}
+  m_Name: AreaEffectClip
+  m_EditorClassIdentifier: 
+  TargetEntityType: 02000000
+  AreaInfo:
+  - AreaType: 3
+    areaShape:
+      rid: 5337199316439924738
+  - AreaType: 3
+    areaShape:
+      rid: 5337199316439924740
+  - AreaType: 3
+    areaShape:
+      rid: 5337199316439924743
+  - AreaType: 3
+    areaShape:
+      rid: 5337199316439924744
+  PivotTrasform:
+    exposedName: f8134aca8b881504ab6c77073bcbdf20
+    defaultValue: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 5337199316439924738
+      type: {class: RayShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
+      data:
+        start: {x: 0.5, y: 1.5}
+        end: {x: 0.5, y: -1.5}
+    - rid: 5337199316439924740
+      type: {class: RayShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
+      data:
+        start: {x: -0.5, y: 1.5}
+        end: {x: -0.5, y: -1.5}
+    - rid: 5337199316439924743
+      type: {class: RayShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
+      data:
+        start: {x: 0.5, y: 1.5}
+        end: {x: -0.5, y: 1.5}
+    - rid: 5337199316439924744
+      type: {class: RayShape, ns: AreaInfos.Shapes, asm: Assembly-CSharp}
+      data:
+        start: {x: 0.5, y: -1.5}
+        end: {x: -0.5, y: -1.5}
+--- !u!114 &8963666312891775539
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab9a50bd24ae5828c571f9fce1d70, type: 3}
+  m_Name: Area Effect Track
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_AnimClip: {fileID: 0}
+  m_Locked: 0
+  m_Muted: 0
+  m_CustomPlayableFullTypename: 
+  m_Curves: {fileID: 0}
+  m_Parent: {fileID: 11400000}
+  m_Children: []
+  m_Clips:
+  - m_Version: 1
+    m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 6692709666098036314}
+    m_Duration: 10.04
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 8963666312891775539}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: AreaEffectClip
+  m_Markers:
+    m_Objects: []

@@ -171,12 +171,14 @@ namespace ilsFramework
         /// </summary>
         /// <param name="channel">要使用的声音通道</param>
         /// <param name="soundData">音频数据</param>
-        public void Play(string channel, SoundData soundData)
+        public AudioEmitter Play(string channel, SoundData soundData)
         {
             if (audioChannels.TryGetValue(channel,out var _channel))
             {
-                _channel.Play(soundData);
+                return _channel.Play(soundData);
             }
+
+            return null;
         }
 
         /// <summary>

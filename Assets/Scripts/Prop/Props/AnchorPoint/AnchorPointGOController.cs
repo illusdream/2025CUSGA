@@ -34,9 +34,8 @@ namespace Props
         {
             Destroy(gameObject);
         }
-
-
-        public void Process(List<AreaInfo> areas, Transform pivot)
+        
+        public void Process(List<AreaInfo> areas, Transform pivot, List<EEntityType> types)
         {
             if (areas[0].areaShape is PointShape pointShape)
             {

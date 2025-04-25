@@ -51,7 +51,7 @@ public class AreaEffectPlayableBehaviour : PlayableBehaviour
         
         if (script is IAreaEffectProcess areaEffectProcess)
         {
-            areaEffectProcess.Process(AreaInfos,transform);
+            areaEffectProcess.Process(AreaInfos,transform,TargetEntityType);
         }
     }
 }

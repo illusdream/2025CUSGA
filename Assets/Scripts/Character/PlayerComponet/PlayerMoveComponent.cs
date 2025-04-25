@@ -36,10 +36,10 @@ public class PlayerMoveComponent : BaseEntityMove
        return Rigidbody2D.velocity;
     }
 
-    public void SetTargetVelocity(Vector3 velocity)
+    public override void SetTargetVelocity(Vector3 velocity)
     {
-        var finalVelocity = Vector2.ClampMagnitude(velocity, MaxMoveSpeed);
-        Rigidbody2D.velocity = velocity;
+        var finalVelocity = Vector2.ClampMagnitude(velocity, MaxMoveSpeedModifiers.Apply(MaxMoveSpeed));
+        Rigidbody2D.velocity = finalVelocity;
     }
 
     public void AddForce(Vector3 force)
