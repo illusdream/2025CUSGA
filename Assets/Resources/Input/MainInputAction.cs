@@ -116,6 +116,24 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player1ChangeProp"",
+                    ""type"": ""Button"",
+                    ""id"": ""be031692-7d63-42da-a8cb-b78a7b6b3fea"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player2ChangeProp"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b8e0579-a0e4-412d-b7db-99e98b500238"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -314,6 +332,28 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e6c5f6a-60c5-40f6-a8b3-52d7f3599608"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1ChangeProp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67e575a1-90cf-4448-8f58-8de9e20f661d"",
+                    ""path"": ""<Keyboard>/numpad5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player2ChangeProp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -850,6 +890,8 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         m_GamePlay_Player2UseProp = m_GamePlay.FindAction("Player2UseProp", throwIfNotFound: true);
         m_GamePlay_Text = m_GamePlay.FindAction("Text", throwIfNotFound: true);
         m_GamePlay_Pause = m_GamePlay.FindAction("Pause", throwIfNotFound: true);
+        m_GamePlay_Player1ChangeProp = m_GamePlay.FindAction("Player1ChangeProp", throwIfNotFound: true);
+        m_GamePlay_Player2ChangeProp = m_GamePlay.FindAction("Player2ChangeProp", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -933,6 +975,8 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Player2UseProp;
     private readonly InputAction m_GamePlay_Text;
     private readonly InputAction m_GamePlay_Pause;
+    private readonly InputAction m_GamePlay_Player1ChangeProp;
+    private readonly InputAction m_GamePlay_Player2ChangeProp;
     public struct GamePlayActions
     {
         private @MainInputAction m_Wrapper;
@@ -947,6 +991,8 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         public InputAction @Player2UseProp => m_Wrapper.m_GamePlay_Player2UseProp;
         public InputAction @Text => m_Wrapper.m_GamePlay_Text;
         public InputAction @Pause => m_Wrapper.m_GamePlay_Pause;
+        public InputAction @Player1ChangeProp => m_Wrapper.m_GamePlay_Player1ChangeProp;
+        public InputAction @Player2ChangeProp => m_Wrapper.m_GamePlay_Player2ChangeProp;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -986,6 +1032,12 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Player1ChangeProp.started += instance.OnPlayer1ChangeProp;
+            @Player1ChangeProp.performed += instance.OnPlayer1ChangeProp;
+            @Player1ChangeProp.canceled += instance.OnPlayer1ChangeProp;
+            @Player2ChangeProp.started += instance.OnPlayer2ChangeProp;
+            @Player2ChangeProp.performed += instance.OnPlayer2ChangeProp;
+            @Player2ChangeProp.canceled += instance.OnPlayer2ChangeProp;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -1020,6 +1072,12 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Player1ChangeProp.started -= instance.OnPlayer1ChangeProp;
+            @Player1ChangeProp.performed -= instance.OnPlayer1ChangeProp;
+            @Player1ChangeProp.canceled -= instance.OnPlayer1ChangeProp;
+            @Player2ChangeProp.started -= instance.OnPlayer2ChangeProp;
+            @Player2ChangeProp.performed -= instance.OnPlayer2ChangeProp;
+            @Player2ChangeProp.canceled -= instance.OnPlayer2ChangeProp;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -1167,6 +1225,8 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         void OnPlayer2UseProp(InputAction.CallbackContext context);
         void OnText(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnPlayer1ChangeProp(InputAction.CallbackContext context);
+        void OnPlayer2ChangeProp(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

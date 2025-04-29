@@ -24,6 +24,7 @@ public class ActionControlTrackEditor : TrackEditor
 
         public override void OnTrackChanged(TrackAsset track)
         {
+
                 //稍微有点麻烦
                 int clipIndex =0;
                 foreach (TimelineClip clip in track.GetClips())

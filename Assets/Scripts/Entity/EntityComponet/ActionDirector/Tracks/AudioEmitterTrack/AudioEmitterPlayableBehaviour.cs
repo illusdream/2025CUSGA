@@ -35,7 +35,6 @@ public class AudioEmitterPlayableBehaviour: PlayableBehaviour
 
 
         emitter = AudioManager.Instance.Play(OutputAudioChannel,soundData);
-        $"start".LogSelf();
         base.OnBehaviourPlay(playable, info);
     }
 
@@ -51,7 +50,6 @@ public class AudioEmitterPlayableBehaviour: PlayableBehaviour
         {
             emitter?.Stop();
         }
-        "end".LogSelf();
         base.OnBehaviourPause(playable, info);
     }
 }
