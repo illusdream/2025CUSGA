@@ -88,7 +88,7 @@ public static class PlayerEvent
         /// <summary>
         /// 玩家使用了一个道具,对应的Args：<see cref="PlayerUsingPropEventArgs"/>
         /// </summary>
-        public const string PlayerUsingProp = "PlayerUsingProp";
+        public const string PlayerComsumeProp = "PlayerUsingProp";
         
         
         public class PlayerUsingPropEventArgs : EventArgs

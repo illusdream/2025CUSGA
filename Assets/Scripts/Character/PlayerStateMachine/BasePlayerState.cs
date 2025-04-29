@@ -1,4 +1,5 @@
-﻿using ilsFramework;
+﻿using System;
+using ilsFramework;
 
 public interface IPlayerState : IState
 {
@@ -57,5 +58,10 @@ public class BasePlayerState : IPlayerState
     public void ChangeState<T>() where T : BasePlayerState
     {
         fsm.ChangeState<T>();
+    }
+
+    public void ChangeState(Type stateType)
+    {
+        fsm.ChangeState(stateType);
     }
 }

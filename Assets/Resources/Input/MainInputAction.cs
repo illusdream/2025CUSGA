@@ -338,7 +338,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3e6c5f6a-60c5-40f6-a8b3-52d7f3599608"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

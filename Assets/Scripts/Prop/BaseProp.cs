@@ -11,6 +11,8 @@ public abstract class BaseProp
 
         public PlayerInputHandler InputHandler;
         
+        public virtual Type PropStateType => typeof(DefaultPropState);
+
         public virtual void Initialize(BasePropConfig config)
         {
                 this.config = config;

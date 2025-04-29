@@ -81,10 +81,33 @@ public class PlayerPropContainer : BasePropContainer
         
         var args = new PlayerEvent.PlayerUsingPropEventArgs(ID, playerController.PlayerID, p.GetType());
            
-        handler.BroadcastEvent(PlayerEvent.PlayerUsingProp,EEntityEventScope.Component,args);
+        handler.BroadcastEvent(PlayerEvent.PlayerComsumeProp,EEntityEventScope.Component,args);
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerUsingProp,args);
 
         return p;
+    }
+
+    public BaseProp GetLastProp()
+    {
+        if(propInventory.Count ==0)
+            return null;
+        var p =  propInventory.First();
+        
+        return p;
+    }
+
+    public bool RemoveProp(BaseProp prop)
+    {
+        if (propInventory.Remove(prop))
+        {
+            prop.BeRemovedFromContainer(handler);
+            var args = new PlayerEvent.PlayerUsingPropEventArgs(ID, playerController.PlayerID, prop.GetType());
+           
+            handler.BroadcastEvent(PlayerEvent.PlayerComsumeProp,EEntityEventScope.Component,args);
+            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerUsingProp,args);
+            return true;
+        }
+        return false;
     }
     
 
