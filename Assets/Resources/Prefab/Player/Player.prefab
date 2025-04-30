@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4242338fc43e4e5192fe9f0aca75c050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityTags: 1
+  EntityTags: 0
   EntityType: Character
   components:
     list:
@@ -490,7 +490,8 @@ MonoBehaviour:
   EnergyCanBeComeProp: 50
   DigAsset: {fileID: 11400000, guid: 3add9986a83e4f245b2cc3b898fcb446, type: 2}
   IntoBlackHoleTimelineAsset: {fileID: 11400000, guid: b5820d4bb1a5d39458cea2224cce8318, type: 2}
-  ExitBlackHoleTimelineAsset: {fileID: 11400000, guid: 90c66c39e54a71944aa5644a2b670f14, type: 2}
+  CanSwitchPropUse: 0
+  CanMove: 0
 --- !u!50 &7418803142098904480
 Rigidbody2D:
   serializedVersion: 4
@@ -584,6 +585,7 @@ MonoBehaviour:
   MoveAcceleration: 14
   SpeedFalloff: 7
   IsInputMoving: 0
+  CanMove: 1
 --- !u!114 &2598141953491336947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,6 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  _canBeHit: 1
 --- !u!320 &8014784037854214011
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -677,7 +680,7 @@ PlayableDirector:
   m_GameObject: {fileID: 3196107388258662534}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 3add9986a83e4f245b2cc3b898fcb446, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 083bf2226018d05409b6f755631dac8b, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 3
@@ -741,6 +744,32 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 6609093180348131968}
+  - key: {fileID: -780783859056001929, guid: f2d743949657b2043a569dd51754d356, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: -1983748570008274854, guid: f2d743949657b2043a569dd51754d356, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -442038473419003658, guid: 576849e876eeece43937744a76f531bd, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 618669507145163938, guid: 576849e876eeece43937744a76f531bd, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -3233761570664062986, guid: c1c93bade68e496488cbf92975b7560d, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 1692093730569914501, guid: c1c93bade68e496488cbf92975b7560d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -5053072929049276515, guid: d7c7ebcb19f6973409ab6d32e3a3797a, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -593545009901632186, guid: d7c7ebcb19f6973409ab6d32e3a3797a, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 4587434012242203648, guid: 5eb976fcdbdbee5468429b10267400ff, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 2517055566816380344, guid: 5eb976fcdbdbee5468429b10267400ff, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1548311587248261699, guid: 2359007bb5748a547ad4bfb999a0f4de, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 8281766601727271555, guid: 2359007bb5748a547ad4bfb999a0f4de, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1001995848885212007, guid: 083bf2226018d05409b6f755631dac8b, type: 2}
+    value: {fileID: 3007290409442275661}
   m_ExposedReferences:
     m_References:
     - eae5e58fdc9774847918687c4d260a2f: {fileID: 4826395795178948793}
@@ -757,6 +786,7 @@ PlayableDirector:
     - 511c102d8f3693a4eb8185f490af55b3: {fileID: 1626390696340807414}
     - 57e08ec30caeac642897db3c3dd4ee75: {fileID: 1626390696340807414}
     - 97ca5efa52c64f7438f98f720bbc39a2: {fileID: 4826395795178948793}
+    - cb13171be4195044b8e409fdca11a34b: {fileID: 4826395795178948793}
     - 846e5285c5bb6b64d8857c6941e3fcbe: {fileID: 1626390696340807414}
     - 08293b2a858e8cc408676ea99e93d68a: {fileID: 4826395795178948793}
     - 895da4bc456db124e9a431510bfffba8: {fileID: 1626390696340807414}
@@ -824,6 +854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  IgnoreBuffTag: 0
 --- !u!1 &5677464819861992578
 GameObject:
   m_ObjectHideFlags: 0

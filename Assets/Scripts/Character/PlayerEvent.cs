@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class PlayerEvent
@@ -104,5 +105,26 @@ public static class PlayerEvent
                         PropType = propType;
                 }
         }
+        
+        
+        /// <summary>
+        /// 玩家的道具仓库发生了更新，内部道具的顺序被修改,对应的Args：<see cref="PlayerEvent.PlayerCurrentUsePropChangedEventArgs"/>
+        /// </summary>
+        public const string PlayerCurrentUsePropChanged = "PlayerCurrentUsePropChanged";
+        
+        public class PlayerCurrentUsePropChangedEventArgs : EventArgs
+        {
+                public List<Type> NewPropTypes;
                 
+                public EntityID PlayerEntityID;
+                
+                public int PlayerID;
+
+                public PlayerCurrentUsePropChangedEventArgs(List<Type> newPropTypes, EntityID playerEntityID, int playerID)
+                {
+                        NewPropTypes = newPropTypes;
+                        PlayerEntityID = playerEntityID;
+                        PlayerID = playerID;
+                }
+        }
 }

@@ -12,14 +12,24 @@ public class BaseBuffContainer : EntityComponent
 
         public event Action<EBuffType> OnBuffAdded;
         public event Action<EBuffType> OnBuffRemoved;
-        
-        
+
+        public EBuffTag IgnoreBuffTag = EBuffTag.None;
         
         public List<BaseBuff> buffcache = new List<BaseBuff>();
-        
+
+        public void Start()
+        {
+                IgnoreBuffTag = EBuffTag.None;
+        }
+
         [Button]
         public virtual void AddBuff(EBuffType buffType)
         {
+                if (IgnoreBuffTag != EBuffTag.None &&BuffManager.Instance.CheckBuffHasTag(buffType,IgnoreBuffTag))
+                {
+                        return;
+                }
+                
                 if (buffs.TryGetValue(buffType, out BaseBuff buff))
                 {
                         buff.ResetBuffTimer();

@@ -40,12 +40,16 @@ public  class PlayerMoveState : BasePlayerState
         
         var useProp = PlayerController.playerInputHandler.UseProp;
         var colddownReady = (PlayerController.timerCollection[PlayerUsePropState.UsePropTimerName]?.IsFinish).GetValueOrDefault(false);
-        if ((useProp.HasTriggered(0.3f) || ((InputAction)useProp).IsPressed()) && colddownReady)
+        if (EntityHandler.TryGetComponet(EntityComponetUsage.PropContainer,out PlayerPropContainer propContainer) &&propContainer.GetLastProp() != null)
         {
-            ChangeState<PlayerUsePropState>();
-            useProp.ResetTriggers();
-            return;
+            if ((useProp.HasTriggered(0.3f) || ((InputAction)useProp).WasPerformedThisFrame()) && colddownReady)
+            {
+                ChangeState<PlayerUsePropState>();
+                useProp.ResetTriggers();
+                return;
+            }
         }
+
         
         var dir = PlayerController.playerInputHandler.Move.ActionValue;
         PlayerController.UpdatePlayerMoveAnimation(dir);

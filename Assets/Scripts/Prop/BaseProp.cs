@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.Timeline;
 
 public abstract class BaseProp
@@ -12,10 +13,13 @@ public abstract class BaseProp
         public PlayerInputHandler InputHandler;
         
         public virtual Type PropStateType => typeof(DefaultPropState);
+        
+        public int PropUseCount { get; set; }
 
         public virtual void Initialize(BasePropConfig config)
         {
                 this.config = config;
+                PropUseCount = config.PropCanUseCount;
                 BaseUsePropColdDown = config.BasePropUseColdDown;
         }
 
@@ -66,5 +70,10 @@ public abstract class BaseProp
         public void SetInputHandler(PlayerInputHandler inputHandler)
         {
                 InputHandler = inputHandler;
+        }
+
+        public virtual bool CanConsume(EntityHandler handler,PlayerController playerController)
+        {
+                return true;
         }
 }

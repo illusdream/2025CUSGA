@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
+  IgnoreBuffTag: 3
 --- !u!1 &6110633967555773068
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae51d69a041491e87c163bcfa6c7e0a, type: 3}
+  m_Name: CagePropConfig
+  m_EditorClassIdentifier: 
+  TargetType: Props.CageProp
+  PropSprite: {fileID: 21300000, guid: 9af88227f92e27443bb906a92c92ca92, type: 3}
+  BasePropUseColdDown: 1
+  PlayAsset: {fileID: 11400000, guid: d7c7ebcb19f6973409ab6d32e3a3797a, type: 2}

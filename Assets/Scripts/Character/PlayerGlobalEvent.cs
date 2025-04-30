@@ -8,10 +8,13 @@
         public const string PlayerGetNewProp = "PlayerGetNewProp";
         
         /// <summary>
-        /// 玩家使用了一个道具,对应的Args：<see cref="PlayerEvent.PlayerGetNewPropEventArgs"/>
+        /// 玩家消耗了一个道具,对应的Args：<see cref="PlayerEvent.PlayerGetNewPropEventArgs"/>
         /// </summary>
-        public const string PlayerUsingProp = "PlayerUsingProp";
+        public const string PlayerComsumeProp = "PlayerUsingProp";
         
-
+        /// <summary>
+        /// 玩家的道具仓库发生了更新，内部道具的顺序被修改,对应的Args：<see cref="PlayerEvent.PlayerCurrentUsePropChangedEventArgs"/>
+        /// </summary>
+        public const string PlayerCurrentUsePropChanged = "PlayerCurrentUsePropChanged";
     }
 }

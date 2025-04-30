@@ -12,7 +12,7 @@ namespace Props
     public class LaserGunProp : BaseProp,IPropVisualControl,IPropSpawnEntity,IPropUpdate
     {
         public override Type ConfigType => typeof(LaserGunPropConfig);
-
+        
         LaserGunPropConfig config;
         private EntityHandler handler;
         Vector2 firDirection;

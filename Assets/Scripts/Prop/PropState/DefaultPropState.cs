@@ -11,14 +11,13 @@
 
     public override void OnEnter()
     {
-        if (EntityHandler.TryGetComponet(EntityComponetUsage.PropContainer, out PlayerPropContainer propContainer) &&
-            EntityHandler.TryGetComponet(EntityComponetUsage.ActionDirector, out PlayerActionDirector actionDirector))
+        if (EntityHandler.TryGetComponet(EntityComponetUsage.ActionDirector, out PlayerActionDirector actionDirector))
         {
             
             PropStateHandler.PlayTimelineAsset(Prop.GetPlayTimelineAsset(PlayerController));
             actionDirector.onStopped += ActionDirectorOnonStopped;
         }
-
+        Prop.UseProp(EntityHandler);
         base.OnEnter();
     }
 
@@ -38,6 +37,15 @@
         {
             actionDirector.onStopped -= ActionDirectorOnonStopped;
         }
+
+        if (Prop.CanConsume(EntityHandler,PlayerController))
+        {
+            Prop.PropUseCount--;
+        }
+        if (Prop.PropUseCount <= 0)
+        {
+            PropStateHandler.RemoveThisProp(Prop);
+        }
         base.OnExit();
     }
 
@@ -51,9 +59,8 @@
     }
 
 
-    private void ActionDirectorOnonStopped(BaseActionDirector obj)
+    protected void ActionDirectorOnonStopped(BaseActionDirector obj)
     {
-        PropStateHandler.RemoveThisProp(Prop);
         PropStateHandler.ChangePlayerState<PlayerMoveState>();
     }
 }

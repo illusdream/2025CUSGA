@@ -6,6 +6,10 @@ public enum EBuffType
 {
 	EnergySugarBuff = 0,
 	InBlackHoleBuff = 1,
-	AcceleratingFieldBuff = 2
+	PoisoningBuff = 2,
+	BlurringBuff = 3,
+	CageBuff = 4,
+	AcceleratingFieldBuff = 5,
+	SpawnToxicGasBuff = 6
 }
 

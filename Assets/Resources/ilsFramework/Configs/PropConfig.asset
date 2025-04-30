@@ -23,27 +23,48 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba01f7e116fc06a4abb85e53a6758e90, type: 2}
   - {fileID: 11400000, guid: 0e708b6f83dac91409a6554eed3ed3b7, type: 2}
   - {fileID: 11400000, guid: 7ede1a9e59d40854aa418c29aa5d20ec, type: 2}
+  - {fileID: 11400000, guid: 6791d57d9cf09a84daf33ff8b9103441, type: 2}
+  - {fileID: 11400000, guid: fd71b2b5eed132e4099d175ca9397612, type: 2}
+  - {fileID: 11400000, guid: 370e2bda37c8b294ba81d9fc099e473f, type: 2}
+  - {fileID: 11400000, guid: 6974733efa7850f43993a61afe6daf19, type: 2}
+  - {fileID: 11400000, guid: 940dd5fc7f30d564eaf29a14a98214c5, type: 2}
+  - {fileID: 11400000, guid: ff1b8fe8141d7aa468a6f49424557729, type: 2}
+  - {fileID: 11400000, guid: 3959b8393feced94ba13956dec49f52b, type: 2}
   PropIDsMap:
     list:
-    - Key: ReflectingPrismProp
+    - Key: CageProp
       Value: 0
-    - Key: HandGrenadeProp
+    - Key: LaserGunProp
       Value: 1
-    - Key: BlackHoleCannonProp
+    - Key: EnergySugarProp
       Value: 2
     - Key: AcceleratingFieldProp
       Value: 3
-    - Key: SwarmMissileProp
+    - Key: HandGrenadeProp
       Value: 4
-    - Key: GammaGuilderProp
-      Value: 5
     - Key: QuantumSwapProp
+      Value: 5
+    - Key: DodgeBallProp
       Value: 6
-    - Key: AnchorPointProp
+    - Key: RCBombsProp
       Value: 7
-    - Key: LaserGunProp
+    - Key: AnchorPointProp
       Value: 8
-    - Key: EnergySugarProp
+    - Key: YellowDuckProp
       Value: 9
-  BeRandomSelectProps: 
+    - Key: SwarmMissileProp
+      Value: 10
+    - Key: GasCanisterProp
+      Value: 11
+    - Key: BlackHoleCannonProp
+      Value: 12
+    - Key: RCBmobsControllerProp
+      Value: 13
+    - Key: GammaGuilderProp
+      Value: 14
+    - Key: ReflectingPrismProp
+      Value: 15
+    - Key: GhostCloakProp
+      Value: 16
+  BeRandomSelectProps: 00000000
   AutoBuildOrUpdateSinglePropConfigs: 1

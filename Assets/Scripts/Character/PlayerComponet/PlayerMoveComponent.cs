@@ -19,6 +19,8 @@ public class PlayerMoveComponent : BaseEntityMove
     
     private Vector2 finalInputMoveDir;
     
+    public bool CanMove = true;
+    
     public bool CanBeControlled { get;set; }
     
     public Vector3 GetEntityPosition()
@@ -85,7 +87,7 @@ public class PlayerMoveComponent : BaseEntityMove
 
     public void Move(Vector2 moveDir)
     {
-        if (!CanBeControlled)
+        if (!CanMove)
         {
             return;
         }

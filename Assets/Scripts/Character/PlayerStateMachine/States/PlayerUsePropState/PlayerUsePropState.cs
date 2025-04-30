@@ -47,6 +47,8 @@ public class PlayerUsePropState : BasePlayerState
             {
                 return;
             }
+
+            PlayerController.CanSwitchPropUse = false;
             propState.PropStateHandler = propHandler;
             propState.Prop = NowUsingProp;
             propState.OnInit();
@@ -55,7 +57,7 @@ public class PlayerUsePropState : BasePlayerState
             NowUsingProp.SetInputHandler(PlayerController.playerInputHandler);
 
 
-            PlayerController.timerCollection.CreateTimer(1, 1, UsePropTimerName).Register();
+            PlayerController.timerCollection.CreateTimer(NowUsingProp.BaseUsePropColdDown, 1, UsePropTimerName).Register();
         }
         base.OnEnter();
     }
@@ -76,6 +78,7 @@ public class PlayerUsePropState : BasePlayerState
 
     public override void OnExit()
     {
+        PlayerController.CanSwitchPropUse = true;
         propState?.OnExit();
         base.OnExit();
     }

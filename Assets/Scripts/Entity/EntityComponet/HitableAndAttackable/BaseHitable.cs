@@ -1,17 +1,16 @@
-﻿namespace DefaultNamespace
+﻿public class BaseHitable : EntityComponent,IHitable
 {
-    public class BaseHitable : EntityComponent,IHitable
+    public bool _canBeHit = true;
+        
+    public override string TargetUsage =>EntityComponetUsage.Hitable;
+
+    public virtual bool CanBeHit()
     {
-        public override string TargetUsage =>EntityComponetUsage.Hitable;
+        return _canBeHit;
+    }
 
-        public virtual bool CanBeHit()
-        {
-            return true;
-        }
-
-        public virtual void Hit(DamageInfo damageInfo, out BeHittedInfo beHittedInfo)
-        {
-            beHittedInfo = default(BeHittedInfo);
-        }
+    public virtual void Hit(DamageInfo damageInfo, out BeHittedInfo beHittedInfo)
+    {
+        beHittedInfo = default(BeHittedInfo);
     }
 }

@@ -3,6 +3,7 @@ using ilsFramework;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Timeline;
 
 public class PlayerController : EntityComponent
@@ -30,13 +31,15 @@ public class PlayerController : EntityComponent
         public TimelineAsset DigAsset;
 
         public TimelineAsset IntoBlackHoleTimelineAsset;
-
-        public TimelineAsset ExitBlackHoleTimelineAsset;
-        
-
         
         public TimerCollection timerCollection;
 
+        public bool CanSwitchPropUse;
+
+        public bool CanMove;
+
+        public bool IgnoreUsePropInputCache = false;
+        
         public void Initialize(int playerID)
         {
                 timerCollection = new TimerCollection();
@@ -46,29 +49,42 @@ public class PlayerController : EntityComponent
                 {
                         case 1:
                                 playerInputHandler = new PlayerInputHandler(actions.Player1Move, actions.Player1UseProp, actions.Player1BreakTile,
-                                        actions.Player1PlaceTile);
+                                        actions.Player1PlaceTile,actions.Player1ChangeProp);
+                                UpdatePlayerDirection(Vector2.right);
                                 break;
                         case 2:
                                 playerInputHandler = new PlayerInputHandler(actions.Player2Move, actions.Player2UseProp, actions.Player2BreakTile,
-                                        actions.Player2PlaceTile);
+                                        actions.Player2PlaceTile,actions.Player1ChangeProp);
+                                UpdatePlayerDirection(Vector2.left);
                                 break;
                         default:
                                 break;
                 }
+                
+                CanSwitchPropUse = true;
+                SetCanMove(true);
+                playerInputHandler.SwitchProp.performed+= SwitchPropOnperformed;
                 
                 stateMachine = new PlayerStateMachine();
                 stateMachine.AddState(new PlayerMoveState(handler,this));
                 stateMachine.AddState(new PlayerDigState(handler,this));
                 stateMachine.AddState(new PlayerPlaceTileState(handler,this));
                 stateMachine.AddState(new PlayerUsePropState(handler,this));
+                stateMachine.AddState(new PlayerDontControlState(handler,this));
                 stateMachine.AddState(new PlayerInBlackHoleState(handler,this));
                 stateMachine.SetDefaultState<PlayerMoveState>();
         }
-        
-        
+
+
+
 
         public void Update()
         {
+                if (!CanBeControlled && stateMachine.currentStateType != typeof(PlayerDontControlState))
+                {
+                        stateMachine.ChangeState<PlayerDontControlState>();
+                }
+                
                 var dir = playerInputHandler.LastActiveMoveDirection;
                 var rot = Mathf.Atan2(dir.y, dir.x);
                 directionTransform.rotation = quaternion.Euler(0,0,rot);
@@ -91,7 +107,7 @@ public class PlayerController : EntityComponent
         }
         public void UpdatePlayerMoveAnimation(Vector2 playerMoveDirection)
         {
-                if (CanBeControlled)
+                if (CanMove)
                 {
                         var x = math.sign(playerMoveDirection.x);
                         var y = math.sign(playerMoveDirection.y);
@@ -125,6 +141,15 @@ public class PlayerController : EntityComponent
                 }
         }
 
+        public void SetCanMove(bool canMove)
+        {
+                CanMove = canMove;
+                if (handler.TryGetComponet(EntityComponetUsage.Moveable,out PlayerMoveComponent playerMoveComponent))
+                {
+                        playerMoveComponent.CanMove = canMove;
+                }
+        }
+
         public void SetPlayerSpriteColor(Color color)
         {
                 spriteRenderer.color = color;
@@ -135,8 +160,13 @@ public class PlayerController : EntityComponent
                 stateMachine?.OnDestroy();
         }
 
-
-
+        private void SwitchPropOnperformed(InputAction.CallbackContext obj)
+        {
+                if (CanSwitchPropUse && handler.TryGetComponet(EntityComponetUsage.PropContainer,out PlayerPropContainer container))
+                {
+                        container.MoveCurrentUseProp();
+                }
+        }
         [Button]
         public void TestProp(EPropType propType)
         {

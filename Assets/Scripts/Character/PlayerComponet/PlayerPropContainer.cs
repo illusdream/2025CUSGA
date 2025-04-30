@@ -82,7 +82,7 @@ public class PlayerPropContainer : BasePropContainer
         var args = new PlayerEvent.PlayerUsingPropEventArgs(ID, playerController.PlayerID, p.GetType());
            
         handler.BroadcastEvent(PlayerEvent.PlayerComsumeProp,EEntityEventScope.Component,args);
-        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerUsingProp,args);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerComsumeProp,args);
 
         return p;
     }
@@ -104,7 +104,7 @@ public class PlayerPropContainer : BasePropContainer
             var args = new PlayerEvent.PlayerUsingPropEventArgs(ID, playerController.PlayerID, prop.GetType());
            
             handler.BroadcastEvent(PlayerEvent.PlayerComsumeProp,EEntityEventScope.Component,args);
-            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerUsingProp,args);
+            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerComsumeProp,args);
             return true;
         }
         return false;
@@ -161,6 +161,43 @@ public class PlayerPropContainer : BasePropContainer
         prop = null;
         propConfig = null;
         return false;
+    }
+
+    public void MoveCurrentUseProp()
+    {
+        if (propInventory.Count <=1)
+        {
+            return;
+        }
+        BaseProp temp = propInventory.Last();
+        for (int i = propInventory.Count-1; i >0 ; i--)
+        {
+            var index = (i-1)%propInventory.Count;
+            propInventory[i] = propInventory[index];
+        }
+        propInventory[0] = temp;
+        var types = propInventory.Select(prop => prop.GetType()).ToList();
+        var args = new PlayerEvent.PlayerCurrentUsePropChangedEventArgs(types,ID, playerController.PlayerID);
+           
+        handler.BroadcastEvent(PlayerEvent.PlayerCurrentUsePropChanged,EEntityEventScope.Component,args);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerCurrentUsePropChanged,args);
+        
+    }
+
+    public void ReplaceProp(BaseProp oldProp, BaseProp newProp)
+    {
+        //先判断是否存在这个Prop
+        var index = propInventory.IndexOf(oldProp);
+        if (index != -1)
+        {
+            propInventory[index] = newProp;
+            
+            var types = propInventory.Select(prop => prop.GetType()).ToList();
+            var args = new PlayerEvent.PlayerCurrentUsePropChangedEventArgs(types,ID, playerController.PlayerID);
+           
+            handler.BroadcastEvent(PlayerEvent.PlayerCurrentUsePropChanged,EEntityEventScope.Component,args);
+            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerCurrentUsePropChanged,args);
+        }
     }
 
 }

@@ -12,9 +12,10 @@ namespace Props
 
         public void ApplyEffect(EntityHandler handler)
         {
-            if (handler.TryGetComponet(EntityComponetUsage.Buff,out BaseBuffContainer buffContainer))
+            if (handler.TryGetComponet(EntityComponetUsage.EnergyContainer,out PlayerEnergyContainer playerEnergyContainer))
             {
-                buffContainer.AddBuff(EBuffType.EnergySugarBuff);   
+                NumericModifier energyModifier = new NumericModifier(additive:((EnergySugarPropConfig)config).EnergyImprove);
+                playerEnergyContainer.EnergyModifiers.Add($"EnergySugarBuff{DateTime.Now.Millisecond}",energyModifier);
             }
         }
     }

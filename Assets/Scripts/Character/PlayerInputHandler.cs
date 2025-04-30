@@ -7,15 +7,18 @@ public class PlayerInputHandler
         public InputActionTracker UseProp { get;private set; }
         public InputActionTracker DigTile { get;private set; }
         public InputActionTracker PlaceTile { get;private set; }
+        
+        public InputActionTracker SwitchProp { get;private set; }
 
         public Vector2 LastActiveMoveDirection { get;private set; }
-        public PlayerInputHandler(InputAction move, InputAction useProp, InputAction digTile, InputAction placeTile)
+        public PlayerInputHandler(InputAction move, InputAction useProp, InputAction digTile, InputAction placeTile, InputAction switchProp)
         {
                 Move = new InputActionTracker<Vector2>(move);
                 Move._trackedAction.performed += TrackedActionOnperformed;
                 UseProp = new InputActionTracker(useProp);
                 DigTile = new InputActionTracker(digTile);
                 PlaceTile = new InputActionTracker(placeTile);
+                SwitchProp = new InputActionTracker(switchProp);
         }
 
         private void TrackedActionOnperformed(InputAction.CallbackContext obj)

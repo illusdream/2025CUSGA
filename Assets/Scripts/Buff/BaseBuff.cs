@@ -16,6 +16,8 @@ public abstract class BaseBuff
 
         public EBuffType BuffName;
         
+        public virtual EBuffTag BuffTag => EBuffTag.None;
+        
         public virtual void AddBuff(EntityHandler handler)
         {
                 if (BuffManager.Instance.TryGetBuffConfig(GetType(),out BaseBuffConfig config))

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InBlackHoleBuff : BaseBuff<InBlackHoleBuffConfig>
 {
+    public override EBuffTag BuffTag => EBuffTag.UnRemoveAbleControl;
+
     protected override void OnAddBuff(EntityHandler handler)
     {
         if (handler.TryGetComponet(EntityComponetUsage.playerController,out PlayerController controller))

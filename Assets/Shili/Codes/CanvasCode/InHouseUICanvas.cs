@@ -38,20 +38,21 @@ public class InHouseUICanvas : MonoBehaviour
     private void OnEnable()
     {
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
-        GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerComsumeProp, OnUseSkill);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameOver, OnGameOver);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameRestart,OnGameRestart);
-
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerCurrentUsePropChanged, OnRefreshPropUI);
 
     }
     private void OnDisable()
     {
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerGetNewProp, OnAddSkillUI);
-        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerUsingProp, OnUseSkill);
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerComsumeProp, OnUseSkill);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerSpawn, UpEnergyAndHealth);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameOver, OnGameOver);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameRestart,OnGameRestart);
+        GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerCurrentUsePropChanged, OnRefreshPropUI);
     }
     private void OnGameOver(EventArgs e)
     {
@@ -107,6 +108,49 @@ public class InHouseUICanvas : MonoBehaviour
             Destroy(Player2SkillTransform.GetChild(0).gameObject);
         }
     }
+
+    private void OnRefreshPropUI(EventArgs e)
+    {
+        if (e is PlayerEvent.PlayerCurrentUsePropChangedEventArgs args)
+        {
+            Transform transform;
+            switch (args.PlayerID)
+            {
+                case 1:
+                    for(int i = 0;i < Player1SkillTransform.transform.childCount; i++)
+                    {
+                        transform = Player1SkillTransform.transform.GetChild(i);
+                        GameObject.Destroy(transform.gameObject);
+                    }
+
+                    foreach (var type in args.NewPropTypes)
+                    {
+                        GameObject go = Instantiate(prefanSkill, Player1SkillTransform, true);
+                        if (go.TryGetComponent<Image>(out var img) && PropManager.Instance.TryGetPropConfig<BasePropConfig>(type,out var propConfig))
+                        {
+                            img.sprite = propConfig.PropSprite;
+                        }
+                    }
+                    break;
+                case 2:
+                    for(int i = 0;i < Player2SkillTransform.transform.childCount; i++)
+                    {
+                        transform = Player2SkillTransform.transform.GetChild(i);
+                        GameObject.Destroy(transform.gameObject);
+                    }
+                    foreach (var type in args.NewPropTypes)
+                    {
+                        GameObject go = Instantiate(prefanSkill, Player2SkillTransform, true);
+                        if (go.TryGetComponent<Image>(out var img) && PropManager.Instance.TryGetPropConfig<BasePropConfig>(type,out var propConfig))
+                        {
+                            img.sprite = propConfig.PropSprite;
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+    
     private void UpEnergyAndHealth(EventArgs e)
     {
        
