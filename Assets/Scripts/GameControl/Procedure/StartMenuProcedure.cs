@@ -16,8 +16,9 @@ public class StartMenuProcedure : ProcedureNode
                 {
                         SceneManager.LoadScene(0);
                 }
-                
-                GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToGuidelinesScene, ListenerToOrderToGuidelinesScene);
+        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
+
                 
                 UIManager.Instance.GetUIPanel<MenuUI>().Open();
                 UIManager.Instance.LoadUIPanel<UI_SystemFadeHandler>();
@@ -41,7 +42,8 @@ public class StartMenuProcedure : ProcedureNode
 
         public override void OnExit()
         {
-                GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
+        GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToGuidelinesScene, ListenerToOrderToGuidelinesScene);
+        GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
                 base.OnExit();
         }
 
@@ -68,4 +70,10 @@ public class StartMenuProcedure : ProcedureNode
                         return;
                 ChangeState<GamePlayProcedure>();
         }
+    private void ListenerToOrderToGuidelinesScene(EventArgs args)
+    {
+        if (!IsExecuting)
+            return;
+        ChangeState<GamePlay_GuidelinesProcedure>();
+    }
 }

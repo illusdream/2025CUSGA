@@ -134,6 +134,15 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Enter"",
+                    ""type"": ""Button"",
+                    ""id"": ""1967ff9f-7578-4984-93b1-9565def3ea49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -354,6 +363,17 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Player2ChangeProp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6bcdcea2-8b1f-4b74-8ddd-ed364365cf3d"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Enter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -892,6 +912,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         m_GamePlay_Pause = m_GamePlay.FindAction("Pause", throwIfNotFound: true);
         m_GamePlay_Player1ChangeProp = m_GamePlay.FindAction("Player1ChangeProp", throwIfNotFound: true);
         m_GamePlay_Player2ChangeProp = m_GamePlay.FindAction("Player2ChangeProp", throwIfNotFound: true);
+        m_GamePlay_Enter = m_GamePlay.FindAction("Enter", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -977,6 +998,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Pause;
     private readonly InputAction m_GamePlay_Player1ChangeProp;
     private readonly InputAction m_GamePlay_Player2ChangeProp;
+    private readonly InputAction m_GamePlay_Enter;
     public struct GamePlayActions
     {
         private @MainInputAction m_Wrapper;
@@ -993,6 +1015,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_GamePlay_Pause;
         public InputAction @Player1ChangeProp => m_Wrapper.m_GamePlay_Player1ChangeProp;
         public InputAction @Player2ChangeProp => m_Wrapper.m_GamePlay_Player2ChangeProp;
+        public InputAction @Enter => m_Wrapper.m_GamePlay_Enter;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1038,6 +1061,9 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Player2ChangeProp.started += instance.OnPlayer2ChangeProp;
             @Player2ChangeProp.performed += instance.OnPlayer2ChangeProp;
             @Player2ChangeProp.canceled += instance.OnPlayer2ChangeProp;
+            @Enter.started += instance.OnEnter;
+            @Enter.performed += instance.OnEnter;
+            @Enter.canceled += instance.OnEnter;
         }
 
         private void UnregisterCallbacks(IGamePlayActions instance)
@@ -1078,6 +1104,9 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
             @Player2ChangeProp.started -= instance.OnPlayer2ChangeProp;
             @Player2ChangeProp.performed -= instance.OnPlayer2ChangeProp;
             @Player2ChangeProp.canceled -= instance.OnPlayer2ChangeProp;
+            @Enter.started -= instance.OnEnter;
+            @Enter.performed -= instance.OnEnter;
+            @Enter.canceled -= instance.OnEnter;
         }
 
         public void RemoveCallbacks(IGamePlayActions instance)
@@ -1227,6 +1256,7 @@ public partial class @MainInputAction: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnPlayer1ChangeProp(InputAction.CallbackContext context);
         void OnPlayer2ChangeProp(InputAction.CallbackContext context);
+        void OnEnter(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

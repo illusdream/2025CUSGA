@@ -235,11 +235,28 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
         _fenwickTree2D = new TileFenwickTree2D(tiles);
     }
+    /// <summary>
+    /// 实梨写的，觉得不好可以删（卑微）
+    /// </summary>
+    public void GenerateTilesGuidelines()
+    {
+        for (int i = 0; i < tiles.GetLength(0); i++)
+        {
+            for (int j = 0; j < tiles.GetLength(1); j++)
+            {
+                Vector2 offest = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f));
+                //柏林噪声，判断是否生成空气方块
+                SetTile(true ? typeof(AirTile) : typeof(CommonTile), new Vector2Int(i, j), EntityID.Empty);
+            }
+        }
 
+        _fenwickTree2D = new TileFenwickTree2D(tiles);
+        
+    }
 
     #region 获取Tile相关（重载与范围获取）
 
-        /// <summary>
+    /// <summary>
     /// 尝试获取指定坐标位置的Tile
     /// </summary>
     /// <param name="position">指定的格子坐标</param>

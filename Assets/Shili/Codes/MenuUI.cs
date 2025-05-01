@@ -15,6 +15,8 @@ public class MenuUI : UIPanel
     private Button aboutOurButton;
     [AutoUIElement("Panel/GameObject/ExitGame")]
     private Button exitGameButton;
+    [AutoUIElement("Panel/GameObject/Guidelines")]
+    private Button guidelinesButton;
     public override void InitUIPanel()
     {
         base.InitUIPanel();
@@ -22,6 +24,7 @@ public class MenuUI : UIPanel
         settingButton.onClick.AddListener(OnOpenSetting);
         aboutOurButton.onClick.AddListener(OnOpenAboutOur);
         exitGameButton.onClick.AddListener(OnOpenExitGame);
+        guidelinesButton.onClick.AddListener(OnGuidelinesScene);
     }
     private void OnSatrtGame()
     {
@@ -38,5 +41,10 @@ public class MenuUI : UIPanel
     private void OnOpenExitGame()
     {
         Application.Quit();
+    }
+    private void OnGuidelinesScene()
+    {
+        
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToGuidelinesScene, EventArgs.Empty);
     }
 }

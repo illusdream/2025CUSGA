@@ -13,7 +13,7 @@ namespace ilsFramework
         /// 点击开始按钮，准备开始游戏
         /// </summary>
         public const string OrderStartGame = "OrderStartGame";
-        
+
         /// <summary>
         /// 命令游戏流程控制器 暂停游戏流程
         /// </summary>
@@ -31,8 +31,12 @@ namespace ilsFramework
         /// 命令游戏流程控制器 切换至主界面，无限制
         /// </summary>
         public const string OrderToSwitchToMainMenu = "OrderToSwitchToMainMenu";
-        
-        
+        /// <summary>
+        /// 命令游戏流程控制器 进入教程场景
+        /// </summary>
+        public const string OrderToGuidelinesScene = "OrderToGuidelinesScene";
+
+
         public const string GameRestart = "GameRestart";
         
         /// <summary>

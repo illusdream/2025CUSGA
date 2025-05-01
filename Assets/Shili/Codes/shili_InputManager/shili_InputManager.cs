@@ -13,6 +13,7 @@ public class shili_InputManager : MonoBehaviour
     private int moveIndex;
     private GameObject playerKey;
     private InputActionRebindingExtensions.RebindingOperation rebindOperation;
+    public bool isGuide;
     public static shili_InputManager Instance
     {
         get

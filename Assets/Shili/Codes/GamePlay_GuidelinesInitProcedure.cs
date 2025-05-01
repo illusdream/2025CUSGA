@@ -1,10 +1,10 @@
-锘縰sing System;
+using System;
 using Cysharp.Threading.Tasks;
 using ilsFramework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GamePlay_InitProcedure : ProcedureNode
+public class GamePlay_GuidelinesInitProcedure : ProcedureNode
 {
     public override void OnInit()
     {
@@ -13,45 +13,45 @@ public class GamePlay_InitProcedure : ProcedureNode
 
     public async override void OnEnter()
     {
-        var loadScene = SceneManager.LoadSceneAsync("SampleScene");
+        var loadScene = SceneManager.LoadSceneAsync("GuidelinesScene");
         loadScene.allowSceneActivation = false;
-        
-        var fadeHandler =  UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>();
+
+        var fadeHandler = UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>();
         fadeHandler.Open();
         fadeHandler.FadeIn(out var duration);
         await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.Realtime);
         UIManager.Instance.GetUIPanel<MenuUI>().Close();
         loadScene.allowSceneActivation = true;
-        
-        
+
+
         await loadScene;
-        
-        
-        
+
+
+
         var levelSetting = FindLevelSetting();
         if (!levelSetting)
         {
-            //default璁剧疆
+            //default设置
         }
-        
-        //鍏堝姞杞戒竴涓嬪氨濂戒簡
+
+        //先加载一下就好了
         UIManager.Instance.GetUIPanel<InHouseUI>().Open();
         TileManager.Instance.InitTileHandlers();
-        TileManager.Instance.GenerateTiles();
-        TileManager.Instance.StartFillRandomRange();
+        TileManager.Instance.GenerateTilesGuidelines();
+        //TileManager.Instance.StartFillRandomRange();
         CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);
- 
-        
-        
+
+
+
         UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
         await UniTask.Delay(TimeSpan.FromSeconds(fadeOutDuration), DelayType.Realtime);
-        
+
         ChangeState<GamePlay_PlayerObserveProcedure>();
-        
+
         base.OnEnter();
     }
 
-    public  override void OnUpdate()
+    public override void OnUpdate()
     {
         base.OnUpdate();
     }
@@ -78,6 +78,6 @@ public class GamePlay_InitProcedure : ProcedureNode
 
     public LevelSetting FindLevelSetting()
     {
-       return GameObject.Find(LevelSetting.LevelSettingGOName).GetComponent<LevelSetting>();
+        return GameObject.Find(LevelSetting.LevelSettingGOName).GetComponent<LevelSetting>();
     }
 }

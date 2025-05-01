@@ -66,6 +66,7 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
         
         procedureSwitcher.AddProcedureNode<StartMenuProcedure>();
         procedureSwitcher.AddProcedureNode<GamePlayProcedure>();
+        procedureSwitcher.AddProcedureNode<GamePlay_GuidelinesProcedure>();
         if (GameProcedureEnabled)
         {
             procedureSwitcher.StartProcedure<StartMenuProcedure>();
