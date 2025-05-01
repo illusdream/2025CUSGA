@@ -4,22 +4,26 @@
 /// </summary>
 public enum EPropType
 {
-	CageProp = 0,
-	LaserGunProp = 1,
-	EnergySugarProp = 2,
-	AcceleratingFieldProp = 3,
-	HandGrenadeProp = 4,
-	QuantumSwapProp = 5,
-	DodgeBallProp = 6,
-	RCBombsProp = 7,
-	AnchorPointProp = 8,
-	YellowDuckProp = 9,
-	SwarmMissileProp = 10,
-	GasCanisterProp = 11,
-	BlackHoleCannonProp = 12,
-	RCBmobsControllerProp = 13,
-	GammaGuilderProp = 14,
-	ReflectingPrismProp = 15,
-	GhostCloakProp = 16
+	SlotMachineProp = 0,
+	ReflectingPrismProp = 1,
+	SwarmMissileProp = 2,
+	RCBombsProp = 3,
+	AnchorPointProp = 4,
+	GammaGuilderProp = 5,
+	EnergyBladeProp = 6,
+	YellowDuckProp = 7,
+	GasCanisterProp = 8,
+	RCBmobsControllerProp = 9,
+	EnergySugarProp = 10,
+	QuantumSwapProp = 11,
+	GhostCloakProp = 12,
+	BlackHoleCannonProp = 13,
+	LaserGunProp = 14,
+	MortarProp = 15,
+	HandGrenadeProp = 16,
+	CageProp = 17,
+	DodgeBallProp = 18,
+	RCTrollyProp = 19,
+	AcceleratingFieldProp = 20
 }
 

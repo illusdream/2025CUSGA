@@ -39,12 +39,17 @@ public class PlayerController : EntityComponent
         public bool CanMove;
 
         public bool IgnoreUsePropInputCache = false;
+
+        public bool CanUpdatePlayerDirection =true;
+
+        public Color PlayerColor;
         
         public void Initialize(int playerID)
         {
                 timerCollection = new TimerCollection();
                 PlayerID = playerID;
                 var actions = InputManager.Instance.GetCurrentInputAction().GamePlay;
+                CanUpdatePlayerDirection = true;
                 switch (playerID)
                 {
                         case 1:
@@ -63,6 +68,7 @@ public class PlayerController : EntityComponent
                 
                 CanSwitchPropUse = true;
                 SetCanMove(true);
+
                 playerInputHandler.SwitchProp.performed+= SwitchPropOnperformed;
                 
                 stateMachine = new PlayerStateMachine();
@@ -118,6 +124,10 @@ public class PlayerController : EntityComponent
 
         public void UpdatePlayerDirection(Vector2 playerMoveDirection)
         {
+                if (!CanUpdatePlayerDirection)
+                {
+                        return;
+                }
                 var x = math.sign(playerMoveDirection.x);
                 visualController.SetRotation( x==0 ? visualController.Rotation: (x < 0 ? 180 :0));
         }
@@ -152,6 +162,7 @@ public class PlayerController : EntityComponent
 
         public void SetPlayerSpriteColor(Color color)
         {
+                PlayerColor = color;
                 spriteRenderer.color = color;
         }
 

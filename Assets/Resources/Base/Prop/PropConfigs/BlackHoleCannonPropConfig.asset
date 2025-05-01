@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: Props.BlackHoleCannonProp
   PropSprite: {fileID: 21300000, guid: e2eaa00f6361a5642b409073759bcedc, type: 3}
-  BasePropUseColdDown: 1
+  BasePropUseColdDown: 0
   PlayAsset: {fileID: 11400000, guid: 429fcbc2d24b7dd4eaee9a4811a9583e, type: 2}
+  PropCanUseCount: 1
   blackHolePrefab: {fileID: 2541351996609151940, guid: c99bb0b8399dc254eafe0533a7c4de9e, type: 3}
   blackHoleSpeed: 10
   blackHoleEffectTimeline: {fileID: 11400000, guid: 803786359f414d743a6d794eab159b88, type: 2}

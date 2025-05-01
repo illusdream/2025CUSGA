@@ -16,5 +16,6 @@ MonoBehaviour:
   PropSprite: {fileID: 21300000, guid: 5a8b224a5997d60469b052670ab86824, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: 0cf9deea67518c04d92c4ffd8370b724, type: 2}
+  PropCanUseCount: 1
   anchorPointPrefab: {fileID: 941991566290870195, guid: 008f2c7cdc3ec2a4aa7ff4f36855591d, type: 3}
   anchorPointTimelineAsset: {fileID: 11400000, guid: 511ec2a239c680a49b97128d7b3585ab, type: 2}

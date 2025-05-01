@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: AcceleratingFieldBuff
   lastTime: 0.1
-  AccelerationAddRate: 2.5
-  MaxSpeedAddRate: 2.5
+  AccelerationAddRate: 2
+  MaxSpeedAddRate: 2

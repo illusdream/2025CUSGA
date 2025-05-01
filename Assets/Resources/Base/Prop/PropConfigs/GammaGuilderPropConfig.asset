@@ -16,4 +16,5 @@ MonoBehaviour:
   PropSprite: {fileID: 21300000, guid: 55b3120a6ac9db24c9d8bd670ccabde1, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: 33824b42b9c8319409bce1a65210fa05, type: 2}
-  GuilderValue: 40
+  PropCanUseCount: 1
+  GuilderValue: 20

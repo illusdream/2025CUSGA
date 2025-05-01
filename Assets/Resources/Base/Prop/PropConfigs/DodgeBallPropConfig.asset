@@ -16,4 +16,4 @@ MonoBehaviour:
   PropSprite: {fileID: 21300000, guid: a8a891a5ec40d8d42b16e379eacac6cc, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: c1c93bade68e496488cbf92975b7560d, type: 2}
-  PropCanUseCount: 3
+  PropCanUseCount: 1

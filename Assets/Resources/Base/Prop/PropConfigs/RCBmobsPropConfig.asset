@@ -16,6 +16,7 @@ MonoBehaviour:
   PropSprite: {fileID: 21300000, guid: 2ab9ac490b8c6f1409ea1787b145956c, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: f2d743949657b2043a569dd51754d356, type: 2}
+  PropCanUseCount: 1
   RCBmobPrefab: {fileID: 3239875855849931286, guid: c56b7b69a05450249ac7022cba0f1e5d, type: 3}
   BmobAsset: {fileID: 11400000, guid: 13d02268801bc7246a1657eed5b5ca98, type: 2}
   TimeToBmob: 10

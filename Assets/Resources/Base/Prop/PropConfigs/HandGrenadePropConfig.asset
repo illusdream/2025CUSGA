@@ -16,6 +16,7 @@ MonoBehaviour:
   PropSprite: {fileID: 21300000, guid: 22e04bb18c2c4e646aabcd94ecd78321, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: efd8c9a71b1aab1438b5147a1c0b0e3b, type: 2}
-  BaseDamage: 100
+  PropCanUseCount: 1
+  BaseDamage: 40
   HandGrenadeBoomTimeline: {fileID: 11400000, guid: 53cac9539f5170b498bb1688530df448, type: 2}
   HandGrenadeBoomerPrefab: {fileID: 5974341084226847042, guid: 72ab9859f84c26a469e99956554d163f, type: 3}

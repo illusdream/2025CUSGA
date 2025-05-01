@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: Props.YellowDuckProp
   PropSprite: {fileID: 21300000, guid: cbda7a94b4b98ac41851c330c4b610a1, type: 3}
-  BasePropUseColdDown: 0.1
+  BasePropUseColdDown: 0.5
   PlayAsset: {fileID: 11400000, guid: 083bf2226018d05409b6f755631dac8b, type: 2}
   PropCanUseCount: 1
   CanUseTime: 5

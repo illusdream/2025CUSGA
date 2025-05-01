@@ -696,7 +696,7 @@ PlayableDirector:
   m_GameObject: {fileID: 3196107388258662534}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 083bf2226018d05409b6f755631dac8b, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 1351a6631bba48947baf34b53df9391d, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 3
@@ -788,12 +788,27 @@ PlayableDirector:
     value: {fileID: 3007290409442275661}
   - key: {fileID: -6507702428575929915, guid: 083bf2226018d05409b6f755631dac8b, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 5769762783132818968, guid: fce6e42a124368a4cb38c62d49f4b1cf, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 7273734956327955937, guid: fce6e42a124368a4cb38c62d49f4b1cf, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -8661668060196194063, guid: 8bc25ba5e8f2a674e9d7e5cc959cba04, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 6488076210801261055, guid: 8bc25ba5e8f2a674e9d7e5cc959cba04, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5005946754538372682, guid: 1351a6631bba48947baf34b53df9391d, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: -3539811028704691251, guid: 1351a6631bba48947baf34b53df9391d, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - eae5e58fdc9774847918687c4d260a2f: {fileID: 4826395795178948793}
     - 8072ab97b44fa324c992d3e88f021930: {fileID: 1626390696340807414}
     - 1b859e6eb46ea7d42b9fca7b5ac1eaca: {fileID: 1626390696340807414}
+    - 674d05d91888bb947b2795ec78db08a3: {fileID: 4826395795178948793}
     - 20aea1e4d8e47bc458c75307f15c5fc8: {fileID: 1626390696340807414}
+    - 13e881c5262252247a95ab9aefbfa2d3: {fileID: 3804707663534507003}
+    - 5bb4d370af12a7446b6c3ada72167d59: {fileID: 4826395795178948793}
     - 88cdea2309b487a4d9b987194d1abd50: {fileID: 1626390696340807414}
     - 4d1effac1c4a6644d90caa9bc81a33f0: {fileID: 1626390696340807414}
     - 1efd1ea679fb09242ba2da7843a853b8: {fileID: 4826395795178948793}

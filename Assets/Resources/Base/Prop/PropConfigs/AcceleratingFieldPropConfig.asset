@@ -16,5 +16,6 @@ MonoBehaviour:
   PropSprite: {fileID: 21300000, guid: 76d8e41d4797c71409d56e435e0ff0f3, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: bf4f7e58073c1fe45a2b79553ed06d86, type: 2}
+  PropCanUseCount: 1
   AcceleratingFieldPrefab: {fileID: 470956887199675807, guid: 722a3ce3406473d429a4ddd38f1f5ea4, type: 3}
   AcceleratingFieldTimelineAsset: {fileID: 11400000, guid: 4f19290654b948d45ac1b62991497330, type: 2}
