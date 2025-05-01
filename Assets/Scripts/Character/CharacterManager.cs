@@ -136,7 +136,6 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
                     default:
                         break;
                 }
-
                 var psea = new GlobalEventSets.PlayerSpawnEventArgs(characterController, i, SS);
                 GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PlayerSpawn, psea);
             }

@@ -20,6 +20,7 @@ MonoBehaviour:
   - Value: Tile
   - Value: Asset
   - Value: AudioConfig
+  - Value: BuffConfig
   - Value: CharacterConfig
   - Value: DebugConfig
   - Value: PropConfig
@@ -44,3 +45,5 @@ MonoBehaviour:
   - Value: ilsFramework.SceneHandler
   - Value: ilsFramework.AudioManager
   - Value: GameManager
+  - Value: BuffManager
+  - Value: ScreenManager

@@ -22,14 +22,14 @@ public class InHouseUICanvas : MonoBehaviour
     public Image player2HealthImage;
     public Image player2EnergyImage;
     //����
-    private float player1HealthInt = 1;
-    private float currentPlayer1HealthInt;
-    private float player1EnemyInt = 1;
-    private float currentPlayer1EnemyInt;
-    private float player2HealthInt = 1;
-    private float currentPlayer2HealthInt;
-    private float player2EnemyInt = 1;
-    private float currentPlayer2EnemyInt;
+    private float player1Health = 1;
+    private float currentPlayer1Health;
+    private float player1Energy = 1;
+    private float currentPlayer1Energy;
+    private float player2Health = 1;
+    private float currentPlayer2Health;
+    private float player2Energy = 1;
+    private float currentPlayer2Energy;
     [Header("���ܸ�����")]
     public RectTransform Player1SkillTransform;
     public RectTransform Player2SkillTransform;
@@ -153,7 +153,7 @@ public class InHouseUICanvas : MonoBehaviour
     
     private void UpEnergyAndHealth(EventArgs e)
     {
-       
+        
         PlayerSpawnEventArgs playerSpawnEventArgs = e as PlayerSpawnEventArgs;
         var handler = playerSpawnEventArgs.Controller.handler;
         if (playerSpawnEventArgs.PlayerID == 1)
@@ -182,28 +182,31 @@ public class InHouseUICanvas : MonoBehaviour
     }
     private void Update()
     {
-        if (!shouldUpdata)
+        if (shouldUpdata)
         {
-            return;
+            currentPlayer1Energy = playerEnergyContainer1.CurrentEnergy;
+            //player1EnemyInt = playerEnergyContainer1.MaxEnergy;
+            player1Energy = 100;
+            player1Health = playerHealth1.healthSources[EHealthSourceType.Life].BaseMaxHealth;
+            currentPlayer1Health = playerHealth1.healthSources[EHealthSourceType.Life].CurrentHealth;
+            currentPlayer2Energy = playerEnergyContainer2.CurrentEnergy;
+            //player2EnemyInt = playerEnergyContainer2.MaxEnergy;
+            player2Energy = 100;
+            player2Health = playerHealth2.healthSources[EHealthSourceType.Life].BaseMaxHealth;
+            currentPlayer2Health = playerHealth2.healthSources[EHealthSourceType.Life].CurrentHealth;
+            //
+            player1HealthImage.fillAmount = currentPlayer1Health / player1Health;
+            player1EnergyImage.fillAmount = currentPlayer1Energy / player1Energy;
+            player2HealthImage.fillAmount = currentPlayer2Health / player2Health;
+            player2EnergyImage.fillAmount = currentPlayer2Energy / player2Energy;
+
+            //
+            player1HealthText.text = currentPlayer1Health.ToString("0.0") + "/" + player1Health;
+            player1EnemyText.text = currentPlayer1Energy.ToString("0.0") + "/" + player1Energy;
+            player2HealthText.text = currentPlayer2Health.ToString("0.0") + "/" + player2Health;
+            player2EnemyText.text = currentPlayer2Energy.ToString("0.0") + "/" + player2Energy;
         }
-        currentPlayer1EnemyInt = playerEnergyContainer1.CurrentEnergy;
-        player1EnemyInt = playerEnergyContainer1.MaxEnergy;
-        player1HealthInt = playerHealth1.healthSources[EHealthSourceType.Life].BaseMaxHealth;
-        currentPlayer1HealthInt = playerHealth1.healthSources[EHealthSourceType.Life].CurrentHealth;
-        currentPlayer2EnemyInt = playerEnergyContainer2.CurrentEnergy;
-        player2EnemyInt = playerEnergyContainer2.MaxEnergy;
-        player2HealthInt = playerHealth2.healthSources[EHealthSourceType.Life].BaseMaxHealth;
-        currentPlayer2HealthInt = playerHealth2.healthSources[EHealthSourceType.Life].CurrentHealth;
-        //��ȡѪ�������������뵱ǰ����Ѫ�����ٸ�ֵ
-        player1HealthText.text = currentPlayer1HealthInt + "/" + player1HealthInt;
-        player1EnemyText.text = currentPlayer1EnemyInt + "/" + player1EnemyInt;
-        player2HealthText.text = currentPlayer2HealthInt + "/" + player2HealthInt;
-        player2EnemyText.text = currentPlayer2EnemyInt + "/" + player2EnemyInt;
-        //Ѫ���������仯ʱ���º����Լ�4��current
-        player1HealthImage.fillAmount = currentPlayer1HealthInt / player1HealthInt;
-        player1EnergyImage.fillAmount = currentPlayer1EnemyInt / player1EnemyInt;
-        player2HealthImage.fillAmount = currentPlayer2HealthInt / player2HealthInt;
-        player2EnergyImage.fillAmount = currentPlayer2EnemyInt / player2EnemyInt;
+        
 
     }
 }

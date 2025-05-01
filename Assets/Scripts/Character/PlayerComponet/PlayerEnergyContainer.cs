@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 public class PlayerEnergyContainer : EntityComponent
 {
         public override string TargetUsage => EntityComponetUsage.EnergyContainer;
-        
+        [ShowInInspector]
         public int MaxEnergy { get;private set; }
         [ShowInInspector]
         public float CurrentEnergy { get;private set; }

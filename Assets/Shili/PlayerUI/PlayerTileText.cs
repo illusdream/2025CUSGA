@@ -1,0 +1,72 @@
+using ilsFramework;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using static ilsFramework.GlobalEventSets;
+
+public class PlayerTileText : MonoBehaviour
+{
+    [Header("×é¼þ")]
+    public PlayerTileHandler tileHandler;
+    public PlayerPropContainer playerPropContainer;
+    public PlayerHealth playerHealth;
+    public PlayerController playerController;
+    [Header("UI")]
+    public Image image;
+    public Text blockText;
+    public Text shieldText;
+    public Text useTimeText;
+    private Color color;
+    
+    private float timedown=3;
+    private void Start()
+    {
+        if (playerController != null)
+        {
+            UpColor();
+        }
+    }
+
+    private void Update()
+    {
+        blockText.text = tileHandler.PlayerTileCurrentHas.ToString();
+        if(playerHealth != null)
+        {
+            shieldText.text = playerHealth.healthSources[EHealthSourceType.Shield].CurrentHealth.ToString("0.0");
+        }
+        if (playerPropContainer != null)
+        {
+            if (playerPropContainer.GetLastProp() != null)
+            {
+                useTimeText.text = playerPropContainer.GetLastProp().PropUseCount.ToString();
+            }
+        }
+        else
+        {
+            useTimeText.text = 0.ToString();
+        }
+        timedown -= Time.deltaTime;
+        if(timedown < 0)
+        {
+            image.gameObject.SetActive(false);
+        }
+        
+    }
+    private void UpColor()
+    {
+        if (playerController.PlayerID == 1)
+        {
+            color = Color.red;
+        }
+        else if(playerController.PlayerID == 2)
+        {
+            color = Color.blue;
+        }
+        image.color = color;
+        blockText.color = color;
+        shieldText.color = color;
+        useTimeText.color = color;
+    }
+}
