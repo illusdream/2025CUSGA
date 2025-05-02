@@ -2,7 +2,7 @@
 using ilsFramework;
 using UnityEngine;
 
-public class EnergyAddProjectileController : MonoBehaviour
+public class EnergyAddProjectileController : MonoBehaviour,IPoolable
 {
         private static readonly int Color1 = Shader.PropertyToID("_Color");
         public Transform targetTransform;
@@ -43,24 +43,32 @@ public class EnergyAddProjectileController : MonoBehaviour
         
         MaterialPropertyBlock materialPropertyBlock;
 
+        public Color endColor;
+
+        public float addCount;
+
         private float cRot;
+
+        public PlayerController PlayerController;
         public void Start()
         {
                 startPosition = targetTransform.position;
         }
 
-        public void Initialize(Transform targetTransform,PlayerController controller)
+        public void Initialize(Transform targetTransform,PlayerController controller,float addCount)
         {
                 materialPropertyBlock = new MaterialPropertyBlock();
                 this.targetTransform = targetTransform;
                 MaxDistance = Vector2.Distance(startPosition, transform.position);
                 Gradient gradient = new Gradient();
                 gradient.SetKeys(
-                        new []{new GradientColorKey(controller.PlayerColor,0),new GradientColorKey(new Color(255,66,230),0)},new []{new GradientAlphaKey(1,0),new (0,1)});
+                        new []{new GradientColorKey(controller.PlayerColor,0),new GradientColorKey(endColor,1)},new []{new GradientAlphaKey(1,0),new (0,1)});
                 trailRenderer.colorGradient = gradient;
                 spriteRenderer.GetPropertyBlock(materialPropertyBlock);
                 materialPropertyBlock.SetColor(Color1,controller.PlayerColor);
                 spriteRenderer.SetPropertyBlock(materialPropertyBlock);
+                this.addCount = addCount;
+                this.PlayerController = controller;
         }
 
         public void Update()
@@ -102,6 +110,28 @@ public class EnergyAddProjectileController : MonoBehaviour
 
         private void AddEnergy()
         {
-                Destroy(gameObject);
+                if (PlayerController.handler.TryGetComponet(EntityComponetUsage.EnergyContainer,out PlayerEnergyContainer container))
+                {
+                        container.AddEnergy(addCount);
+                        if ((VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve)))
+                        {
+                                ve.ReleasePool(this.gameObject);
+                        }
+                }
+
+        }
+
+        public void OnGet()
+        {
+        }
+
+        public void OnRecycle()
+        {
+                trailRenderer.Clear();
+        }
+
+        public void OnPoolDestroy()
+        {
+                
         }
 }

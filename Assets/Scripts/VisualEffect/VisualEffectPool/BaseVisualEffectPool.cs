@@ -4,12 +4,14 @@ using UnityEngine;
 
 public abstract class BaseVisualEffectPool
 {
-        GameObjectPool pool;
+        public GameObjectPool pool;
         
         public abstract Type ConfigType { get; }
         
-        protected BaseVisualEffectConfig _config;
+        public BaseVisualEffectConfig _config;
 
+        public GameObject VisualPoolContainer;
+        
         public abstract void InitPool();
 
         public abstract bool TryGetPool(out GameObject poolObject);

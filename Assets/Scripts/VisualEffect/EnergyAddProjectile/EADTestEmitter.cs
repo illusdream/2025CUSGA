@@ -15,15 +15,9 @@ namespace DefaultNamespace
         [Button]
         public void Test(int id)
         {
-            var vel = Vector2.left.Rotate((0, math.PI * 2).RandomRange()) * (speedReange.x,speedReange.y).RandomRange();
-            if (CharacterManager.Instance.TryGetPlayerController(id,out PlayerController controller))
+            if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
             {
-              var  instance = GameObject.Instantiate(prefab,transform.position,Quaternion.identity);
-              if (instance.TryGetComponent<EnergyAddProjectileController>(out var result) && instance.TryGetComponent<Rigidbody2D>(out var rigidbody))
-              {
-                  result.Initialize(controller.transform,controller);
-                  rigidbody.velocity = vel;
-              }
+                ve.TryEmittingVE(transform.position,Vector2.one, speedReange,10,id);
             }
         }
     }

@@ -12,14 +12,14 @@ namespace Editor
         [DidReloadScripts]
         private static void HandlePropConfigs()
         {
-            var managerConfig= Config.GetConfigInEditor<BuffConfig>();
+            var managerConfig= Config.GetConfigInEditor<VisualEffectConfig>();
 
             if (managerConfig.AutoBuildOrUpdateSingleBuffConfigs)
             {
 
                 List<Type> allTileTypes = TypeCache.GetTypesDerivedFrom<BaseVisualEffectPool>().ToList();
                 
-                managerConfig.CheckBuffProperty(allTileTypes);
+                managerConfig.CheckVisualEffectProperty(allTileTypes);
             }
             
         }

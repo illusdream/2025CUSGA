@@ -231,6 +231,8 @@ MonoBehaviour:
   trailRenderer: {fileID: 7867657930921946173}
   spriteRenderer: {fileID: 1202444141143165557}
   rotAddPerSecond: 180
+  endColor: {r: 0.4415555, g: 0.169824, b: 0.696, a: 1}
+  addCount: 0
 --- !u!1 &8898804080783325999
 GameObject:
   m_ObjectHideFlags: 0

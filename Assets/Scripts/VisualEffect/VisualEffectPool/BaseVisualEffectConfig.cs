@@ -2,6 +2,7 @@
 using UnityEngine;
 using Utils.EditorUtils;
 
+[InlineEditor(InlineEditorObjectFieldModes.Hidden)]
 public class BaseVisualEffectConfig : ScriptableObject
 {
     [Title("$GetTileTypeTile",titleAlignment:TitleAlignments.Centered)]

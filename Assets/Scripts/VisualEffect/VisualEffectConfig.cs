@@ -82,7 +82,7 @@ public class VisualEffectConfig : ConfigScriptObject
                 {
                     continue;
                 }
-                if (Activator.CreateInstance(type) is BaseBuff instance)
+                if (Activator.CreateInstance(type) is BaseVisualEffectPool instance)
                 {
                     
                     CreateVisualEffectPoolConfigAsset(instance.ConfigType, type,out var PropConfig);

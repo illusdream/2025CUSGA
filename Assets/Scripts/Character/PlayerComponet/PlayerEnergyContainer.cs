@@ -36,7 +36,7 @@ public class PlayerEnergyContainer : EntityComponent
                 {
                         if (eventArgs.scoreCollection.TryGetValue(ID,out var value))
                         {
-                                AddEnergy(value);
+                                //AddEnergy(value);
                         }
                 }
         }

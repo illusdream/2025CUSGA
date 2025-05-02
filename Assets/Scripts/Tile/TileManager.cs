@@ -615,7 +615,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         
         SetTile(type,position,belongsToID);
         _fenwickTree2D.Update(position.x,position.y,fenwickTreeDelta);
-        if (TryGetTile(position,out var tile))
+        if (TryGetTile(position,out var tile) &&oldTile.GetType() != typeof(AirTile) )
         {
             TileEvent.TilePlacedEventArgs instance = new(position,tile.TileID,belongsToID);
             BroadcastMessage(TileEvent.TilePlaced, instance);
@@ -883,10 +883,20 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             //中立则给两者都增加
             if (lastTile.TileBelongToID == EntityID.Empty)
             {
+                var value = CalculateTileCurrectScore(currectTile);
                 var allkeys = scoreCollection.Keys.ToList();
                 foreach (var id in allkeys)
                 {
-                    scoreCollection[id] += CalculateTileCurrectScore(currectTile);
+                    
+                    scoreCollection[id] +=value;
+                }
+
+                for (int i = 1; i <= 2; i++)
+                {
+                    if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
+                    {
+                        ve.TryEmittingVE(currectTile.Position,Vector2.one, new Vector2(1,1),value,i);
+                    }
                 }
             }
             else
@@ -894,7 +904,16 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 //给最后一个增加
                 if (scoreCollection.ContainsKey(lastTile.TileBelongToID))
                 {
-                    scoreCollection[lastTile.TileBelongToID] += CalculateTileCurrectScore(currectTile);
+                    var value = CalculateTileCurrectScore(currectTile);
+                    scoreCollection[lastTile.TileBelongToID] += value;
+
+                    if (CharacterManager.Instance.TryGetPlayerController(lastTile.TileBelongToID, out var player))
+                    {
+                        if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
+                        {
+                            ve.TryEmittingVE(currectTile.Position,Vector2.one, new Vector2(1,1),value,player.PlayerID);
+                        }
+                    }
                 }
             }
         }
@@ -902,7 +921,15 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         {
             if (scoreCollection.ContainsKey(currectTile.TileBelongToID))
             {
-                scoreCollection[currectTile.TileBelongToID] += CalculateTileCurrectScore(currectTile);
+                var value = CalculateTileCurrectScore(currectTile);
+                scoreCollection[currectTile.TileBelongToID] +=value;
+                if (CharacterManager.Instance.TryGetPlayerController(currectTile.TileBelongToID, out var player))
+                {
+                    if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
+                    {
+                        ve.TryEmittingVE(currectTile.Position,Vector2.one, new Vector2(1,1),value,player.PlayerID);
+                    }
+                }
             }
         }
     }
