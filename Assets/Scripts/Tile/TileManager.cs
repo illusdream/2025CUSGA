@@ -615,7 +615,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         
         SetTile(type,position,belongsToID);
         _fenwickTree2D.Update(position.x,position.y,fenwickTreeDelta);
-        if (TryGetTile(position,out var tile) &&oldTile.GetType() != typeof(AirTile) )
+        if (TryGetTile(position,out var tile) &&oldTile.GetType() == typeof(AirTile) )
         {
             TileEvent.TilePlacedEventArgs instance = new(position,tile.TileID,belongsToID);
             BroadcastMessage(TileEvent.TilePlaced, instance);
