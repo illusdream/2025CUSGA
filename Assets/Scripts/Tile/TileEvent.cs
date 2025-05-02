@@ -61,4 +61,29 @@ public static class TileEvent
 
                 public int MergeTileCount;
         }
+        
+        /// <summary>
+        /// 放置物块时触发
+        /// </summary>
+        public const string TilePlaced = "TilePlaced";
+        
+        public class TilePlacedEventArgs : EventArgs
+        {
+                public Vector2Int TilePosition;
+
+                public int PlacedTileID;
+                
+                /// <summary>
+                /// 如果是<see cref="EntityID.Empty"/>说明由系统生成
+                /// </summary>
+                public EntityID PlacedByID;
+
+                public TilePlacedEventArgs(Vector2Int tilePosition, int placedTileID, EntityID placedByID)
+                {
+               
+                        TilePosition = tilePosition;
+                        PlacedTileID = placedTileID;
+                        PlacedByID = placedByID;
+                }
+        }
 }

@@ -615,6 +615,12 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         
         SetTile(type,position,belongsToID);
         _fenwickTree2D.Update(position.x,position.y,fenwickTreeDelta);
+        if (TryGetTile(position,out var tile))
+        {
+            TileEvent.TilePlacedEventArgs instance = new(position,tile.TileID,belongsToID);
+            BroadcastMessage(TileEvent.TilePlaced, instance);
+        }
+
         CheckTileCanMerge(position);
     }
     

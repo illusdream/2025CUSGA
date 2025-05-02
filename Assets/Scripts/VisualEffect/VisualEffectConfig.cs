@@ -39,7 +39,7 @@ public class VisualEffectConfig : ConfigScriptObject
     
     [Button]
     [FoldoutGroup("PropDetailConfig")]
-    public void RefreshPropConfigs()
+    public void RefreshVisualEffectConfigs()
     {
         VisualEffectPoolConfigs = new List<BaseVisualEffectConfig>();
         foreach (var type in TypeCache.GetTypesDerivedFrom<BaseVisualEffectPool>())
