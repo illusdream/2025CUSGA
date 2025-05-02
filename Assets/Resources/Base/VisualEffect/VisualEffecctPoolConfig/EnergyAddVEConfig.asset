@@ -16,4 +16,4 @@ MonoBehaviour:
   EnergyAddVEPrefab: {fileID: 1134427039517519872, guid: 8b5c838341a0a0f4f9fba16d9079002a, type: 3}
   InitialPoolSize: 30
   MaxPoolSize: 100
-  SingleVeEnergyMaxCaplity: 0
+  SingleVeEnergyMaxCaplity: 5

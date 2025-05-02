@@ -63,8 +63,22 @@ public class EnergyAddVE : BaseVisualEffectPool<EnergyAddVEConfig>
             if (CharacterManager.Instance.TryGetPlayerController(playerID,out PlayerController controller))
             {
                 var instance = pool.Get();
+                if (!instance)
+                {
+
+                    if (CharacterManager.Instance.TryGetPlayerController(playerID, out controller))
+                    {
+                        if (controller.handler.TryGetComponet(EntityComponetUsage.EnergyContainer, out PlayerEnergyContainer container))
+                        {
+                            energyNeedEmtting -= Config.SingleVeEnergyMaxCaplity;
+                            container.AddEnergy(shootEnergy);
+                        }
+                    }
+                    continue;
+                }
                 if (instance.TryGetComponent<EnergyAddProjectileController>(out var result) && instance.TryGetComponent<Rigidbody2D>(out var rigidbody))
                 {
+                    var pos = center + new Vector2((-size.x / 2,size.x / 2).RandomRange(), (-size.y / 2,size.y / 2).RandomRange());
                     instance.transform.position = center;
                     result.Initialize(controller.transform,controller,shootEnergy);
                     rigidbody.velocity = vel;

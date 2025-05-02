@@ -895,7 +895,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 {
                     if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
                     {
-                        ve.TryEmittingVE(currectTile.Position,Vector2.one, new Vector2(1,1),value,i);
+                        ve.TryEmittingVE(currectTile.Position+ Vector2.one*(0.3f,0.7f).RandomRange(),Vector2.one, new Vector2(1,1),value,i);
                     }
                 }
             }
@@ -911,7 +911,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                     {
                         if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
                         {
-                            ve.TryEmittingVE(currectTile.Position,Vector2.one, new Vector2(1,1),value,player.PlayerID);
+                            ve.TryEmittingVE(currectTile.Position + Vector2.one*(0.3f,0.7f).RandomRange(),Vector2.one, new Vector2(1,1),value,player.PlayerID);
                         }
                     }
                 }
@@ -927,7 +927,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
                 {
                     if (VisualEffectManager.Instance.TryGetVisualEffectPool<EnergyAddVE>(out var ve))
                     {
-                        ve.TryEmittingVE(currectTile.Position,Vector2.one, new Vector2(1,1),value,player.PlayerID);
+                        ve.TryEmittingVE(currectTile.Position+ Vector2.one*(0.3f,0.7f).RandomRange(),Vector2.one, new Vector2(1,1),value,player.PlayerID);
                     }
                 }
             }
