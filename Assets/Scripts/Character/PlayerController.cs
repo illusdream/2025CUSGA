@@ -43,6 +43,8 @@ public class PlayerController : EntityComponent
         public bool CanUpdatePlayerDirection =true;
 
         public Color PlayerColor;
+
+ 
         
         public void Initialize(int playerID)
         {

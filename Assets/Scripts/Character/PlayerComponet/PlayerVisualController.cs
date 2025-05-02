@@ -14,7 +14,7 @@ public class PlayerVisualController : EntityComponent
         [ShowInInspector]
         public float Rotation {get;set;}
         private Vector2 dir;
-
+        public Sprite TestAnim;
         public void Update()
         {
                 visualTransform.localRotation = Quaternion.Euler(0, 0, Rotation);

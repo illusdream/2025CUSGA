@@ -399,6 +399,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8556531300256380584}
   animator: {fileID: 3007290409442275661}
   visualTransform: {fileID: 1626390696340807414}
+  TestAnim: {fileID: 0}
 --- !u!1 &3196107388258662534
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +509,8 @@ MonoBehaviour:
   CanSwitchPropUse: 0
   CanMove: 0
   IgnoreUsePropInputCache: 0
+  CanUpdatePlayerDirection: 1
+  PlayerColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!50 &7418803142098904480
 Rigidbody2D:
   serializedVersion: 4
