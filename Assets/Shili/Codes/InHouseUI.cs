@@ -29,12 +29,10 @@ public class InHouseUI : UIPanel
     public override void Open()
     {
         base.Open();
-        Debug.Log("��InHouseUI");
     }
     public override void Close()
     {
         base.Close();
-        Debug.Log("�ر�InHouseUI");
     }
     public override void Update()
     {

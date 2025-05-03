@@ -4,9 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.RuleTile.TilingRuleOutput;
+using DG.Tweening;
 [UIPanelSetting(EUILayer.Normal, 0, true, EAssetLoadMode.Resources, "Prefab/Shili/Menu")]
 public class MenuUI : UIPanel
 {
+    [AutoUIElement("Panel")]
+    private GameObject panel;
+    [AutoUIElement("Panel/GameObject")]
+    private GameObject m_GameObject;
     [AutoUIElement("Panel/GameObject/StartGame")]
     private Button startGameButton;
     [AutoUIElement("Panel/GameObject/Setting")]
@@ -47,4 +53,11 @@ public class MenuUI : UIPanel
         
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToGuidelinesScene, EventArgs.Empty);
     }
+    public override void Open()
+    {
+        base.Open();
+        Shili_DOTweenManager.Instance.PlayPanelEnter(m_GameObject.GetComponent<RectTransform>(), UIPanelCanvasGroup);
+    }
 }
+
+

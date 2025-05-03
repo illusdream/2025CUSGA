@@ -47,13 +47,13 @@ public class ChangeSomeKeyInGuideScene : MonoBehaviour
     }
     private void OnEnable()
     {
+        Shili_DOTweenManager.Instance.FadePanel(GetComponent<CanvasGroup>(),GetComponent<RectTransform>());
         inputActions.GamePlay.Enter.started += OnEnterDown;
         inputActions.GamePlay.Player1ChangeProp.canceled += InputKeyI;
         inputActions.GamePlay.Player1UseProp.canceled += OnEnterDown;
         inputActions.GamePlay.Player1UseProp.canceled += InputKeyL;
         EnterTheStage();
         UpOnEnable();
-        
     }
     private void Start()
     {

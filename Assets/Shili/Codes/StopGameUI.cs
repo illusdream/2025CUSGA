@@ -9,6 +9,8 @@ using UnityEngine.UI;
 [UIPanelSetting(EUILayer.Lower, 99, true, EAssetLoadMode.Resources, "Prefab/Shili/StopGame")]
 public class StopGameUI : UIPanel
 {
+    private Dictionary<RectTransform, bool> _panelLockStates;
+    public bool ilsBool;
     [AutoUIElement("Panel")]
     private GameObject panel;
     [AutoUIElement("Panel/Continue")]
@@ -34,11 +36,21 @@ public class StopGameUI : UIPanel
         resumeButton.onClick.AddListener(OnResume);
         exitButton.onClick.AddListener(OnExit);
         exitGuideButton.onClick.AddListener(OnExit);
-
+        _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
     public override void Open()
     {
-        base.Open();
+        /*if (animationlock)
+        {
+            return;
+        }*/
+        if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>())&& _panelLockStates[panel.GetComponent<RectTransform>()])
+        {
+            return;
+        }
+        Debug.Log("Open");
+        Shili_DOTweenManager.Instance.PlayPanelEnter(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
+        Shili_DOTweenManager.Instance.PlayPanelEnter(guidePanel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
         if (shili_InputManager.Instance.isGuide)
         {
             panel.SetActive(false);
@@ -52,7 +64,22 @@ public class StopGameUI : UIPanel
     }
     public override void Close()
     {
-        base.Close();
+        if (!ilsBool)
+        {
+            ilsBool = true;
+            base.Close();
+        }
+        else
+        {
+            if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
+            {
+                return;
+            }
+            Debug.Log("Close");
+            Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
+            Shili_DOTweenManager.Instance.PlayPanelExit(guidePanel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
+        }
+
     }
     private void OnContinue()
     {

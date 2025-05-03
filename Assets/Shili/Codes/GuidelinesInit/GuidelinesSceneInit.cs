@@ -32,8 +32,9 @@ public class GuidelinesSceneInit : MonoBehaviour
         inputActions = InputManager.Instance.GetCurrentInputAction();
         foreach (var action in inputActions)
         {
-            inputActions.Disable();
+            action.Disable();
         }
+        inputActions.GamePlay.Pause.Enable();
     }
     private void OnEnable()
     {
@@ -48,7 +49,7 @@ public class GuidelinesSceneInit : MonoBehaviour
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.PlayerSpawn, ChangePlayerEnergy);
         foreach (var action in inputActions)
         {
-            inputActions.Enable();
+            action.Enable();
         }
     }
     private void OnTileDied(EventArgs e)
