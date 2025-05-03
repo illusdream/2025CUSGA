@@ -148,6 +148,11 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
 
     }
 
+    public RectInt GetTileMapSize()
+    {
+        return tilesRange;
+    }
+    
     /// <summary>
     /// 检查输入坐标是否在地图格子范围内
     /// </summary>

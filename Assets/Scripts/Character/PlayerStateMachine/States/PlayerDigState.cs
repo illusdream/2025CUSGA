@@ -13,7 +13,7 @@ public class PlayerDigState : BasePlayerState
         if (EntityHandler.TryGetComponet(EntityComponetUsage.ActionDirector,out BaseActionDirector actionDirector))
         {
 
-            actionDirector.TryPlay(PlayerController.DigAsset);
+            actionDirector.TryPlay(PlayerController.CurrenctDigAsset);
             actionDirector.onStopped += ActionDirectorOnonStopped;
 
         }

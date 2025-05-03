@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce9bab7e0ae4bc4878654247eb68445, type: 3}
+  m_Name: RandomEventConfig
+  m_EditorClassIdentifier: 
+  RandomEventConfigs:
+  - {fileID: 11400000, guid: 9cbdd085e1223a749bfc87dff886169f, type: 2}
+  - {fileID: 11400000, guid: b42ab77f65027da45b31e5d9ac0e9b7d, type: 2}
+  - {fileID: 11400000, guid: c4bb763bb919d654d95b5c9199796930, type: 2}
+  - {fileID: 11400000, guid: ef9b0252bc488f44080c8507d7289d61, type: 2}
+  - {fileID: 11400000, guid: 3d8ec994d012e934ca17c964ff37a7b0, type: 2}
+  - {fileID: 11400000, guid: c25d0b2313aaff9499004610559fed94, type: 2}
+  - {fileID: 11400000, guid: 15b031303cac69648bfb12768ce614e1, type: 2}
+  - {fileID: 11400000, guid: 13fc51431d3fcbb40be7443ed44a0dc8, type: 2}
+  RandomEventIDsMap:
+    list:
+    - Key: PropMasterArrives
+      Value: 0
+    - Key: WhereAmI
+      Value: 1
+    - Key: BigDrill
+      Value: 2
+    - Key: HotPursuit
+      Value: 4
+    - Key: MeteorShower
+      Value: 5
+    - Key: FullSpeedAhead
+      Value: 6
+    - Key: BlockBuildersCall
+      Value: 7
+    - Key: TotalMayhem
+      Value: 8
+  AutoBuildOrUpdateSingleRandomEventConfigs: 1
+  RandomEventInterval: 30
+  BeRandomSelectRandomEvent: 00000000

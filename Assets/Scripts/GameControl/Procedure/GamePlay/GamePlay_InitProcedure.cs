@@ -41,7 +41,7 @@ public class GamePlay_InitProcedure : ProcedureNode
         TileManager.Instance.StartFillRandomRange();
         CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);
  
-        
+        RandomEventManager.Instance.StartGameCommonRandomEventCycle();
         
         UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
         await UniTask.Delay(TimeSpan.FromSeconds(fadeOutDuration), DelayType.Realtime);

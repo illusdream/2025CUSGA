@@ -93,4 +93,9 @@ public class PlayerTileHandler : BaseTileHandler
         {
 
         }
+
+        public void AddPlayerHasTile(int count)
+        {
+                PlayerTileCurrentHas += count;
+        }
 }

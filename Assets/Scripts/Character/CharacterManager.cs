@@ -461,7 +461,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
                 var boundsize = new Vector3(playRangeSize.x,playRangeSize.y, 0) - new Vector3(playerBound.size.x *mul,playerBound.size.y *mul,0);
                 var cBound = new Bounds(_characterConfig.PlayerCanPlayRange.center, boundsize);
 
-                playerMoveComponent.Rigidbody2D.position =cBound.ClosestPoint(playerMoveComponent.GetEntityPosition());
+               // playerMoveComponent.Rigidbody2D.position =cBound.ClosestPoint(playerMoveComponent.GetEntityPosition());
 
             }
         }
@@ -469,6 +469,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
 
     private void EdgeReflect(EdgeCollider2D edge, Vector2 reflectNormal)
     {
+        int count = 0;
         PlayerInEdgeOfPlayRangeResult.Clear();
         CharacterCollection.GetEntityInArea(edge,PlayerInEdgeOfPlayRangeResult);
         foreach (var handler in PlayerInEdgeOfPlayRangeResult)
@@ -481,8 +482,19 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
                     continue;
                 }
                 Vector2 reflectedVelocity = Vector2.Reflect(playerMoveComponent.GetEntityVelocity(), reflectNormal);
-                playerMoveComponent.Rigidbody2D.velocity = reflectedVelocity * _characterConfig.PlayerRangeEdgeBounciness;
+                playerMoveComponent.SetTargetVelocity(reflectedVelocity * _characterConfig.PlayerRangeEdgeBounciness);
             }
+        }
+
+        while (PlayerInEdgeOfPlayRangeResult.Any() && count <20)
+        {
+            count++;
+           foreach (var handler in PlayerInEdgeOfPlayRangeResult)
+           {
+               handler.transform.position += reflectNormal.Vec3_xy() * 0.001f;
+           }
+           PlayerInEdgeOfPlayRangeResult.Clear();
+           CharacterCollection.GetEntityInArea(edge,PlayerInEdgeOfPlayRangeResult);
         }
     }
 

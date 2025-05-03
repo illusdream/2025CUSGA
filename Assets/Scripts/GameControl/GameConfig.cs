@@ -14,4 +14,5 @@ public class GameControlConfig : ConfigScriptObject
 
     [LabelText("观察时间")]
     public float ObservePlayerTimeWhenStarted;
+    
 }

@@ -504,7 +504,8 @@ MonoBehaviour:
   visualController: {fileID: 1359947970017701781}
   rigidbody2D: {fileID: 7418803142098904480}
   EnergyCanBeComeProp: 50
-  DigAsset: {fileID: 11400000, guid: 3add9986a83e4f245b2cc3b898fcb446, type: 2}
+  DefaultDigAsset: {fileID: 11400000, guid: 3add9986a83e4f245b2cc3b898fcb446, type: 2}
+  CurrenctDigAsset: {fileID: 0}
   IntoBlackHoleTimelineAsset: {fileID: 11400000, guid: b5820d4bb1a5d39458cea2224cce8318, type: 2}
   CanSwitchPropUse: 0
   CanMove: 0
@@ -699,7 +700,7 @@ PlayableDirector:
   m_GameObject: {fileID: 3196107388258662534}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 1351a6631bba48947baf34b53df9391d, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 3
@@ -803,6 +804,12 @@ PlayableDirector:
     value: {fileID: 3007290409442275661}
   - key: {fileID: -3539811028704691251, guid: 1351a6631bba48947baf34b53df9391d, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 4886846159899299680, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}
+    value: {fileID: 7560538213211143685}
+  - key: {fileID: 7092609063484047137, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 580791529931690003, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}
+    value: {fileID: 2598141953491336947}
   m_ExposedReferences:
     m_References:
     - eae5e58fdc9774847918687c4d260a2f: {fileID: 4826395795178948793}

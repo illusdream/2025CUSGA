@@ -14,12 +14,12 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
     [ShowInInspector]
     private BiMap<EPropType, Type> propEnum_TypeMap;
 
-    public List<EPropType> RandomSelectList;
+    public List<EPropType> CurrentRandomSelectList;
     public void Init()
     {
         propsConfig = Config.GetConfig<PropConfig>();
 
-        RandomSelectList = propsConfig.BeRandomSelectProps;
+        CurrentRandomSelectList = propsConfig.BeRandomSelectProps;
         
         propConfigs = new Dictionary<Type, BasePropConfig>();
         propID_TypeMap = new BiMap<int, Type>();
@@ -108,8 +108,18 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
     
     public BaseProp CreateRandomProp()
     {
-        var randomResult = RandomSelectList.Shuffle()[0];
+        var randomResult = CurrentRandomSelectList.Shuffle().FirstOrDefault();
         return CreateTargetProp(propEnum_TypeMap.GetRight(randomResult));
     }
 
+
+    public void SetRandomSelectList(List<EPropType> types)
+    {
+        CurrentRandomSelectList = types;
+    }
+
+    public void SetDefaultRandomSelectList()
+    {
+        CurrentRandomSelectList = propsConfig.BeRandomSelectProps;
+    }
 }

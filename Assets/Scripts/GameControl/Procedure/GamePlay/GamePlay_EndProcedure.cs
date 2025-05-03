@@ -38,6 +38,9 @@ public class GamePlay_EndProcedure : ProcedureNode
     {
         Time.timeScale = oldtimeScale;
         UIManager.Instance.GetUIPanel<InHouseUI>().Close();
+        
+        RandomEventManager.Instance.StopGameCommonRandomEventCycle();
+        TileManager.Instance.StopFillRandomRange();
         base.OnExit();
     }
 

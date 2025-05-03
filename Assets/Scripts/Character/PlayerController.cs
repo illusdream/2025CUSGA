@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.Timeline;
 
 public class PlayerController : EntityComponent
@@ -28,8 +29,10 @@ public class PlayerController : EntityComponent
         [ShowInInspector]
         private PlayerStateMachine stateMachine;
         
-        public TimelineAsset DigAsset;
+        [FormerlySerializedAs("DigAsset")] public TimelineAsset DefaultDigAsset;
 
+        public TimelineAsset CurrenctDigAsset;
+        
         public TimelineAsset IntoBlackHoleTimelineAsset;
         
         public TimerCollection timerCollection;
@@ -70,7 +73,7 @@ public class PlayerController : EntityComponent
                 
                 CanSwitchPropUse = true;
                 SetCanMove(true);
-
+                CurrenctDigAsset = DefaultDigAsset;
                 playerInputHandler.SwitchProp.performed+= SwitchPropOnperformed;
                 
                 stateMachine = new PlayerStateMachine();
@@ -106,10 +109,10 @@ public class PlayerController : EntityComponent
                 if (handler.TryGetComponet(EntityComponetUsage.EnergyContainer,out PlayerEnergyContainer playerEnergyContainer)
                     && handler.TryGetComponet(EntityComponetUsage.PropContainer,out BasePropContainer playerPropContainer))
                 {
-                        if (playerEnergyContainer.CurrentEnergy > EnergyCanBeComeProp && !playerPropContainer.IsFullProp())
+                        while (playerEnergyContainer.CurrentEnergy >= EnergyCanBeComeProp && !playerPropContainer.IsFullProp())
                         {
                                 playerPropContainer.TryInputProp(PropManager.Instance.CreateRandomProp());
-                                playerEnergyContainer.CumsumEnergy(EnergyCanBeComeProp);
+                                playerEnergyContainer.CumsumEnergy(EnergyCanBeComeProp);  
                         }
                 }
         }

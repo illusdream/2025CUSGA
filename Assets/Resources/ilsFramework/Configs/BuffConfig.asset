@@ -20,20 +20,26 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b2c2842ad86c76c4cae55a86ee8899c9, type: 2}
   - {fileID: 11400000, guid: 62902ad9d4c9875478eaf77ecfc264ab, type: 2}
   - {fileID: 11400000, guid: 6d47bcb600d459a43a1e9c76e7d62513, type: 2}
+  - {fileID: 11400000, guid: 114f7fa18beafc5449b6197091a18038, type: 2}
+  - {fileID: 11400000, guid: e522fc20a5c00f944b3d26b4c43d0c5b, type: 2}
   BuffIDsMap:
     list:
     - Key: EnergySugarBuff
       Value: 0
-    - Key: InBlackHoleBuff
+    - Key: FullSpeedAheadBuff
       Value: 1
-    - Key: PoisoningBuff
-      Value: 2
-    - Key: BlurringBuff
-      Value: 3
-    - Key: CageBuff
-      Value: 4
-    - Key: AcceleratingFieldBuff
-      Value: 5
     - Key: SpawnToxicGasBuff
+      Value: 2
+    - Key: TotalMayhemBuff
+      Value: 3
+    - Key: InBlackHoleBuff
+      Value: 4
+    - Key: BlurringBuff
+      Value: 5
+    - Key: CageBuff
       Value: 6
+    - Key: AcceleratingFieldBuff
+      Value: 7
+    - Key: PoisoningBuff
+      Value: 8
   AutoBuildOrUpdateSingleBuffConfigs: 1
