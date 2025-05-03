@@ -134,7 +134,6 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
     {
         if (randomEventType_TypeMap.TryGetRight(type,out var _type) && randomEventConfigs.TryGetValue(_type, out var baseConfig) && Activator.CreateInstance(_type) is BaseRandomEvent instance)
         {
-            111.LogSelf();
             instance._config = baseConfig;
             instance.ID = _type.Name + instance.GetHashCode();
             instance.Init();
@@ -230,6 +229,11 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
     public void SetDefaultRandomSelectList()
     {
         RandomSelectList = randomEventConfig.BeRandomSelectRandomEvent;
+    }
+
+    public bool TryGetRandomEventConfig(Type targetType, out BaseRandomEventConfig config)
+    {
+        return randomEventConfigs.TryGetValue(targetType, out config);
     }
 
 }

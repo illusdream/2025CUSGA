@@ -53,8 +53,14 @@ TagManager:
   - name: FlyableEntity
     uniqueID: 2742005435
     locked: 0
+  - name: ViusalEffect1
+    uniqueID: 1457396765
+    locked: 0
   - name: Character
     uniqueID: 2965696183
+    locked: 0
+  - name: ViusalEffect2
+    uniqueID: 1638737207
     locked: 0
   - name: UI
     uniqueID: 3999465305

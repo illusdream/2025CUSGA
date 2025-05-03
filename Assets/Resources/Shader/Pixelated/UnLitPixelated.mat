@@ -7,22 +7,29 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EnergyAddProjectileMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: b174a45b86848a64ba6c6b56064b05fe, type: 3}
+  m_Name: UnLitPixelated
+  m_Shader: {fileID: -6465566751694194690, guid: c0689683b6575e54682cfcccea32878d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - DepthOnly
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: bff7ab08dfc10b943aed0a294bf5d1d2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -37,17 +44,24 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _Bit: 40
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _DstBlend: 10
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Size: 18
-    - _StepGrid: 0.28
-    - _WidthCount: 3
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 0.99999994, g: 0.99999994, b: 0.99999994, a: 0}
-    - _Color2: {r: 1.4980394, g: 1.4980394, b: 1.4980394, a: 0}
-    - _Res: {r: 1, g: 1, b: 0, a: 0}
+    - _Color: {r: 8, g: 6.059114, b: 2.369811, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2600539276474320561
+--- !u!114 &5681273170073734523
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

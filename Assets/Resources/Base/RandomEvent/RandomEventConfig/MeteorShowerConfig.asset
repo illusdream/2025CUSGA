@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: MeteorShower
   EventLastTime: 15
+  MeteorSpawnInterval: 1.5
+  MeteorAttackTime: 3.5
+  MeteorDamage: 35
+  MeteorAttackTimeline: {fileID: 11400000, guid: 46781aa21d8a246418574de5b5a9d2ec, type: 2}
+  MeteorPrefab: {fileID: 8923004647920899157, guid: 9ee01cfb8fc62ae43b7cd0bb6aafe7f9, type: 3}
