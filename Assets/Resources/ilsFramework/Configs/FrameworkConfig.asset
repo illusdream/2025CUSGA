@@ -25,6 +25,7 @@ MonoBehaviour:
   - Value: DebugConfig
   - Value: PropConfig
   - Value: UIConfig
+  - Value: VisualEffectConfig
   ManagersUpdateSort:
   - Value: ilsFramework.MonoManager
   - Value: ilsFramework.AssetManager
@@ -47,3 +48,4 @@ MonoBehaviour:
   - Value: GameManager
   - Value: BuffManager
   - Value: ScreenManager
+  - Value: VisualEffectManager

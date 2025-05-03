@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Lower, 11, true, EAssetLoadMode.Resources, "Prefab/Shili/StopGame")]
+[UIPanelSetting(EUILayer.Lower, 99, true, EAssetLoadMode.Resources, "Prefab/Shili/StopGame")]
 public class StopGameUI : UIPanel
 {
     [AutoUIElement("Panel")]

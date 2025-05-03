@@ -37,7 +37,7 @@ public class GamePlay_GuidelinesProcedure : SubProcedureSwitcher
 
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToSwitchToMainMenu, Listener_OrderToSwitchToMainMenu);
 
-        SetCurrentState<GamePlay_InitProcedure>();
+        SetCurrentState<GamePlay_GuidelinesInitProcedure>();
         base.OnExit();
     }
 
@@ -72,7 +72,7 @@ public class GamePlay_GuidelinesProcedure : SubProcedureSwitcher
 
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameRestart, EventArgs.Empty);
 
-        ChangeProcedureNode<GamePlay_InitProcedure>();
+        ChangeProcedureNode<GamePlay_GuidelinesInitProcedure>();
     }
 
     private void Listener_OrderToSwitchToMainMenu(EventArgs args)

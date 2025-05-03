@@ -13,6 +13,7 @@ public class GamePlay_GuidelinesInitProcedure : ProcedureNode
 
     public async override void OnEnter()
     {
+        Debug.Log("Go GuidelinesScene");
         var loadScene = SceneManager.LoadSceneAsync("GuidelinesScene");
         loadScene.allowSceneActivation = false;
 

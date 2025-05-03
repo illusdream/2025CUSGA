@@ -245,7 +245,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             for (int j = 0; j < tiles.GetLength(1); j++)
             {
                 Vector2 offest = new Vector2(Random.Range(0, 1f), Random.Range(0, 1f));
-                //柏林噪声，判断是否生成空气方块
+                //柏林噪声，判断是否生成空气方块,这里全部替换为空气方块
                 SetTile(true ? typeof(AirTile) : typeof(CommonTile), new Vector2Int(i, j), EntityID.Empty);
             }
         }
