@@ -47,6 +47,7 @@ public class PlayerController : EntityComponent
 
         public Color PlayerColor;
 
+        public bool ShouldImmaditeStopDig = true;
  
         
         public void Initialize(int playerID)
@@ -95,7 +96,8 @@ public class PlayerController : EntityComponent
                 {
                         stateMachine.ChangeState<PlayerDontControlState>();
                 }
-                
+
+
                 var dir = playerInputHandler.LastActiveMoveDirection;
                 var rot = Mathf.Atan2(dir.y, dir.x);
                 directionTransform.rotation = quaternion.Euler(0,0,rot);

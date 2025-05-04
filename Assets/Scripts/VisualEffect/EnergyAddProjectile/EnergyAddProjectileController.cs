@@ -62,7 +62,7 @@ public class EnergyAddProjectileController : MonoBehaviour,IPoolable
                 MaxDistance = Vector2.Distance(startPosition, transform.position);
                 Gradient gradient = new Gradient();
                 gradient.SetKeys(
-                        new []{new GradientColorKey(controller.PlayerColor,0),new GradientColorKey(endColor,1)},new []{new GradientAlphaKey(1,0),new (0,1)});
+                        new []{new GradientColorKey(controller.PlayerColor,0),new GradientColorKey(endColor,1)},new []{new GradientAlphaKey(1,0),new (0,0.5f)});
                 trailRenderer.colorGradient = gradient;
                 spriteRenderer.GetPropertyBlock(materialPropertyBlock);
                 materialPropertyBlock.SetColor(Color1,controller.PlayerColor);
