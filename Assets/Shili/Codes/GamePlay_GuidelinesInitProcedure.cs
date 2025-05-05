@@ -69,6 +69,7 @@ public class GamePlay_GuidelinesInitProcedure : ProcedureNode
 
     public override void OnExit()
     {
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameRestart, EventArgs.Empty);
         base.OnExit();
     }
 
