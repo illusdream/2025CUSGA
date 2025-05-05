@@ -71,10 +71,6 @@ public class GamePlayProcedure : SubProcedureSwitcher
         
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameRestart,EventArgs.Empty);
         
-        RandomEventManager.Instance.StopGameCommonRandomEventCycle();
-        VisualEffectManager.Instance.ClearAllVisualEffectPools();
-        
-        
         ChangeProcedureNode<GamePlay_InitProcedure>();
     }
 

@@ -19,9 +19,7 @@ public abstract class BaseVisualEffectPool
         public abstract void ReleasePool(GameObject poolObject);
         
         public abstract void PoolOnDestroy();
-
-        public abstract void Clear();
-
+        
 }
 
 public abstract class BaseVisualEffectPool<T> : BaseVisualEffectPool where T : BaseVisualEffectConfig, new()
