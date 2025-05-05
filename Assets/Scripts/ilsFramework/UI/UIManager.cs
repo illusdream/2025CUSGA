@@ -316,7 +316,7 @@ namespace ilsFramework
 
 
                     var LayerInfo = GetUILayerInfo(setting.UILayer);
-                    goInstance.transform.parent = LayerInfo.Item1;
+                    goInstance.transform.SetParent(LayerInfo.Item1);
                     
                     instance.Canvas.sortingOrder = LayerInfo.Item2 + setting.LayerOffest;
                 }

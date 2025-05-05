@@ -27,6 +27,10 @@ public class GuidelinesSceneInit : MonoBehaviour
     public EPropType ePropType1;
     public EPropType ePropType2;
     private float originalEnergy;
+    [Header("Ω◊∂Œ Æ“ª")]
+    public float waitTime=10f;
+    public bool isRarn;
+    private string RarnID;
     private void Awake()
     {
         inputActions = InputManager.Instance.GetCurrentInputAction();
@@ -41,6 +45,19 @@ public class GuidelinesSceneInit : MonoBehaviour
         TileManager.Instance.AddListener(TileEvent.TileBreakedByPlayer, OnTileDied);
         TileManager.Instance.AddListener(TileEvent.TilePlaced, OnTilePlaced);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerSpawn, ChangePlayerEnergy);
+    }
+    private void Update()
+    {
+        if (isRarn)
+        {
+            waitTime -= Time.deltaTime;
+            if(waitTime <= 0)
+            {
+                isRarn = false;
+                RandomEventManager.Instance.RemoveRandomEvent(RarnID);
+                changeSomeKeyInGuideScene.gameObject.SetActive(true);
+            }
+        }
     }
     private void OnDisable()
     {
@@ -85,8 +102,12 @@ public class GuidelinesSceneInit : MonoBehaviour
             playerController = playerSpawnEventArgs.Controller;
             originalEnergy = playerController.EnergyCanBeComeProp;
             playerController.EnergyCanBeComeProp = 99999f;
+            playerController.gameObject.GetComponent<PlayerHealth>().healthSources[EHealthSourceType.Life].AddValue(899);
         }
-        
+        if(playerSpawnEventArgs.PlayerID == 2)
+        {
+            playerSpawnEventArgs.Controller.gameObject.GetComponent<PlayerHealth>().healthSources[EHealthSourceType.Life].AddValue(899);
+        }
     }
     public void ResomeEnergy()
     {
@@ -99,5 +120,14 @@ public class GuidelinesSceneInit : MonoBehaviour
     {
         playerController.TestProp(ePropType1);
         playerController.TestProp(ePropType2);
+    }
+    /// <summary>
+    /// ‘… Ø”Í
+    /// </summary>
+    public void Rain()
+    {
+        var v = RandomEventManager.Instance.AddRandomEvent(ERandomEventType.MeteorShower);
+        RarnID = v.ID;
+        isRarn = true;
     }
 }

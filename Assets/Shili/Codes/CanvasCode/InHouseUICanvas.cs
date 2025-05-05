@@ -89,11 +89,11 @@ public class InHouseUICanvas : MonoBehaviour
         }
         if(p.PlayerID == 1)
         {
-            go.transform.parent = Player1SkillTransform;
+            go.transform.SetParent(Player1SkillTransform);
         }
         else
         {
-            go.transform.parent = Player2SkillTransform;
+            go.transform.SetParent(Player2SkillTransform);
         }
     }
     private void OnUseSkill(EventArgs e)

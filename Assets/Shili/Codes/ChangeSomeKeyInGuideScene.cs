@@ -180,6 +180,8 @@ public class ChangeSomeKeyInGuideScene : MonoBehaviour
                 textEnter.SetActive(true);
                 inputActions.GamePlay.Enter.Enable();
                 break;
+            case 12:
+                break;
         }
     }
     /// <summary>
@@ -210,7 +212,10 @@ public class ChangeSomeKeyInGuideScene : MonoBehaviour
                 inputActions.GamePlay.Enter.Disable();
                 inputActions.GamePlay.Player1ChangeProp.Enable();
                 break;
+            case 11:
+                break;
             case 12:
+                guidelinesSceneInit.Rain();
                 panel2.SetActive(false);
                 break;
         }
