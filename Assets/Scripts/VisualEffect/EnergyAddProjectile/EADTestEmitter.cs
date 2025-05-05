@@ -1,5 +1,5 @@
 ﻿using Sirenix.OdinInspector;
-using TMPro.EditorUtilities;
+
 using Unity.Mathematics;
 using UnityEngine;
 using Utils;

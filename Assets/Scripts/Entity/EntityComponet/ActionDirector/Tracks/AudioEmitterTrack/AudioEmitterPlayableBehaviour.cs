@@ -17,7 +17,9 @@ public class AudioEmitterPlayableBehaviour: PlayableBehaviour
     
     public override void OnPlayableCreate(Playable playable)
     {
+#if UNITY_EDITOR
         audioSource = EditorUtility.CreateGameObjectWithHideFlags("AudioSource" , HideFlags.HideAndDontSave , typeof(AudioSource)).GetComponent<AudioSource>();
+#endif
         base.OnPlayableCreate(playable);
     }
 
