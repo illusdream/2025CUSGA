@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using ilsFramework;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine.Playables;
 
@@ -25,22 +23,19 @@ public class AttackEntityPlayableBehaviour : PlayableBehaviour
         var attacker = (BaseAttacker)playerData;
         var transform = attacker.transform;
         targetEntity.Clear();
-        
-       
-        
         foreach (var areaInfo in AreaInfo)
         {
             areaInfo.FindTargetInEntity(transform,TargetEntityType,targetEntity);
         }
+
         foreach (var entityHandler in targetEntity)
         {
             if ((entityHandler.ID == attacker.ID || entityHandler.ID == attacker.handler.SpawnSource.SpawnerID) && !CanAttackSpawnerOrSpawnerOwner)
             {
-                continue;
+                return;
             }
             attacker.Attack(entityHandler);
         }
         base.ProcessFrame(playable, info, playerData);
     }
-    
 }

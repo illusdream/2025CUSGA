@@ -13,7 +13,6 @@ public class BigDrill : BaseRandomEvent<BigDrillConfig>
         foreach (var playerController in CharacterManager.Instance.GetAllPlayers())
         {
             playerController.CurrenctDigAsset = Config.BigTrillDigAsset;
-            playerController.ShouldImmaditeStopDig = true;
         }
     }
 
@@ -31,7 +30,6 @@ public class BigDrill : BaseRandomEvent<BigDrillConfig>
     {
         foreach (var playerController in CharacterManager.Instance.GetAllPlayers())
         {
-            playerController.ShouldImmaditeStopDig = true;
             playerController.CurrenctDigAsset =playerController.DefaultDigAsset;
         }
     }

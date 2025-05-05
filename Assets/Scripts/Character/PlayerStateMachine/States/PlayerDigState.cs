@@ -38,7 +38,7 @@ public class PlayerDigState : BasePlayerState
         {
             if (actionDirector.ControlTrackHandler.clipType == EControlClipType.LoopByCondition)
             {
-                var Digging = PlayerController.playerInputHandler.DigTile._trackedAction.IsPressed() && !PlayerController.ShouldImmaditeStopDig;
+                var Digging = PlayerController.playerInputHandler.DigTile._trackedAction.IsPressed();
                 actionDirector.ControlTrackHandler.SetLoop(Digging);
             }
         }
@@ -53,7 +53,6 @@ public class PlayerDigState : BasePlayerState
 
     public override void OnExit()
     {
-        PlayerController.ShouldImmaditeStopDig = false;
         //播动画
         if (EntityHandler.TryGetComponet(EntityComponetUsage.ActionDirector,out BaseActionDirector actionDirector))
         {
