@@ -41,6 +41,9 @@ public class GamePlay_EndProcedure : ProcedureNode
         
         RandomEventManager.Instance.StopGameCommonRandomEventCycle();
         TileManager.Instance.StopFillRandomRange();
+
+        VisualEffectManager.Instance.ClearAllVisualEffectPools();
+        
         base.OnExit();
     }
 

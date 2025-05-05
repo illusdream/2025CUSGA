@@ -329,8 +329,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 34
-  orthographic: 1
+  field of view: 90
+  orthographic: 0
   orthographic size: 8
   m_Depth: -1
   m_CullingMask:
@@ -356,7 +356,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 8, z: -17.239424}
+  m_LocalPosition: {x: 8, y: 8, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -414,8 +414,10 @@ MonoBehaviour:
   vector2Int3: {x: 13, y: 3}
   vector2Int4: {x: 15, y: 4}
   playerController: {fileID: 0}
-  ePropType1: 14
-  ePropType2: 5
+  ePropType1: 0
+  ePropType2: 2
+  waitTime: 10
+  isRarn: 0
 --- !u!1 &535908260
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +535,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000bd6d432501b4ebc1c703636bbbae6fa3b7eec4b059ff62ee
+  m_ApplyToSortingLayers: 00000000bd6d432501b4ebc1c703636bbbae6fa3b7eec4b059ff62ee1d1cde563725ad61
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -777,7 +779,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 34
+    FieldOfView: 90
     OrthographicSize: 8
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -804,7 +806,7 @@ Transform:
   m_GameObject: {fileID: 1345592708}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 8, z: -17.239424}
+  m_LocalPosition: {x: 8, y: 8, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -51,6 +51,15 @@ public class EnergyAddVE : BaseVisualEffectPool<EnergyAddVEConfig>
         pool.OnDestroy();
     }
 
+    public override void Clear()
+    {
+        var aoS = pool.GetActiveObjects().ToArray();
+        foreach (var activeObject in aoS)
+        {
+            ReleasePool(activeObject);
+        }
+    }
+
     public void TryEmittingVE(Vector2 center, Vector2 size, Vector2 velocityRange, float TotalEnergy, int playerID)
     {
         float energyNeedEmtting = TotalEnergy;
