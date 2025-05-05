@@ -20,6 +20,7 @@ public abstract class BaseVisualEffectPool
         
         public abstract void PoolOnDestroy();
         
+        public abstract void ClearPool();
 }
 
 public abstract class BaseVisualEffectPool<T> : BaseVisualEffectPool where T : BaseVisualEffectConfig, new()

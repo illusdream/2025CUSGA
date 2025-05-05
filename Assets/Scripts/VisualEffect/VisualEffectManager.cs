@@ -89,4 +89,12 @@ public class VisualEffectManager : ManagerSingleton<VisualEffectManager>,IManage
         ;
     }
 
+    public void ClearAllVisualEffectPools()
+    {
+        foreach (var value in visualEffectPools.Values)
+        {
+            value.ClearPool();
+        }
+    }
+    
 }

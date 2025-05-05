@@ -73,11 +73,17 @@ public class GamePlay_GuidelinesProcedure : SubProcedureSwitcher
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameRestart, EventArgs.Empty);
 
         ChangeProcedureNode<GamePlay_GuidelinesInitProcedure>();
+        
+        RandomEventManager.Instance.StopGameCommonRandomEventCycle();
+        VisualEffectManager.Instance.ClearAllVisualEffectPools();
     }
 
     private void Listener_OrderToSwitchToMainMenu(EventArgs args)
     {
-
+        TileManager.Instance.StopFillRandomRange();
+        RandomEventManager.Instance.StopGameCommonRandomEventCycle();
+        VisualEffectManager.Instance.ClearAllVisualEffectPools();
+        
         ChangeState<StartMenuProcedure>();
     }
     private void Listener_OrderToGuidelinesScene(EventArgs args)
