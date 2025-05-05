@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 2621820849347564906}
   - component: {fileID: 7879732865397588451}
   - component: {fileID: 7351164128785193914}
+  - component: {fileID: 7726586128174697769}
+  - component: {fileID: 7900324028721180322}
+  - component: {fileID: 7581151291547113311}
   m_Layer: 12
   m_Name: RCBomb
   m_TagString: Untagged
@@ -79,6 +82,10 @@ MonoBehaviour:
       Value: {fileID: 7879732865397588451}
     - Key: TileHandler
       Value: {fileID: 7351164128785193914}
+    - Key: Moveable
+      Value: {fileID: 7726586128174697769}
+    - Key: Buff
+      Value: {fileID: 7900324028721180322}
 --- !u!320 &763671797338915490
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -145,6 +152,63 @@ MonoBehaviour:
   handler: {fileID: 0}
   DamageToTile: 0
   currentHasTile: 0
+--- !u!114 &7726586128174697769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239875855849931286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abc83344d824019a03dff2564c28142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+  rigidbody2D: {fileID: 7581151291547113311}
+  MaxSpeed: 0
+  Acceleration: 0
+--- !u!114 &7900324028721180322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239875855849931286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449517aa674a424ea711b00b5f38d653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+  IgnoreBuffTag: 0
+--- !u!50 &7581151291547113311
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239875855849931286}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4657642631470054771
 GameObject:
   m_ObjectHideFlags: 0
