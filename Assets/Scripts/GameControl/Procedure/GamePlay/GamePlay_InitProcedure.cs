@@ -38,12 +38,13 @@ public class GamePlay_InitProcedure : ProcedureNode
         UIManager.Instance.GetUIPanel<InHouseUI>().Open();
         TileManager.Instance.InitTileHandlers();
         TileManager.Instance.GenerateTiles();
-        TileManager.Instance.StartFillRandomRange();
+
         CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);
- 
-        RandomEventManager.Instance.StartGameCommonRandomEventCycle();
-        
         UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
+        
+        SetRandomSelectConfig();
+        StartAllRandomEvent();
+        
         await UniTask.Delay(TimeSpan.FromSeconds(fadeOutDuration), DelayType.Realtime);
         
         ChangeState<GamePlay_PlayerObserveProcedure>();
@@ -79,5 +80,17 @@ public class GamePlay_InitProcedure : ProcedureNode
     public LevelSetting FindLevelSetting()
     {
        return GameObject.Find(LevelSetting.LevelSettingGOName).GetComponent<LevelSetting>();
+    }
+
+    private void SetRandomSelectConfig()
+    {
+        CharacterManager.Instance.SetRandomSelectedPropForPlayer(GameManager.Instance.Player1_RandomSelectedProps, GameManager.Instance.Player2_RandomSelectedProps);
+        RandomEventManager.Instance.SetCurrentRandomSelectList(GameManager.Instance.LevelRandomSelectedEvents);
+    }
+
+    private void StartAllRandomEvent()
+    {
+        TileManager.Instance.StartFillRandomRange();
+        RandomEventManager.Instance.StartGameCommonRandomEventCycle();
     }
 }

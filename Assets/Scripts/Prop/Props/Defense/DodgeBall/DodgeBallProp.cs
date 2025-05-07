@@ -17,7 +17,11 @@ namespace Props
 
         public void ApplyEffect(EntityHandler handler)
         {
-            handler.transform.position = new Vector3((0,16).RandomRange(), (0,16).RandomRange());
+            var mapsize = TileManager.Instance.GetTileMapSize();
+            float offest = 0.5f;
+            var halfWidth = mapsize.width / 2f -offest;
+            var halfHeight = mapsize.height / 2f -offest;
+            handler.transform.position = new Vector3((mapsize.center.x - halfWidth,mapsize.center.x + halfWidth).RandomRange(), (mapsize.center.y - halfHeight,mapsize.center.y + halfHeight).RandomRange());
         }
     }
 }

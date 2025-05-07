@@ -41,4 +41,4 @@ MonoBehaviour:
       Value: 8
   AutoBuildOrUpdateSingleRandomEventConfigs: 1
   RandomEventInterval: 30
-  BeRandomSelectRandomEvent: 00000000
+  BeRandomSelectRandomEvent: 0000000001000000020000000400000005000000060000000700000008000000

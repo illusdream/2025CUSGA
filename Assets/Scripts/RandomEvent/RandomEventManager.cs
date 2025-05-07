@@ -231,6 +231,11 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
         RandomSelectList = randomEventConfig.BeRandomSelectRandomEvent;
     }
 
+    public List<ERandomEventType> GetDefaultRandomSelectList()
+    {
+        return randomEventConfig.BeRandomSelectRandomEvent.ToList();
+    }
+
     public bool TryGetRandomEventConfig(Type targetType, out BaseRandomEventConfig config)
     {
         return randomEventConfigs.TryGetValue(targetType, out config);

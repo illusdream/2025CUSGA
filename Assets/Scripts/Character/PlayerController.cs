@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ilsFramework;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
@@ -47,7 +49,7 @@ public class PlayerController : EntityComponent
 
         public Color PlayerColor;
 
- 
+        public List<EPropType> CanBeSelectedRandomProps;
         
         public void Initialize(int playerID)
         {
@@ -111,7 +113,7 @@ public class PlayerController : EntityComponent
                 {
                         while (playerEnergyContainer.CurrentEnergy >= EnergyCanBeComeProp && !playerPropContainer.IsFullProp())
                         {
-                                playerPropContainer.TryInputProp(PropManager.Instance.CreateRandomProp());
+                                playerPropContainer.TryInputProp(PropManager.Instance.CreateTargetProp(GetPlayerNextRandomProp()));
                                 playerEnergyContainer.CumsumEnergy(EnergyCanBeComeProp);  
                         }
                 }
@@ -202,6 +204,23 @@ public class PlayerController : EntityComponent
                         stateMachine.ChangeState<PlayerInBlackHoleState>();
                 }
         }
-
+        
         #endregion
+        
+        public EPropType GetPlayerNextRandomProp()
+        {
+                CheckBeSelectedRandomPropsListValid();
+                return CanBeSelectedRandomProps.Shuffle().First();
+        }
+
+        private void CheckBeSelectedRandomPropsListValid()
+        {
+                //防止没有默认情况出错
+                CanBeSelectedRandomProps ??= PropManager.Instance.GetDefaultBeSelectRandomPropList();
+        }
+
+        public void SetBeSelectedRandomProps(List<EPropType> propType)
+        {
+                CanBeSelectedRandomProps = propType.ToList();
+        }
 }

@@ -142,6 +142,12 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         }
     }
 
+    public void SetRandomSelectedPropForPlayer(List<EPropType> player1Props, List<EPropType> player2Props)
+    {
+        Player1Controller?.SetBeSelectedRandomProps(player1Props);
+        Player2Controller?.SetBeSelectedRandomProps(player2Props);
+    }
+    
     public void SetAllPlayerCanBeControlled(bool canBeControlled)
     {
         foreach (var playerController in GetAllPlayers())

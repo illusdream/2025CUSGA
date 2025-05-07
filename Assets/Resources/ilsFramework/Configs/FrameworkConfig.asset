@@ -26,6 +26,7 @@ MonoBehaviour:
   - Value: PropConfig
   - Value: UIConfig
   - Value: VisualEffectConfig
+  - Value: RandomEventConfig
   ManagersUpdateSort:
   - Value: ilsFramework.MonoManager
   - Value: ilsFramework.AssetManager
@@ -45,7 +46,8 @@ MonoBehaviour:
   - Value: ilsFramework.NBTManager
   - Value: ilsFramework.SceneHandler
   - Value: ilsFramework.AudioManager
-  - Value: GameManager
   - Value: BuffManager
   - Value: ScreenManager
   - Value: VisualEffectManager
+  - Value: RandomEventManager
+  - Value: GameManager

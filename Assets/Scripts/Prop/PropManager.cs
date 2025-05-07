@@ -112,6 +112,10 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
         return CreateTargetProp(propEnum_TypeMap.GetRight(randomResult));
     }
 
+    public List<EPropType> GetDefaultBeSelectRandomPropList()
+    {
+        return propsConfig.BeRandomSelectProps.ToList();
+    }
 
     public void SetRandomSelectList(List<EPropType> types)
     {
