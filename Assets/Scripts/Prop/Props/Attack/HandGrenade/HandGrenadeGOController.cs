@@ -20,6 +20,8 @@ namespace Props
 
         public HandGrenadePropConfig Config;
 
+        public float BombScale;
+        
         public override void OnInitialized(EntityHandler handler)
         {
 
@@ -41,6 +43,10 @@ namespace Props
 
         private void ActionDirectorOnonStopped(BaseActionDirector obj)
         {
+            if (VisualEffectManager.Instance.TryGetVisualEffectPool(out ExplosionVE ve))
+            {
+                ve.TryEmittingVE(transform.position,Vector2.one *BombScale); 
+            }
             Destroy(gameObject);
         }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnergyBladePropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.EnergyBladeProp
-  PropSprite: {fileID: 21300000, guid: 7d17c3256d7e7794d85cc9bed6bb486b, type: 3}
+  PropSprite: {fileID: 21300000, guid: 2d709de3b26537f4698ef48ae9cdca5f, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: fce6e42a124368a4cb38c62d49f4b1cf, type: 2}
   PropCanUseCount: 3

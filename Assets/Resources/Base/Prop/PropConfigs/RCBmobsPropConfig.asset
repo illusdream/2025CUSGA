@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RCBmobsPropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.RCBombsProp
-  PropSprite: {fileID: 21300000, guid: 2ab9ac490b8c6f1409ea1787b145956c, type: 3}
+  PropSprite: {fileID: 21300000, guid: 518e8aa0347555c41915fa4ba323f4b8, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: f2d743949657b2043a569dd51754d356, type: 2}
   PropCanUseCount: 1

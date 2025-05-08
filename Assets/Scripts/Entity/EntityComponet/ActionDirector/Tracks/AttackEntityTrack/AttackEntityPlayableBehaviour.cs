@@ -32,7 +32,7 @@ public class AttackEntityPlayableBehaviour : PlayableBehaviour
         {
             if ((entityHandler.ID == attacker.ID || entityHandler.ID == attacker.handler.SpawnSource.SpawnerID) && !CanAttackSpawnerOrSpawnerOwner)
             {
-                return;
+                continue;
             }
             attacker.Attack(entityHandler);
         }

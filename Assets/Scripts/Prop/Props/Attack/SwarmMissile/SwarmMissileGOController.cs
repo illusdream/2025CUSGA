@@ -80,7 +80,10 @@ namespace Props
                 Director.Play(config.AttackTimeline);
                 Director.onStopped += DirectorOnonStopped;
                 //
-                
+                if (VisualEffectManager.Instance.TryGetVisualEffectPool(out ExplosionVE ve))
+                {
+                    ve.TryEmittingVE(transform.position);
+                }
                 //放动画，并造成伤害
             }
             

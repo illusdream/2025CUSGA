@@ -26,7 +26,8 @@ namespace Props
         TimerCollection timerCollection;
 
         private const string Timer_ToBmob = "TimerToBmob";
-        
+
+        public float BombScale;
         public void Start()
         {
             timerCollection = new TimerCollection();
@@ -53,6 +54,10 @@ namespace Props
 
         private void CommenActionDirectorOnonStopped(BaseActionDirector obj)
         {
+            if (VisualEffectManager.Instance.TryGetVisualEffectPool(out ExplosionVE ve))
+            {
+                ve.TryEmittingVE(transform.position,Vector2.one *BombScale); 
+            }
             Destroy(gameObject);
             Container.RemoveProp(controllerInstance);
         }

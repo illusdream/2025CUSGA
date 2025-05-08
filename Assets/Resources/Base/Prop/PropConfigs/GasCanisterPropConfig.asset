@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GasCanisterPropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.GasCanisterProp
-  PropSprite: {fileID: 21300000, guid: b6dbc3d89c80be34ebba4f7202975661, type: 3}
+  PropSprite: {fileID: 21300000, guid: e10f9027711e0f94bbf0b64943b0105f, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: 2359007bb5748a547ad4bfb999a0f4de, type: 2}
   PropCanUseCount: 1

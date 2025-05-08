@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GammaGuilderPropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.GammaGuilderProp
-  PropSprite: {fileID: 21300000, guid: 55b3120a6ac9db24c9d8bd670ccabde1, type: 3}
+  PropSprite: {fileID: 21300000, guid: 1a350fb3cdd87c24ca0b4affda220da4, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: 33824b42b9c8319409bce1a65210fa05, type: 2}
   PropCanUseCount: 1

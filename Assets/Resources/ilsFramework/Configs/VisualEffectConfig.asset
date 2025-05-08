@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisualEffectPoolConfigs:
   - {fileID: 11400000, guid: 9d39b847fe88a2548b034d16009acc48, type: 2}
-  AutoBuildOrUpdateSingleBuffConfigs: 1
+  - {fileID: 11400000, guid: d1e444d6a891b69459ba44514119a5eb, type: 2}
+  AutoBuildOrUpdateSingleBuffConfigs: 0

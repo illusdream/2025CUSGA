@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LaserGunPropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.LaserGunProp
-  PropSprite: {fileID: 21300000, guid: 5a078b5ba8a388b4d9572d3f279c4b57, type: 3}
+  PropSprite: {fileID: 21300000, guid: 1bb04d8af8b6b364598b1efbe30afa0a, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: 8f15c2213d940f543a89351d48afe175, type: 2}
   PropCanUseCount: 1

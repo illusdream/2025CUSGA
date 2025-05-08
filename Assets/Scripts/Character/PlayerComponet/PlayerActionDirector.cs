@@ -4,6 +4,8 @@ public class PlayerActionDirector : BaseActionDirector
 {
     public Animator animator;
     RuntimeAnimatorController animatorController;
+
+    public bool CanSkip = false;
     public override void Start()
     {
         onStarted += OnonStarted;
@@ -15,6 +17,7 @@ public class PlayerActionDirector : BaseActionDirector
     {
         
         animator.runtimeAnimatorController = animatorController;
+        CanSkip = false;
     }
 
     private void OnonStarted(BaseActionDirector obj)
@@ -25,6 +28,6 @@ public class PlayerActionDirector : BaseActionDirector
 
     public override bool CanPlay()
     {
-        return !isPlaying;
+        return !isPlaying || CanSkip;
     }
 }

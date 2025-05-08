@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HandGrenadePropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.HandGrenadeProp
-  PropSprite: {fileID: 21300000, guid: 22e04bb18c2c4e646aabcd94ecd78321, type: 3}
+  PropSprite: {fileID: 21300000, guid: 461759fbf0dc6924c843f88f4458107f, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: efd8c9a71b1aab1438b5147a1c0b0e3b, type: 2}
   PropCanUseCount: 1
