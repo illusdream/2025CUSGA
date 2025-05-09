@@ -416,7 +416,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   ePropType1: 14
   ePropType2: 5
-  waitTime: 10
+  waitTime: 15
   isRarn: 0
 --- !u!1 &535908260
 GameObject:

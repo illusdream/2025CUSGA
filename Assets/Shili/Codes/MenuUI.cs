@@ -34,7 +34,7 @@ public class MenuUI : UIPanel
     }
     private void OnSatrtGame()
     {
-        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame,EventArgs.Empty);
+        UIManager.Instance.GetUIPanel<ChoiceModeUI>().Open();
     }
     private void OnOpenSetting()
     {
