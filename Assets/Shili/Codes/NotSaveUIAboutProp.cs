@@ -1,52 +1,26 @@
 using ilsFramework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Normal, 1, true, EAssetLoadMode.Resources, "Prefab/Shili/ChoiceMode")]
-public class ChoiceModeUI : UIPanel
+[UIPanelSetting(EUILayer.Normal, 6, true, EAssetLoadMode.Resources, "Prefab/Shili/NotSaveUIAboutProp")]
+public class NotSaveUIAboutProp : UIPanel
 {
+    private bool save;
     private Dictionary<RectTransform, bool> _panelLockStates;
     private bool ilsBool;
     [AutoUIElement("Panel")]
     private GameObject panel;
-    [AutoUIElement("Panel/GameObject/NormalMode")]
-    private Button normalModeButton;
-    [AutoUIElement("Panel/GameObject/CustomMode")]
-    private Button customModeButton;
-    [AutoUIElement("Panel/Back")]
+    [AutoUIElement("Panel/GameObject/Back")]
     private Button backButton;
+    [AutoUIElement("Panel/GameObject/SaveAndBack")]
+    private Button saveAndBackButton;
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        normalModeButton.onClick.AddListener(OnNormalModeGame);
-        customModeButton.onClick.AddListener(OnCustomModeGame);
-        backButton.onClick.AddListener(Close);
+        backButton.onClick.AddListener(OnClose);
+        saveAndBackButton.onClick.AddListener(OnSaveAndBackButton);
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
-    }
-    private void OnNormalModeGame()
-    {
-        if (!ilsBool)
-        {
-            ilsBool = true;
-            base.Close();
-        }
-        else
-        {
-            if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
-            {
-                return;
-            }
-            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
-            Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
-        }
-    }
-    private void OnCustomModeGame()
-    {
-        Close();
-        UIManager.Instance.GetUIPanel<CustomRoomUI>().Open();
     }
     public override void Open()
     {
@@ -71,9 +45,19 @@ public class ChoiceModeUI : UIPanel
             {
                 return;
             }
-
+            if (save) UIManager.Instance.GetUIPanel<PropsPoolUI>().OnSave();
             Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
         }
 
+    }
+    private void OnSaveAndBackButton()
+    {
+        save = true;
+        Close();
+    }
+    private void OnClose()
+    {
+        save = false;
+        Close();
     }
 }

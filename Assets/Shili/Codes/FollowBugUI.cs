@@ -1,52 +1,22 @@
 using ilsFramework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-[UIPanelSetting(EUILayer.Normal, 1, true, EAssetLoadMode.Resources, "Prefab/Shili/ChoiceMode")]
-public class ChoiceModeUI : UIPanel
+[UIPanelSetting(EUILayer.Normal, 5, true, EAssetLoadMode.Resources, "Prefab/Shili/FollowBugUI")]
+public class FollowBugUI : UIPanel
 {
     private Dictionary<RectTransform, bool> _panelLockStates;
     private bool ilsBool;
     [AutoUIElement("Panel")]
     private GameObject panel;
-    [AutoUIElement("Panel/GameObject/NormalMode")]
-    private Button normalModeButton;
-    [AutoUIElement("Panel/GameObject/CustomMode")]
-    private Button customModeButton;
-    [AutoUIElement("Panel/Back")]
+    [AutoUIElement("Panel/Image/Back")]
     private Button backButton;
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        normalModeButton.onClick.AddListener(OnNormalModeGame);
-        customModeButton.onClick.AddListener(OnCustomModeGame);
         backButton.onClick.AddListener(Close);
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
-    }
-    private void OnNormalModeGame()
-    {
-        if (!ilsBool)
-        {
-            ilsBool = true;
-            base.Close();
-        }
-        else
-        {
-            if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
-            {
-                return;
-            }
-            GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
-            Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
-        }
-    }
-    private void OnCustomModeGame()
-    {
-        Close();
-        UIManager.Instance.GetUIPanel<CustomRoomUI>().Open();
     }
     public override void Open()
     {
