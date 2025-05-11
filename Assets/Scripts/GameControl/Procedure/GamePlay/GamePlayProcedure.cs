@@ -79,7 +79,10 @@ public class GamePlayProcedure : SubProcedureSwitcher
 
     private void Listener_OrderToSwitchToMainMenu(EventArgs args)
     {
+        TileManager.Instance.StopFillRandomRange();
         
+        RandomEventManager.Instance.StopGameCommonRandomEventCycle();
+        VisualEffectManager.Instance.ClearAllVisualEffectPools();
         ChangeState<StartMenuProcedure>();
     }
 }
