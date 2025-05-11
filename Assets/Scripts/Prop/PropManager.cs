@@ -109,6 +109,7 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
 
     public BaseProp CreateTargetProp(Type type)
     {
+        _ = "11";
         BaseProp baseProp = Activator.CreateInstance(type) as BaseProp;
         if (baseProp != null && TryGetPropConfig<BasePropConfig>(type, out var propConfig))
         {
