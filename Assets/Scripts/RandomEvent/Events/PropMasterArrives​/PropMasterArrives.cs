@@ -16,7 +16,7 @@ public class PropMasterArrives : BaseRandomEvent<PropMasterArrivesConfig>
         {
             if (playerController.handler.TryGetComponet(EntityComponetUsage.EnergyContainer,out PlayerEnergyContainer container))
             {
-                container.AddEnergy(playerController.EnergyCanBeComeProp * Config.AddPropCount);
+                container.AddEnergy(playerController.CurrentEnergyCanBeComeProp * Config.AddPropCount);
             }
         }
     }

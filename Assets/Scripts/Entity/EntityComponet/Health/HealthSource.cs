@@ -86,4 +86,14 @@ public class HealthSource : IHitable
         {
                 CurrentHealth += value;
         }
+
+        public virtual void SetMaxHealth(float value)
+        {
+                CurrentMaxHealth = value;
+        }
+
+        public virtual void SetCurrentHealth(float value)
+        {
+                CurrentHealth = value;
+        }
 }

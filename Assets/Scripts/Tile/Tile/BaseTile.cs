@@ -90,6 +90,8 @@ public abstract class BaseTile : IHitable
         MaxHealth = baseMaxHealth;
         CurrentHealth = MaxHealth;
     }
+    
+    
 
     public virtual void SetupBaseRenderAndColliderData()
     {
@@ -172,5 +174,10 @@ public abstract class BaseTile : IHitable
     {
         return CurrentColliderType;
     }
-    
+
+    public virtual void OverrideTileHealth(float health)
+    {
+        Health = health;
+        MaxHealth = health;
+    }
 }

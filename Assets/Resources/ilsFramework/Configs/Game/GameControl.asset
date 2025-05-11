@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnableCommenProcedure: 1
   ObservePlayerTimeWhenStarted: 3
+  MaxHealth: 100
+  StartedHealth: 100
+  EnergyCanBeComeProp: 50
+  StartHasBlockCount: 0
+  PlayerTileHealth: 10
+  CommonTileHealth: 100

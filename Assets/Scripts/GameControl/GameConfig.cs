@@ -15,4 +15,15 @@ public class GameControlConfig : ConfigScriptObject
     [LabelText("观察时间")]
     public float ObservePlayerTimeWhenStarted;
     
+    public int MaxHealth;
+    
+    public int StartedHealth;
+    
+    public int EnergyCanBeComeProp;
+
+    public int StartHasBlockCount;
+    
+    public int PlayerTileHealth;
+    
+    public int CommonTileHealth;
 }

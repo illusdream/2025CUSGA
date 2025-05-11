@@ -12,22 +12,22 @@ using UnityEngine.InputSystem;
 public class GuidelinesSceneInit : MonoBehaviour
 {
     private MainInputAction inputActions;
-    [Header("½×¶ÎÒ»")]
+    [Header("ï¿½×¶ï¿½Ò»")]
     public bool one;
     public ChangeSomeKeyInGuideScene changeSomeKeyInGuideScene;
     public int codes = 2;
     BaseTile tile1;
     BaseTile tile2;
-    [Header("½×¶ÎÈý")]
+    [Header("ï¿½×¶ï¿½ï¿½ï¿½")]
     public Vector2Int vector2Int3;
-    [Header("½×¶ÎËÄ")]
+    [Header("ï¿½×¶ï¿½ï¿½ï¿½")]
     public Vector2Int vector2Int4;
-    [Header("½×¶Î°Ë")]
+    [Header("ï¿½×¶Î°ï¿½")]
     public PlayerController playerController;
     public EPropType ePropType1;
     public EPropType ePropType2;
     private float originalEnergy;
-    [Header("½×¶ÎÊ®Ò»")]
+    [Header("ï¿½×¶ï¿½Ê®Ò»")]
     public float waitTime=10f;
     public bool isRarn;
     private string RarnID;
@@ -100,8 +100,8 @@ public class GuidelinesSceneInit : MonoBehaviour
         if(playerSpawnEventArgs.PlayerID == 1)
         {
             playerController = playerSpawnEventArgs.Controller;
-            originalEnergy = playerController.EnergyCanBeComeProp;
-            playerController.EnergyCanBeComeProp = 99999f;
+            originalEnergy = playerController.CurrentEnergyCanBeComeProp;
+            playerController.CurrentEnergyCanBeComeProp = 99999f;
             playerController.gameObject.GetComponent<PlayerHealth>().healthSources[EHealthSourceType.Life].AddValue(899);
         }
         if(playerSpawnEventArgs.PlayerID == 2)
@@ -111,10 +111,10 @@ public class GuidelinesSceneInit : MonoBehaviour
     }
     public void ResomeEnergy()
     {
-        playerController.EnergyCanBeComeProp = originalEnergy;
+        playerController.CurrentEnergyCanBeComeProp = originalEnergy;
     }
     /// <summary>
-    /// ¸øÍæ¼ÒµÀ¾ß
+    /// ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½
     /// </summary>
     public void GivePlayerProp()
     {
@@ -122,7 +122,7 @@ public class GuidelinesSceneInit : MonoBehaviour
         playerController.TestProp(ePropType2);
     }
     /// <summary>
-    /// ÔÉÊ¯Óê
+    /// ï¿½ï¿½Ê¯ï¿½ï¿½
     /// </summary>
     public void Rain()
     {

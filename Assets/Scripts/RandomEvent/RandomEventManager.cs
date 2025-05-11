@@ -235,10 +235,22 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
     {
         return randomEventConfig.BeRandomSelectRandomEvent.ToList();
     }
+    
+    
 
     public bool TryGetRandomEventConfig(Type targetType, out BaseRandomEventConfig config)
     {
         return randomEventConfigs.TryGetValue(targetType, out config);
     }
 
+    public bool TryGetRandomEventConfig(ERandomEventType targetType, out BaseRandomEventConfig config)
+    {
+        config = null;
+        return  randomEventType_TypeMap.TryGetRight(targetType,out var classType) && randomEventConfigs.TryGetValue(classType, out config);
+    }
+    
+    public List<ERandomEventType> GetAllRandomEvent()
+    {
+        return  new List<ERandomEventType>(Enum.GetValues(typeof(ERandomEventType)).OfType<ERandomEventType>());
+    }
 }

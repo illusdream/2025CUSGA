@@ -34,6 +34,11 @@ public class PropConfig : ConfigScriptObject
     [ListDrawerSettings(DraggableItems = false)]
     public List<EPropType> BeRandomSelectProps;
 
+    
+    
+    [ValueDropdown("GetAllPropTypes")]
+    [ListDrawerSettings(DraggableItems = false)]
+    public List<EPropType> AllCanBeSelectProps;
     public List<EPropType> GetAllPropTypes()
     {
         return new List<EPropType>(Enum.GetValues(typeof(EPropType)).OfType<EPropType>());

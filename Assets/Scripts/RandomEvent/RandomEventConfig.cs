@@ -167,4 +167,5 @@ public class RandomEventConfig : ConfigScriptObject
     {
         return RandomEventIDsMap.TryGetValue(typeName, out propID);
     }
+
 }

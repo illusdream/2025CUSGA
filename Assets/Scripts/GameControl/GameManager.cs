@@ -21,13 +21,29 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
     public List<EPropType> Player2_RandomSelectedProps { get; private set; }
     
     public List<ERandomEventType> LevelRandomSelectedEvents { get; private set; }
+
+    public int Player1_StartedHealth;
+    public int Player2_StartedHealth;
     
+    public int Player1_MaxHealth;
+    public int Player2_MaxHealth;
+
+    public int Player1_EnergyCanBeComeProp;
+    public int Player2_EnergyCanBeComeProp;
+
+    public int Player1StartHasBlockCount;
+    public int Player2StartHasBlockCount;
+
+    public float RefreshTileEmptyInterval;
+
+    public int PlayerTileHealth;
     
+    public int CommonTileHealth;
     public void Init()
     {
         gameControlConfig = Config.GetConfig<GameControlConfig>();
         
-        InitDefaultConfigs();
+        SetDefaultConfigs();
 
         InitGameProcedureStateMachine();
     }
@@ -114,11 +130,28 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
     }
 
 
-    private void InitDefaultConfigs()
+    private void SetDefaultConfigs()
     {
         Player1_RandomSelectedProps = PropManager.Instance.GetDefaultBeSelectRandomPropList();
         Player2_RandomSelectedProps = PropManager.Instance.GetDefaultBeSelectRandomPropList();
         LevelRandomSelectedEvents = RandomEventManager.Instance.GetDefaultRandomSelectList();
+        
+        Player1_MaxHealth = gameControlConfig.MaxHealth;
+        Player2_MaxHealth = gameControlConfig.MaxHealth;
+        
+        Player1_StartedHealth = gameControlConfig.StartedHealth;
+        Player2_StartedHealth = gameControlConfig.StartedHealth;
+        
+        Player1_EnergyCanBeComeProp = gameControlConfig.EnergyCanBeComeProp;
+        Player2_EnergyCanBeComeProp = gameControlConfig.EnergyCanBeComeProp;
+        
+        Player1StartHasBlockCount = gameControlConfig.StartHasBlockCount;
+        Player2StartHasBlockCount = gameControlConfig.StartHasBlockCount;
+
+        RefreshTileEmptyInterval = Config.GetConfig<TileManagerConfig>().RefreshEmptyInterval;
+        
+        CommonTileHealth = gameControlConfig.CommonTileHealth;
+        PlayerTileHealth = gameControlConfig.PlayerTileHealth;
     }
     
     public void SetPlayer1_RandomSelectedProps(List<EPropType> propTypes)

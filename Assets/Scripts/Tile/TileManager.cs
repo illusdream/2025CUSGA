@@ -62,6 +62,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
     public bool GameLogicRunning { get;private set; }
     
     public TilePRHandler TilePRHandler { get; private set; }
+
+    public float CurrentRefreshEmptyInterval;
+    
+    public Dictionary<Type,float> TileHealthOverrideDictionary;
     
     public void Init()
     {
@@ -84,6 +88,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         timerCollection = new TimerCollection();
         
         TilePRHandler = ScriptableObject.CreateInstance<TilePRHandler>();
+        TileHealthOverrideDictionary = new Dictionary<Type, float>();
     }
     
     public void ForeachCurrentAssembly(Type[] types)
@@ -548,6 +553,10 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             tile.Position = position;
             tile.tileHandler = handler;
             tile.Initialize(tileProperty);
+            if (TileHealthOverrideDictionary.TryGetValue(type,out var value))
+            {
+                tile.OverrideTileHealth(value);
+            }
             tiles[position.x, position.y] = tile;
             tile.OnSpawn();
             tileInstance = tile;
@@ -1039,7 +1048,7 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
         if (!FreshOneEmptyRange)
         {
             timerCollection
-                .CreateTimer(_managerConfig.RefreshEmptyInterval, -1, FreshIntervelTimer)
+                .CreateTimer(CurrentRefreshEmptyInterval, -1, FreshIntervelTimer)
                 .SetOnCompleted(FillTile)
                 .Register();
         }

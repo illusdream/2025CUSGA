@@ -88,6 +88,24 @@ public class PropManager : ManagerSingleton<PropManager>,IManager,IAssemblyForea
         propConfig = null;
         return false;
     }
+    
+    public bool TryGetPropConfig<T>(EPropType type, out T propConfig) where T : BasePropConfig
+    {
+        if (propEnum_TypeMap.TryGetRight(type,out var classType) &&propConfigs.TryGetValue(classType, out var basePropConfig) && basePropConfig is T _propConfig)
+        {
+            propConfig = _propConfig;
+            return true;
+        }
+
+        propConfig = null;
+        return false;
+    }
+
+    public List<EPropType> GetAllEPropTypes()
+    {
+        return propsConfig.AllCanBeSelectProps.ToList();
+    }
+    
 
     public BaseProp CreateTargetProp(Type type)
     {

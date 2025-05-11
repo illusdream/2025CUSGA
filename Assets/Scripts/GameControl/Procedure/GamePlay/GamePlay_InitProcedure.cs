@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using ilsFramework;
+using Tiles;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,12 +37,15 @@ public class GamePlay_InitProcedure : ProcedureNode
         
         //先加载一下就好了
         UIManager.Instance.GetUIPanel<InHouseUI>().Open();
+        SetTileHealthOverride();
         TileManager.Instance.InitTileHandlers();
         TileManager.Instance.GenerateTiles();
 
         CharacterManager.Instance.InitAllPlayers(levelSetting.Player1SpawnTransform, levelSetting.Player2SpawnTransform);
         UIManager.Instance.GetUIPanel<UI_SystemFadeHandler>().FadeOut(out var fadeOutDuration);
         
+        SetPlayerValues();
+
         SetRandomSelectConfig();
         StartAllRandomEvent();
         
@@ -88,8 +92,28 @@ public class GamePlay_InitProcedure : ProcedureNode
         RandomEventManager.Instance.SetCurrentRandomSelectList(GameManager.Instance.LevelRandomSelectedEvents);
     }
 
+    private void SetPlayerValues()
+    {
+        CharacterManager.Instance.Player1Controller.SetCurrentHealth(GameManager.Instance.Player1_StartedHealth);
+        CharacterManager.Instance.Player1Controller.SetCurrentMaxHealth(GameManager.Instance.Player1_MaxHealth);
+        CharacterManager.Instance.Player1Controller.SetEnergyToPropValue(GameManager.Instance.Player1_EnergyCanBeComeProp);
+        CharacterManager.Instance.Player1Controller.SetCurrentHasTile(GameManager.Instance.Player1StartHasBlockCount);
+        
+        CharacterManager.Instance.Player2Controller.SetCurrentHealth(GameManager.Instance.Player2_StartedHealth);
+        CharacterManager.Instance.Player2Controller.SetCurrentMaxHealth(GameManager.Instance.Player2_MaxHealth);
+        CharacterManager.Instance.Player2Controller.SetEnergyToPropValue(GameManager.Instance.Player2_EnergyCanBeComeProp);
+        CharacterManager.Instance.Player2Controller.SetCurrentHasTile(GameManager.Instance.Player2StartHasBlockCount);
+    }
+
+    private void SetTileHealthOverride()
+    {
+        TileManager.Instance.TileHealthOverrideDictionary[typeof(CommonTile)] = GameManager.Instance.CommonTileHealth;
+        TileManager.Instance.TileHealthOverrideDictionary[typeof(Tiles.CharactorTile)] = GameManager.Instance.PlayerTileHealth;
+    }
+    
     private void StartAllRandomEvent()
     {
+        TileManager.Instance.CurrentRefreshEmptyInterval = GameManager.Instance.RefreshTileEmptyInterval;
         TileManager.Instance.StartFillRandomRange();
         RandomEventManager.Instance.StartGameCommonRandomEventCycle();
     }

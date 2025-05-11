@@ -25,7 +25,7 @@ public class PlayerController : EntityComponent
         [ShowInInspector]
         public int PlayerID { get;private set; }
 
-        public float EnergyCanBeComeProp =100;
+        [FormerlySerializedAs("EnergyCanBeComeProp")] public float CurrentEnergyCanBeComeProp =100;
         
         public bool CanBeControlled { get;private set; }
         [ShowInInspector]
@@ -111,10 +111,10 @@ public class PlayerController : EntityComponent
                 if (handler.TryGetComponet(EntityComponetUsage.EnergyContainer,out PlayerEnergyContainer playerEnergyContainer)
                     && handler.TryGetComponet(EntityComponetUsage.PropContainer,out BasePropContainer playerPropContainer))
                 {
-                        while (playerEnergyContainer.CurrentEnergy >= EnergyCanBeComeProp && !playerPropContainer.IsFullProp())
+                        while (playerEnergyContainer.CurrentEnergy >= CurrentEnergyCanBeComeProp && !playerPropContainer.IsFullProp())
                         {
                                 playerPropContainer.TryInputProp(PropManager.Instance.CreateTargetProp(GetPlayerNextRandomProp()));
-                                playerEnergyContainer.CumsumEnergy(EnergyCanBeComeProp);  
+                                playerEnergyContainer.CumsumEnergy(CurrentEnergyCanBeComeProp);  
                         }
                 }
         }
@@ -222,5 +222,55 @@ public class PlayerController : EntityComponent
         public void SetBeSelectedRandomProps(List<EPropType> propType)
         {
                 CanBeSelectedRandomProps = propType.ToList();
+        }
+
+        public void SetEnergyToPropValue(int value)
+        {
+                CurrentEnergyCanBeComeProp = value;
+        }
+
+        public void SetCurrentHasTile(int value)
+        {
+                if (handler.TryGetComponet(EntityComponetUsage.playerTileHandler,out PlayerTileHandler playerTileHandler))
+                {
+                        playerTileHandler.PlayerTileCurrentHas = value;
+                }
+        }
+
+        public void SetCurrentHealth(int value)
+        {
+                if (handler.TryGetComponet(EntityComponetUsage.Health,out PlayerHealth playerHealth))
+                {
+                        if (playerHealth.TryGetHealthSource(EHealthSourceType.Life,out var source))
+                        {
+                                source.SetCurrentHealth(value);
+                        }
+                }   
+        }
+
+        public void SetCurrentMaxHealth(int value)
+        {
+                if (handler.TryGetComponet(EntityComponetUsage.Health,out PlayerHealth playerHealth))
+                {
+                        if (playerHealth.TryGetHealthSource(EHealthSourceType.Life,out var source))
+                        {
+                                source.SetMaxHealth(value);
+                        }
+                }   
+        }
+
+        public bool TryGetCurrentMaxHealth(out float value)
+        {
+                value = 0;
+                if (handler.TryGetComponet(EntityComponetUsage.Health,out PlayerHealth playerHealth))
+                {
+                        if (playerHealth.TryGetHealthSource(EHealthSourceType.Life,out var source))
+                        {
+                                value = source.CurrentMaxHealth;
+                                return true;
+                        }
+                }
+                
+                return false;
         }
 }
