@@ -20,4 +20,6 @@ public class BaseRandomEventConfig : ScriptableObject
     public string TargetType;
     
     public float EventLastTime =15;
+
+    public string Name;
 }

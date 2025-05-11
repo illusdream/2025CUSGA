@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: BlockBuildersCall
   EventLastTime: 15
+  Name: "\u7816\u74E6\u5DE5\u6765\u4E86"
   PlayerAddTileCount: 16

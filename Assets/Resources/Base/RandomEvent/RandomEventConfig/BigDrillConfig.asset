@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: BigDrill
   EventLastTime: 15
+  Name: "\u5927\u94BB\u5934"
   BigTrillDigAsset: {fileID: 11400000, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}

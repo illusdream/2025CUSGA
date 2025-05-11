@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: FullSpeedAhead
   EventLastTime: 15
+  Name: "\u5168\u5458\u52A0\u901F\u4E2D..."
   EffectToEntity: 0000000001000000020000000300000004000000

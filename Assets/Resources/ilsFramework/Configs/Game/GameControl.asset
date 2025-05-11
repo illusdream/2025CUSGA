@@ -19,4 +19,4 @@ MonoBehaviour:
   EnergyCanBeComeProp: 50
   StartHasBlockCount: 0
   PlayerTileHealth: 10
-  CommonTileHealth: 100
+  CommonTileHealth: 5

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: WhereAmI
   EventLastTime: 15
+  Name: "\u6211\u5728\u54EA\uFF1F\uFF1F\uFF1F"

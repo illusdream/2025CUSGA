@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: MeteorShower
   EventLastTime: 15
+  Name: "\u9668\u77F3\u96E8"
   MeteorSpawnInterval: 1.5
   MeteorAttackTime: 3.5
   MeteorDamage: 35

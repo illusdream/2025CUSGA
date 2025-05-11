@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: HotPursuit
   EventLastTime: 15
+  Name: "\u706B\u70E7\u5C41\u80A1"
   DamagePerSec: 10
   Prefab: {fileID: 6291441259965331888, guid: db166ba5bb12c48409f733659e363501, type: 3}

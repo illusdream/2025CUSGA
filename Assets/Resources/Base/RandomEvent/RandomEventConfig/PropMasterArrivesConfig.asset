@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetType: PropMasterArrives
   EventLastTime: 15
+  Name: "\u9053\u5177\u4E13\u5BB6\u6765\u4E86"
   AddPropCount: 3
