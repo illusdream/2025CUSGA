@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [UIPanelSetting(EUILayer.Normal, 3, true, EAssetLoadMode.Resources, "Prefab/Shili/CustomPlayer1Set")]
 public class CustomPlayer1SetUI : UIPanel
 {
+    public bool isPlayerOne;
     private bool ilsBool;
     private Dictionary<RectTransform, bool> _panelLockStates;
     [AutoUIElement("Panel")]
@@ -26,8 +27,8 @@ public class CustomPlayer1SetUI : UIPanel
     [AutoUIElement("Panel/GameObject/Prop/PropButton")]
     private Button propButton;
     //用于更新携带道具的列表
-    public List<PropChoiceButtonSet> propChoiceButtonSet1;
-    public List<PropChoiceButtonSet> propChoiceButtonSet2;
+    public List<int> propChoiceButtonSet1;
+    public List<int> propChoiceButtonSet2;
     public override void InitUIPanel()
     {
         base.InitUIPanel();
@@ -74,7 +75,7 @@ public class CustomPlayer1SetUI : UIPanel
         }
         CustomPlayer customPlayer = null;
         bool isSame;
-        if (playerText.text == "Player1 设置")
+        if (isPlayerOne)
         {
             customPlayer = new CustomPlayer(1, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text), propChoiceButtonSet1);
             isSame = DeepCompare(customPlayer, shili_CustomUIManager.Instance.GetCustomPlayerlist()[0]);
@@ -112,7 +113,7 @@ public class CustomPlayer1SetUI : UIPanel
         }
         else
         {
-            if(playerText.text == "Player1 设置")
+            if(isPlayerOne)
             {
                 shili_CustomUIManager.Instance.AddCustomPlayer(new CustomPlayer(1, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text), propChoiceButtonSet1));
                 /*              Debug.Log("血量" + healthText.text);

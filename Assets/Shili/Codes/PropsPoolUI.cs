@@ -17,8 +17,8 @@ public class PropsPoolUI : UIPanel
     private GameObject canvas;
     [AutoUIElement("Panel/Save")]
     private Button saveButton;
-    [AutoUIElement("Panel/GameObject/One/Scroll View/Viewport/PropPool")]
-    private GameObject propPoolGameObject;
+/*    [AutoUIElement("Panel/GameObject/One/Scroll View/Viewport/PropPool")]
+    private GameObject propPoolGameObject;*/
     [AutoUIElement("Panel/GameObject/Two/Scroll View/Viewport/ChioceProp")]
     private GameObject chiocePropGameObject;
     [AutoUIElement("Panel/PlayerText")]
@@ -55,7 +55,7 @@ public class PropsPoolUI : UIPanel
             p.Add(chiocePropGameObject.transform.GetChild(i).GetComponent<PropChoiceButtonSet>());
         }
         bool isSave=false;
-        if (playerText.text == "Player1 …Ë÷√")
+        if (UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne)
         {
             if(shili_CustomUIManager.Instance.isSame1(p))
             {
@@ -91,20 +91,24 @@ public class PropsPoolUI : UIPanel
         if (chiocePropGameObject.transform.childCount == 0)
         {
             UIManager.Instance.GetUIPanel< FollowBugUI >().Open();
-            Debug.Log(11);
             return;
         }
         for(int i = 0;i< chiocePropGameObject.transform.childCount; i++)
         {
             p.Add(chiocePropGameObject.transform.GetChild(i).GetComponent<PropChoiceButtonSet>());
         }
-        if(playerText.text=="Player1 …Ë÷√")
+        List<int> p1 = new List< int >();
+        for(int i = 0; i < p.Count; i++)
         {
-            shili_CustomUIManager.Instance.propChoiceButtonSet1 = p;
+            p1.Add(p[i].id);
+        }
+        if(UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne)
+        {
+            shili_CustomUIManager.Instance.GetCustomPlayerlist()[0].propChoiceButtonSet = p1;
         }
         else
         {
-            shili_CustomUIManager.Instance.propChoiceButtonSet2 = p;
+            shili_CustomUIManager.Instance.GetCustomPlayerlist()[1].propChoiceButtonSet = p1;
         }
         Close();
     }

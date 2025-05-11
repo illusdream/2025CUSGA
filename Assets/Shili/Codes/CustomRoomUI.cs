@@ -17,13 +17,22 @@ public class CustomRoomUI : UIPanel
     private Button player1Button;
     [AutoUIElement("Panel/GameObject/Player2")]
     private Button player2Button;
+    [AutoUIElement("Panel/GameObject/MapSet")]
+    private Button mapSetButton;
+    [AutoUIElement("Panel/GameObject/RandomEvent")]
+    private Button randomEventUI;
+    [AutoUIElement("Panel/StartGame")]
+    private Button startGame;
     public override void InitUIPanel()
     {
         inputActions = InputManager.Instance.GetCurrentInputAction();
         base.InitUIPanel();
         backButton.onClick.AddListener(Close);
-        player1Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player1 设置"; });
-        player2Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player2 设置"; });
+        startGame.onClick.AddListener(shili_CustomUIManager.Instance.OnStartGame);
+        randomEventUI.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<RandomEventUI>().Open(); });
+        mapSetButton.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<MapSetUI>().Open(); });
+        player1Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player1 设置"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = true; });
+        player2Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player2 设置"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = false; });
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
     public override void Open()

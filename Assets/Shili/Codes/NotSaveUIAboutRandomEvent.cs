@@ -1,0 +1,65 @@
+using ilsFramework;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+[UIPanelSetting(EUILayer.Normal, 4, true, EAssetLoadMode.Resources, "Prefab/Shili/NotSaveUIAboutRandomEvent")]
+public class NotSaveUIAboutRandomEvent : UIPanel
+{
+    private bool save;
+    private bool ilsBool;
+    private Dictionary<RectTransform, bool> _panelLockStates;
+    [AutoUIElement("Panel")]
+    private GameObject panel;
+    [AutoUIElement("Panel/GameObject/Back")]
+    private Button backButton;
+    [AutoUIElement("Panel/GameObject/SaveAndBack")]
+    private Button saveAndBackButton;
+    public override void InitUIPanel()
+    {
+        base.InitUIPanel();
+        backButton.onClick.AddListener(OnClose);
+        saveAndBackButton.onClick.AddListener(OnSaveAndBackButton);
+        _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
+    }
+    public override void Open()
+    {
+        if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
+        {
+            return;
+        }
+
+        base.Open();
+        Shili_DOTweenManager.Instance.PlayPanelEnter(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
+    }
+    public override void Close()
+    {
+        if (!ilsBool)
+        {
+            ilsBool = true;
+            base.Close();
+        }
+        else
+        {
+            if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
+            {
+                return;
+            }
+            if (save) UIManager.Instance.GetUIPanel<RandomEventUI>().OnSave();
+            Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
+        }
+
+    }
+
+    private void OnSaveAndBackButton()
+    {
+        save = true;
+        Close();
+    }
+    private void OnClose()
+    {
+        save = false;
+        Close();
+    }
+}
