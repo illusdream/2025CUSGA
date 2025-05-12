@@ -11,8 +11,8 @@ public class CustomPlayer
     public int health;
     public int energy;
     public int cude;
-    public List<int> propChoiceButtonSet;
-    public CustomPlayer(int id,int health,int energy,int cude, List<int> propChoiceButtonSet)
+    public List<EPropType> propChoiceButtonSet;
+    public CustomPlayer(int id,int health,int energy,int cude, List<EPropType> propChoiceButtonSet)
     {
         this.id = id;
         this.health = health;
@@ -38,12 +38,12 @@ public class MapSet
 public class shili_CustomUIManager : MonoBehaviour
 {
     public bool isCustom;
-    private List<int> propChoiceButtonSet1;//玩家1能随机到的道具列表
-    private List<int> propChoiceButtonSet2;//玩家2能随机到的道具列表
+    private List<EPropType> propChoiceButtonSet1;//玩家1能随机到的道具列表
+    private List<EPropType> propChoiceButtonSet2;//玩家2能随机到的道具列表
     private static shili_CustomUIManager instance;
     [ShowInInspector] private List<CustomPlayer> CustomPlayerlist;//玩家血量，能量阈值，初始方块数量，玩家能随机到的道具列表
     [ShowInInspector]private MapSet mapSet;//地图设置
-    [ShowInInspector] private List<int> randomEventButtonSets;//随机事件列表
+    [ShowInInspector] private List<ERandomEventType> randomEventButtonSets;//随机事件列表
     public static shili_CustomUIManager Instance
     {
         get
@@ -58,11 +58,11 @@ public class shili_CustomUIManager : MonoBehaviour
     }
     private void Awake()
     {
-        propChoiceButtonSet1 = new List<int>(1) { 0 };
-        propChoiceButtonSet2 = new List<int>(1) { 0};
+        propChoiceButtonSet1 = new List<EPropType>(1) { PropManager.Instance.GetAllEPropTypes()[0] };
+        propChoiceButtonSet2 = new List<EPropType>(1) { PropManager.Instance.GetAllEPropTypes()[0] };
         CustomPlayerlist = new List<CustomPlayer>();
         mapSet = new MapSet(10,5,5);
-        randomEventButtonSets = new List<int>(1) { 0 };//记得给予一个默认的事件
+        randomEventButtonSets = new List<ERandomEventType>(1) { 0 };//记得给予一个默认的事件
         CustomPlayerlist.Add(new CustomPlayer(1,100,100,0, propChoiceButtonSet1));
         CustomPlayerlist.Add(new CustomPlayer(2, 100, 100, 0, propChoiceButtonSet2));
     }
@@ -135,7 +135,7 @@ public class shili_CustomUIManager : MonoBehaviour
     }
     public void SetRandomEventButtonSets(List<RandomEventButtonSet> randomEventButtonSet)
     {
-        List<int> p = new List<int>();
+        List<ERandomEventType> p = new List<ERandomEventType>();
         for(int i  = 0;i < randomEventButtonSet.Count; i++)
         {
             p.Add(randomEventButtonSet[i].id);
@@ -146,7 +146,7 @@ public class shili_CustomUIManager : MonoBehaviour
             Debug.Log(randomEventButtonSets[i]);
         }
     }
-    public List<int> GetRandomEventButtonSet()
+    public List<ERandomEventType> GetRandomEventButtonSet()
     {
         return randomEventButtonSets;
     }
@@ -160,15 +160,27 @@ public class shili_CustomUIManager : MonoBehaviour
         GameManager.Instance.Player2_EnergyCanBeComeProp = CustomPlayerlist[1].energy;
         GameManager.Instance.Player1StartHasBlockCount = CustomPlayerlist[0].cude;
         GameManager.Instance.Player2StartHasBlockCount = CustomPlayerlist[1].cude;
-        GameManager.Instance.SetPlayer1_RandomSelectedProps(CustomPlayerlist[0].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList());
-        Debug.Log(CustomPlayerlist[0].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList()[0]);
-        GameManager.Instance.SetPlayer2_RandomSelectedProps(CustomPlayerlist[1].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList());
-        Debug.Log(CustomPlayerlist[1].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList()[0]);
+        GameManager.Instance.SetPlayer1_RandomSelectedProps(CustomPlayerlist[0].propChoiceButtonSet);
+        GameManager.Instance.SetPlayer2_RandomSelectedProps(CustomPlayerlist[1].propChoiceButtonSet);
         GameManager.Instance.CommonTileHealth = mapSet.neutralCubeHealth;
         GameManager.Instance.PlayerTileHealth = mapSet.playerCubeHealth;
         GameManager.Instance.RefreshTileEmptyInterval = mapSet.cubeTime;
-        GameManager.Instance.SetLevelRandomSelectedEvents(randomEventButtonSets.Select(i=>(ERandomEventType)(i)).ToList());
-        Debug.Log(randomEventButtonSets.Select(i => (ERandomEventType)(i)).ToList()[0]);
+        GameManager.Instance.SetLevelRandomSelectedEvents(randomEventButtonSets);
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
+        Debug.Log("随机事件");
+        for (int i = 0; i < randomEventButtonSets.Count; i++)
+        {
+            Debug.Log(randomEventButtonSets[i]);
+        }
+        Debug.Log("玩家1道具");
+        for (int i = 0; i < CustomPlayerlist[0].propChoiceButtonSet.Count; i++)
+        {
+            Debug.Log(CustomPlayerlist[0].propChoiceButtonSet[i]);
+        }
+        Debug.Log("玩家2道具");
+        for (int i = 0; i < CustomPlayerlist[1].propChoiceButtonSet.Count; i++)
+        {
+            Debug.Log(CustomPlayerlist[1].propChoiceButtonSet[i]);
+        }
     }
 }

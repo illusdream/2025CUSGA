@@ -27,8 +27,8 @@ public class CustomPlayer1SetUI : UIPanel
     [AutoUIElement("Panel/GameObject/Prop/PropButton")]
     private Button propButton;
     //用于更新携带道具的列表
-    public List<int> propChoiceButtonSet1;
-    public List<int> propChoiceButtonSet2;
+    public List<EPropType> propChoiceButtonSet1;
+    public List<EPropType> propChoiceButtonSet2;
     public override void InitUIPanel()
     {
         base.InitUIPanel();
@@ -43,7 +43,6 @@ public class CustomPlayer1SetUI : UIPanel
         {
             return;
         }
-
         base.Open();
         Shili_DOTweenManager.Instance.PlayPanelEnter(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
     }
@@ -57,7 +56,6 @@ public class CustomPlayer1SetUI : UIPanel
     }
     public override void Close()
     {
-
         if (!ilsBool)
         {
             ilsBool = true;
@@ -107,7 +105,7 @@ public class CustomPlayer1SetUI : UIPanel
             UIManager.Instance.GetUIPanel< InputBugUI >().Open();
             return;
         }
-        if(int.Parse(healthText.text)>999|| int.Parse(healthText.text) < 1 || int.Parse(energyText.text) > 999 || int.Parse(energyText.text) < 1 || int.Parse(cubeText.text) > 99 || int.Parse(cubeText.text) < 1)
+        if(int.Parse(healthText.text)>999|| int.Parse(healthText.text) < 1 || int.Parse(energyText.text) > 999 || int.Parse(energyText.text) < 1 || int.Parse(cubeText.text) > 99 || int.Parse(cubeText.text) < 0)
         {
             UIManager.Instance.GetUIPanel<InputBugUI>().Open();
         }

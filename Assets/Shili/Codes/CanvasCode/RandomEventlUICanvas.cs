@@ -22,7 +22,7 @@ public class RandomEventlUICanvas : MonoBehaviour
             if (go1.transform.GetChild(0).TryGetComponent<Text>(out var text1) && RandomEventManager.Instance.TryGetRandomEventConfig(allEPropTypes[i + 1], out var propConfig1))
             {
                 text1.text = propConfig1.Name;
-                go1.GetComponent<RandomEventButtonSet>().id = (int)allEPropTypes[i + 1];
+                go1.GetComponent<RandomEventButtonSet>().id = allEPropTypes[i + 1];
             }
         }
         GameObject go = Instantiate(prefab);
@@ -32,7 +32,7 @@ public class RandomEventlUICanvas : MonoBehaviour
         if (go.transform.GetChild(0).TryGetComponent<Text>(out var text) && RandomEventManager.Instance.TryGetRandomEventConfig(allEPropTypes[0], out var propConfig))
         {
             text.text = propConfig.Name;
-            go.GetComponent<RandomEventButtonSet>().id = (int)allEPropTypes[0];
+            go.GetComponent<RandomEventButtonSet>().id = allEPropTypes[0];
         }
     }
     public void SetOnDisable()

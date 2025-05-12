@@ -49,7 +49,7 @@ public class RandomEventUI : UIPanel
         {
             randomEventButtonSets.Add(chioceObject.transform.GetChild(i).GetComponent<RandomEventButtonSet>());
         }
-        List<int> shiliList = shili_CustomUIManager.Instance.GetRandomEventButtonSet();
+        List<ERandomEventType> shiliList = shili_CustomUIManager.Instance.GetRandomEventButtonSet();
         if(CheakSame(randomEventButtonSets, shiliList))
         {
             if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
@@ -74,7 +74,7 @@ public class RandomEventUI : UIPanel
         shili_CustomUIManager.Instance.SetRandomEventButtonSets(randomEventButtonSets);
         Close();
     }
-    private bool CheakSame(List<RandomEventButtonSet> randomEventButtonSets, List<int> shiliList)
+    private bool CheakSame(List<RandomEventButtonSet> randomEventButtonSets, List<ERandomEventType> shiliList)
     {
         if(randomEventButtonSets.Count!= shiliList.Count) return false;
         for(int i = 0;i< randomEventButtonSets.Count; i++)

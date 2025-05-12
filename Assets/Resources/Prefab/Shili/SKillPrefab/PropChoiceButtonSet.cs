@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class PropChoiceButtonSet : MonoBehaviour
 {
-    public int id;//道具标识符
+    public EPropType id;//道具标识符
     public GameObject propPoolGameObject;
     public GameObject chiocePropGameObject;
     public void OnClick()

@@ -97,7 +97,7 @@ public class PropsPoolUI : UIPanel
         {
             p.Add(chiocePropGameObject.transform.GetChild(i).GetComponent<PropChoiceButtonSet>());
         }
-        List<int> p1 = new List< int >();
+        List<EPropType> p1 = new List<EPropType>();
         for(int i = 0; i < p.Count; i++)
         {
             p1.Add(p[i].id);
