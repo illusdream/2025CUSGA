@@ -1,5 +1,6 @@
 ﻿using System;
 using ilsFramework;
+using Unity.Mathematics;
 
 namespace Props
 {
@@ -22,6 +23,11 @@ namespace Props
                         if (CharacterManager.Instance.Player2Controller.handler.TryGetComponet(EntityComponetUsage.Buff,out BaseBuffContainer container))
                         {
                             container.AddBuff(EBuffType.CageBuff);
+                            if (config is CagePropConfig _config)
+                            {
+                                var result = Entity.Instantiate(_config.CageVisual, SpawnSource.SystemGenerate, container.transform.position, quaternion.identity);
+                                result.transform.parent = container.transform;
+                            }
                         }
                     }
                         break;
@@ -30,6 +36,11 @@ namespace Props
                         if (CharacterManager.Instance.Player1Controller.handler.TryGetComponet(EntityComponetUsage.Buff,out BaseBuffContainer container))
                         {
                             container.AddBuff(EBuffType.CageBuff);
+                            if (config is CagePropConfig _config)
+                            {
+                                var result = Entity.Instantiate(_config.CageVisual, SpawnSource.SystemGenerate, container.transform.position, quaternion.identity);
+                                result.transform.parent = container.transform;
+                            }
                         }
                     }
                         break;

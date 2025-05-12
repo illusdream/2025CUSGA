@@ -18,18 +18,18 @@ MonoBehaviour:
   BaseMergeScore: 7
   DefaultSprite: {fileID: 21300000, guid: 06bac26101347594d8e74883d5aa2941, type: 3}
   DestoryAnimationFrames:
-  - {fileID: 21300000, guid: 1209c535ae1eb7d43a9b14e62717fcc3, type: 3}
-  - {fileID: 244645132, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: -221946372, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: 2008410657, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: -272072164, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: 140737395, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: 827406404, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: -702500914, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
-  - {fileID: 480972856, guid: 68ddc7bec75d47f46a4c392b037a9416, type: 3}
+  - {fileID: 1757447931, guid: 827f9cf4e77dff047bac932bf3426a8e, type: 3}
+  - {fileID: 1232071883, guid: 827f9cf4e77dff047bac932bf3426a8e, type: 3}
+  - {fileID: 222986543, guid: 827f9cf4e77dff047bac932bf3426a8e, type: 3}
+  - {fileID: -44468562, guid: 827f9cf4e77dff047bac932bf3426a8e, type: 3}
   SpawnAnimationClip: {fileID: 7400000, guid: d8a018c9b9d176647ac4f7ba71bd88a2, type: 2}
   DefaultColor: {r: 1, g: 1, b: 1, a: 1}
   ColliderType: 0
   TargetType: Tiles.CharactorTile
-  Charactor1SpawnClip: {fileID: 7400000, guid: 065c9e8c642897647a900895c2a39198, type: 2}
-  Charactor2SpawnClip: {fileID: 7400000, guid: d8a018c9b9d176647ac4f7ba71bd88a2, type: 2}
+  Charactor1SpawnClip: {fileID: 7400000, guid: 19feb117a96bfbb4fa99d4516030c7bb, type: 2}
+  Charactor2SpawnClip: {fileID: 7400000, guid: d97d8348979e1114b93267ab082327fd, type: 2}
+  BlueAnimationFrames:
+  - {fileID: 1117612365, guid: 6608e4e3ee02168429d5143dd9740464, type: 3}
+  - {fileID: -1476867789, guid: 6608e4e3ee02168429d5143dd9740464, type: 3}
+  - {fileID: 1094348570, guid: 6608e4e3ee02168429d5143dd9740464, type: 3}
+  - {fileID: 1888128619, guid: 6608e4e3ee02168429d5143dd9740464, type: 3}

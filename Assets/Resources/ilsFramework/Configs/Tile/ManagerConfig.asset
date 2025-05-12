@@ -33,7 +33,7 @@ MonoBehaviour:
   RefreshBeforeSetTime: 3
   RefreshAreaShow: {fileID: 0}
   TileHandlerPrefab: {fileID: 4853357272002343651, guid: 1f812bb8125fcb34ead4f7f9d91250ae, type: 3}
-  AutoUpdateTileConfigs: 1
+  AutoUpdateTileConfigs: 0
   TileLayerMask:
     serializedVersion: 2
     m_Bits: 256
