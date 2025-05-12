@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerVisualController : EntityComponent
 {
+        private static readonly int BeAttacked = Animator.StringToHash("BeAttacked");
         public override string TargetUsage => EntityComponetUsage.playerVisualHandler;
 
         public SpriteRenderer spriteRenderer;
@@ -26,5 +27,10 @@ public class PlayerVisualController : EntityComponent
         {
                 Rotation = angle;
                 dir = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle* Mathf.Deg2Rad));
+        }
+
+        public void PlayBeAttackedAnimation()
+        {
+                animator.SetTrigger(BeAttacked);
         }
 }

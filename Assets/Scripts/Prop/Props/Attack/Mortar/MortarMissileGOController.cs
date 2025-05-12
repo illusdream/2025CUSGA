@@ -38,6 +38,8 @@ namespace Props
         public TimerCollection TimerCollection;
 
         private MortarPropConfig propConfig;
+        
+        public CommenTileHandler tileHandler;
         public void Start()
         {
             TimerCollection = new TimerCollection();
@@ -48,6 +50,7 @@ namespace Props
             if (PropManager.Instance.TryGetPropConfig(typeof(MortarProp),out  propConfig))
             {
                 Attacker.Damage = propConfig.Damage;
+                tileHandler.DamageToTile = propConfig.Damage;
             }
             
             TimerCollection.CreateTimer(AccTime,1,"MortarMissileGO").SetOnCycling(OnUpTimerCycling).SetOnFinish(OnUpTimerFinish).Register();
@@ -63,7 +66,7 @@ namespace Props
             if (!IsUp)
             {
                 HasWalkDistance += Vector3.Distance(oldPosition,transform.position);
-                if (HasWalkDistance > MaxFallDownDistance && !hasTriggered)
+                if (HasWalkDistance >= MaxFallDownDistance && !hasTriggered)
                 {
                     Director.Play(propConfig.MortarExplosionTimelineAsset);
                     Director.onStopped += DirectorOnonStopped;
@@ -102,6 +105,10 @@ namespace Props
         public void OnDestroy()
         {
             TimerCollection.ClearAllTimers();
+            if (VisualEffectManager.Instance.TryGetVisualEffectPool(out ExplosionVE ve))
+            {
+                ve.TryEmittingVE(transform.position,Vector2.one*3);
+            }
         }
     }
 }

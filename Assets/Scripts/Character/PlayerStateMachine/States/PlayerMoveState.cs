@@ -17,6 +17,7 @@ public  class PlayerMoveState : BasePlayerState
     {
         //EntityHandler.AddEventListener(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,Listener_OrderToMove);
        // EntityHandler.AddEventListener(PlayerEvent.BeOrderToStartBreakTile,EEntityEventScope.Entity,Listener_BeOrderToStartBreakTile);
+       EntityHandler.AddEventListener(PlayerEvent.BeHitted,EEntityEventScope.Component,Listener_BeHitted);
         base.OnEnter();
     }
 
@@ -31,11 +32,18 @@ public  class PlayerMoveState : BasePlayerState
         }
         
         var placeTile = PlayerController.playerInputHandler.PlaceTile;
-        if (placeTile.HasTriggered(0.3f) || ((InputAction)placeTile).IsPressed())
+        if ((placeTile.HasTriggered(0.3f) || ((InputAction)placeTile).IsPressed()))
         {
-            ChangeState<PlayerPlaceTileState>();
-            placeTile.ResetTriggers();
-            return;
+            if (EntityHandler.TryGetComponet(EntityComponetUsage.playerTileHandler,out PlayerTileHandler playerTileHandler))
+            {
+                if (playerTileHandler.PlayerTileCurrentHas > 0)
+                {
+                    ChangeState<PlayerPlaceTileState>();
+                    placeTile.ResetTriggers();
+                    return;
+                }
+            }
+
         }
         
         var useProp = PlayerController.playerInputHandler.UseProp;
@@ -68,6 +76,7 @@ public  class PlayerMoveState : BasePlayerState
 
     public override void OnExit()
     {
+        EntityHandler.RemoveEventListener(PlayerEvent.BeHitted,EEntityEventScope.Component,Listener_BeHitted);
         //EntityHandler.RemoveEventListener(PlayerEvent.PlayerMoveCommend,EEntityEventScope.Component,Listener_OrderToMove);
        // EntityHandler.RemoveEventListener(PlayerEvent.BeOrderToStartBreakTile,EEntityEventScope.Entity,Listener_BeOrderToStartBreakTile);
         base.OnExit();
@@ -77,5 +86,11 @@ public  class PlayerMoveState : BasePlayerState
     {
         base.OnDestroy();
     }
-    
+    private void Listener_BeHitted(EventArgs _args)
+    {
+        if (_args is PlayerEvent.BeHittedEventArgs { DamageInfo: { baseDamage: >= 10 } })
+        {
+            PlayerController.PlayerBeAttackedAnimation();
+        }
+    }
 }

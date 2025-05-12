@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 4900177348491634227}
   - component: {fileID: 4516202437724643285}
   - component: {fileID: 4185953695250284417}
+  - component: {fileID: 3863717175790316532}
   m_Layer: 11
   m_Name: MortarMissile
   m_TagString: Untagged
@@ -147,6 +148,7 @@ MonoBehaviour:
   MaxFallDownDistance: 20
   oldPosition: {x: 0, y: 0, z: 0}
   HasWalkDistance: 0
+  tileHandler: {fileID: 3863717175790316532}
 --- !u!114 &3671932308103820360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +173,8 @@ MonoBehaviour:
       Value: {fileID: 4214387746630612655}
     - Key: ActionDirector
       Value: {fileID: 4900177348491634227}
+    - Key: TileHandler
+      Value: {fileID: 3863717175790316532}
 --- !u!114 &4817858542589612744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +222,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 1656317240558044458, guid: c5a95a6667b45d34b986b8311c80ac1c, type: 2}
     value: {fileID: 4214387746630612655}
+  - key: {fileID: -15080674629008289, guid: c5a95a6667b45d34b986b8311c80ac1c, type: 2}
+    value: {fileID: 3863717175790316532}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &4900177348491634227
@@ -306,3 +312,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3863717175790316532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3180662864569610656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5400bcf25ff459ea52ec72b457171c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+  DamageToTile: 0
+  currentHasTile: 0

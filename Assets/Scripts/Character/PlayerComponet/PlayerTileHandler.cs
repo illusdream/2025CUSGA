@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using ilsFramework;
 using Sirenix.OdinInspector;
 using Tiles;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class PlayerTileHandler : BaseTileHandler
+public class PlayerTileHandler : BaseTileHandler,IAreaEffectProcessTile
 {
         public override string TargetUsage => EntityComponetUsage.playerTileHandler;
         
@@ -97,5 +98,13 @@ public class PlayerTileHandler : BaseTileHandler
         public void AddPlayerHasTile(int count)
         {
                 PlayerTileCurrentHas += count;
+        }
+
+        public void ProcessTile(HashSet<Vector2Int> findEntity)
+        {
+                foreach (var vector2Int in findEntity)
+                {
+                        TryPlaceTile(vector2Int);
+                }
         }
 }

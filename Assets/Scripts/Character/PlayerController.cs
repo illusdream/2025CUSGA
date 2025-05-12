@@ -37,6 +37,8 @@ public class PlayerController : EntityComponent
         
         public TimelineAsset IntoBlackHoleTimelineAsset;
         
+        public TimelineAsset PlaceTileAsset;
+        
         public TimerCollection timerCollection;
 
         public bool CanSwitchPropUse;
@@ -272,5 +274,11 @@ public class PlayerController : EntityComponent
                 }
                 
                 return false;
+        }
+
+        public void PlayerBeAttackedAnimation()
+        {
+                
+                visualController.PlayBeAttackedAnimation();
         }
 }

@@ -8,7 +8,7 @@ public class PropsPoolUICanvas : MonoBehaviour
     public Transform propsGameObject;
     public Transform chioceGameObject;
     /// <summary>
-    /// Í¨¹ý¿ØÖÆCanvasµÄ´úÂëµ÷ÓÃ¶ø·ÇÍ¨¹ýÉúÃüÖÜÆÚÖ÷¶¯µ÷ÓÃ
+    /// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Canvasï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void SetOnEnable()
     {
@@ -22,7 +22,7 @@ public class PropsPoolUICanvas : MonoBehaviour
             if (go1.TryGetComponent<Image>(out var img1) && PropManager.Instance.TryGetPropConfig<BasePropConfig>(allEPropTypes[i+1], out var propConfig1))
             {
                 img1.sprite = propConfig1.PropSprite;
-                go1.GetComponent<PropChoiceButtonSet>().id = i+1;
+                go1.GetComponent<PropChoiceButtonSet>().id = (int)allEPropTypes[i+1];
             }
         }
         GameObject go = Instantiate(prefab);
@@ -32,7 +32,7 @@ public class PropsPoolUICanvas : MonoBehaviour
         if (go.TryGetComponent<Image>(out var img) && PropManager.Instance.TryGetPropConfig<BasePropConfig>(allEPropTypes[0], out var propConfig))
         {
             img.sprite = propConfig.PropSprite;
-            go.GetComponent<PropChoiceButtonSet>().id = 0;
+            go.GetComponent<PropChoiceButtonSet>().id =(int) allEPropTypes[0];
         }
     }
     public void SetOnDisable()

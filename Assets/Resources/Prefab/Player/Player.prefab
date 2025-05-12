@@ -349,7 +349,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1329271113
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -1325531776, guid: 46675367f01ff2446ae9c202f5ac287c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -503,15 +503,17 @@ MonoBehaviour:
   animator: {fileID: 3007290409442275661}
   visualController: {fileID: 1359947970017701781}
   rigidbody2D: {fileID: 7418803142098904480}
-  EnergyCanBeComeProp: 50
+  CurrentEnergyCanBeComeProp: 50
   DefaultDigAsset: {fileID: 11400000, guid: 3add9986a83e4f245b2cc3b898fcb446, type: 2}
   CurrenctDigAsset: {fileID: 0}
   IntoBlackHoleTimelineAsset: {fileID: 11400000, guid: b5820d4bb1a5d39458cea2224cce8318, type: 2}
+  PlaceTileAsset: {fileID: 11400000, guid: 272e7c6ebd074f340885c39b4025914f, type: 2}
   CanSwitchPropUse: 0
   CanMove: 0
   IgnoreUsePropInputCache: 0
   CanUpdatePlayerDirection: 1
   PlayerColor: {r: 0, g: 0, b: 0, a: 0}
+  CanBeSelectedRandomProps: 
 --- !u!50 &7418803142098904480
 Rigidbody2D:
   serializedVersion: 4
@@ -574,10 +576,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -700,7 +702,7 @@ PlayableDirector:
   m_GameObject: {fileID: 3196107388258662534}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 6c1bf01bc636c7b4e9b19ab0795013d0, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 3
@@ -741,7 +743,7 @@ PlayableDirector:
   - key: {fileID: -5953807679795794240, guid: 0cf9deea67518c04d92c4ffd8370b724, type: 2}
     value: {fileID: 0}
   - key: {fileID: -5007676536928555389, guid: 0cf9deea67518c04d92c4ffd8370b724, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 3007290409442275661}
   - key: {fileID: 5335002639897528123, guid: 360e3ad2f032abb4d89514324abd32f1, type: 2}
     value: {fileID: 3007290409442275661}
   - key: {fileID: -5888444010581115383, guid: 360e3ad2f032abb4d89514324abd32f1, type: 2}
@@ -759,7 +761,7 @@ PlayableDirector:
   - key: {fileID: -4159601933962349837, guid: b5820d4bb1a5d39458cea2224cce8318, type: 2}
     value: {fileID: 7560538213211143685}
   - key: {fileID: 6938187140698855472, guid: 6c1bf01bc636c7b4e9b19ab0795013d0, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 3007290409442275661}
   - key: {fileID: -6378225952787168411, guid: 6c1bf01bc636c7b4e9b19ab0795013d0, type: 2}
     value: {fileID: 0}
   - key: {fileID: 0}
@@ -810,6 +812,10 @@ PlayableDirector:
     value: {fileID: 3007290409442275661}
   - key: {fileID: 580791529931690003, guid: bbf0a0f5129181e46b49250c64fc770c, type: 2}
     value: {fileID: 2598141953491336947}
+  - key: {fileID: -8191050398502363946, guid: 272e7c6ebd074f340885c39b4025914f, type: 2}
+    value: {fileID: 3007290409442275661}
+  - key: {fileID: 6753593537991734771, guid: 272e7c6ebd074f340885c39b4025914f, type: 2}
+    value: {fileID: 2598141953491336947}
   m_ExposedReferences:
     m_References:
     - eae5e58fdc9774847918687c4d260a2f: {fileID: 4826395795178948793}
@@ -825,6 +831,7 @@ PlayableDirector:
     - 26c4aa032aaaadc439e2b249073c5e08: {fileID: 1626390696340807414}
     - 23c42435f035feb49b9f7ba8a5b58df0: {fileID: 4826395795178948793}
     - c537ff80066244042a7c98978dc77671: {fileID: 3804707663534507003}
+    - 2b88e96190e85904ba37facf4c0b1144: {fileID: 3804707663534507003}
     - 674a092fe7ba1cb40a93a63d560083eb: {fileID: 4826395795178948793}
     - 511c102d8f3693a4eb8185f490af55b3: {fileID: 1626390696340807414}
     - 57e08ec30caeac642897db3c3dd4ee75: {fileID: 1626390696340807414}
@@ -849,6 +856,7 @@ MonoBehaviour:
   handler: {fileID: 0}
   director: {fileID: 8014784037854214011}
   animator: {fileID: 3007290409442275661}
+  CanSkip: 0
 --- !u!70 &3255718516033665980
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

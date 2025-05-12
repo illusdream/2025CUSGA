@@ -8,7 +8,7 @@ public class RandomEventlUICanvas : MonoBehaviour
     public Transform propsGameObject;
     public Transform chioceGameObject;
     /// <summary>
-    /// Í¨¹ý¿ØÖÆCanvasµÄ´úÂëµ÷ÓÃ¶ø·ÇÍ¨¹ýÉúÃüÖÜÆÚÖ÷¶¯µ÷ÓÃ
+    /// Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Canvasï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void SetOnEnable()
     {
@@ -22,7 +22,7 @@ public class RandomEventlUICanvas : MonoBehaviour
             if (go1.transform.GetChild(0).TryGetComponent<Text>(out var text1) && RandomEventManager.Instance.TryGetRandomEventConfig(allEPropTypes[i + 1], out var propConfig1))
             {
                 text1.text = propConfig1.Name;
-                go1.GetComponent<RandomEventButtonSet>().id = i + 1;
+                go1.GetComponent<RandomEventButtonSet>().id = (int)allEPropTypes[i + 1];
             }
         }
         GameObject go = Instantiate(prefab);
@@ -32,7 +32,7 @@ public class RandomEventlUICanvas : MonoBehaviour
         if (go.transform.GetChild(0).TryGetComponent<Text>(out var text) && RandomEventManager.Instance.TryGetRandomEventConfig(allEPropTypes[0], out var propConfig))
         {
             text.text = propConfig.Name;
-            go.GetComponent<RandomEventButtonSet>().id = 0;
+            go.GetComponent<RandomEventButtonSet>().id = (int)allEPropTypes[0];
         }
     }
     public void SetOnDisable()

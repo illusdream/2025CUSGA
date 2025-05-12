@@ -20,7 +20,7 @@ namespace Props
             {
                 playerController.SetCanMove(true);
                 playerController.CanSwitchPropUse = true;
-                playerController.CanUpdatePlayerDirection = false;
+                playerController.CanUpdatePlayerDirection = true;
             }
 
             //生成Aim

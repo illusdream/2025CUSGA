@@ -14,23 +14,25 @@ public class PlayerPlaceTileState : BasePlayerState
 
     public override void OnEnter()
     {     
+        //播动画
+        if (EntityHandler.TryGetComponet(EntityComponetUsage.ActionDirector,out BaseActionDirector actionDirector))
+        {
+
+            actionDirector.TryPlay(PlayerController.PlaceTileAsset);
+            actionDirector.onStopped += ActionDirectorOnonStopped;
+
+        }
         base.OnEnter();
     }
 
     public override void OnUpdate()
     {
-        if (EntityHandler.TryGetComponet(EntityComponetUsage.playerTileHandler, out PlayerTileHandler playerTileHandler))
-        {
-            playerTileHandler.TryPlaceTile();
-        }
         var dir = PlayerController.playerInputHandler.Move.ActionValue;
-        PlayerController.UpdatePlayerMoveAnimation(dir);
         PlayerController.UpdatePlayerDirection(dir);
         if (EntityHandler.TryGetComponet(EntityComponetUsage.Moveable, out PlayerMoveComponent component))
         {
             component.Move(dir);
         }
-        ChangeState<PlayerMoveState>();
         base.OnUpdate();
     }
 
@@ -41,11 +43,20 @@ public class PlayerPlaceTileState : BasePlayerState
 
     public override void OnExit()
     {
+        //播动画
+        if (EntityHandler.TryGetComponet(EntityComponetUsage.ActionDirector,out BaseActionDirector actionDirector))
+        {
+            actionDirector.onStopped -= ActionDirectorOnonStopped;
+        }
         base.OnExit();
     }
 
     public override void OnDestroy()
     {
         base.OnDestroy();
+    }
+    private void ActionDirectorOnonStopped(BaseActionDirector obj)
+    {
+        ChangeState<PlayerMoveState>();
     }
 }

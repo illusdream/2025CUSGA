@@ -45,6 +45,7 @@ public class PlayerHitable : BaseHitable
                      beHittedInfo = BeHittedInfo.Default;
                      return;   
                 }
+                handler.BroadcastEvent(PlayerEvent.BeHitted,EEntityEventScope.Component,new PlayerEvent.BeHittedEventArgs(damageInfo));
                 if (handler.TryGetComponet(EntityComponetUsage.Health,out PlayerHealth health))
                 {
                         health.Hit(damageInfo,out beHittedInfo);
