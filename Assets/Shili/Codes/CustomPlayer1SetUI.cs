@@ -115,7 +115,7 @@ public class CustomPlayer1SetUI : UIPanel
         {
             if(isPlayerOne)
             {
-                shili_CustomUIManager.Instance.AddCustomPlayer(new CustomPlayer(1, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text), propChoiceButtonSet1));
+                shili_CustomUIManager.Instance.AddCustomPlayer(1, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text));
                 /*              Debug.Log("血量" + healthText.text);
                               Debug.Log("能量阈值" + energyText.text);
                               Debug.Log("方块数量" + cubeText.text);*/
@@ -123,7 +123,7 @@ public class CustomPlayer1SetUI : UIPanel
             }
             else
             {
-                shili_CustomUIManager.Instance.AddCustomPlayer(new CustomPlayer(2, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text), propChoiceButtonSet2));
+                shili_CustomUIManager.Instance.AddCustomPlayer(2, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text));
                 Close();
             }
 

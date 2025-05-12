@@ -1,5 +1,8 @@
+using ilsFramework;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [System.Serializable]
 public class CustomPlayer
@@ -13,7 +16,7 @@ public class CustomPlayer
     {
         this.id = id;
         this.health = health;
-        this.energy = energy;
+        this.energy = energy; 
         this.cude = cude;
         this.propChoiceButtonSet = propChoiceButtonSet;
     }
@@ -34,6 +37,7 @@ public class MapSet
 
 public class shili_CustomUIManager : MonoBehaviour
 {
+    public bool isCustom;
     private List<int> propChoiceButtonSet1;//玩家1能随机到的道具列表
     private List<int> propChoiceButtonSet2;//玩家2能随机到的道具列表
     private static shili_CustomUIManager instance;
@@ -66,13 +70,19 @@ public class shili_CustomUIManager : MonoBehaviour
     /// 保存时添加
     /// </summary>
     /// <param name="customPlayer"></param>
-    public void AddCustomPlayer(CustomPlayer customPlayer)
+    public void AddCustomPlayer(int id,int hp,int e,int cs)
     {
-        int index = CustomPlayerlist.FindIndex(t => t.id == customPlayer.id);
-        if (index != -1)
+        if(id == 1)
         {
-            // 存在则替换
-            CustomPlayerlist[index] = customPlayer;
+            CustomPlayerlist[0].health = hp;
+            CustomPlayerlist[0].energy = e;
+            CustomPlayerlist[0].cude = cs;
+        }
+        else
+        {
+            CustomPlayerlist[1].health = hp;
+            CustomPlayerlist[1].energy = e;
+            CustomPlayerlist[1].cude = cs;
         }
     }
     /// <summary>
@@ -142,6 +152,23 @@ public class shili_CustomUIManager : MonoBehaviour
     }
     public void OnStartGame()
     {
-        Debug.Log("无畏契约，启动！！！");
+        GameManager.Instance.Player1_MaxHealth = CustomPlayerlist[0].health;
+        GameManager.Instance.Player1_StartedHealth = CustomPlayerlist[0].health;
+        GameManager.Instance.Player2_MaxHealth = CustomPlayerlist[1].health;
+        GameManager.Instance.Player2_StartedHealth = CustomPlayerlist[1].health;
+        GameManager.Instance.Player1_EnergyCanBeComeProp = CustomPlayerlist[0].energy;
+        GameManager.Instance.Player2_EnergyCanBeComeProp = CustomPlayerlist[1].energy;
+        GameManager.Instance.Player1StartHasBlockCount = CustomPlayerlist[0].cude;
+        GameManager.Instance.Player2StartHasBlockCount = CustomPlayerlist[1].cude;
+        GameManager.Instance.SetPlayer1_RandomSelectedProps(CustomPlayerlist[0].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList());
+        Debug.Log(CustomPlayerlist[0].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList()[0]);
+        GameManager.Instance.SetPlayer2_RandomSelectedProps(CustomPlayerlist[1].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList());
+        Debug.Log(CustomPlayerlist[1].propChoiceButtonSet.Select(i => (EPropType)(i)).ToList()[0]);
+        GameManager.Instance.CommonTileHealth = mapSet.neutralCubeHealth;
+        GameManager.Instance.PlayerTileHealth = mapSet.playerCubeHealth;
+        GameManager.Instance.RefreshTileEmptyInterval = mapSet.cubeTime;
+        GameManager.Instance.SetLevelRandomSelectedEvents(randomEventButtonSets.Select(i=>(ERandomEventType)(i)).ToList());
+        Debug.Log(randomEventButtonSets.Select(i => (ERandomEventType)(i)).ToList()[0]);
+        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
     }
 }

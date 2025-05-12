@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [UIPanelSetting(EUILayer.Normal, 2, true, EAssetLoadMode.Resources, "Prefab/Shili/CustomRoom")]
 public class CustomRoomUI : UIPanel
 {
+    private bool isStart;
     private MainInputAction inputActions;
     private bool ilsBool;
     private Dictionary<RectTransform, bool> _panelLockStates;
@@ -28,12 +29,17 @@ public class CustomRoomUI : UIPanel
         inputActions = InputManager.Instance.GetCurrentInputAction();
         base.InitUIPanel();
         backButton.onClick.AddListener(Close);
-        startGame.onClick.AddListener(shili_CustomUIManager.Instance.OnStartGame);
+        startGame.onClick.AddListener(OnStart);
         randomEventUI.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<RandomEventUI>().Open(); });
         mapSetButton.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<MapSetUI>().Open(); });
         player1Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player1 …Ë÷√"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = true; });
         player2Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player2 …Ë÷√"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = false; });
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
+    }
+    private void OnStart()
+    {
+        isStart = true;
+        Close();
     }
     public override void Open()
     {
@@ -58,6 +64,12 @@ public class CustomRoomUI : UIPanel
             if (_panelLockStates.ContainsKey(panel.GetComponent<RectTransform>()) && _panelLockStates[panel.GetComponent<RectTransform>()])
             {
                 return;
+            }
+            if (isStart)
+            {
+                isStart = false;
+                shili_CustomUIManager.Instance.OnStartGame();
+                UIManager.Instance.GetUIPanel<ChoiceModeUI>().Close();
             }
             inputActions.Enable();
             Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);

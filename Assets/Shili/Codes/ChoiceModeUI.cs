@@ -39,6 +39,7 @@ public class ChoiceModeUI : UIPanel
             {
                 return;
             }
+            shili_CustomUIManager.Instance.isCustom = false;
             GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderStartGame, EventArgs.Empty);
             Shili_DOTweenManager.Instance.PlayPanelExit(panel.GetComponent<RectTransform>(), UIPanelCanvasGroup);
         }
@@ -46,6 +47,7 @@ public class ChoiceModeUI : UIPanel
     private void OnCustomModeGame()
     {
         Close();
+        shili_CustomUIManager.Instance.isCustom = true;
         UIManager.Instance.GetUIPanel<CustomRoomUI>().Open();
     }
     public override void Open()

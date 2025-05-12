@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static ilsFramework.GlobalEventSets;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerTileText : MonoBehaviour
 {
@@ -31,17 +32,14 @@ public class PlayerTileText : MonoBehaviour
 
     private void Update()
     {
-        blockText.text = tileHandler.PlayerTileCurrentHas.ToString();
-        if(playerHealth != null)
+        blockText.text = playerHealth.healthSources[EHealthSourceType.Life].BaseMaxHealth.ToString();
+        if (playerHealth != null)
         {
             shieldText.text = playerHealth.healthSources[EHealthSourceType.Shield].CurrentHealth.ToString("0.0");
         }
-        if (playerPropContainer != null)
+        if (tileHandler != null)
         {
-            if (playerPropContainer.GetLastProp() != null)
-            {
-                useTimeText.text = playerPropContainer.GetLastProp().PropUseCount.ToString();
-            }
+            useTimeText.text = tileHandler.PlayerTileCurrentHas.ToString();
         }
         else
         {

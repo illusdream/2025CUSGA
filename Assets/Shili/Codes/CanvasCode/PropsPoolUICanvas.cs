@@ -13,7 +13,6 @@ public class PropsPoolUICanvas : MonoBehaviour
     public void SetOnEnable()
     {
         List<EPropType> allEPropTypes =  PropManager.Instance.GetAllEPropTypes();
-        Debug.Log(allEPropTypes[1]);
         for (int i = 0; i < allEPropTypes.Count - 1; i++)
         {
             GameObject go1 = Instantiate(prefab);

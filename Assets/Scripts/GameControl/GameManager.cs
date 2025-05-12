@@ -130,7 +130,7 @@ public class GameManager : ManagerSingleton<GameManager>,IManager
     }
 
 
-    private void SetDefaultConfigs()
+    public void SetDefaultConfigs()
     {
         Player1_RandomSelectedProps = PropManager.Instance.GetDefaultBeSelectRandomPropList();
         Player2_RandomSelectedProps = PropManager.Instance.GetDefaultBeSelectRandomPropList();

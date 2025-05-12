@@ -56,6 +56,7 @@ public class MenuUI : UIPanel
     public override void Open()
     {
         base.Open();
+        GameManager.Instance.SetDefaultConfigs();
         Shili_DOTweenManager.Instance.PlayPanelEnter(m_GameObject.GetComponent<RectTransform>(), UIPanelCanvasGroup);
     }
 }
