@@ -32,14 +32,14 @@ public class PlayerTileText : MonoBehaviour
 
     private void Update()
     {
-        blockText.text = playerHealth.healthSources[EHealthSourceType.Life].BaseMaxHealth.ToString();
+        blockText.text = tileHandler.PlayerTileCurrentHas.ToString();
         if (playerHealth != null)
         {
             shieldText.text = playerHealth.healthSources[EHealthSourceType.Shield].CurrentHealth.ToString("0.0");
         }
-        if (tileHandler != null)
+        if (playerPropContainer != null&& playerPropContainer.GetLastProp()!=null)
         {
-            useTimeText.text = tileHandler.PlayerTileCurrentHas.ToString();
+            useTimeText.text = playerPropContainer.GetLastProp().PropUseCount.ToString();
         }
         else
         {

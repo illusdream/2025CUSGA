@@ -43,6 +43,7 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameOver, OnGameOver);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameRestart,OnGameRestart);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerCurrentUsePropChanged, OnRefreshPropUI);
+        GlobalEventCenter.Instance.AddListener(OrderToSwitchToMainMenu, OnGameRestart);
 
     }
     private void OnDisable()
@@ -53,6 +54,7 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameOver, OnGameOver);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameRestart,OnGameRestart);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerCurrentUsePropChanged, OnRefreshPropUI);
+        GlobalEventCenter.Instance.RemoveListener(OrderToSwitchToMainMenu, OnGameRestart);
     }
     private void OnGameOver(EventArgs e)
     {
