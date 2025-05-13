@@ -39,6 +39,10 @@ namespace Props
         public float maxDeltaValue;
         
         TimerCollection timerCollection;
+
+        public SoundData ShootSound;
+
+        public AudioEmitter Emitter;
         public void Start()
         {
             timerCollection = new TimerCollection();
@@ -54,6 +58,8 @@ namespace Props
             {
                 startDistance = Vector3.Distance(transform.position, target.transform.position);
             }
+
+            Emitter=  AudioManager.Instance.Play(AudioChannelName.Sound, ShootSound);
         }
 
         private void OnLifeEnd(Timer timer)
@@ -147,6 +153,7 @@ namespace Props
         public void OnDestroy()
         {
             timerCollection.ClearAllTimers();
+          
         }
     }
 }

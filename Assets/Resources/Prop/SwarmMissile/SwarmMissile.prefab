@@ -88,6 +88,29 @@ MonoBehaviour:
   slerpValue: 0.1
   deltaIncrease: 0.05
   maxDeltaValue: 1
+  ShootSound:
+    clip: {fileID: 8300000, guid: 38af23a8a15dfd344b12c694a1f8fdb6, type: 3}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 0.5
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0
+  Emitter: {fileID: 0}
 --- !u!50 &4081222907845713222
 Rigidbody2D:
   serializedVersion: 4
