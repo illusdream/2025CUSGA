@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-
-namespace Props
+﻿namespace Props
 {
     public class CagePropConfig : BasePropConfig
     {
-        public GameObject CageVisual;
+
     }
 }

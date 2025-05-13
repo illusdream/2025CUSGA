@@ -7,7 +7,5 @@ namespace Tiles
     {
         public AnimationClip Charactor1SpawnClip;
         public AnimationClip Charactor2SpawnClip;
-        
-        public Sprite[] BlueAnimationFrames;
     }
 }
