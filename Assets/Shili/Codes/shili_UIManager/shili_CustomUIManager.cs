@@ -63,8 +63,8 @@ public class shili_CustomUIManager : MonoBehaviour
         CustomPlayerlist = new List<CustomPlayer>();
         mapSet = new MapSet(10,5,5);
         randomEventButtonSets = new List<ERandomEventType>(1) { 0 };//记得给予一个默认的事件
-        CustomPlayerlist.Add(new CustomPlayer(1,100,100,0, propChoiceButtonSet1));
-        CustomPlayerlist.Add(new CustomPlayer(2, 100, 100, 0, propChoiceButtonSet2));
+        CustomPlayerlist.Add(new CustomPlayer(1,100,50,0, propChoiceButtonSet1));
+        CustomPlayerlist.Add(new CustomPlayer(2, 100, 50, 0, propChoiceButtonSet2));
     }
     /// <summary>
     /// 保存时添加
