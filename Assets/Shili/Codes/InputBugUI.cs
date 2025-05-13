@@ -31,6 +31,7 @@ public class InputBugUI : UIPanel
     }
     public override void Close()
     {
+        AudioUtils.PlayUIClick();
         if (!ilsBool)
         {
             ilsBool = true;

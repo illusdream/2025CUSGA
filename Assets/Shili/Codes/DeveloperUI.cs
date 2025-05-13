@@ -11,6 +11,10 @@ public class DeveloperUI : UIPanel
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        backButton.onClick.AddListener(base.Close);
+        backButton.onClick.AddListener(()=>
+        {
+            AudioUtils.PlayUIClick();
+            base.Close();
+        });
     }
 }

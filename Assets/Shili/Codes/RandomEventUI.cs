@@ -18,7 +18,7 @@ public class RandomEventUI : UIPanel
     [AutoUIElement("Panel/Save")]
     private Button saveButton;
     [AutoUIElement("Panel/GameObject/Two/Scroll View/Viewport/ChioceProp")]
-    private GameObject chioceObject;//因为这里是简单的拷贝了道具类，所以很多名字有错误
+    private GameObject chioceObject;//锟斤拷为锟斤拷锟斤拷锟角简单的匡拷锟斤拷锟剿碉拷锟斤拷锟洁，锟斤拷锟皆很讹拷锟斤拷锟斤拷锟叫达拷锟斤拷
     public override void InitUIPanel()
     {
         base.InitUIPanel();
@@ -38,6 +38,7 @@ public class RandomEventUI : UIPanel
     }
     public override void Close()
     {
+        AudioUtils.PlayUIClick();
         if (!ilsBool)
         {
             ilsBool = true;
@@ -66,6 +67,7 @@ public class RandomEventUI : UIPanel
     }
     public void OnSave()
     {
+        AudioUtils.PlayUIClick();
         List<RandomEventButtonSet> randomEventButtonSets = new List<RandomEventButtonSet>();
         for(int i = 0;i< chioceObject.transform.childCount; i++)
         {

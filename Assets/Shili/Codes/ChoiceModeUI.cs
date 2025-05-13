@@ -23,11 +23,16 @@ public class ChoiceModeUI : UIPanel
         base.InitUIPanel();
         normalModeButton.onClick.AddListener(OnNormalModeGame);
         customModeButton.onClick.AddListener(OnCustomModeGame);
-        backButton.onClick.AddListener(Close);
+        backButton.onClick.AddListener(()=>
+        {
+            AudioUtils.PlayUIClick();
+            Close();
+        });
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
     private void OnNormalModeGame()
     {
+        AudioUtils.PlayUIClick();
         if (!ilsBool)
         {
             ilsBool = true;
@@ -46,6 +51,7 @@ public class ChoiceModeUI : UIPanel
     }
     private void OnCustomModeGame()
     {
+        AudioUtils.PlayUIClick();
         Close();
         shili_CustomUIManager.Instance.isCustom = true;
         UIManager.Instance.GetUIPanel<CustomRoomUI>().Open();

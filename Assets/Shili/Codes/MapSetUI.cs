@@ -24,7 +24,10 @@ public class MapSetUI : UIPanel
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        backButton.onClick.AddListener(Close);
+        backButton.onClick.AddListener(()=>
+        {
+            Close(); AudioUtils.PlayUIClick();
+        });
         saveButton.onClick.AddListener(OnSave);
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
@@ -40,7 +43,7 @@ public class MapSetUI : UIPanel
     }
     public override void Close()
     {
-
+       
         if (!ilsBool)
         {
             ilsBool = true;
@@ -72,7 +75,7 @@ public class MapSetUI : UIPanel
     }
     public void OnSave()
     {
-
+        AudioUtils.PlayUIClick();
         if (playerCubeHealthText.text == "" || neutralCubeHealthText.text == "" || cubeTimeText.text == "")
         {
             UIManager.Instance.GetUIPanel<InputBugUI>().Open();
@@ -85,7 +88,7 @@ public class MapSetUI : UIPanel
         else
         {
             shili_CustomUIManager.Instance.SetMapSet(int.Parse(playerCubeHealthText.text), int.Parse(neutralCubeHealthText.text), int.Parse(cubeTimeText.text));
-            Debug.Log("±£´æ");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½");
             Close();
         }
     }

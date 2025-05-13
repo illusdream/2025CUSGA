@@ -52,11 +52,13 @@ public class NotSaveUIAboutMapSet : UIPanel
     }
     private void OnSaveAndBackButton()
     {
+        AudioUtils.PlayUIClick();
         save = true;
         Close();
     }
     private void OnClose()
     {
+        AudioUtils.PlayUIClick();
         save = false;
         Close();
     }

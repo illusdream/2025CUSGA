@@ -26,15 +26,19 @@ public class CustomPlayer1SetUI : UIPanel
     private Text cubeText;
     [AutoUIElement("Panel/GameObject/Prop/PropButton")]
     private Button propButton;
-    //ÓÃÓÚ¸üÐÂÐ¯´øµÀ¾ßµÄÁÐ±í
+    //ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½Ð¯ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½Ð±ï¿½
     public List<EPropType> propChoiceButtonSet1;
     public List<EPropType> propChoiceButtonSet2;
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        backButton.onClick.AddListener(Close);
+        backButton.onClick.AddListener(()=>
+        {
+            Close();
+            AudioUtils.PlayUIClick();
+        });
         saveButton.onClick.AddListener(OnSave);
-        propButton.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<PropsPoolUI>().Open(); });
+        propButton.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<PropsPoolUI>().Open();AudioUtils.PlayUIClick(); });
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
     public override void Open()
@@ -100,6 +104,7 @@ public class CustomPlayer1SetUI : UIPanel
     }
     public void OnSave()
     {
+        AudioUtils.PlayUIClick();
         if (healthText.text == "" || energyText.text == "" || cubeText.text == "")
         {
             UIManager.Instance.GetUIPanel< InputBugUI >().Open();
@@ -114,9 +119,9 @@ public class CustomPlayer1SetUI : UIPanel
             if(isPlayerOne)
             {
                 shili_CustomUIManager.Instance.AddCustomPlayer(1, int.Parse(healthText.text), int.Parse(energyText.text), int.Parse(cubeText.text));
-                /*              Debug.Log("ÑªÁ¿" + healthText.text);
-                              Debug.Log("ÄÜÁ¿ãÐÖµ" + energyText.text);
-                              Debug.Log("·½¿éÊýÁ¿" + cubeText.text);*/
+                /*              Debug.Log("Ñªï¿½ï¿½" + healthText.text);
+                              Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ" + energyText.text);
+                              Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + cubeText.text);*/
                 Close();
             }
             else

@@ -60,17 +60,20 @@ public class SettingUI : UIPanel
 
     private void OnResumeGame()
     {
+        AudioUtils.PlayUIClick();
         //GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
         Close();
     }
     private void OnReset()
     {
+        AudioUtils.PlayUIClick();
         InputManager.Instance.ResetAllBindings();
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.ResetKey, EventArgs.Empty);
         Debug.Log("����");
     }
     private void OnGameSetting()
     {
+        AudioUtils.PlayUIClick();
         gameSettingButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
         keystrokeSettingButton.GetComponent <Text>().fontStyle = FontStyle.Normal;
         gameSettingObject.SetActive(true);
@@ -78,6 +81,7 @@ public class SettingUI : UIPanel
     }
     private void OnKeystrokeSetting()
     {
+        AudioUtils.PlayUIClick();
         gameSettingButton.GetComponent<Text>().fontStyle = FontStyle.Normal;
         keystrokeSettingButton.GetComponent<Text>().fontStyle = FontStyle.Bold;
         gameSettingObject.SetActive(false);
@@ -85,6 +89,7 @@ public class SettingUI : UIPanel
     }
     private void OnSoundSwitch()
     {
+        AudioUtils.PlayUIClick();
         isPlayMusic = !isPlayMusic;
         if (isPlayMusic)
         {

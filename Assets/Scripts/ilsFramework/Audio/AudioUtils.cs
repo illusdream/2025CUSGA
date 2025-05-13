@@ -68,7 +68,7 @@ namespace ilsFramework
         /// 播放点击UI的音效
         /// </summary>
         /// <param name="volume"></param>
-        public static void PlayUIClick(float volume)
+        public static void PlayUIClick(float volume = 0.8f)
         {
             var soundData = new SoundData()
             {

@@ -28,16 +28,21 @@ public class CustomRoomUI : UIPanel
     {
         inputActions = InputManager.Instance.GetCurrentInputAction();
         base.InitUIPanel();
-        backButton.onClick.AddListener(Close);
+        backButton.onClick.AddListener(()=>
+        {
+            Close();
+            AudioUtils.PlayUIClick();
+        });
         startGame.onClick.AddListener(OnStart);
-        randomEventUI.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<RandomEventUI>().Open(); });
-        mapSetButton.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<MapSetUI>().Open(); });
-        player1Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player1 ÉèÖÃ"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = true; });
-        player2Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player2 ÉèÖÃ"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = false; });
+        randomEventUI.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<RandomEventUI>().Open(); AudioUtils.PlayUIClick();});
+        mapSetButton.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<MapSetUI>().Open(); AudioUtils.PlayUIClick();});
+        player1Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player1 ï¿½ï¿½ï¿½ï¿½"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = true; AudioUtils.PlayUIClick();});
+        player2Button.onClick.AddListener(() => { UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().Open(); UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().playerText.text = "Player2 ï¿½ï¿½ï¿½ï¿½"; UIManager.Instance.GetUIPanel<CustomPlayer1SetUI>().isPlayerOne = false; AudioUtils.PlayUIClick();});
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
     private void OnStart()
     {
+        AudioUtils.PlayUIClick();
         isStart = true;
         Close();
     }

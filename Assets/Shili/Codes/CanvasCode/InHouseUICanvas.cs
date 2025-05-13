@@ -218,6 +218,7 @@ public class InHouseUICanvas : MonoBehaviour
         PreShowRandomEventArgs p = e as PreShowRandomEventArgs;
         if (RandomEventManager.Instance.TryGetRandomEventConfig(p.Type, out var propConfig1))
         {
+            AudioUtils.PlayRandomEventPreShow(0.8f);
             UIManager.Instance.GetUIPanel<MessageUI>().text.text = propConfig1.Name;
             UIManager.Instance.GetUIPanel<MessageUI>().Open();
         }

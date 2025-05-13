@@ -43,6 +43,7 @@ public class PropsPoolUI : UIPanel
     }
     public override void Close()
     {
+        AudioUtils.PlayUIClick();
         if (!ilsBool)
         {
             ilsBool = true;
@@ -71,7 +72,7 @@ public class PropsPoolUI : UIPanel
         }
         if (!isSave)
         {
-            //因为目前是依赖于实例来判断是否相等来判断是否保存，后续应换成ID的标识符，因为每次打开都是新的实例化，所以在每次重新打开时均会显示未保存
+            //锟斤拷为目前锟斤拷锟斤拷锟斤拷锟斤拷实锟斤拷锟斤拷锟叫讹拷锟角凤拷锟斤拷锟斤拷锟斤拷卸锟斤拷欠癖４妫拷锟斤拷锟接︼拷锟斤拷锟絀D锟侥憋拷识锟斤拷锟斤拷锟斤拷为每锟轿打开讹拷锟斤拷锟铰碉拷实锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷每锟斤拷锟斤拷锟铰达拷时锟斤拷锟斤拷锟斤拷示未锟斤拷锟斤拷
             UIManager.Instance.GetUIPanel<NotSaveUIAboutProp>().Open();
             return;
         }
@@ -87,6 +88,7 @@ public class PropsPoolUI : UIPanel
     }
     public void OnSave()
     {
+        AudioUtils.PlayUIClick();
         List< PropChoiceButtonSet > p = new List< PropChoiceButtonSet >();
         if (chiocePropGameObject.transform.childCount == 0)
         {

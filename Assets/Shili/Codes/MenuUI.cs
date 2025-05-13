@@ -34,23 +34,27 @@ public class MenuUI : UIPanel
     }
     private void OnSatrtGame()
     {
+        AudioUtils.PlayUIClick(0.8f);
         UIManager.Instance.GetUIPanel<ChoiceModeUI>().Open();
     }
     private void OnOpenSetting()
     {
+        AudioUtils.PlayUIClick(0.8f);
         UIManager.Instance.GetUIPanel<SettingUI>().Open();
     }
     private void OnOpenAboutOur()
     {
+        AudioUtils.PlayUIClick(0.8f);
         UIManager.Instance.GetUIPanel<DeveloperUI>().Open();
     }
     private void OnOpenExitGame()
     {
+        AudioUtils.PlayUIClick(0.8f);
         Application.Quit();
     }
     private void OnGuidelinesScene()
     {
-        
+        AudioUtils.PlayUIClick(0.8f);
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToGuidelinesScene, EventArgs.Empty);
     }
     public override void Open()

@@ -15,7 +15,10 @@ public class FollowBugUI : UIPanel
     public override void InitUIPanel()
     {
         base.InitUIPanel();
-        backButton.onClick.AddListener(Close);
+        backButton.onClick.AddListener(()=>
+        {
+            Close(); AudioUtils.PlayUIClick();
+        });
         _panelLockStates = Shili_DOTweenManager.Instance._panelLockStates;
     }
     public override void Open()

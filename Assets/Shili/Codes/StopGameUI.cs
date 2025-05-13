@@ -83,21 +83,25 @@ public class StopGameUI : UIPanel
     }
     private void OnContinue()
     {
+        AudioUtils.PlayUIClick();
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToResumeGame,EventArgs.Empty);
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
         UIManager.Instance.GetUIPanel<InHouseUI>().Open();
     }
     private void OnSetting()
     {
+        AudioUtils.PlayUIClick();
         //UIManager.Instance.GetUIPanel<StopGameUI>().Close();
         UIManager.Instance.GetUIPanel<SettingUI>().Open();
     }
     private void OnResume()
     {
+        AudioUtils.PlayUIClick();
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToRestartGamePlay, EventArgs.Empty);
     }
     private void OnExit()
     {
+        AudioUtils.PlayUIClick();
         UIManager.Instance.GetUIPanel<StopGameUI>().Close();
         GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.OrderToSwitchToMainMenu, EventArgs.Empty);
         UIManager.Instance.GetUIPanel<InHouseUI>().Close();
