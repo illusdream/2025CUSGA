@@ -1,24 +1,20 @@
 # Unity项目文件规则
 # Git LFS rules for Unity project
-
 # Unity scripts & shaders, c-sharp
 *.cginc text
 *.cs diff=csharp
 *.shader text
-
 # Collapse Unity-generated files
 *.asset linguist-generated
 *.mat linguist-generated
 *.meta linguist-generated
 *.prefab linguist-generated
 *.unity linguist-generated
-
 # "physic" for 3D but "physics" for 2D
 *.physicMaterial2D merge=unityyamlmerge eol=lf
 *.physicMaterial merge=unityyamlmerge eol=lf
 *.physicsMaterial2D merge=unityyamlmerge eol=lf
 *.physicsMaterial merge=unityyamlmerge eol=lf
-
 # Unity YAML
 *.mat merge=unityyamlmerge eol=lf
 *.anim merge=unityyamlmerge eol=lf
@@ -27,12 +23,10 @@
 *.asset merge=unityyamlmerge eol=lf
 *.meta merge=unityyamlmerge eol=lf
 *.controller merge=unityyamlmerge eol=lf
-
 # Unity file types
 *.cubemap filter=lfs diff=lfs merge=binary -text
 *.unitypackage filter=lfs diff=lfs merge=binary -text
 LightingData.asset filter=lfs diff=lfs merge=lfs -text
-
 # 视频，video
 # oggtheora
 *.[oO][gG][gG][tT][hH][eE][oO][rR][aA] filter=lfs diff=lfs merge=binary -text
@@ -94,7 +88,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[vV][cC][rR] filter=lfs diff=lfs merge=binary -text
 # ogv
 *.[oO][gG][vV] filter=lfs diff=lfs merge=binary -text
-
 # 音频, audio
 # ape
 *.[aA][pP][eE] filter=lfs diff=lfs merge=binary -text
@@ -126,7 +119,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[wW][eE][mM] filter=lfs diff=lfs merge=binary -text
 # pca
 *.[pP][cC][aA] filter=lfs diff=lfs merge=binary -text
-
 # 库文件，Library
 # a
 *.[aA] filter=lfs diff=lfs merge=binary -text
@@ -204,7 +196,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[rR][nN][sS] filter=lfs diff=lfs merge=binary -text
 # reason
 *.[rR][eE][aA][sS][oO][nN] filter=lfs diff=lfs merge=binary -text
-
 # 压缩包，Archive format
 # =Archiving only=
 # ar
@@ -347,7 +338,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[cC][uU][eE] filter=lfs diff=lfs merge=binary -text
 # raw
 *.[rR][aA][wW] filter=lfs diff=lfs merge=binary -text
-
 # Adobe
 # Photoshop
 # psd
@@ -359,7 +349,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[eE][pP][sS] filter=lfs diff=lfs merge=binary -text
 # pdf
 *.[pP][dD][fF] filter=lfs diff=lfs merge=binary -text
-
 # 原始图片，Raw image
 # cr2
 *.[cC][rR]2 filter=lfs diff=lfs merge=binary -text
@@ -465,7 +454,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[fF][cC][sS][tT][dD] filter=lfs diff=lfs merge=binary -text
 # bim
 *.[bB][iI][mM] filter=lfs diff=lfs merge=binary -text
-
 # 图像，Image
 # jpg
 *.[jJ][pP][gG] filter=lfs diff=lfs merge=binary -text
@@ -523,8 +511,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[eE][xX][rR] filter=lfs diff=lfs merge=binary -text
 # bc
 *.[bB][cC] filter=lfs diff=lfs merge=binary -text
-
-
 # 文档，Document
 # Microsoft Excel
 # xls
@@ -578,7 +564,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 # Apple numbers
 # numbers, apple
 *.[nN][uU][mM][bB][eE][rR][sS] filter=lfs diff=lfs merge=binary -text
-
 # 电子书，Book
 # chm
 *.[cC][hH][mM] filter=lfs diff=lfs merge=binary -text
@@ -616,7 +601,6 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[cC][bB][aA] filter=lfs diff=lfs merge=binary -text
 # pdb
 *.[pP][dD][bB] filter=lfs diff=lfs merge=binary -text
-
 # 字体，font
 # ttf
 *.[tT][tT][fF] filter=lfs diff=lfs merge=binary -text
@@ -626,11 +610,9 @@ LightingData.asset filter=lfs diff=lfs merge=lfs -text
 *.[wW][oO][fF][fF] filter=lfs diff=lfs merge=binary -text
 # woff2
 *.[wW][oO][fF][fF]2 filter=lfs diff=lfs merge=binary -text
-
 # 翻译，translate
 # po
 *.[pP][oO] filter=lfs diff=lfs merge=binary -text
-
 # 无后缀文件，non-suffix files
 Chromium[[:space:]]Embedded[[:space:]]Framework filter=lfs diff=lfs merge=binary -text
 Electron[[:space:]]Framework filter=lfs diff=lfs merge=binary -text
@@ -833,3 +815,4 @@ usymtool32 filter=lfs diff=lfs merge=binary -text
 pedump filter=lfs diff=lfs merge=binary -text
 C_AniObj_Sled filter=lfs diff=lfs merge=binary -text
 AudioPluginOculusSpatializer filter=lfs diff=lfs merge=binary -text
+/Assets/Font/天王星像素_/Uranus_Pixel_11Px[[:space:]]SDF.asset filter=lfs diff=lfs merge=lfs -text
