@@ -85,17 +85,30 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
         randomEventsNeedRemove.Clear();
     }
 
+    public ERandomEventType nextRandomEvent;
+    public bool HasBeenBroadCast = false;
     public void RandomEventCycleUpdate()
     {
         if (_randomEventIsEnabled)
         {
             RandomEventTimer += Time.deltaTime;
 
+            if (RandomEventTimer >= CurrentRandomEventInterval - randomEventConfig.PreShowRandomEventTime && !HasBeenBroadCast)
+            {
+                nextRandomEvent = GetCurrentRandomEventType();
+                
+                GlobalEventSets.PreShowRandomEventArgs args = new GlobalEventSets.PreShowRandomEventArgs(nextRandomEvent);
+                
+                GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PreShowRandomEvent, args);
+                HasBeenBroadCast = true;
+                $"下一个事件：{nextRandomEvent}".LogSelf();
+            }
+            
             if (RandomEventTimer >= CurrentRandomEventInterval)
             {
                 RandomEventTimer -= CurrentRandomEventInterval;
-                var type = GetCurrentRandomEventType();
-                AddRandomEvent(type);
+                AddRandomEvent(nextRandomEvent);
+                HasBeenBroadCast = false;
             }
         }
     }
@@ -209,11 +222,13 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
     public void StartGameCommonRandomEventCycle()
     {
         _randomEventIsEnabled = true;
+        HasBeenBroadCast = false;
     }
 
     public void StopGameCommonRandomEventCycle()
     {
         _randomEventIsEnabled = false;
+        HasBeenBroadCast = true;
     }
 
     public void ResetGameCommonRandomEventCycle(int interval)

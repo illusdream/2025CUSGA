@@ -88,5 +88,18 @@ namespace ilsFramework
                 SpawnSource = spawnSource;
             }
         }
+        
+        
+        public const string PreShowRandomEvent = "PreShowRandomEvent";
+        
+        public class PreShowRandomEventArgs : EventArgs
+        {
+            public ERandomEventType Type;
+
+            public PreShowRandomEventArgs(ERandomEventType type)
+            {
+                Type = type;
+            }
+        }
     }
 }

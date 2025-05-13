@@ -46,6 +46,8 @@ public class RandomEventConfig : ConfigScriptObject
     [ListDrawerSettings(DraggableItems = false)]
     public List<ERandomEventType> BeRandomSelectRandomEvent;
 
+    public float PreShowRandomEventTime;
+
     public List<ERandomEventType> GetAllPropTypes()
     {
         return new List<ERandomEventType>(Enum.GetValues(typeof(ERandomEventType)).OfType<ERandomEventType>());
