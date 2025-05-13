@@ -17,3 +17,25 @@ MonoBehaviour:
   Name: "\u706B\u70E7\u5C41\u80A1"
   DamagePerSec: 10
   Prefab: {fileID: 6291441259965331888, guid: db166ba5bb12c48409f733659e363501, type: 3}
+  fireSound:
+    clip: {fileID: 8300000, guid: 7ee1ba6ba948faf4db62859b045f7594, type: 3}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0

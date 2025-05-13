@@ -16,3 +16,25 @@ MonoBehaviour:
   EventLastTime: 15
   Name: "\u5168\u5458\u52A0\u901F\u4E2D..."
   EffectToEntity: 0000000001000000020000000300000004000000
+  StartSound:
+    clip: {fileID: 8300000, guid: 6dae59c75d696c84985b5ba53359bc72, type: 3}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 0.7
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0

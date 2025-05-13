@@ -1,4 +1,6 @@
-﻿public class TotalMayhemConfig : BaseRandomEventConfig
+﻿using ilsFramework;
+
+public class TotalMayhemConfig : BaseRandomEventConfig
 {
-        
+    public SoundData ObtainSound;
 }

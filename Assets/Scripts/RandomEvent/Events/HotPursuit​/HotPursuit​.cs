@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ilsFramework;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +9,8 @@ using UnityEngine;
 public class HotPursuit : BaseRandomEvent<HotPursuitConfig>
 {
     private GameObject hotPursuitGO;
+    
+    AudioEmitter emitter;
     public override void OnInit()
     {
         
@@ -37,6 +40,8 @@ public class HotPursuit : BaseRandomEvent<HotPursuitConfig>
             }
             instance.transform.position = final.Item2;
         }
+
+        emitter = AudioManager.Instance.Play(AudioChannelName.Sound, Config.fireSound);
     }
 
     public override void OnEventUpdate()
@@ -52,6 +57,7 @@ public class HotPursuit : BaseRandomEvent<HotPursuitConfig>
     public override void OnEventEnd()
     {
        GameObject.Destroy(hotPursuitGO);
+       emitter.Stop();
     }
 
     public override void OnEventDestroy()

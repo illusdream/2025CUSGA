@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using ilsFramework;
+
+/// <summary>
 /// 彻底疯狂
 /// </summary>
 public class TotalMayhem : BaseRandomEvent<TotalMayhemConfig>
@@ -16,7 +18,7 @@ public class TotalMayhem : BaseRandomEvent<TotalMayhemConfig>
 
     public override void OnEventStart()
     {
-       
+        AudioManager.Instance.Play(AudioChannelName.Sound, Config.ObtainSound);
     }
 
     public override void OnEventUpdate()

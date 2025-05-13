@@ -16,3 +16,25 @@ MonoBehaviour:
   EventLastTime: 15
   Name: "\u9053\u5177\u4E13\u5BB6\u6765\u4E86"
   AddPropCount: 3
+  ObtainSound:
+    clip: {fileID: 8300000, guid: e84b00d3fb4c98c4cb0aacb6a9f7f0c6, type: 3}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 0.3
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0

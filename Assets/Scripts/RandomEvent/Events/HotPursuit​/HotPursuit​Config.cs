@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ilsFramework;
+using UnityEngine;
 
 public class HotPursuitConfig : BaseRandomEventConfig
 {
@@ -6,4 +7,6 @@ public class HotPursuitConfig : BaseRandomEventConfig
         
         
         public GameObject Prefab;
+        
+        public SoundData fireSound;
 }

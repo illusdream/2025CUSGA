@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ilsFramework;
 
 /// <summary>
 /// 全员加速中
@@ -15,7 +16,7 @@ public class FullSpeedAhead : BaseRandomEvent<FullSpeedAheadConfig>
 
     public override void OnEventStart()
     {
-        
+        AudioManager.Instance.Play(AudioChannelName.Sound, Config.StartSound);
     }
 
     public override void OnEventUpdate()

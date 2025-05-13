@@ -19,6 +19,8 @@ public class PropMasterArrives : BaseRandomEvent<PropMasterArrivesConfig>
                 container.AddEnergy(playerController.CurrentEnergyCanBeComeProp * Config.AddPropCount);
             }
         }
+        
+        AudioManager.Instance.Play(AudioChannelName.Sound, Config.ObtainSound);
     }
 
     public override void OnEventUpdate()

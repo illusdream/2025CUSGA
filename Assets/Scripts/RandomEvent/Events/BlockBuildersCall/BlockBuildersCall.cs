@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using ilsFramework;
+
+/// <summary>
 /// 砖瓦工来了
 /// </summary>
 public class BlockBuildersCall : BaseRandomEvent<BlockBuildersCallConfig>
@@ -17,6 +19,8 @@ public class BlockBuildersCall : BaseRandomEvent<BlockBuildersCallConfig>
                 handler.AddPlayerHasTile(Config.PlayerAddTileCount);
             }
         }
+        
+        AudioManager.Instance.Play(AudioChannelName.Sound, Config.ObtainSound);
     }
 
     public override void OnEventUpdate()

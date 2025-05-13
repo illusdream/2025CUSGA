@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using ilsFramework;
+
+/// <summary>
 /// 大钻头
 /// </summary>
 public class BigDrill : BaseRandomEvent<BigDrillConfig>
@@ -14,6 +16,8 @@ public class BigDrill : BaseRandomEvent<BigDrillConfig>
         {
             playerController.CurrenctDigAsset = Config.BigTrillDigAsset;
         }
+
+        AudioManager.Instance.Play(AudioChannelName.Sound, Config.ObtainSound);
     }
 
     public override void OnEventUpdate()

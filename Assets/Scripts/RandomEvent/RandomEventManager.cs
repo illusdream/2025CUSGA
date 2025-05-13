@@ -142,7 +142,7 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
       
     }
 
-
+    [Button]
     public BaseRandomEvent AddRandomEvent(ERandomEventType type)
     {
         if (randomEventType_TypeMap.TryGetRight(type,out var _type) && randomEventConfigs.TryGetValue(_type, out var baseConfig) && Activator.CreateInstance(_type) is BaseRandomEvent instance)
@@ -156,7 +156,7 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
         }
         return null;
     }
-    
+
     public BaseRandomEvent AddRandomEvent(Type eventType)
     {
         if (randomEventConfigs.TryGetValue(eventType, out var baseConfig) && Activator.CreateInstance(eventType) is BaseRandomEvent instance)
