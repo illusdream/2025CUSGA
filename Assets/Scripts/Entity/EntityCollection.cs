@@ -210,4 +210,9 @@ public class EntityCollection :IEnumerable<EntityHandler>
                   }
             }
       }
+
+      public void Clear()
+      {
+            
+      }
 }

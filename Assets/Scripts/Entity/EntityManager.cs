@@ -329,7 +329,20 @@ public class EntityManager : ManagerSingleton<EntityManager>,IManager,IAssemblyF
         }
         return go;
     }
-    
-    
+
+    public void ClearAllEntities()
+    {
+        foreach (var entityCollection in entityCollections.Values)
+        {
+            var targets = entityCollection.ToList();
+            foreach (var obj in targets)
+            {
+                if (obj is EntityHandler eh)
+                {
+                    GameObject.DestroyImmediate(eh.gameObject);
+                }
+            }
+        }
+    }
 
 }

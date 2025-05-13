@@ -101,7 +101,7 @@ public class RandomEventManager : ManagerSingleton<RandomEventManager>,IManager,
                 
                 GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.PreShowRandomEvent, args);
                 HasBeenBroadCast = true;
-                $"下一个事件：{nextRandomEvent}".LogSelf();
+
             }
             
             if (RandomEventTimer >= CurrentRandomEventInterval)

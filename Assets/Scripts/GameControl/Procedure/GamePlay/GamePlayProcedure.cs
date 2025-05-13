@@ -67,19 +67,23 @@ public class GamePlayProcedure : SubProcedureSwitcher
 
     private void Listener_OrderToRestartGamePlay(EventArgs args)
     {
-        TileManager.Instance.StopFillRandomRange();
-        
-        GlobalEventCenter.Instance.BroadcastMessage(GlobalEventSets.GameRestart,EventArgs.Empty);
-        
+        UIManager.Instance.GetUIPanel<InHouseUI>().Close();
         RandomEventManager.Instance.StopGameCommonRandomEventCycle();
+        RandomEventManager.Instance.ClearAllRandomEvent();
+        TileManager.Instance.StopFillRandomRange();
         VisualEffectManager.Instance.ClearAllVisualEffectPools();
-        
+        EntityManager.Instance.ClearAllEntities();
         ChangeProcedureNode<GamePlay_InitProcedure>();
     }
 
     private void Listener_OrderToSwitchToMainMenu(EventArgs args)
     {
-        
+        UIManager.Instance.GetUIPanel<InHouseUI>().Close();
+        RandomEventManager.Instance.StopGameCommonRandomEventCycle();
+        RandomEventManager.Instance.ClearAllRandomEvent();
+        TileManager.Instance.StopFillRandomRange();
+        VisualEffectManager.Instance.ClearAllVisualEffectPools();
+        EntityManager.Instance.ClearAllEntities();
         ChangeState<StartMenuProcedure>();
     }
 }
