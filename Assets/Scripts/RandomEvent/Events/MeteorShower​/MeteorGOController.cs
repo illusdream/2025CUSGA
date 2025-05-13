@@ -25,6 +25,8 @@ public class MeteorGOController : EntityComponent
         private MeteorShowerConfig Config;
         
         private Vector3 startPosition;
+
+        public float BombScale;
         public void Start()
         {
                 startPosition = transform.position;
@@ -35,6 +37,8 @@ public class MeteorGOController : EntityComponent
                         commenAttacker.Damage = config.MeteorDamage;
                         Handler.DamageToTile = config.MeteorDamage;
                         timerCollection.CreateTimer(config.MeteorAttackTime, 1, "Meteor").SetOnCycling(OnEnterCycling).SetOnFinish(OnFinish).Register();
+
+                        AudioManager.Instance.Play(AudioChannelName.Sound, config.MeteorFallSound);
                 }
         }
 
@@ -52,6 +56,10 @@ public class MeteorGOController : EntityComponent
 
         private void CommenActionDirectorOnonStopped(BaseActionDirector obj)
         {
+                if (VisualEffectManager.Instance.TryGetVisualEffectPool(out ExplosionVE ve))
+                {
+                        ve.TryEmittingVE(transform.position,Vector2.one *BombScale); 
+                }
                 Destroy(transform.parent.gameObject);
         }
 

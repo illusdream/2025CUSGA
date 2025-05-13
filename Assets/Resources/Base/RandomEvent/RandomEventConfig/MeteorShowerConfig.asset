@@ -20,3 +20,25 @@ MonoBehaviour:
   MeteorDamage: 35
   MeteorAttackTimeline: {fileID: 11400000, guid: 46781aa21d8a246418574de5b5a9d2ec, type: 2}
   MeteorPrefab: {fileID: 8923004647920899157, guid: 9ee01cfb8fc62ae43b7cd0bb6aafe7f9, type: 3}
+  MeteorFallSound:
+    clip: {fileID: 8300000, guid: 51bf2d33e63e69844984fa4bc2bff31a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 0.7
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0

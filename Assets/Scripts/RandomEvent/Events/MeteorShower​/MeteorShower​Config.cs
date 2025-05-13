@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ilsFramework;
+using UnityEngine;
 using UnityEngine.Timeline;
 
 public class MeteorShowerConfig : BaseRandomEventConfig
@@ -12,4 +13,6 @@ public class MeteorShowerConfig : BaseRandomEventConfig
         public TimelineAsset MeteorAttackTimeline;
         
         public GameObject MeteorPrefab;
+        
+        public SoundData MeteorFallSound;
 }

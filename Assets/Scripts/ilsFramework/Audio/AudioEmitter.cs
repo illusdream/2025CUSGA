@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 namespace ilsFramework
 {
@@ -14,6 +16,8 @@ namespace ilsFramework
         
         private bool _isPlaying;
         public bool IsPlaying { get => _isPlaying; }
+
+        public Action OnStop;
         public void OnGet()
         {
             _isPlaying = true;
@@ -89,7 +93,7 @@ namespace ilsFramework
                 StopCoroutine(playingCoroutine);
                 playingCoroutine = null;
             }
-            
+            OnStop?.Invoke();
             AudioSource.Stop();
             AudioManager.Instance.RecycleAudioEmitter(this);
         }

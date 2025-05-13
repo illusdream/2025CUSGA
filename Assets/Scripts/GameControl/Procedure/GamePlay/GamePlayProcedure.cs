@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Linq;
 using ilsFramework;
 
 public class GamePlayProcedure : SubProcedureSwitcher
 {
+    
+    AudioEmitter emitter;
+    
     public override void OnInit()
     {
+
         AddProcedureNode<GamePlay_InitProcedure>();
         AddProcedureNode<GamePlay_PlayerObserveProcedure>();
         AddProcedureNode<GamePlay_PlayingProcedure>();
@@ -21,7 +26,17 @@ public class GamePlayProcedure : SubProcedureSwitcher
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToSwitchToMainMenu,Listener_OrderToSwitchToMainMenu);
         
         CharacterManager.Instance.EnablePlayRangeLimit();
+
+        emitter = AudioManager.Instance.Play(AudioChannelName.BGM, GetRandomTargetAudio());
+        emitter.OnStop += OnStop;
+        
         base.OnEnter();
+    }
+
+    private void OnStop()
+    {
+        emitter = AudioManager.Instance.Play(AudioChannelName.BGM, GetRandomTargetAudio());
+        emitter.OnStop += OnStop;
     }
 
     public override void OnFixedUpdate()
@@ -37,6 +52,8 @@ public class GamePlayProcedure : SubProcedureSwitcher
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToSwitchToMainMenu,Listener_OrderToSwitchToMainMenu);
         
         SetCurrentState<GamePlay_InitProcedure>();
+        
+        emitter?.Stop();
         base.OnExit();
     }
 
@@ -89,5 +106,13 @@ public class GamePlayProcedure : SubProcedureSwitcher
         RandomEventManager.Instance.ClearAllRandomEvent();
         EntityManager.Instance.ClearAllEntities();
         ChangeState<StartMenuProcedure>();
+    }
+
+
+    public SoundData GetRandomTargetAudio()
+    {
+        var config = Config.GetConfig<GameControlConfig>();
+        var result = config.FightSounds.Shuffle();
+        return result.First();
     }
 }

@@ -1,4 +1,5 @@
-﻿using ilsFramework;
+﻿using System.Collections.Generic;
+using ilsFramework;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -29,4 +30,9 @@ public class GameControlConfig : ConfigScriptObject
     
     
     public SoundData GameOverSound;
+    
+    
+    public List<SoundData> FightSounds;
+    
+    public SoundData StartMenuSound;
 }

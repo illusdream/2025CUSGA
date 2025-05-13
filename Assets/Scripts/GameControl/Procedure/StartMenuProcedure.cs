@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuProcedure : ProcedureNode
 {
+        AudioEmitter emitter;
+        
         public override void OnInit()
         {
                 base.OnInit();
@@ -22,6 +24,10 @@ public class StartMenuProcedure : ProcedureNode
                 
                 UIManager.Instance.GetUIPanel<MenuUI>().Open();
                 UIManager.Instance.LoadUIPanel<UI_SystemFadeHandler>();
+                
+                var config = Config.GetConfig<GameControlConfig>();
+
+                emitter = AudioManager.Instance.Play(AudioChannelName.BGM, config.StartMenuSound);
                 
                 base.OnEnter();
         }
@@ -44,6 +50,7 @@ public class StartMenuProcedure : ProcedureNode
         {
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToGuidelinesScene, ListenerToOrderToGuidelinesScene);
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
+        emitter?.Stop();
                 base.OnExit();
         }
 
