@@ -119,11 +119,11 @@ public class SettingUI : UIPanel
         switch (index)
         {
             case 0:
-                Debug.Log("ȫ��");
+                Debug.Log("quan ping");
                 ScreenManager.Instance.SetIsFullScreen(true);
                 break;
             case 1:
-                Debug.Log("���ڻ�");
+                Debug.Log("chuang kou hua");
                 ScreenManager.Instance.SetIsFullScreen(false);
                 break;
         }

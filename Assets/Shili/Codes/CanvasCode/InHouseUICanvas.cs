@@ -44,6 +44,7 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.GameRestart,OnGameRestart);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.PlayerCurrentUsePropChanged, OnRefreshPropUI);
         GlobalEventCenter.Instance.AddListener(OrderToSwitchToMainMenu, OnGameRestart);
+        GlobalEventCenter.Instance.AddListener(PreShowRandomEvent, OnPreShowRandomEvent);
 
     }
     private void OnDisable()
@@ -55,6 +56,7 @@ public class InHouseUICanvas : MonoBehaviour
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.GameRestart,OnGameRestart);
         GlobalEventCenter.Instance.RemoveListener(GlobalEventSets.PlayerCurrentUsePropChanged, OnRefreshPropUI);
         GlobalEventCenter.Instance.RemoveListener(OrderToSwitchToMainMenu, OnGameRestart);
+        GlobalEventCenter.Instance.RemoveListener(PreShowRandomEvent, OnPreShowRandomEvent);
     }
     private void OnGameOver(EventArgs e)
     {
@@ -210,5 +212,14 @@ public class InHouseUICanvas : MonoBehaviour
         }
         
 
+    }
+    private void OnPreShowRandomEvent(EventArgs e)
+    {
+        PreShowRandomEventArgs p = e as PreShowRandomEventArgs;
+        if (RandomEventManager.Instance.TryGetRandomEventConfig(p.Type, out var propConfig1))
+        {
+            UIManager.Instance.GetUIPanel<MessageUI>().text.text = propConfig1.Name;
+            UIManager.Instance.GetUIPanel<MessageUI>().Open();
+        }
     }
 }

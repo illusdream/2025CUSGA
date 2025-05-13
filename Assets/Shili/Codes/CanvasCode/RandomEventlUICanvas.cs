@@ -31,9 +31,11 @@ public class RandomEventlUICanvas : MonoBehaviour
         go.GetComponent<RandomEventButtonSet>().chiocePropGameObject = chioceGameObject.gameObject;
         if (go.transform.GetChild(0).TryGetComponent<Text>(out var text) && RandomEventManager.Instance.TryGetRandomEventConfig(allEPropTypes[0], out var propConfig))
         {
+            Debug.Log(11);
             text.text = propConfig.Name;
             go.GetComponent<RandomEventButtonSet>().id = allEPropTypes[0];
         }
+        Debug.Log(11);
     }
     public void SetOnDisable()
     {
