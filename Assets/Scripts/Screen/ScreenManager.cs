@@ -10,13 +10,15 @@ public class ScreenManager : ManagerSingleton<ScreenManager>,IManager
     
     private const string FULL_SCREEN_KEY = "FullScreenSize";
     private const string SCREEN_SIZEX_KEY = "SCREEN_SizeX_KEY";
-    private const string SCREEN_SIZEY_KEY = "SCREEN_SizeX_KEY";
+    private const string SCREEN_SIZEY_KEY = "SCREEN_SizeY_KEY";
     public void Init()
     {
        var  x = PlayerPrefs.GetInt(SCREEN_SIZEX_KEY, 1920);
        var y = PlayerPrefs.GetInt(SCREEN_SIZEY_KEY, 1080);
        CurrentScreenSize = new Vector2Int(x, y);
        CurrentScreenIsFullScreen = PlayerPrefs.GetInt(FULL_SCREEN_KEY,1) == 1;
+       
+       CurrentScreenSize.LogSelf();
        
        SetIsFullScreen(CurrentScreenIsFullScreen);
        SetCurrentScreenSize(CurrentScreenSize);

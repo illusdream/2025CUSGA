@@ -18,9 +18,11 @@ public class StartMenuProcedure : ProcedureNode
                 {
                         SceneManager.LoadScene(0);
                 }
-        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToGuidelinesScene, ListenerToOrderToGuidelinesScene);
-        GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
+                GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToGuidelinesScene, ListenerToOrderToGuidelinesScene);
+                GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderStartGame,ListenerToStartGame);
 
+                
+                
                 
                 UIManager.Instance.GetUIPanel<MenuUI>().Open();
                 UIManager.Instance.LoadUIPanel<UI_SystemFadeHandler>();
@@ -28,6 +30,8 @@ public class StartMenuProcedure : ProcedureNode
                 var config = Config.GetConfig<GameControlConfig>();
 
                 emitter = AudioManager.Instance.Play(AudioChannelName.BGM, config.StartMenuSound);
+                
+                ScreenManager.Instance.SetCurrentScreenSize(ScreenManager.Instance.CurrentScreenSize);
                 
                 base.OnEnter();
         }

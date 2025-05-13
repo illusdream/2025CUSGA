@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: AudioConfig
   m_EditorClassIdentifier: 
   AudioMixerPath: Mixer/MainAudioMixer
-  MainChannelVolumeMin: -80
-  MainChannelVolumeMax: 20
+  MainChannelVolumeMin: -40
+  MainChannelVolumeMax: 0
   audioChannelDatas:
   - Name: BGM
     AudioChannelType: 0
     MaxAudioClipCount: 3
     MixerGroupName: BGM
     MixerVolumeParameterName: BGMVolume
-    ChannelVolumeMin: -80
-    ChannelVolumeMax: 20
+    ChannelVolumeMin: -40
+    ChannelVolumeMax: 0
   - Name: Sound
     AudioChannelType: 0
     MaxAudioClipCount: 100
     MixerGroupName: Sound
     MixerVolumeParameterName: SoundVolume
-    ChannelVolumeMin: -80
-    ChannelVolumeMax: 20
+    ChannelVolumeMin: -40
+    ChannelVolumeMax: 0
   UIClickClip: {fileID: 8300000, guid: 7d609192fd4f6b04ca8caadcb03b3535, type: 3}
   RandomEventPreShowClip: {fileID: 8300000, guid: d11c44a3ec42bad409bb562d3366aae5, type: 3}

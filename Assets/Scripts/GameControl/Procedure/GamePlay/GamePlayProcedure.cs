@@ -6,7 +6,9 @@ public class GamePlayProcedure : SubProcedureSwitcher
 {
     
     AudioEmitter emitter;
+    private bool shouldStop = false;
     
+    TimerCollection audioTimerCollection = new TimerCollection();
     public override void OnInit()
     {
 
@@ -22,6 +24,7 @@ public class GamePlayProcedure : SubProcedureSwitcher
 
     public override void OnEnter()
     {
+        shouldStop =false;
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToRestartGamePlay,Listener_OrderToRestartGamePlay);
         GlobalEventCenter.Instance.AddListener(GlobalEventSets.OrderToSwitchToMainMenu,Listener_OrderToSwitchToMainMenu);
         
@@ -35,9 +38,23 @@ public class GamePlayProcedure : SubProcedureSwitcher
 
     private void OnStop()
     {
-        emitter = AudioManager.Instance.Play(AudioChannelName.BGM, GetRandomTargetAudio());
-        emitter.OnStop += OnStop;
+        if (shouldStop)
+        {
+            return;
+        }
+
+        audioTimerCollection.CreateTimer(1.5f, 1, "next").SetOnFinish(PlayNextAudio).Register();
     }
+
+    private void PlayNextAudio(Timer timer)
+    {
+        emitter = AudioManager.Instance.Play(AudioChannelName.BGM, GetRandomTargetAudio());
+        if (emitter)
+        {
+            emitter.OnStop += OnStop;
+        }
+    }
+    
 
     public override void OnFixedUpdate()
     {
@@ -46,13 +63,14 @@ public class GamePlayProcedure : SubProcedureSwitcher
 
     public override void OnExit()
     {
+        shouldStop = true;
         CharacterManager.Instance.DisablePlayRangeLimit();
         
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToRestartGamePlay,Listener_OrderToRestartGamePlay);
         GlobalEventCenter.Instance?.RemoveListener(GlobalEventSets.OrderToSwitchToMainMenu,Listener_OrderToSwitchToMainMenu);
         
         SetCurrentState<GamePlay_InitProcedure>();
-        
+        audioTimerCollection.ClearAllTimers();
         emitter?.Stop();
         base.OnExit();
     }
