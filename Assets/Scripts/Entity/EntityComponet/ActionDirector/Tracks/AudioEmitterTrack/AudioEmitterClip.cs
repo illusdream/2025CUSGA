@@ -13,7 +13,7 @@ public class AudioEmitterClip: PlayableAsset,ITimelineClipAsset
     
     public SoundData soundData;
 
-
+    public bool ShouldControllPlay;
     
     private AudioEmitterPlayableBehaviour template = new AudioEmitterPlayableBehaviour();
     
@@ -23,6 +23,7 @@ public class AudioEmitterClip: PlayableAsset,ITimelineClipAsset
         AudioEmitterPlayableBehaviour behaviour = playable.GetBehaviour();
         behaviour.soundData = soundData;
         behaviour.OutputAudioChannel = OutputAudioChannel;
+        behaviour.ShouldControllPlay = ShouldControllPlay;
         return playable;
     }
 

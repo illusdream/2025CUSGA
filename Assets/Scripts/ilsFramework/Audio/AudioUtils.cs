@@ -63,5 +63,32 @@ namespace ilsFramework
         {
             AudioManager.Instance.StopAll();
         }
+
+        /// <summary>
+        /// 播放点击UI的音效
+        /// </summary>
+        /// <param name="volume"></param>
+        public static void PlayUIClick(float volume)
+        {
+            var soundData = new SoundData()
+            {
+                clip = Config.GetConfig<AudioConfig>().UIClickClip,
+                volume = volume,
+            };
+            AudioManager.Instance.Play(AudioChannelName.Sound, soundData);
+        }
+        /// <summary>
+        /// 播放事件的提示文本的音效
+        /// </summary>
+        /// <param name="volume"></param>
+        public static void PlayRandomEventPreShow(float volume)
+        {
+            var soundData = new SoundData()
+            {
+                clip = Config.GetConfig<AudioConfig>().RandomEventPreShowClip,
+                volume = volume,
+            };
+            AudioManager.Instance.Play(AudioChannelName.Sound, soundData);
+        }
     }
 }

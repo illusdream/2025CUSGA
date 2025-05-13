@@ -8,6 +8,8 @@ public class AudioEmitterPlayableBehaviour: PlayableBehaviour
     public SoundData soundData;
     
     public string OutputAudioChannel;
+
+    public bool ShouldControllPlay;
     
     private AudioEmitter emitter;
 
@@ -34,8 +36,6 @@ public class AudioEmitterPlayableBehaviour: PlayableBehaviour
             return;
         }
 #endif
-
-
         emitter = AudioManager.Instance.Play(OutputAudioChannel,soundData);
         base.OnBehaviourPlay(playable, info);
     }
@@ -48,8 +48,10 @@ public class AudioEmitterPlayableBehaviour: PlayableBehaviour
             audioSource?.Stop();
         }
 #endif
-        if (playable.GetGraph().IsPlaying())
+
+        if (ShouldControllPlay)
         {
+   
             emitter?.Stop();
         }
         base.OnBehaviourPause(playable, info);

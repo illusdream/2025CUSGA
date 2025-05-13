@@ -60,7 +60,30 @@ MonoBehaviour:
   commenAttacker: {fileID: 7879732865397588451}
   commenTileHandler: {fileID: 7351164128785193914}
   Container: {fileID: 0}
+  didiSound:
+    clip: {fileID: 8300000, guid: 3dd1bfcdcd8777d468d7dd0d840c0114, type: 3}
+    loop: 1
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 0.1
+    pitch: 0.8
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0
   BombScale: 3
+  emitter: {fileID: 0}
 --- !u!114 &6719326536739039489
 MonoBehaviour:
   m_ObjectHideFlags: 0

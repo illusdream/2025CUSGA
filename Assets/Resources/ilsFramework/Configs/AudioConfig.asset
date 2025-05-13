@@ -30,3 +30,5 @@ MonoBehaviour:
     MixerVolumeParameterName: SoundVolume
     ChannelVolumeMin: -80
     ChannelVolumeMax: 20
+  UIClickClip: {fileID: 8300000, guid: 7d609192fd4f6b04ca8caadcb03b3535, type: 3}
+  RandomEventPreShowClip: {fileID: 8300000, guid: d11c44a3ec42bad409bb562d3366aae5, type: 3}

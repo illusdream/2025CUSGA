@@ -40,4 +40,7 @@ public class TileManagerConfig : ConfigScriptObject
     public LayerMask TileLayerMask;
     
     public ContactFilter2D TileContactFilter;
+
+
+    public SoundData TileMergeSound;
 }

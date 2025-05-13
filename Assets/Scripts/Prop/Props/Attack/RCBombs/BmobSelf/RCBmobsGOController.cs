@@ -27,7 +27,12 @@ namespace Props
 
         private const string Timer_ToBmob = "TimerToBmob";
 
+
+        public SoundData didiSound;
+
         public float BombScale;
+        
+        public AudioEmitter emitter;
         public void Start()
         {
             timerCollection = new TimerCollection();
@@ -37,6 +42,8 @@ namespace Props
             commenTileHandler.DamageToTile = config.DamageToTile;
             
             timerCollection.CreateTimer(config.TimeToBmob,1,Timer_ToBmob).SetOnFinish(StartBomb).Register();
+            
+            emitter= AudioManager.Instance.Play(AudioChannelName.Sound,didiSound);
         }
 
 
@@ -50,6 +57,7 @@ namespace Props
             commenActionDirector.Play(config.BmobAsset);
             commenActionDirector.onStopped += CommenActionDirectorOnonStopped;
             timerCollection.RemoveTimer(Timer_ToBmob);
+            emitter.Stop();
         }
 
         private void CommenActionDirectorOnonStopped(BaseActionDirector obj)

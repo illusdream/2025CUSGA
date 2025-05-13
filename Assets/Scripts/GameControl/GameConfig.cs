@@ -26,4 +26,7 @@ public class GameControlConfig : ConfigScriptObject
     public int PlayerTileHealth;
     
     public int CommonTileHealth;
+    
+    
+    public SoundData GameOverSound;
 }

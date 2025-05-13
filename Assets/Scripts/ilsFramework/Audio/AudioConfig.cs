@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using ilsFrameWork;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace ilsFramework
         [LabelText("Channel设置")]
         public List<AudioChannelData> audioChannelDatas = new List<AudioChannelData>();
 
+        
+        public AudioClip UIClickClip;
+        
+        public AudioClip RandomEventPreShowClip;
+        
         #if UNITY_EDITOR
         [Button("更新配置")]
         private void GenerateAudioSetting()

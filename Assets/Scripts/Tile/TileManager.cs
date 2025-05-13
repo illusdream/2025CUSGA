@@ -784,6 +784,9 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             //计算完数值，发送合并事件给外界，并尝试清除对应行的tile
             BroadcastTileMergeEvent(true,lastSetTilePosition);
             DestroyTileByRow(lastSetTilePosition.y);
+
+            AudioManager.Instance.Play(AudioChannelName.Sound, _managerConfig.TileMergeSound);
+            
             return;
         }
                 
@@ -802,6 +805,8 @@ public class TileManager : ManagerSingleton<TileManager>,IManager,IAssemblyForea
             //计算完数值，发送合并事件给外界，并尝试清除对应列的tile
             BroadcastTileMergeEvent(false,lastSetTilePosition);
             DestroyTileByColumn(lastSetTilePosition.x);
+            
+            AudioManager.Instance.Play(AudioChannelName.Sound, _managerConfig.TileMergeSound);
         }
 
     }

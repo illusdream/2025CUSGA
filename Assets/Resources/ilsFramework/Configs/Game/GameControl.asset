@@ -20,3 +20,25 @@ MonoBehaviour:
   StartHasBlockCount: 0
   PlayerTileHealth: 10
   CommonTileHealth: 5
+  GameOverSound:
+    clip: {fileID: 8300000, guid: 6d859ff2c9d839e43b560aa0c398610a, type: 3}
+    loop: 0
+    playOnAwake: 0
+    frequentSound: 0
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    panStereo: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    dopplerLevel: 1
+    spread: 0
+    minDistance: 1
+    maxDistance: 500
+    ignoreListenerVolume: 0
+    ignoreListenerPause: 0
+    rolloffMode: 0

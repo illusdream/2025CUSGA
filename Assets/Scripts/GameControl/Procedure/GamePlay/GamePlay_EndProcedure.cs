@@ -14,6 +14,12 @@ public class GamePlay_EndProcedure : ProcedureNode
     {
         oldtimeScale = Time.timeScale;
         Time.timeScale = 0;
+
+        var config = Config.GetConfig<GameControlConfig>();
+
+        AudioManager.Instance.Play(AudioChannelName.Sound, config.GameOverSound);
+        
+        
         base.OnEnter();
     }
 
