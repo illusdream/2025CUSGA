@@ -3,4 +3,6 @@
         public float AccelerationAddRate;
         
         public float MaxSpeedAddRate;
+        
+        public float GhostAlpha;
 }

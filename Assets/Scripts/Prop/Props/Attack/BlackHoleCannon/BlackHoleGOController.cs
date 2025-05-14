@@ -19,6 +19,12 @@ namespace Props
         private Vector2 moveDir;
         
         public CommenActionDirector Director;
+
+        public Transform cirTransfrom;
+        
+        public float rotSpeed;
+
+        private float rot;
         public void Start()
         {
             timerCollection = new TimerCollection();
@@ -58,6 +64,11 @@ namespace Props
             Destroy(gameObject);
         }
 
+        public void Update()
+        {
+            rot += Time.deltaTime * rotSpeed;
+            cirTransfrom.rotation = Quaternion.Euler(0,0,rot);
+        }
 
         public void OnDestroy()
         {

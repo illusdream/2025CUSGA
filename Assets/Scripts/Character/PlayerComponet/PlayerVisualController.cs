@@ -33,4 +33,9 @@ public class PlayerVisualController : EntityComponent
         {
                 animator.SetTrigger(BeAttacked);
         }
+
+        public void SetAlahp(float alaph)
+        {
+                spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, alaph);
+        }
 }

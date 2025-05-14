@@ -31,6 +31,12 @@ public class BlurringBuff : BaseBuff<BlurringBuffConfig>
         {
             hitable._canBeHit = false;
         }
+        
+                
+        if (handler.TryGetComponet(EntityComponetUsage.playerVisualHandler,out PlayerVisualController controller))
+        {
+            controller.SetAlahp(Config.GhostAlpha);
+        }
     }
 
     protected override void OnBuffTick(EntityHandler handler)
@@ -55,6 +61,11 @@ public class BlurringBuff : BaseBuff<BlurringBuffConfig>
         if (handler.TryGetComponet(EntityComponetUsage.Hitable,out BaseHitable hitable))
         {
             hitable._canBeHit = true;
+        }
+        
+        if (handler.TryGetComponet(EntityComponetUsage.playerVisualHandler,out PlayerVisualController controller))
+        {
+            controller.SetAlahp(1);
         }
     }
 

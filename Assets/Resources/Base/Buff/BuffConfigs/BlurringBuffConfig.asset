@@ -16,3 +16,4 @@ MonoBehaviour:
   lastTime: 3
   AccelerationAddRate: 1.4
   MaxSpeedAddRate: 1.4
+  GhostAlpha: 0.5
