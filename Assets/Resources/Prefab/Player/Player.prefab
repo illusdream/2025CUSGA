@@ -1404,8 +1404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b306c33d73c61e34c8fee4a18dd4772d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  red: {fileID: 923955672, guid: 7120fbb1254c1214eba7435d898a5420, type: 3}
-  bule: {fileID: 720059736, guid: 9d01c67927a84de4ab68e58f5f54d189, type: 3}
+  red: {fileID: 1997559599, guid: a4047ffbd94887640a0d19c709c8c386, type: 3}
+  bule: {fileID: -73286338, guid: c198ae00c002c4c448b9969e8a46d697, type: 3}
   redCube: {fileID: 923955672, guid: 7120fbb1254c1214eba7435d898a5420, type: 3}
   buleCube: {fileID: 720059736, guid: 9d01c67927a84de4ab68e58f5f54d189, type: 3}
   tileHandler: {fileID: 2598141953491336947}
