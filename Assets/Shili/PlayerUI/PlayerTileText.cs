@@ -9,6 +9,12 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerTileText : MonoBehaviour
 {
+    [Header("头顶")]
+    public Sprite red;
+    public Sprite bule;
+    [Header("方块")]
+    public Sprite redCube;
+    public Sprite buleCube;
     [Header("组件")]
     public PlayerTileHandler tileHandler;
     public PlayerPropContainer playerPropContainer;
@@ -19,6 +25,7 @@ public class PlayerTileText : MonoBehaviour
     public Text blockText;
     public Text shieldText;
     public Text useTimeText;
+    public Image CubeImage;
     private Color color;
     
     private float timedown=3;
@@ -56,15 +63,13 @@ public class PlayerTileText : MonoBehaviour
     {
         if (playerController.PlayerID == 1)
         {
-            color = Color.red;
+            image.sprite = red;
+            CubeImage.sprite = redCube;
         }
         else if(playerController.PlayerID == 2)
         {
-            color = Color.blue;
+            image.sprite = bule;
+            CubeImage.sprite = buleCube;
         }
-        image.color = color;
-        blockText.color = color;
-        shieldText.color = color;
-        useTimeText.color = color;
     }
 }
