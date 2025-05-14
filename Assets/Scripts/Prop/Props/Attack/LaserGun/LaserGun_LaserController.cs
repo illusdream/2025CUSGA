@@ -9,6 +9,7 @@ namespace Props
 {
     public class LaserGun_LaserController : EntityComponent
     {
+        private static readonly int Loop = Shader.PropertyToID("_MainStep");
         public override string TargetUsage => "LaserGOController";
 
         public Collider2D attackCollider;
@@ -27,6 +28,17 @@ namespace Props
         private Vector3 baseSize;
         
         public CommenActionDirector Director;
+
+        public SpriteRenderer Main;
+        public MaterialPropertyBlock MainPropertyBlock;
+        public SpriteRenderer Outline1;
+        public MaterialPropertyBlock Outline1PropertyBlock;
+        public SpriteRenderer Outline2;
+        public MaterialPropertyBlock Outline2PropertyBlock;
+        
+        TimerCollection TimerCollection = new TimerCollection();
+
+        public float pros;
         public void Start()
         {
             attackResult = new List<EntityHandler>();
@@ -43,8 +55,29 @@ namespace Props
             baseSize = Visual.transform.localScale;
             Director.Play(config.LaserGameObjectTimeline);
             Director.onStopped+= DirectorOnonStopped;
+            
+            MainPropertyBlock = new MaterialPropertyBlock();
+            Outline1PropertyBlock = new MaterialPropertyBlock();
+            Outline2PropertyBlock = new MaterialPropertyBlock();
+            
+            Main.GetPropertyBlock(MainPropertyBlock);
+            Outline1.GetPropertyBlock(Outline1PropertyBlock);
+            Outline2.GetPropertyBlock(Outline2PropertyBlock);
+
+            TimerCollection.CreateTimer(1, 1, "LaserShow").SetOnCycling(OnLaserShow).Register();
         }
 
+        private void OnLaserShow(Timer timer)
+        {
+            pros = timer.Progress;
+            MainPropertyBlock.SetFloat(Loop,timer.Progress);
+            Outline1PropertyBlock.SetFloat(Loop,timer.Progress);
+            Outline2PropertyBlock.SetFloat(Loop,timer.Progress);
+            Main.SetPropertyBlock(MainPropertyBlock);
+            Outline1.SetPropertyBlock(Outline1PropertyBlock);
+            Outline2.SetPropertyBlock(Outline2PropertyBlock);
+        }
+        
         private void DirectorOnonStopped(BaseActionDirector obj)
         {
             Destroy(this.gameObject);
@@ -87,6 +120,16 @@ namespace Props
             {
                 
             }
+        }
+
+        public void LateUpdate()
+        {
+            
+        }
+
+        public void OnDestroy()
+        {
+            TimerCollection.ClearAllTimers();
         }
     }
 }
