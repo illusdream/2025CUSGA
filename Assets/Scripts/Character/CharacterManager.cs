@@ -12,6 +12,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     public PlayerController Player2Controller { get;private set; }
 
     public EntityCollection CharacterCollection { get;private set; }
+    public EntityCollection Flyable { get;private set; }
     
     public bool IsGamePlayState = true;
     
@@ -40,6 +41,7 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
     public void Init()
     {
         CharacterCollection = EntityManager.Instance.GetEntityCollection(EEntityType.Character);
+        Flyable = EntityManager.Instance.GetEntityCollection(EEntityType.Flyable);
         _characterConfig = Config.GetConfig<CharacterConfig>();
         
         PlayerInBoundOfPlayRangeResult = new List<EntityHandler>();
@@ -478,13 +480,14 @@ public class CharacterManager : ManagerSingleton<CharacterManager>,IManager,IAss
         int count = 0;
         PlayerInEdgeOfPlayRangeResult.Clear();
         CharacterCollection.GetEntityInArea(edge,PlayerInEdgeOfPlayRangeResult);
+        Flyable.GetEntityInArea(edge,PlayerInEdgeOfPlayRangeResult);
         foreach (var handler in PlayerInEdgeOfPlayRangeResult)
         {
-            if (handler.TryGetComponet(EntityComponetUsage.Moveable,out PlayerMoveComponent playerMoveComponent))
+            if (handler.TryGetComponet(EntityComponetUsage.Moveable,out BaseEntityMove playerMoveComponent))
             {
                 if ((playerMoveComponent.GetEntityVelocity() * reflectNormal).magnitude < _characterConfig.MinCanBounceSpeed)
                 {
-                    playerMoveComponent.Rigidbody2D.velocity *= (Vector2.one - new Vector2(Mathf.Abs(reflectNormal.x), Mathf.Abs(reflectNormal.y)));
+                    playerMoveComponent.rigidbody2D.velocity *= (Vector2.one - new Vector2(Mathf.Abs(reflectNormal.x), Mathf.Abs(reflectNormal.y)));
                     continue;
                 }
                 Vector2 reflectedVelocity = Vector2.Reflect(playerMoveComponent.GetEntityVelocity(), reflectNormal);

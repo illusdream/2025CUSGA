@@ -32,7 +32,7 @@ public class GamePlayProcedure : SubProcedureSwitcher
 
         emitter = AudioManager.Instance.Play(AudioChannelName.BGM, GetRandomTargetAudio());
         emitter.OnStop += OnStop;
-        
+
         base.OnEnter();
     }
 
@@ -42,8 +42,8 @@ public class GamePlayProcedure : SubProcedureSwitcher
         {
             return;
         }
-
-        audioTimerCollection.CreateTimer(1.5f, 1, "next").SetOnFinish(PlayNextAudio).Register();
+        audioTimerCollection.ClearAllTimers();
+        audioTimerCollection.CreateTimer(3f, 1, "next").SetOnFinish(PlayNextAudio).Register();
     }
 
     private void PlayNextAudio(Timer timer)
@@ -131,6 +131,8 @@ public class GamePlayProcedure : SubProcedureSwitcher
     {
         var config = Config.GetConfig<GameControlConfig>();
         var result = config.FightSounds.Shuffle();
-        return result.First();
+        var final = result.First();
+        var final2 = new SoundData(){clip = final.clip, volume = final.volume};
+        return final2;
     }
 }

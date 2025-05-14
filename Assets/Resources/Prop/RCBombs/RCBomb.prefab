@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityTags: 0
-  EntityType: PlacedProp
+  EntityType: Flyable
   components:
     list:
     - Key: RCBmobsGOController
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
   rigidbody2D: {fileID: 7581151291547113311}
-  MaxSpeed: 0
+  MaxSpeed: 5
   Acceleration: 0
 --- !u!114 &7900324028721180322
 MonoBehaviour:

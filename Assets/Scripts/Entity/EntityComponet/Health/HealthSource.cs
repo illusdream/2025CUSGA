@@ -79,7 +79,7 @@ public class HealthSource : IHitable
                         HasBeHittedDamage = Math.Min(damageInfo.GetFinalApplyDamage(),CurrentHealth),
                         IsHitted = true
                 };
-                CurrentHealth = finalHealth;
+                CurrentHealth = Mathf.Clamp(finalHealth,0,float.MaxValue);
         }
 
         public virtual void AddValue(float value)

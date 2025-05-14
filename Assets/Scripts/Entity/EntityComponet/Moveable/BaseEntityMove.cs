@@ -31,7 +31,7 @@ public class BaseEntityMove : EntityComponent,IEntityMove
 
     public virtual void SetTargetVelocity(Vector3 velocity)
     {
-        rigidbody2D.velocity = velocity.normalized * MaxMoveSpeedModifiers.Apply(velocity.magnitude);
+        rigidbody2D.velocity = velocity.normalized * Mathf.Clamp(0,MaxMoveSpeedModifiers.Apply(MaxSpeed),MaxMoveSpeedModifiers.Apply(velocity.magnitude));
     }
 
     public virtual void AddForce(Vector3 force, ForceMode2D mode = ForceMode2D.Impulse)

@@ -19,7 +19,8 @@ GameObject:
   - component: {fileID: 6877256890764608633}
   - component: {fileID: -40509908819926971}
   - component: {fileID: 2536399080875704257}
-  m_Layer: 13
+  - component: {fileID: 4334224730745088165}
+  m_Layer: 11
   m_Name: HandGrenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityTags: 0
-  EntityType: TimeBoundProp
+  EntityType: Flyable
   components:
     list:
     - Key: HandGrenadeGOController
@@ -65,6 +66,8 @@ MonoBehaviour:
       Value: {fileID: 290040686967514629}
     - Key: ActionDirector
       Value: {fileID: 910133868978275761}
+    - Key: Moveable
+      Value: {fileID: 4334224730745088165}
 --- !u!114 &4440316532306600998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +235,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.006659955, y: -0.106558025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -243,7 +246,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.61372703, y: 0.44057024}
   m_EdgeRadius: 0
 --- !u!212 &2536399080875704257
 SpriteRenderer:
@@ -297,3 +300,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4334224730745088165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5974341084226847042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3abc83344d824019a03dff2564c28142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handler: {fileID: 0}
+  rigidbody2D: {fileID: 6877256890764608633}
+  MaxSpeed: 10
+  Acceleration: 0

@@ -63,6 +63,8 @@ namespace ilsFramework
             AudioSource.ignoreListenerPause = data.ignoreListenerPause;
 
             AudioSource.rolloffMode = data.rolloffMode;
+
+            OnStop = null;
         }
         
         public void Play()

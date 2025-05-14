@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CagePropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.CageProp
-  PropSprite: {fileID: 21300000, guid: 9af88227f92e27443bb906a92c92ca92, type: 3}
+  PropSprite: {fileID: 21300000, guid: 60f58aeddd8ec7e46826f567761b15e0, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: d7c7ebcb19f6973409ab6d32e3a3797a, type: 2}
   PropCanUseCount: 1

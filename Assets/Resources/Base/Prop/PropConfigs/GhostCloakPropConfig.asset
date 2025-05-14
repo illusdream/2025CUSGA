@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GhostCloakPropConfig
   m_EditorClassIdentifier: 
   TargetType: Props.GhostCloakProp
-  PropSprite: {fileID: 21300000, guid: 940c3c6237c8e10459d6c616fdc5e632, type: 3}
+  PropSprite: {fileID: 21300000, guid: 4ada55383ab6ad64095c8148e1419d45, type: 3}
   BasePropUseColdDown: 1
   PlayAsset: {fileID: 11400000, guid: 5eb976fcdbdbee5468429b10267400ff, type: 2}
   PropCanUseCount: 1
