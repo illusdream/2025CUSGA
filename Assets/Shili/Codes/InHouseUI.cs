@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [UIPanelSetting(EUILayer.Lower, 10, true, EAssetLoadMode.Resources, "Prefab/Shili/InHouseUI")]
 public class InHouseUI : UIPanel
 {
-    //���1��ʮ�ֻ�����Ӣ�����дע����
+/*    //���1��ʮ�ֻ�����Ӣ�����дע����
     [AutoUIElement("Panel1/GameObject1/Text")]
     private Text player1NameText;
     [AutoUIElement("Panel1/GameObject1/Image")]
@@ -20,7 +20,7 @@ public class InHouseUI : UIPanel
     private Image player2Headshot;
 
     [AutoUIElement("Panel2/GameObject3")]
-    private GameObject player2SkillSlotsObject;
+    private GameObject player2SkillSlotsObject;*/
     
     public override void InitUIPanel()
     {
