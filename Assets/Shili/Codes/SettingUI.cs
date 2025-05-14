@@ -94,14 +94,12 @@ public class SettingUI : UIPanel
         if (isPlayMusic)
         {
             MusicSwitch.GetComponent<Image>().color = Color.white;
-            
-            Debug.Log("��������");
+            AudioManager.Instance.SetMainVolume(1f);
         }
         else
         {
             MusicSwitch.GetComponent<Image>().color = Color.red;
-            AudioManager.Instance.StopAll();
-            Debug.Log("�ر�����");
+            AudioManager.Instance.SetMainVolume(0f);
         }
     }
     private void OnMainMusicSlider(float a)
